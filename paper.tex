@@ -1,39 +1,13 @@
-%%%%%%%%%%%%%%%%%%%% author.tex %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-% sample root file for your "contribution" to a contributed volume
-%
-% Use this file as a template for your own input.
-%
-%%%%%%%%%%%%%%%% Springer %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass{elsarticle}
 
 
-% RECOMMENDED %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\documentclass[graybox]{svmult}
-
-% choose options for [] as required from the list
-% in the Reference Guide
-
-\usepackage{mathptmx}       % selects Times Roman as basic font
-\usepackage{helvet}         % selects Helvetica as sans-serif font
-\usepackage{courier}        % selects Courier as typewriter font
-\usepackage{type1cm}        % activate if the above 3 fonts are
-                            % not available on your system
-%
-\usepackage{makeidx}         % allows index generation
 \usepackage{graphicx, subfigure}        % standard LaTeX graphics tool
                              % when including figure files
-\usepackage{multicol}        % used for the two-column index
-\usepackage[bottom]{footmisc}% places footnotes at page bottom
-
+\usepackage{url}
 \usepackage{fixme}
 \usepackage{lscape}
 
-% see the list of further useful packages
-% in the Reference Guide
-
-\makeindex             % used for the subject index
-                       % please use the style svind.ist with
-                       % your makeindex program
+\journal{Journal of Artificial Intelligence}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -54,25 +28,20 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{document}
+\begin{frontmatter}
 
-\title*{When the robot considers the human... }
+\title{When the robot considers the human... }
 % Use \titlerunning{Short Title} for an abbreviated version of
 % your contribution title if the original one is too long
 \author{Rachid Alami, Mathieu Warnier, Julien Guitton, S\'{e}verin Lemaignan and Emrah Akin Sisbot}
-\authorrunning{R. Alami, M. Warnier, J. Guitton, S. Lemaignan and E.A. Sisbot}
 % Use \authorrunning{Short Title} for an abbreviated version of
 % your contribution title if the original one is too long
-\institute{ LAAS-CNRS\\ 
+\address{ LAAS-CNRS\\ 
         Universit\'e de Toulouse, UPS, INSA, INP, ISAE, LAAS\\ 
-         F-31077 Toulouse, France\\ \email{Firstname.Name@laas.fr}}
-%
-% Use the package "url.sty" to avoid
-% problems with special characters
-% used in your e-mail or web address
-%
-\maketitle
+         F-31077 Toulouse, France\\ \texttt{Firstname.Name@laas.fr}}
 
-\abstract*{This paper addresses some key decisional issues that are
+\begin{abstract}
+  This paper addresses some key decisional issues that are
   necessary for a cognitive robot which shares space and tasks with a
   human. We adopt a constructive approach based on the identification
   and the effective implementation of individual and collaborative
@@ -84,22 +53,18 @@
   perspective-taking and affordances, management and exploitation of
   each agent (human and robot) knowledge in a separate cognitive
   model, human-aware task planning and human and robot interleaved
-  plan achievement.}
+  plan achievement.
+\end{abstract}
 
-\abstract{This paper addresses some key decisional issues that are
-  necessary for a cognitive robot which shares space and tasks with a
-  human. We adopt a constructive approach based on the identification
-  and the effective implementation of individual and collaborative
-  skills. The system is comprehensive since it aims at dealing with a
-  complete set of abilities articulated so that the robot controller
-  is effectively able to conduct in a flexible manner a collaborative
-  task with a human partner. These abilities include geometric
-  reasoning and situation assessment based essentially on
-  perspective-taking and affordances, management and exploitation of
-  each agent (human and robot) knowledge in a separate cognitive
-  model, human-aware task planning and human and robot interleaved
-  plan achievement.}
+\begin{keyword}
+    %% keywords here, in the form: keyword \sep keyword
 
+    %% MSC codes here, in the form: \MSC code \sep code
+    %% or \MSC[2008] code \sep code (2000 is the default)
+
+\end{keyword}
+
+\end{frontmatter}
 
 
 \section{Introduction}
@@ -783,10 +748,8 @@ Gharbi, Wuwei He, Matthieu Herrb, Jim Mainprice, Raquel Ros, Daniel
 Sidobre, Thierry Sim\'{e}on, Muhammad Ali.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\bibliographystyle{alpha}
-\bibliographystyle{plain}
+\bibliographystyle{elsarticle-num}
 \bibliography{laas_hri}
-%% \end{thebibliography}
 
 
 

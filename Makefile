@@ -17,7 +17,7 @@ all: paper
 
 bib: $(TARGET:.tex=.aux)
 
-	bibtex $(TARGET:.tex=.aux)
+	BSTINPUTS=:./sty bibtex $(TARGET:.tex=.aux)
 
 paper: $(TARGET) $(SVG:.svg=.pdf) $(DOT:.dot=.pdf)
 
