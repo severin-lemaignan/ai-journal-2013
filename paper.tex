@@ -1,59 +1,84 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%2345678901234567890123456789012345678901234567890123456789012345678901234567890
+%        1         2         3         4         5         6         7         8
+
 \documentclass{elsarticle}
 
-
-\usepackage{graphicx, subfigure}        % standard LaTeX graphics tool
-                             % when including figure files
+\usepackage{cite}
+\usepackage{graphicx, subfigure}
+%\usepackage{hyperref}
 \usepackage{url}
-\usepackage{fixme}
-\usepackage{lscape}
+\graphicspath{{figs/}}
+\DeclareGraphicsExtensions{.pdf,.jpg,.png}
 
-\journal{Journal of Artificial Intelligence}
+\usepackage{ifthen}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
 
-%% Custom macros
-\newcommand{\stmt}[1]{{\footnotesize $\langle$\stmttt#1\relax$\rangle$}}
-\newcommand{\rawstmt}[1]{{\footnotesize \stmttt#1\relax}}
-\def\stmttt#1 #2 #3\relax{{\tt#1} {\bf{\tt #2}} {\tt #3}}
+\usepackage[draft]{fixme}
 
-\newcommand{\setstmt}[1]{{\footnotesize [\setstmttt#1\relax]}}
-\def\setstmttt#1,#2\relax{\rawstmt{#1}, \rawstmt{#2}}
+\usepackage{listings}
+\usepackage{alltt}
+\usepackage{fancyvrb}
+\usepackage{flushend} % equalize the column length on last page
 
-\newcommand{\concept}[1]{{\footnotesize \texttt{#1}}}
+\newcommand{\concept}[1]{{\small \texttt{#1}}}
 
-\newcommand{\ie}{{\textit{i.e.~}}}
-\newcommand{\cf}{{\textit{cf~}}}
-\newcommand{\eg}{{\textit{e.g.~}}}
+\newcommand{\stmt}[1]{{\footnotesize \tt $\langle$ #1\relax$\rangle$}}
+%\newcommand{\stmt}[1]{{\footnotesize $\langle\stmttt#1\relax\rangle$}}
+%\newcommand{\rawstmt}[1]{{\footnotesize \stmttt#1\relax}}
+%\def\stmttt#1 #2 #3\relax{
+%\texttt{\IfBeginWith{#1}{?}{\textbf{#1}}{#1} \IfBeginWith{#2}{?}{\textbf{#2}}{\emph{#2}} \ifthenelse {\equal{#3}{true} \OR \equal{#3}{false}}{\emph{#3}}{\IfBeginWith{#3}{?}{\textbf{#3}} {#3}}}}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\newcommand{\setstmt}[1]{{\footnotesize [\setstmttt#1\relax]}}
+%\def\setstmttt#1,#2\relax{\stmttt#1\relax, \stmttt#2\relax}
 
-\begin{document}
+
+\newcommand{\ie}{{\textit{i.e.\ }}}
+\newcommand{\cf}{{\textit{cf\ }}}
+\newcommand{\eg}{{\textit{e.g.\ }}}
+
 \begin{frontmatter}
 
-\title{When the robot considers the human... }
-% Use \titlerunning{Short Title} for an abbreviated version of
-% your contribution title if the original one is too long
-\author{Rachid Alami, Mathieu Warnier, Julien Guitton, S\'{e}verin Lemaignan and Emrah Akin Sisbot}
-% Use \authorrunning{Short Title} for an abbreviated version of
-% your contribution title if the original one is too long
-\address{ LAAS-CNRS\\ 
-        Universit\'e de Toulouse, UPS, INSA, INP, ISAE, LAAS\\ 
-         F-31077 Toulouse, France\\ \texttt{Firstname.Name@laas.fr}}
+\title{\LARGE \bf
+Human-Robot Interaction: A Deliberative Architecture
+}
 
+\author{Rachid Alami and Séverin Lemaignan}
+
+\address{
+CNRS, LAAS, 7 avenue du Colonel Roche, F-31400 Toulouse, France\\
+Univ de Toulouse, LAAS, F-31400 Toulouse, France\\
+{\tt severin.lemaignan@laas.fr}, {\tt rachid.alami@laas.fr}
+}
+
+\begin{document}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{abstract}
-  This paper addresses some key decisional issues that are
-  necessary for a cognitive robot which shares space and tasks with a
-  human. We adopt a constructive approach based on the identification
-  and the effective implementation of individual and collaborative
-  skills. The system is comprehensive since it aims at dealing with a
-  complete set of abilities articulated so that the robot controller
-  is effectively able to conduct in a flexible manner a collaborative
-  task with a human partner. These abilities include geometric
-  reasoning and situation assessment based essentially on
-  perspective-taking and affordances, management and exploitation of
-  each agent (human and robot) knowledge in a separate cognitive
-  model, human-aware task planning and human and robot interleaved
-  plan achievement.
+
+This paper addresses some key decisional issues that are necessary for a
+cognitive robot which shares space and tasks with a human. We adopt a
+constructive approach based on the identification and the effective
+implementation of individual and collaborative skills. The system is
+comprehensive since it aims at dealing with a complete set of abilities
+articulated so that the robot controller is effectively able to conduct in a
+flexible manner a collaborative task with a human partner. These abilities
+include geometric reasoning and situation assessment based essentially on
+perspective-taking and affordances, management and exploitation of each agent
+(human and robot) knowledge in a separate cognitive model, human-aware task
+planning and human and robot interleaved plan achievement.
+
+This article presents our design choices, the articulations between the diverse
+deliberative components of the robot, and the strengths and weaknesses of our
+approach. We show that explicit knowledge management is not only a convenient
+tool from the software engineering point of view, but also pushes for a
+different, more \emph{semantic} way to address the decision-making issue in
+human-robot interactions.
+
 \end{abstract}
 
 \begin{keyword}
@@ -66,6 +91,9 @@
 
 \end{frontmatter}
 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{The challenge of human-robot interaction}
 
@@ -127,51 +155,6 @@ to provide several levels of parametrization allowing to adapt to
 various environments, and various levels of involvement of the robot
 ranging from teammate behavior to assistant or proactive helper.
 
-\subsection{Related work and vision}\label{sec:soa}
-
-The human presence brings new requirements for robot's abilities both
-at the functional and at the deliberative levels~\cite{Klein2004}. The
-topics involve motion~\cite{Kulic2007,Berg2004,Madhav2006},
-navigation~\cite{Althaus2004,Sisbot2007}, manipulation~\cite{Kemp2007}
-in presence of humans as well as perception of human
-activities~\cite{Breazeal2001,Burger2008}. Also, when
-interacting with humans, robots need to incorporate communication and
-collaboration abilities. Several theories dealing with
-collaboration~\cite{Cohen1991,Grosz1996,Clark1996} emphasize that
-collaborative tasks have specific requirements compared to individual
-ones, \eg, since the robot and the person share a common goal, they
-have to agree on the manner to realize it, they must show their
-commitment to the goal during execution, etc. Several robotic systems
-have already been built based on these
-theories~\cite{Rich1997,Sidner2005,Tambe2005a,Breazeal2003} and they
-all have shown benefits of this approach. They have also shown how
-difficult it is to manage turn-taking between communication partners
-and to interleave task realization and communication in a generic
-way. Finally, today only few
-systems~\cite{Fong_2006,Breazeal2003,Sisbot2008} take humans into
-account at all levels.
-
-Perspective Taking is a human ability which allows one to put
-him/herself in another person's point of view. Studied in
-psychology literature~\cite{Flavell1992,Tversky1999}, this ability is
-crucial when interacting with people by allowing one to reason on
-others' understanding of the world in terms of visual perception, spatial
-descriptions, affordances and beliefs, etc.
-Therefore, in the last years these notions have been gradually
-employed in Human-Robot Interaction.~\cite{breazeal2006} presents a
-learning algorithm that takes into account information about a
-teacher's visual perspective in order to learn a
-task. ~\cite{Johnson2005} apply visual perspective taking for action
-recognition between two robots.~\cite{Trafton2005} use both visual and
-spatial perspective taking for finding out the referent indicated by a
-human partner.
-
-Spatial reasoning~\cite{O'Keefe1999}, on the other hand, has been used
-for natural language processing for applications such as direction
-recognition ~\cite{Kollar2010,Matuszek2010} or language
-grounding~\cite{Tellex2010}.~\cite{Skubic2004} presented a spatial
-reasoner integrated in a robot which computes symbolic positions of
-objects.
 
 \begin{figure}[htb]
 \centering
@@ -201,15 +184,67 @@ allow the robot to select and perform its tasks while taking into
 account explicitly the human abilities as well as the constraints
 imposed by the presence of humans, their needs and preferences. 
 
-\section{The LAAS deliberative layer}
-\label{sec:Framework}
+
+
+\subsection{Our Contributions Towards the Cognitive Robot}
+
+Natural interaction and cooperation are on the (dare we say,
+\emph{short-term}) agenda for the human-robot interaction community. They are
+keys to the broad class of \emph{interactive manipulation problems}: several
+agents agree on a (more or less implicit) joint goal that requires some sort of
+cooperation to be successfully achieved. This class of problems involves both
+dialogue and manipulation and they are often initially underspecified: they
+require iterative and interactive resolution.
+
+Over the last years we have focused our efforts on identifying the cognitive
+prerequisites of these challenges, and giving them experimental reality on the
+robots: what is required for sentences like ``Let's dress the table together''
+to be understood by the robot, correctly interpreted in the spatial and
+temporal context of the interaction, and eventually transformed into a set of
+actions.
+
+We have chosen to tackle the challenge from several ends: human-aware
+navigation and motion planning (\cite{Mainprice2011}), situation assessment
+coupled with motion planning (\cite{Mainprice2012}), projection of
+``mightabilities'' that anticipates what surrounding agents may do
+(\cite{Pandey2011}), and the design and deployment of a pervasive
+\emph{knowledge-centric} software architecture.
+
+The last item is the focus of this paper: what does ``knowledge-centric''
+architecture means, and what are its benefits and drawbacks.
+
+\subsection{Article overview}
+
+In the next section, we first introduce the deliberative layer of our robots at
+the functional level. It represents what we call a \emph{knowledge-oriented}
+architecture, built around a central knowledge management tool called the {\sc
+Oro} server.
+
+The following sections go over each of the facets of this deliberative layer:
+how knowledge is produced asynchronously from geometric reasoning, how the
+robot conducts grounded multi-modal interaction with humans, how knowledge is
+used by decision-making components like the robot controller or the task
+planner, and finally, how our knowledge-centric architecture enables the
+implementation of specific internal cognitive processes.
+
+We conclude the article with a discussion about the strengths and weaknesses of
+such a knowledge-oriented architecture.
+
+
+\section{From Human-Robot Interaction to a Deliberative Architecture}
+
+\subsection{The Psycho-Cognitive Grounds of Human-Robot Interaction}
+
+....summary of the challenges that human-robot interaction presents to robotics.
+
+\subsection{The LAAS Deliberative Layer}
 
 Fig.~\ref{fig|archi} give an overview of the connections between the
 deliberative components of our architecture~\cite{Alami2011}.
 
 \begin{figure*}
         \centering
-        \includegraphics[width=1.0\columnwidth]{figs/archi}
+        \includegraphics[width=1.0\columnwidth]{archi}
         \caption{Overview of the LAAS deliberative layer. Knowledge is
         centrally managed in an active \emph{semantic blackboard}, pictured
         above with a thick border.}
@@ -220,13 +255,12 @@ deliberative components of our architecture~\cite{Alami2011}.
 This architecture moves away from standard layered approaches. Interactions
 between components are mostly bidirectional and, from the software components
 point of view, we do not introduce layers of abstraction (we do, however, have
-access to the lower level modules of the robot to execute
-actions~\cite{Alami1998}, but all cognition-related modules reside at the same
-level). This is especially visible for the dialogue input processing. This
-component does not simply act as an alternative perceptual input to the
-symbolic database, but also actively queries previously acquired knowledge to
-disambiguate and validate the newly created symbolic knowledge (see
-section~\ref{sect|com}).
+access to the lower level modules of the robot to execute actions, but all
+cognition-related modules reside at the same level). This is especially visible
+for the dialogue input processing. This component does not simply act as an
+alternative perceptual input to the symbolic database, but also actively
+queries previously acquired knowledge to disambiguate and validate the newly
+created symbolic knowledge (see section~\ref{sect|com}).
 
 Our architecture relates but is to be distinguished from \emph{Beliefs,
 Desires, Intentions} (BDI) architectures. BDI architectures are primarily
@@ -262,7 +296,7 @@ accessible to decisional layers. In parallel, the knowledge base relies on
 reasoning in a \textit{top-down} way to produce new facts that may trigger in
 return physical behaviours.
 
-\subsection*{Knowledge model}
+\subsection{A Knowledge model}
 
 In our architecture (Fig.~\ref{fig|archi}), knowledge manipulation relies on a
 \emph{semantic blackboard}: one central server (the {\sc Oro}
@@ -305,80 +339,112 @@ new independent knowledge models (\ie independent instantiations of the
 ontology). This feature is used for instance to store separately the beliefs of
 each of the agents the robot interacts with (see section~\ref{sect|tom}).
 
-\subsection*{Interaction model}
+\subsection{Internal cognitive processes}
+\label{sect|intern}
 
-Interaction happens as a consequence of an explicit request of the
-human to satisfy a goal or because the robot finds itself in a
-situation where it is useful if not mandatory. In both cases, the
-robot has a goal to satisfy.  An important issue is the notion of
-engagement, a process in which the robot will have to establish,
-maintain and terminate a connection with a human partner. 
-This covers goal establishment, selection of an incremental refinement
-of the task that is intended to be achieved, and execution control
-including monitoring, and even influencing, human task performance and
-his/her commitment to the goal. The human involvement may range from a
-direct participation to the task achievement, to a simple
-``acceptance'' of robot activity in his/her close vicinity.
+\subsubsection{Theory of Mind}
+\label{sect|tom}
 
-Next sections describe how the robot is controlled through an analysis of the
-three main activities performed by the robot controller:
+Theory of Mind (originally defined in~\cite{Premack1978}) is the cognitive
+ability that a subject possesses to represent the mental state of another
+agent, possibly including knowledge that contradicts the subject own model: for
+example, a book can be at the same time \emph{visible} by myself, and \emph{not
+visible} by you.
 
-\begin {enumerate}
-\item Situation assessment and context management 
-\item Goals and plans management
-\item Action refinement, execution and monitoring
-\end {enumerate}
+This skill, which is essential to understand others' perspectives during
+interactions, appears in children around their third year. It supposes the ability to build, store and retrieve separate models of the knowledge of the interactors.
 
-These activities are caried out by different software composants:
+Our knowledge base implements such a mechanism: when the robots infers a new
+agent has been introduced in the knowledge base, it initializes a new,
+independent, ontology for this agent. All the ontologies that are created share
+the same common-sense knowledge, but rely on each agent's perspective for the
+actual instantiation: the robot (geometrically) computes that the book is in
+its own field of view, but not in the human one. The robot knowledge contains
+the fact \stmt{book isVisible true} while the human model contains \stmt{book
+isVisible false}.
 
-\begin{itemize}
+One classical application of this cognitive skills is the so-called
+\emph{False-Belief} experiment (also known as the \emph{Sally and Ann}
+experiment)~\cite{Leslie2000}: a child is asked to watch a scene where two
+people, A and B, manipulate objects. Then A leaves and B hides away one
+object. When A comes back, we ask the child ``where do you think A will
+look for the object?''. Before acquiring a theory of mind, children are not
+able to separate their own (true) model of the world (where they know that
+the object was hidden) from the model of A, which contains \emph{false
+beliefs} on the world (A still thinks the object is at its original
+position since he did not see B hiding it). Using seperate knowledge models
+in the knowledge base, we have been able to replicate this experience on
+our robots~\cite{Warnier2012a}.
 
-    \item Situation assessment is managed by \textsc{Spark} (Spatial Reasoning
-        and Knowledge module)~\cite{Sisbot2011},
+\subsubsection{Working memory}
 
-    \item HATP (Human-Aware Task Planner)~\cite{Alili2008} is responsible for
-        symbolic task planning,
+The {\sc Oro} server also feature a mechanism to mimic simple forms of
+biological memory.  When new statements are inserted in the knowledge base, a
+\emph{memory profile} is optionally attached to them.
 
-    \item We finally also rely on a set of human-aware motion, placement and
-        manipulation planners, grouped under the \textsc{Move3D}
-        umbrella~\cite{Sisbot2008, Mainprice2011, Pandey2010}.
+Three such profiles are predefined: {\tt short term}, {\tt episodic} and {\tt
+long term}. They each correspond to a different lifetime for the statements
+(respectively 10 seconds, 5 minutes and no time limit). After this duration,
+the statements are automatically removed from the knowledge base.
 
-\end{itemize}
+This approach is limited. In particular, \emph{episodic} memory primarily
+refers to the semantics of the statements (that is expected to be related to an
+event) and not to a specific life duration.
 
-Other decisional activities, such as situated dialog (\cite{Ros2010b,
-  Lemaignan2011}, not presented here) have been developed that use the
-same set of components.
+We rely however on this short term memory for a particular use-case:
+\emph{active concept}. Some modules, like the natural language processor, use
+the {\tt short term} memory profile to mark for a few seconds important
+concepts that are currently manipulated by the robot. For example, if a human
+asks the robot: ``Give me all red objects'', the human, the \concept{Give}
+action, and each red objects that are found are successively marked as
+\emph{active concepts} by inserting statements like \stmt{human type
+ActiveConcept} in the short-term memory (which can be considered, in this case,
+to be a working memory). We use this feature to give a (visual) feedback to the
+users.
 
-\section{Situation assessment and context management}\label{sec:situ}
 
-This activity involves the geometric and temporal reasoning component,
-the symbolic facts and belief management component and the dedicated
-robot controller activity (Figure~\ref{architecture_fg}).
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Implementing the Cognitive Skills}
 
-We assume that perception provides in real-time the identity and the
-position of objects when they are in the field of view of the sensors.
-In our implemented examples, the robot is localised using a standard
-horizontal laser-scanning based localisation system, the objects are
-identified and localized using ARToolkit \cite{ARToolkit} and the
-humans are tracked using a commercial motion capture system and a
-Kinect device from Microsoft.
+Previous section provided an overview of what we propose as a generic cognitive
+architecture for robots involved in interactions with other social agents.
 
-\subsection{Geometric and Temporal Reasoning component}\label{sub:gtrc}
+We now introduce each of the components and try to give insights on their main
+features.
 
-The geometric reasoning component plays a central role in our
-architecture. It is called SPARK (Spatial Reasoning and
-Knowledge~\cite{Sisbot2011}) in the current implementation. It is
-responsible for geometric information gathering and it embeds a number
-of decisional activities linked to abstraction (symbolic facts
-production) and inference based on geometric and temporal reasoning.
-SPARK maintains all geometric positions and configurations of agents,
-objects and furniture coming from perception and previous or {\it a
-  priori} knowledge.
 
- %\subsubsection*{Symbolic facts production:} 
-\vspace{0.3cm}
-\noindent
-\textbf{Symbolic facts production:} 
+\subsection{Situation Assessment, Human Awareness, Perspective Taking}
+\label{sect|sit-ass}
+
+\begin{figure}
+        \centering
+        \includegraphics[width=\columnwidth]{spark-oro}
+    \caption{Functional overview of knowledge base ({\sc Oro} server, top part) and the geometric situation assessment module (\emph{SPARK}, bottom part)}
+        \label{fig|spark-oro}
+\end{figure}
+
+Anchoring perceptions in a symbolic model requires perception abilities and
+their symbolic interpretation. We rely on a dedicated geometric and temporal
+reasoning module (as named on Fig.~\ref{fig|archi}) called SPARK (\emph{SPAtial
+Reasoning \& Knowledge}~\cite{Sisbot2011}). It is a situation assessment
+reasoner that generates symbolic knowledge from the geometry of the
+environment with respect to relations between objects, robots and humans,
+also taking into account the different perspective that each agent has on
+the environment (Fig.~\ref{fig|spark-oro}).
+
+SPARK is an \emph{amodal} geometric model of the environment that serves both
+as basis for the fusion of the perception modalities and as bridge with the
+symbolic layer. This geometric model is continuously updated at run-time by the
+robot based on its sensors. In our experiments, objects are identified and
+localised through 2D barcodes.  On the other hand, the human pose is tracked
+with a Kinect-like device (assisted by motion capture to accurately track the
+head motion, which is required to compute what the human is looking at).
+
+
+\subsubsection{Situation Assessment}
+
+\paragraph{Symbolic facts production:} 
+
 Geometric state of the world is abstracted in symbolic facts that can
 be classified in three different categories.
 
@@ -461,11 +527,7 @@ GREY_TAPE isOn TABLE               GREY_TAPE isOn TABLE
 %\end{small}
 \end{footnotesize}
 
-%\newline\newline
-%\subsubsection*{Hypotheses on objects states and positions}
-\vspace{0.3cm}
-\noindent
-\textbf{Hypotheses on objects states and positions:}
+\paragraph{Hypotheses on objects states and positions}
 It is sometimes difficult or even impossible to see and/or track an
 object in certain states. This happens, for instance, when the object
 has been put in a container, when it is in the robot gripper or in the
@@ -484,9 +546,7 @@ can have only one hypothesis at the same time. Hypothesis validity is checked
 geometrically in case of incoming perception values.
 
 
-%\subsubsection*{Primitive action recognition}
-\vspace{0.3cm}
-\noindent {\bf Primitive action recognition:} 
+\paragraph{Primitive action recognition}
 Monitoring human activity is crucial to maintain a coherent state of
 the world. Full human action and activity monitoring is a difficult
 task that requires knowledge and reasoning both on high level facts
@@ -505,7 +565,25 @@ We have a simple implementation of such a primitive action recognition
 in SPARK that relies on monitoring human hand and its motion near
 objects or above containers.
 
-\subsection{Symbolic facts and beliefs management}
+
+\subsubsection{Ego-centric and allo-centric frames}
+
+SPARK enables \emph{perspective-taking}: spatial relations between entities can
+be computed from different viewpoints, which let the robot build for each
+agents it interacts with a different, \emph{perspective-aware} symbolic model
+of the environment. These models are separately stored in the knowledge base.
+
+This allows us to deal with ambiguities that arises when one speaker refers to
+an object within a reference system (or changes the reference system, \ie
+switches perspective) without making the reference frame
+explicit~\cite{Breazeal2006, Ros2010}.
+
+As a result, the robot stores models on the environment either in the
+\emph{ego-centric} reference frame (from the robot perspective) or in
+addressee-centred (\ie, \emph{allo-centric}) frames.
+
+
+\subsubsection{Symbolic facts and beliefs management}
 
 The facts produced by the geometric and temporal reasoning component
 are stored in a central symbolic knowledge base, called ORO. Besides
@@ -535,7 +613,7 @@ model the belief state of its interactors.
 
 ORO also provides an event mechanism that allows components to be
 triggered when specific events occur. A component can
-for instance subscribe to events of kind \setstmt{?agent isVisible
+for instance subscribe to events of kind \stmt{?agent isVisible
   true, ?agent type Human}. As soon as the perception layer detects a
 human in the robot's field of view and accordingly updates the
 knowledge base, the executive layer would be triggered back. The
@@ -543,7 +621,7 @@ event framework also takes advantage of the inference capabilities of
 ORO. Thus an event can be indirectly triggered if its triggering
 conditions can be inferred to be true.
 
-\subsection{Situation Assessment and Context Management Controller} 
+\subsubsection{Context Management Policies} 
 
 Building, updating and maintaining a correct state of the world at
 geometric and symbolic level is crucial to the capacity of the robot
@@ -587,13 +665,108 @@ achieve complex human action and activity monitoring.  In the current
 implementation, these primitive actions are over-optimistically interpreted as
 the corresponding actions \emph{pick} object and \emph{throw} object.
 
-\section{Goal and Plan Management}\label{sec:plan}
 
-The Goal and Plan Management activity involves the human-aware
-symbolic task planner component and the dedicated robot controller
-activity (Figure~\ref{architecture_fg}).
 
-\subsection{Symbolic Task Planning}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Multi-modal Communication}
+\label{sect|com}
+
+\subsubsection{Natural language grounding}
+
+Natural language processing is one of the fields of human-robot interaction
+where the introduction of the semantic layer has been most beneficial.
+We detail in~\cite{Lemaignan2011a} the techniques and the tool called
+\texttt{dialogs} that we have developed for English language parsing and
+grounding, along with verbalisation and (minimalist) dialogue management.
+
+Natural language input (in experiments, we rely on an Android-based interface,
+with Google speech recognition) is parsed into a grammatical structure, and
+each sentence atoms are resolved with the help of the ontology to ground
+concepts like objects (\ie when a user says ``pick the can'', resolve to which
+instance of \emph{can} the user is referring to) and actions. Sentences are
+sorted into questions, desires and statements, and processed accordingly.
+
+The system supports quantification (``give me \{a | the | some | all | any | ...\} can''),
+thematic roles (action-specific predicates that qualify the actions), interactive disambiguation (the robot asks
+questions when it needs more information), anaphora resolution (``give \emph{it} to me'') based on
+dialogue history. It also permits knowledge extension by learning new semantic
+structures (for instance, a sentence like ``learn that cats are animals'' is
+converted into \stmt{Cat subClassOf Animal}, interprets common temporal and place adverbs (like \emph{above} or \emph{tomorrow}) and translates to a certain extend \emph{states} (``I'm tired'') into
+\emph{experiences} (\stmt{HUMAN experiences state\_1, state\_1 hasFeature
+tired}).
+
+\subsubsection{Limits of disambiguation at semantic level}
+
+One prototypical example of semantic disambiguation has been given in
+\cite{Ros2010b} with the child game \emph{spygame}: two players are facing
+each other with a set of random objects in-between, one player mentally choose
+one object, and the other player has to guess the object by asking closed
+questions like \emph{Is your object small or large?} Based on the knowledge it
+has acquired, the robot is able to minimize the number of questions required to
+find the object.
+
+When playing this kind of game, however, the issue arises that the robot has no
+way to select which knowledge about the object is relevant in the interaction
+context. For instance, the knowledge base may store facts like \stmt{obj1 type
+ActiveConcept} (which internally means that this concept was mentioned in a
+discussion in the last few seconds): this information is not a relevant
+property of \concept{obj1} when trying to disambiguate concepts with humans.
+This distinction between \emph{internal knowledge} (meaningful to
+the system only) and \emph{common knowledge} (whose meaning is understood by
+all the interactors) has not been properly dealt with in our architecture.
+
+Besides, even knowledge that belongs the \emph{common knowledge} may not be
+appropriate in a given interaction context. For instance, the system may
+compute that at a given instant the human is looking at the object: \stmt{human
+looksAt obj1}. This property makes sense to both parties, but in the context of
+the \emph{spygame}, we would like to mainly use immanent properties, not
+volatile like a gaze. More research is required to identify relevant
+interaction contexts and knowledge classes attached to them.
+
+\subsubsection{Multi-modal communication}
+
+Because all components rely on the same RDF formalism to format their outputs,
+the different communication modalities (\emph{explicit} like verbal, deictic or
+based on gaze, or \emph{implicit} like postures) are presented in an
+homogeneous way.
+
+The dialogue grounding process makes use of them at two distinct levels.
+
+First, particular steps of the grounding process explicitly check for the
+presence and value of specific facts: for instance, when a set of instances
+match a category (the human says ``give me the bottle'' and the robot knows
+about three bottles), the module may decide (it actually depends on the
+quantifier preceding the class) to discard some of them based on their
+\emph{visibility} by the speaker (implicit communication context built on the
+human posture).
+
+Another example, when the human says ``this'', the robot checks if the human is
+currently pointing at some object. In that case, \emph{this} is replaced by the
+object focused on.
+
+Note that, while the system benefits from the complementary modalities, they
+are not all required. The dialogue system would for instance run equally well
+with only the verbal modality.
+
+The second level of integration of multi-modality is implicit: by computing
+symbolic properties from the geometry, richer descriptions and hence
+discrimination possibilities are available: for instance, if reachability is
+available, the robot may asks ``do you mean the bottle that is accessible to
+me?'' to discriminate between the three bottles. That way, procedures relying
+on discrimination transparently benefit from added modalities.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Human-aware task planning}
+
+Our execution controllers rely on symbolic task planning to convert faraway
+desires into a succession of atomic actions. We use in our architecture the
+HATP planner (for Human Aware Task Planner~\cite{Alili2009}).  HATP is based on
+a Hierarchical Task Network (HTN) refinement, which performs an iterative task
+decomposition into sub-tasks until reaching atomic actions.  The \emph{planning
+domain} defines the set of methods describing how to decompose a task and can
+be seen as the procedural knowledge of the robot.
 
 In order to devise how a given goal can be accomplished, the robot has
 to elaborate a plan,~\textit{i.e.} a set of actions to be achieved by
@@ -683,50 +856,92 @@ of cooperation
   actions towards a human-robot joint goal.
 \end{itemize}
 
-\subsection{ Goal and plan Controller}
-Figure~\ref{goal_plans_fg} sums up the Goal and Plan Management as
-implemented in the robot controller.  When an event announcing a new
-goal is caught by the controller, the validity of this goal is tested:
-does it corresponds to capabilities of agents? is it not already
-achieved? Then, the goal is sent to HATP which produces a first plan.
-A goal is considered achievable as long as the planner computes a
-valid plan and it is not abandoned by the human.
 
-Plan execution consists in the management of all the actions of the
-plan. Human and robot are not acting both at the same time.  In case
-of plan failure a new plan is requested and executed.
 
-The management at the action level is done in three steps. First, the
-action preconditions are tested over the current state of the
-world. Then the action is executed and monitored (only monitored of it
-corresponds to a human action).  Finally, the expected effects are
-verified in order to acknowledge the action achievement.
+Two important remarks: because HATP is a generic symbolic task planner, we have
+been able to design a planning domain at a semantic level which is close to the
+one used in the human-robot dialogue (the planner vocabulary contains concepts
+like \texttt{give}, \texttt{table}, \texttt{is on}...). Hence only a few
+ontology rules have been required to map both the knowledge extracted from the
+situation assessment and the statements originated from the verbal interaction
+to the planner domain.
 
-Concerning the speech acts during plan management, the robot informs
-its partners on the goal existence and status, plan existence and
-status, ongoing plan action, plan action failure, failing facts for
-action precondition or effect assessment.
-
-\begin{figure}[thpb]
-  \centering
-  \includegraphics[width=0.8\columnwidth]{./figs/plan_management.pdf}
-  \caption {Automaton for goal and plan management}
-  \label{goal_plans_fg}
-\end{figure}
+Second remark, after some research (see appendix B of~\cite{Lemaignan2012a} for
+a detailed discussion)  we have decided not to represent neither the planning
+domain nor the resulting plans in the knowledge base: the planning domain (with
+tasks pre- and postconditions) is stored in a specific format, outside of the
+knowledge repository, and the plans are directly communicated to the robot
+controller. From our experience, the OWL formalism is not a satisfying
+representation language for concepts that are both tightly bound to time
+representation and non-monotonic.
 
 
 
-\section{Action execution and monitoring}\label{sec:action}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Robot control}
+\label{sect|ctrl}
+
+\subsubsection{Desires and experiences}
+
+Our robot execution controllers (OpenPRS-based {\sc Shary} or Python-based {\sc
+pyRobots}) have deep integration with the knowledge base. It serves as the primary source of information for semantic-aware decision-making.
+
+We split the interaction situations stemming from the situation assessment and
+communication components in two categories: \emph{desires} (performative act)
+and \emph{experiences} (assertive act).
+
+\emph{Desires} are typically human orders (``Give me that book''). The nature
+of the desired action (to pick, give, look, bring, show...), along with the
+action parametrization (what is acted on? who should perform the action? etc.)
+are extracted from the knowledge base, and either passed to a task planner
+(presented in the next section) or executed if the procedure is directly
+available.
+
+\emph{Experiences}, on the other hand, comprise of emotions, states and
+questions (when asking a question, we consider the human to be in an
+\emph{interrogative state}). When the knowledge base recognizes that an agent
+\emph{experiences} a particular emotion or state, the execution controller may
+decide to handle it, typically by trying to answer the question or using the
+emotional or physical state as a parameter for subsequent actions. As an example,
+when the speaker says ``I feel tired'', we change the motion planner
+parametrization to lower the effort the human need to provide for the following
+joint manipulation tasks. Note that this example has been implemented as a
+proof-of-concept. We have not yet tried to define a theoretical framework that
+would support action alteration based on the user's experienced states.
+
+\subsubsection{Event-driven control}
+
+The {\sc Oro} server proposes two paradigms to access its content: RPC-style
+queries (based on the standard SPARQL language) or events. In its simplest
+form, a module can register an event by passing through an event pattern, which
+is basically a partial statement like \stmt{? type Elephant}, and a callback.
+Every time a new instance of elephant appears in the knowledge base, the
+callback is triggered.
+
+This allows us to write reactive robot controllers with a high level of
+expressiveness: for instance, by subscribing to the event \stmt{human1 desires
+?action, ?action type Look, ?action hasGoal myself}, we could trigger a
+behaviour when the human expresses (through dialogue, gestures...) that he
+wants to look at the robot itself.
+
+The robot controller designer does not need to directly care about how this
+\emph{desire} is produced (this is delegated to perception modules), it can
+focuses on the semantic of the desire.
+
+Note also that we take advantage of the reasoning capabilities of the system:
+for example, the goal of the action (\stmt{action hasGoal myself}) may well not
+have been explicitly asserted, but inferred by the reasoner based on other
+assertions.
+
+\subsubsection{Action execution and monitoring}\label{sec:action}
 
 The action execution and monitoring task involves the motion and task
 planning, the effectors and the dedicated robot controller activity
 (Figure~\ref{architecture_fg}).
 
 
-%\subsubsection*{Human aware motion, placement and manipulation planning}
-\vspace{0.3cm}
-\noindent
-\textbf{Human-aware motion, placement and manipulation planning:}
+\paragraph{Human aware motion, placement and manipulation planning}
 In our scenarios, actions are only object manipulation actions: Pick,
 Place, Throw, Give. Motion and Task planning allows to compute final
 object placement, grasp and arm motion trajectories taking into
@@ -735,10 +950,7 @@ preferences: see \cite{Sisbot2008, Mainprice2011, Pandey2010} for
 details.
 
 
-%\subsubsection*{Action Execution and Monitoring Robot Controller}
-\vspace{0.3cm}
-\noindent
-\textbf{Execution and Monitoring Robot Controller:} Depending on the
+\paragraph{Action Execution and Monitoring Robot Controller}
 context and on the shared plan elaborated by HATP for a given goal,
 the robot controller decides to execute an action or to ask its human
 partner to do it.  Actions feasibility by the human or the robot are
@@ -758,7 +970,19 @@ above are used. A primitive action detection is interpreted as action
 success if it is the expected one and failure otherwise. The robot
 also reacts to the absence of activity.
 
-\section{An illustrative example}\label{sec:expes}
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Experimental results}
 
 We assume here that the robot (and the human) has been given the joint goal
 ``CLEAN TABLE''. For HATP, this means putting all tapes that are
@@ -815,7 +1039,110 @@ between the 3D Model views. The eighth row gives ongoing human action
 with action preconditions and effects assessment and monitoring
 activity.
 
-\section{Conclusion and future work}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Perspectives}
+\label{sect|conclusion}
+
+\subsection{Contributions and Related work}\label{sec:soa}
+
+The human presence brings new requirements for robot's abilities both
+at the functional and at the deliberative levels~\cite{Klein2004}. The
+topics involve motion~\cite{Kulic2007,Berg2004,Madhav2006},
+navigation~\cite{Althaus2004,Sisbot2007}, manipulation~\cite{Kemp2007}
+in presence of humans as well as perception of human
+activities~\cite{Breazeal2001,Burger2008}. Also, when
+interacting with humans, robots need to incorporate communication and
+collaboration abilities. Several theories dealing with
+collaboration~\cite{Cohen1991,Grosz1996,Clark1996} emphasize that
+collaborative tasks have specific requirements compared to individual
+ones, \eg, since the robot and the person share a common goal, they
+have to agree on the manner to realize it, they must show their
+commitment to the goal during execution, etc. Several robotic systems
+have already been built based on these
+theories~\cite{Rich1997,Sidner2005,Tambe2005a,Breazeal2003} and they
+all have shown benefits of this approach. They have also shown how
+difficult it is to manage turn-taking between communication partners
+and to interleave task realization and communication in a generic
+way. Finally, today only few
+systems~\cite{Fong_2006,Breazeal2003,Sisbot2008} take humans into
+account at all levels.
+
+Perspective Taking is a human ability which allows one to put
+him/herself in another person's point of view. Studied in
+psychology literature~\cite{Flavell1992,Tversky1999}, this ability is
+crucial when interacting with people by allowing one to reason on
+others' understanding of the world in terms of visual perception, spatial
+descriptions, affordances and beliefs, etc.
+Therefore, in the last years these notions have been gradually
+employed in Human-Robot Interaction.~\cite{Breazeal2006} presents a
+learning algorithm that takes into account information about a
+teacher's visual perspective in order to learn a
+task. ~\cite{Johnson2005} apply visual perspective taking for action
+recognition between two robots.~\cite{Trafton2005} use both visual and
+spatial perspective taking for finding out the referent indicated by a
+human partner.
+
+Spatial reasoning~\cite{O'Keefe1999}, on the other hand, has been used
+for natural language processing for applications such as direction
+recognition ~\cite{Kollar2010,Matuszek2010} or language
+grounding~\cite{Tellex2010}.~\cite{Skubic2004} presented a spatial
+reasoner integrated in a robot which computes symbolic positions of
+objects.
+
+\subsection{Knowledge-oriented architecture}
+
+Altogether, the components we have presented compose an architecture that we
+call \emph{knowledge-oriented}:
+
+\begin{itemize}
+    
+    \item{Knowledge is explicitly stored in one central and consistent
+    repository of facts, accessible by all modules.} 
+
+    \item{Knowledge is represented in a strict formalism (OWL statements) and
+    with a clearly defined vocabulary (stated in the common-sense ontology).}
+
+    \item{The first two points enable both a loosely-coupled architecture where
+    modules can very easily be removed or replaced by other ones as long as
+    they share the same semantics (modules are defined by the knowledge they
+    produce),} 
+
+    \item{and a \emph{symbolic}, reactive, event-driven approach to robot control.
+    By managing events at the same level as the reasoner, we take full
+    advantage of the inference abilities of {\sc Oro} to trigger events whose
+    \texttt{true} conditions can be inferred.} 
+
+    \item{Finally, this architecture allows for the combination of very
+    different knowledge modalities in a single homogeneous environment,
+    bringing mutual benefits to components. For instance, the dialogue
+    processing module can perfectly run without any geometric
+    perception, but its disambiguation routines can transparently
+    benefit from it when available (since richer symbolic descriptions of
+    objects are then available).}
+
+\end{itemize}
+
+We believe that this \emph{knowledge-oriented} approach has a strong potential
+not only to enable rich human-robot interaction, but also as a broader approach
+to information alignment and fusion in complex robotic systems.  The
+versatility of this paradigm could be illustrated by a simple imaginary
+scenario with a blind robot and a deaf robot. The blind robot does not see (no
+cameras or alike), but someone can verbally describe a scene to it. On the
+other hand, the deaf robot has a good vision system, but cannot process verbal
+input.  Without any changes to the software architecture that we described,
+control modules of both robots could equally perform the same tasks since all
+the knowledge is abstracted and centralised (note that to actually implement
+this imaginary situation, the blind robot would of course need \textit{a
+priori} 3D models of objects talked about to enable planning or pick and place
+actions, and the deaf robot would require at least some gesture interpretation
+to understand orders).
+
+\subsection{The Next Steps}
+
 
 In this paper we have presented a decisional framework designed for
 robots operating in a human environment. Our objective is to provide a
@@ -831,68 +1158,18 @@ While the general scheme we propose might be difficult to implement in
 a general sense, we believe that it is a reasonable challenge to
 implement it in the case of a personal robot assistant essentially
 devoted to fetch-and-carry, as well as for interactive manipulation
-tasks and associated activities.\\
+tasks and associated activities.
 
-\vspace{0.3cm}
-\noindent
-{\bf Acknowledgements:}
-This work has been conducted within the EU CHRIS project ({\tt
-  \url{http://www.chrisfp7.eu/}}) funded by the E.C. Division FP7-IST
-under Contract 215805. We also would like to thank warmly a number of LAAS
-robotics team members and more particularly Xavier Broquere, Mokhtar
-Gharbi, Wuwei He, Matthieu Herrb, Jim Mainprice, Raquel Ros, Daniel
-Sidobre, Thierry Sim\'{e}on, Muhammad Ali.
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section*{Acknowledgment}
+
+This work has been supported by EU FP7 ``SAPHARI'' under grant agreement no. ICT-287513.
+
 \bibliographystyle{elsarticle-num}
+%\bibliographystyle{abbrv}
 \bibliography{laas_hri}
 
 
 
 \end{document}
-
-
-
-
-
-\section{Discussion and future work}
-
-The design choices and the results presented here is still preliminary. 
-While the general scheme we propose might be difficult to implement in
-a general sense, we believe that it is a reasonable challenge to
-implement it in the case of a personal robot assistant essentially
-devoted to fetch-and-carry, as well interactive manipulation tasks and
-associated activities. The robot would operates in a known in-door
-environment (acquired in a preliminary phase).
-
-In such contexts, it is possible ....
-
-
-
-Fetch-and-carry and object manipulation task need 3D geometric
-planning.  One challenging problem would be to extend the approach
-discussed above to the situation where a robot has to hand
-an object to human. Indeed, there is a need to take into account
-visibility and reach, in terms of kinematic constraints, of the human
-partner (Figure~\ref{fig_handing}).
-
-
-%\input{conclusion} %% Conclusion and Future Work
-\section{Conclusion}\label{sec:Conclusion}
-
-In this paper we have presented a decisional framework designed for
-robots operating in a human environment. Our objective is to provide a
-management of human interaction that is an integral part of a general
-robot control architecture.  This was done in order to provide a
-principled way to deal with HRI.
-
-The framework is also suitable for the development and experiment of
-task planners and interaction schemes that explicitly consider
-human abilities and preferences.
-
-Examples of such planners are presented that integrate various models
-of human abilities and preferences.
-
-
-\end{document}
-

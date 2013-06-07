@@ -1,5 +1,5 @@
 
-TARGET=paper2.tex
+TARGET=paper.tex
 
 DOT=$(wildcard figs/*.dot)
 SVG=$(wildcard figs/*.svg)
@@ -24,7 +24,7 @@ paper: $(TARGET) $(SVG:.svg=.pdf) $(DOT:.dot=.pdf)
 	TEXINPUTS=:./sty pdflatex $(TARGET)
 
 clean:
-	rm -f *.aux *.log *.snm *.out *.toc *.nav *intermediate *~ *.glo *.ist *.bbl *.blg $(SVG:.svg=.pdf) $(DOT:.dot=.svg) $(DOT:.dot=.pdf)
+	rm -f *.spl *.idx *.aux *.log *.snm *.out *.toc *.nav *intermediate *~ *.glo *.ist *.bbl *.blg $(SVG:.svg=.pdf) $(DOT:.dot=.svg) $(DOT:.dot=.pdf)
 
 distclean: clean
 	rm -f $(TARGET:.tex=.pdf)
