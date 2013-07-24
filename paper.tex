@@ -2,7 +2,10 @@
 %2345678901234567890123456789012345678901234567890123456789012345678901234567890
 %        1         2         3         4         5         6         7         8
 
-\documentclass[preprint,12pt]{elsarticle}
+\documentclass[preprint,5p]{elsarticle}
+
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
 
 \usepackage[english]{babel}
 \usepackage{cite}
@@ -11,16 +14,13 @@
 \graphicspath{{figs/}}
 \DeclareGraphicsExtensions{.pdf,.jpg,.png}
 
-
-\usepackage[utf8x]{inputenc}
-\usepackage[T1]{fontenc}
-
-\usepackage[draft]{fixme}
+\usepackage[draft, nomargin, marginclue, footnote]{fixme}
 
 \usepackage{listings}
 \usepackage{alltt}
 \usepackage{fancyvrb}
-\usepackage{flushend} % equalize the column length on last page
+
+%\usepackage[bookmarks]{hyperref}
 
 \newcommand{\concept}[1]{{\small \texttt{#1}}}
 
@@ -82,7 +82,7 @@ human-robot interactions.
 
 \end{frontmatter}
 
-
+\listoffixmes
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -125,12 +125,34 @@ person. Finally, section~\ref{sec:soa} discusses and analyses the impact of
 each of our contribution in the light of existing literature and alternative
 approaches.
 
-\subsection{The typical human-robot interaction problem}\label{sec:problem}
+\subsection{The human-robot interaction challenge}\label{sec:problem}
 
-Let us consider a robot which is supposed to achieve interactive
-object manipulation, fetch and carry tasks and similar tasks in a
-domestic environment. The problem we are dealing with here is the
-following. Given:
+\fxfatal{Develop/reorganize this section to organize the different problems of
+HRI into one coherent challenge for AI. See how to articulate it with section
+\ref{sec:psychocognitivegrounds}}
+
+We envision HRI in a context where two agents (a human and a robot)
+share a common space and exchange information through various
+modalities. Our aim is to endow the robot with an explicit
+consideration of the human and with the ability to manage its
+interactions with him (Figure~\ref{fig:hri-dec}). This must be
+considered at the architecture level as well as at the task/motion
+planning and execution level. 
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=0.9\columnwidth]{figs/grounding_robot.pdf}
+\caption{Robot reasoning about HRI and anticipation of human activities:
+  sources of information are multi-modal dialogue, and observation of
+  environment and human activity}
+\label{fig:hri-dec}
+\end{figure}
+
+\paragraph{The Joint Action Challenge} Let us consider a robot which is
+supposed to achieve interactive object manipulation, fetch and carry tasks and
+similar tasks in a domestic environment. The problem we are dealing with here
+is the following. Given:
+
 \begin {itemize}
 \item a joint goal, which has been previously established and agreed
   upon (through a process which is out of the scope of this paper),
@@ -138,6 +160,7 @@ following. Given:
   deduction from previous perceptions, including the state of the
   environment of the robot and of the human,
 \end {itemize}
+
 the robot controller computes an action to execute and who (the 
 human or the robot, or both in case of a joint action) has to perform
 it, and then controls or monitors its execution. The operation
@@ -147,6 +170,7 @@ abandoned by the human.
 To do so, the robot has to be equipped with a number of decisional, planning
 and interpretation abilities where its human partner is taken
 explicitly into account. It needs to be able:
+
 \begin {itemize}
 \item to build and maintain relevant robot and human beliefs
   (from the robot perspective) with respect to state of the world and the task,
@@ -159,24 +183,6 @@ Besides, we would like to build such abilities in a generic way, and
 to provide several levels of parametrization allowing to adapt to
 various environments, and various levels of involvement of the robot
 ranging from teammate behavior to assistant or proactive helper.
-
-
-\begin{figure}[htb]
-\centering
-\includegraphics[width=0.9\columnwidth]{figs/grounding_robot.pdf}
-\caption{Robot reasoning about HRI and anticipation of human activities:
-  sources of information are multi-modal dialogue, and observation of
-  environment and human activity}
-\label{fig:hri-dec}
-\end{figure}
-
-We envision HRI in a context where two agents (a human and a robot)
-share a common space and exchange information through various
-modalities. Our aim is to endow the robot with an explicit
-consideration of the human and with the ability to manage its
-interactions with him (Figure~\ref{fig:hri-dec}). This must be
-considered at the architecture level as well as at the task/motion
-planning and execution level. 
 
 We have devised a decisional framework for human-robot interactive
 task achievement that is aimed to allow the robot not only to
@@ -193,13 +199,11 @@ imposed by the presence of humans, their needs and preferences.
 
 \subsection{Our Contributions Towards the Cognitive Robot}
 
-Natural interaction and cooperation are on the (dare we say,
-\emph{short-term}) agenda for the human-robot interaction community. They are
-keys to the broad class of \emph{interactive manipulation problems}: several
-agents agree on a (more or less implicit) joint goal that requires some sort of
-cooperation to be successfully achieved. This class of problems involves both
-dialogue and manipulation and they are often initially underspecified: they
-require iterative and interactive resolution.
+The main scientific contributions of the article are summarized here, to guide
+the reader. We develop and discuss them, also in relation to other works, at
+the end of the article.
+
+\fxfatal{Rewrite section 'summary of contributions'}
 
 Over the last years we have focused our efforts on identifying the cognitive
 prerequisites of these challenges, and giving them experimental reality on the
@@ -213,36 +217,18 @@ navigation and motion planning~\cite{Mainprice2011}, situation assessment
 coupled with motion planning~\cite{Mainprice2012}, projection of
 ``mightabilities'' that anticipates what surrounding agents may
 do~\cite{Pandey2011}, and the design and deployment of a pervasive
-\emph{knowledge-oriented} software architecture.
-
-The last item is the focus of this paper: what ``knowledge-oriented''
-architecture means, and what its benefits and drawbacks are.
-
-\subsection{Article overview}
-
-In the next section, we first introduce the deliberative layer of our robots at
-the functional level. It represents what we call a \emph{knowledge-oriented}
-architecture, built around a central knowledge management tool called the
-OpenRobot Ontology ({\sc Oro}) server.
-
-The following sections present each of the facets of this deliberative layer:
-how knowledge is produced asynchronously from geometric reasoning, how the
-robot conducts grounded multi-modal interaction with humans, how knowledge is
-used by decision-making components like the robot controller or the task
-planner, and finally, how our knowledge-oriented architecture enables the
-implementation of specific internal cognitive processes.
-
-We conclude the article with a discussion about the strengths and weaknesses of
-such a knowledge-oriented architecture.
-
+\emph{knowledge-oriented} software architecture~\cite{Lemaignan2013}.
 
 \section{From Human-Robot Interaction to a Deliberative Architecture}
 
 \subsection{The Psycho-Cognitive Grounds of Human-Robot Interaction}
+\label{sec:psychocognitivegrounds}
 
-....summary of the challenges that human-robot interaction presents to robotics.
+\fxfatal{write section summary of the challenges that human-robot interaction presents to robotics.}
 
-\subsection{The LAAS deliberative layer}
+\subsection{Building the Deliberative Layer}
+
+\fxfatal{Need to carefully introduce this section: how did we come up this this architecture?}
 
 Fig.~\ref{fig|archi} gives an overview of the connections between the
 deliberative components of our architecture~\cite{Alami2011}.
@@ -644,6 +630,8 @@ conditions can be inferred to be true.
 
 \subsubsection{Context Management Policies} 
 
+\fxfatal{Rewrite this section to level up AI aspects (Mathieu)}
+
 Building, updating and maintaining a correct state of the world at
 geometric and symbolic level is crucial to the capacity of the robot
 to carry on successfully a multi-step interaction with a human. Tight
@@ -718,6 +706,8 @@ converted into \stmt{Cat subClassOf Animal}), interprets common temporal and
 place adverbs (like \emph{above} or \emph{tomorrow}) and translates to a
 certain extend \emph{states} (``I'm tired'') into \emph{experiences}
 (\stmt{HUMAN experiences state\_1, state\_1 hasFeature tired}).
+
+\fxwarning{Give more implementation details. Why did we go for a custom NLP? (Severin)}
 
 \subsubsection{Limits of disambiguation at semantic level}
 
@@ -804,10 +794,7 @@ apply and by taking into account a set of constraints called social
 rules. This tuning aims at adapting the robot's behavior according to
 the desired level of cooperation of the robot.
 
-%\subsubsection*{Agents and action streams:}
-\vspace{0.3cm}
-\noindent
-\textbf{Agents and action streams:}
+\paragraph{Agents and action streams}
 The robot plans not only for itself but also for the other agents. The
 resulting plan, called ``shared plan'' is a set of actions that form
 a stream for each agent involved in the goal achievement. Depending on
@@ -824,10 +811,7 @@ agents. Figure~\ref{plan_hatp1} illustrates a plan with two streams.
   \label{plan_hatp1}
 \end{figure}
 
-%\subsubsection*{Action costs and social rules:}
-\vspace{0.3cm}
-\noindent
-\textbf{Action costs and social rules:}
+\paragraph{Action costs and social rules}
 A cost and a duration function is associated to each action.
 The duration function provides a duration interval for the action
 achievement and is used, in one hand, to schedule the different
@@ -861,10 +845,9 @@ one (Figure~\ref{plan_hatp1}) if the wasted time social rule is used.
 The obtained shared plan is the best plan according to a global evaluation of
 these multiple criteria.
 
-%\subsubsection*{Several levels of cooperation:} 
-\vspace{0.3cm}
-\noindent
-\textbf{Several levels of cooperation:} 
+\fxwarning{Relate HATP social rules to other AI techniques}
+
+\paragraph{Several levels of cooperation} 
 By tuning its costs
 and adapting its social rules, HATP can be used to compute various
 alternative plans. These plans can be categorized into several levels
@@ -1001,6 +984,8 @@ also reacts to the absence of activity.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Experimental results}
+
+\fxfatal{Most of the Experiment section needs to be written}
 
 We assume here that the robot (and the human) has been given the joint goal
 ``CLEAN TABLE''. For HATP, this means putting all tapes that are
@@ -1146,18 +1131,9 @@ call \emph{knowledge-oriented}:
 
 Those items are not new \emph{per se}. It seems however interesting to
 underline the shift of focus this implies during the design and integration
-phases. The
-versatility of this paradigm could be illustrated by a simple imaginary
-scenario with a blind robot and a deaf robot. The blind robot does not see (no
-cameras or alike), but someone can verbally describe a scene to it. On the
-other hand, the deaf robot has a good vision system, but cannot process verbal
-input.  Without any changes to the software architecture that we described,
-control modules of both robots could equally perform the same tasks since all
-the knowledge is abstracted and centralised (note that to actually implement
-this imaginary situation, the blind robot would of course need \textit{a
-priori} 3D models of objects talked about to enable planning or pick and place
-actions, and the deaf robot would require at least some gesture interpretation
-to understand orders).
+phases. 
+
+\fxfatal{Insert here discussion of other major KRR systems for robots (Severin)}
 
 \subsection{The Next Steps}
 
