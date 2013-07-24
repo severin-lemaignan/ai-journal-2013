@@ -60,8 +60,8 @@ articulated so that the robot controller is effectively able to conduct in a
 flexible manner a collaborative task with a human partner. These abilities
 include geometric reasoning and situation assessment based essentially on
 perspective-taking and affordances, management and exploitation of each agent
-(human and robot) knowledge in a separate cognitive model, human-aware task
-planning and human and robot interleaved plan achievement.
+(human and robot) knowledge in separate cognitive models, human-aware task
+planning, and human and robot interleaved plan achievement.
 
 This article presents our design choices, the articulations between the diverse
 deliberative components of the robot, and the strengths and weaknesses of our
@@ -74,7 +74,7 @@ human-robot interactions.
 
 \begin{keyword}
     %% keywords here, in the form: keyword \sep keyword
-
+    human-robot interaction \sep cognitive robotics \sep perspective taking \sep knowledge representation and reasoning
     %% MSC codes here, in the form: \MSC code \sep code
     %% or \MSC[2008] code \sep code (2000 is the default)
 
@@ -88,28 +88,42 @@ human-robot interactions.
 
 \section{The challenge of human-robot interaction}
 
-Human-robot interaction requires to equip the robot with explicit
-reasoning on the human and on its own capacities to achieve its tasks
-in a collaborative way with a human partner. This paper presents a
-robot control system which has been especially designed for a
-cognitive robot which shares space and task with a human. We have
-adopted a constructive approach based on effective individual and
-collaborative skills. The system is comprehensive since it aims at
-dealing with a complete set of abilities articulated so that the robot
-controller is effectively able to conduct in a flexible manner a
-collaborative task with a human partner.
+Human-robot interaction is a challenge for artificial intelligence. This field
+indeed lays at the crossroad of several other domains of AI and requires to
+tackle them in a holistic manner. Modeling humans and human cognition;
+acquiring, representing, manipulating in a tractable way abstract knowledge;
+reasoning on this knowledge to make decisions; instanciating those decisions
+into physical actions in coordination with humans... Many AI techniques are
+invited, from visual processing to symbolic reasoning, from task planing to
+\emph{theory of mind} building, from reactive control to action recognition and
+learning.
 
-We illustrate below how we deal with a typical human-robot interactive
-task achievement and what are the abilities we claim are
-necessary. Section \S\ref{sec:problem} proposes a typical human-robot
-interaction problem that can be solved by the proposed robot
-controller. Section \S\ref{sec:soa} reviews related work and analyses
-the context of our contribution.  Section \S\ref{sec:Framework}
-provides an overview of the robot controller and introduces three
-activities which are described in \S\ref{sec:situ}, \S\ref{sec:plan}
-and \S\ref{sec:action}. Finally, Section \S\ref{sec:expes} presents an
-effective run on a real robot in face to face interaction with a
-person.
+We do not tackle all these issues. This article attempts however to organize
+them into a coherent challenge for artifical intelligence, and also explicit
+some of the trails that have been explored on our robots and that result in a
+deliberative, knowledge-focused, architecture for human-robot interaction.
+
+Human-robot interaction requires to equip the robot with explicit reasoning on
+the human and on its own capacities to achieve its tasks in a legible, if not
+collaborative, way with human partners. In the following pages, we present a
+robot control system which has been especially designed for a cognitive robot
+which shares space and task with a human. It has been designed by adopting a
+constructive approach based on effective individual and collaborative skills.
+The system is comprehensive since it aims\fxnote{it *is* comprehensive, or it *aims* at being comprehensive?} at dealing with a complete set of
+abilities articulated so that the robot controller is effectively able to
+conduct in a flexible manner a collaborative task with a human partner.
+
+We illustrate below how we deal with a typical human-robot interactive task
+achievement and what are the abilities we claim are necessary. Section
+\ref{sec:problem} proposes a typical human-robot interaction problem that can
+be solved by the proposed robot controller. Section
+\ref{sec:Framework} provides an overview of the robot controller and
+introduces three activities which are described in \ref{sec:situ},
+\ref{sec:plan} and \ref{sec:action}. Section \ref{sec:expes}
+presents the structure an actual run on a real robot in face to face interaction with a
+person. Finally, section~\ref{sec:soa} discusses and analyses the impact of
+each of our contribution in the light of existing literature and alternative
+approaches.
 
 \subsection{The typical human-robot interaction problem}\label{sec:problem}
 
@@ -490,7 +504,7 @@ to reach the box because he is too far from the target.
 \label{fig::reach-ex}
 \end{figure*}
 
-\begin{figure}[ht!]
+\begin{figure*}[ht!]
    \label{fig:sparkSubfigures}
    \begin{center}
 %
@@ -512,7 +526,7 @@ to reach the box because he is too far from the target.
      3d model) and the trashbin PINK\_TRASHBIN are only reachable by
      the human HUMAN1. All tapes are on the table TABLE.  }%
 
-\end{figure}
+\end{figure*}
 
 The set of facts computed in the situation depicted by
 Figure~\ref{fig:sparkSubfigures} is the following:
