@@ -1125,7 +1125,9 @@ in real world scenarios. A probabilistic extension of \textsc{KnowRob}, called
 possible, currently the CRAM architecture does not provide explicit support for
 interacting with humans.
 
-\paragraph{Knowledge model}
+\fxwarning{robot control architecture for service robots: what else?}
+
+\paragraph{Knowledge model} 
 
 \subsection{Interacting with humans}
 
@@ -1217,6 +1219,68 @@ phases: components of our deliberative layer are defined and glued together by
 the knowledge they produce and consume.
 
 \fxfatal{Insert here discussion of other major KRR systems for robots (Severin)}
+
+\subsection{Embodied Cognition}
+
+Robotics is traditionally regarded as the prototypical testbed for \emph{embodied}
+artificial intelligence, and this dimension is especially prevalent in
+human-robot interaction, where agents have to share a joint physical
+environment.
+
+It results in a tight coupling between the symbolic and the geometric realms:
+while AI at its origins was mostly a matter of symbolic models, it has been
+since recognised that not only the mind is not a purely abstract system,
+disconnected from the physical world, but even more, cognition fundamentally
+relies on its relation to the physical world (so-called \emph{embodied
+cognition}). Varela~\cite{Varela1992} is one of the main discoverer of these
+mechanisms, and coined the concept of \emph{enactivism} as the theoretical
+framework that study the links between cognition, embodiment and actions.
+
+The challenge of symbol grounding is tightly linked to this issue. It
+corresponds to the identification or creation, and then, maintenance of a link
+between the symbol (the syntactic form of knowledge the computer will
+manipulate) and its semantics, \ie its meaning, anchored in the world (the
+relations between the symbol, the referent of the symbol, and mediating minds
+is classically referred as the \emph{semantic triangle}, and has been
+extensively studied in linguistics). The issue of grounding is well known in
+cognitive science and is summarised by Harnard~\cite{Harnad1990} by this
+question: ``how the semantic interpretation of a formal symbol system can be
+made intrinsic to the system?''. This issue has a major practical importance in
+robotic: for a robot to be both endowed with a symbolic representational and
+reasoning system, and able to \emph{act} in the physical world, it must ground
+its knowledge.
+
+Grounding is implemented at different levels in our architecture. The main source
+of grounded symbolic knowledge is the situation assessment module, {\sc Spark}.
+Not only it builds symbolic facts from spatial reasoning, but it also relies on
+temporal reasoning to track the world state and build explanations to interpret
+unexpected perceptions (we mentioned above the example of a disappearing
+object).
+
+Because {\sc Spark} is also able to track humans, which enables in turn
+perspective-aware spatial reasoning, it produces grounded symbolic knowledge
+for interacting agents as well. This is a typical \emph{embodied} cognitive
+skill.
+
+Grounding also occurs during verbal and non-verbal communication. The {\sc
+Dialogs} module grounds new concepts introduced by the speaker by asking questions
+until it can attach the new concept to concepts already present in the
+knowledge pool (typically, if I ask the robot ``bring me a platypus'', the
+robot asks ``what is a platypus''. I may answer ``a mammal'' and the robot will
+ask ``what is a mammal?'' and so on until it anchors the new concepts to ones
+it already knows). Non verbal interaction (like gestures) is also partially
+grounded. When the user points at something, it can say ``give me this'' and
+the robot grounds \emph{this} to the pointed artifact.
+
+Because only objects marked with tags are currently recognized (in our typical
+lab experiments, it may be a dozen of them), the robot grounding mechanisms work
+in a small-sized closed world. This assumption obviously greatly facilitates
+the task. It remains to be seen if systematic marking of manipulated objects
+(for instance with RFID tags) is a realistic path. It may be the case if the
+robot is expected to be used in a well-defined, slowly changing environment.
+Real-time recognition of large libraries of objects is another path which may
+be viable soon~\cite{Dean2013Fast}.
+
 
 \subsection{The Next Steps}
 
