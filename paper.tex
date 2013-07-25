@@ -1047,14 +1047,117 @@ activity.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Perspectives}
+\section{Discussion: when AI enables HRI}
 \label{sect|conclusion}
 
-\subsection{Contributions and Related work}\label{sec:soa}
+This last section goes over again the main contributions we have presented
+so far: why are they relevant to robotics and artificial intelligence? How do
+they compare to similar approaches? How do we justify our technical choices and
+what remain to be developed/explored in the future?
+
+\subsection{Foundations of cognition for the robot}
+
+Because we build autonomous \emph{companion} robots, designed to live and
+interact in environments primarily conceived for humans, we endow our machines
+with a set of fundamental cognitive capabilities. The robots perform typically
+in dynamics, partially unknown environments, with a variety of places,
+artifacts and agents that may carry complex semantics.
+
+While our main focus is on the cognitive abilities required to interact with
+humans, \emph{situation assessment}, \emph{spatial reasoning}, \emph{knowledge
+representation and reasoning}, \emph{task planning} or \emph{high-level
+control} are mandatory cognitive foundations that we first have to mention.
+
+\paragraph{Situation assessment, spatial reasoning}
+
+Real service robots need to ground their decision-making processes in their
+perceptions, be it physical (\eg what a camera sees) or not (\eg remote
+knowledge bases, dialogue). We call \emph{physical situation assessment} the
+cognitive skill a robot exhibits when it assesses the nature and content of its
+surroundings and efficiently monitors its evolution.
+
+Numerous approaches exist, like amodal \emph{proxies}~\cite{Jacobsson2008},
+grounded amodal representations~\cite{Mavridis2006}, semantic maps
+(Figure~\ref{fig|semanticmap}, \cite{Nuechter2008, Galindo2008,Blodow2011}) or
+affordance-based planing and object classification~\cite{Lorken2008,
+Varadarajan2011}.
+
+Our approach, implemented in the {\sc Spark} module, is a grounded amodal
+representation of the robot environment, where different sensing modalities
+(vision-based fiducial markers tracking, RGBD human tracking, motion capture)
+are merged and where amodal spatial reasoning takes place (explanation
+generation for unexpected perceptions like a disappearing object).
+
+Spatial reasoning~\cite{O'Keefe1999} is a field in its own right, and has been
+used for natural language processing for applications such as direction
+recognition ~\cite{Kollar2010,Matuszek2010} or language
+grounding~\cite{Tellex2010}.~\cite{Skubic2004} presented a spatial reasoner
+integrated in a robot which computes symbolic positions of objects.
+
+One of the main limit of our current approach is the way semantics are
+conveyed: because we use 2D markers for artifacts, we skip most of the object
+extraction and recognition challenges. Each object has a unique identifier,
+which enable us to load a proper CAD model suitable for 3D spatial reasoning
+and prevent recognition mistakes in the knowledge base. While {\sc Spark}
+algorithms themselves are ignorant of the input sources, and would work equally
+well with a full object recognition stack, it is not currently supported.
+
+\fxwarning{spatial reasoning -> mention we do not support extensive temporal reasoning}
+
+\paragraph{Robot control}
+
+\fxwarning{Robot control related work -> what is the originality of SHARY? why is it relevant from an AI point of view? (Mathieu, Aurelie)}
+
+Beetz et al.~\cite{Beetz2010} proposes a cognitive architecture called
+\textsc{CRAM} (Cognitive Robot Abstract Machine) that integrates
+\textsc{KnowRob}~\cite{Tenorth2009a}, a knowledge processing framework based on
+Prolog. Its underlying storage is based on an OWL ontology, derived from
+\textsc{OpenCyc}. \textsc{CRAM} and \textsc{KnowRob} have been demonstrated on
+several real-world scenarios, where natural language recipes extracted from the
+Internet had to be translated into plans and executed in a kitchen environment,
+perceived and rebuilt on-line by the robots. While Prolog offers more flexible
+modeling (no constraints on the arity of predicate, where Description Logics as
+used in our work are limited to binary predicates), it is based on the closed
+world assumption (if something cannot be inferred to be true, it is inferred to
+be false) whereas we rely on the open world assumption, which is more realistic
+in real world scenarios. A probabilistic extension of \textsc{KnowRob}, called
+\textsc{ProbCog}~\cite{Jain2009} is also available. While in principle
+possible, currently the CRAM architecture does not provide explicit support for
+interacting with humans.
+
+\paragraph{Knowledge model}
+
+\subsection{Interacting with humans}
+
+\paragraph{Building a model of a human during the interaction} Perspective
+Taking is a human ability which allows one to put him/herself in another
+person's point of view. Studied in psychology
+literature~\cite{Flavell1992,Tversky1999}, this ability is crucial when
+interacting with people by allowing one to reason on others' understanding of
+the world in terms of visual perception, spatial descriptions, affordances and
+beliefs, etc.  Therefore, in the last years these notions have been gradually
+employed in Human-Robot Interaction.~\cite{Breazeal2006} presents a learning
+algorithm that takes into account information about a teacher's visual
+perspective in order to learn a task. ~\cite{Johnson2005} apply visual
+perspective taking for action recognition between two
+robots.~\cite{Trafton2005} use both visual and spatial perspective taking for
+finding out the referent indicated by a human partner.
+
+\fxwarning{What are our contribution regarding perspective taking? (Mathieu)}
+\fxwarning{Mention other source of knowledge about humans -- including social rules for instance}
+
+\paragraph{Reasoning with the humans}
+
+\fxwarning{Mention we represent the human knowledge as well (Severin)}
+
+\paragraph{Multi-modal communication}
+
+\subsection{Joint actions with humans}
+\label{sec:soa}
 
 The human presence brings new requirements for robot's abilities both
 at the functional and at the deliberative levels~\cite{Klein2004}. The
-topics involve motion~\cite{Kulic2007,Berg2004,Madhav2006},
+topics involve motion~\cite{Kulic2007,Berg2004,Madhava2006},
 navigation~\cite{Althaus2004,Sisbot2007}, manipulation~\cite{Kemp2007}
 in presence of humans as well as perception of human
 activities~\cite{Breazeal2001,Burger2008}. Also, when
@@ -1067,34 +1170,13 @@ have to agree on the manner to realize it, they must show their
 commitment to the goal during execution, etc. Several robotic systems
 have already been built based on these
 theories~\cite{Rich1997,Sidner2005,Tambe2005a,Breazeal2003} and they
-all have shown benefits of this approach. They have also shown how
+all have shown benefits of this approach\fxwarning{which approach? how it is related to larger AI challenges?}. They have also shown how
 difficult it is to manage turn-taking between communication partners
 and to interleave task realization and communication in a generic
-way. Finally, today only few
-systems~\cite{Fong_2006,Breazeal2003,Sisbot2008} take humans into
-account at all levels.
+way\fxwarning{is it smthg we improve one?}. Finally, today only few
+systems~\cite{Fong2006,Breazeal2003,Sisbot2008} take humans into
+account at all levels\fxwarning{Old references, no new ones? we should also say what is new/better with our approach (Rachid)}.
 
-Perspective Taking is a human ability which allows one to put
-him/herself in another person's point of view. Studied in
-psychology literature~\cite{Flavell1992,Tversky1999}, this ability is
-crucial when interacting with people by allowing one to reason on
-others' understanding of the world in terms of visual perception, spatial
-descriptions, affordances and beliefs, etc.
-Therefore, in the last years these notions have been gradually
-employed in Human-Robot Interaction.~\cite{Breazeal2006} presents a
-learning algorithm that takes into account information about a
-teacher's visual perspective in order to learn a
-task. ~\cite{Johnson2005} apply visual perspective taking for action
-recognition between two robots.~\cite{Trafton2005} use both visual and
-spatial perspective taking for finding out the referent indicated by a
-human partner.
-
-Spatial reasoning~\cite{O'Keefe1999}, on the other hand, has been used
-for natural language processing for applications such as direction
-recognition ~\cite{Kollar2010,Matuszek2010} or language
-grounding~\cite{Tellex2010}.~\cite{Skubic2004} presented a spatial
-reasoner integrated in a robot which computes symbolic positions of
-objects.
 
 \subsection{Knowledge-oriented architecture}
 
@@ -1131,7 +1213,8 @@ call \emph{knowledge-oriented}:
 
 Those items are not new \emph{per se}. It seems however interesting to
 underline the shift of focus this implies during the design and integration
-phases. 
+phases: components of our deliberative layer are defined and glued together by
+the knowledge they produce and consume.
 
 \fxfatal{Insert here discussion of other major KRR systems for robots (Severin)}
 
