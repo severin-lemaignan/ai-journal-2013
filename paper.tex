@@ -22,6 +22,9 @@
 
 %\usepackage[bookmarks]{hyperref}
 
+\usepackage{booktabs}
+%\usepackage{tabularx}
+
 \newcommand{\concept}[1]{{\small \texttt{#1}}}
 
 \newcommand{\stmt}[1]{{\footnotesize \tt $\langle$ #1\relax$\rangle$}}
@@ -33,7 +36,7 @@
 \begin{frontmatter}
 
 \title{\LARGE \bf
-Human-Robot Interaction: A Deliberative Architecture
+Human-Robot Interaction: Tackling the AI Challenges
 }
 
 \author{Rachid Alami, Séverin Lemaignan, Aurélie Clodic, Mathieu Warnier}
@@ -51,24 +54,29 @@ Univ de Toulouse, LAAS, F-31400 Toulouse, France\\
 \begin{document}
 \begin{abstract}
 
-This paper addresses some key decisional issues that are necessary for a
-cognitive robot which shares space and tasks with a human. We adopt a
-constructive approach based on the identification and the effective
-implementation of individual and collaborative skills. The system is
-comprehensive since it aims at dealing with a complete set of abilities
-articulated so that the robot controller is effectively able to conduct in a
-flexible manner a collaborative task with a human partner. These abilities
-include geometric reasoning and situation assessment based essentially on
-perspective-taking and affordances, management and exploitation of each agent
-(human and robot) knowledge in separate cognitive models, human-aware task
-planning, and human and robot interleaved plan achievement.
+Human-Robot interaction is an area filled with challenges for artifical
+intelligence: dynamic, partially unknown environments that are not originally
+designed for autonomous machines; a large variety of situations and objects to
+deal with, with possibly complex semantics; physical interactions with humans
+that requires fine, low-latency control, representation and management of
+several mental models, good situation assessment skills...the list goes on.
 
-This article presents our design choices, the articulations between the diverse
-deliberative components of the robot, and the strengths and weaknesses of our
-approach. We show that explicit knowledge management is not only a convenient
-tool from the software engineering point of view, but also pushes for a
-different, more \emph{semantic} way to address the decision-making issue in
-human-robot interactions.
+This article shed light on some key decisional issues that are to be tackled
+for a cognitive robot to share space and tasks with a human. We adopt a
+constructive approach based on the identification and the effective
+implementation of individual and collaborative skills. These cognitive
+abilities cover geometric reasoning and situation assessment based essentially
+on perspective-taking and affordances, management and exploitation of each
+agent (human and robot) knowledge in separate cognitive models, natural
+multi-modal communication, human-aware task planning, and human and robot
+interleaved plan achievement.
+
+We present our design choices, the articulations between the diverse
+deliberative components of the robot, experimental results, and eventually
+discuss the strengths and weaknesses of our approach. It appears that
+\emph{explicit} knowledge management, both symbolic and geometric, proves to be
+key as it pushes for a different, more \emph{semantic} way to address the
+decision-making issue in human-robot interactions.
 
 \end{abstract}
 
