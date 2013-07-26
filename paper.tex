@@ -886,7 +886,7 @@ architectures, we have independent declarative and procedural knowledge stores.
 \subsubsection{Desires and experiences}
 
 Our robot execution controllers (OpenPRS-based {\sc Shary} or Python-based {\sc
-pyRobots}) have deep integration with the knowledge base. It serves as the
+pyRobots}) rely on extensive integration with the knowledge base. It serves as the
 primary source of information for semantic-aware decision-making.
 
 We split the interaction situations stemming from the situation assessment and
@@ -937,18 +937,55 @@ explicitly asserted, but inferred by the reasoner based on other assertions.
 
 \subsubsection{Action execution and monitoring}\label{sec:action}
 
-The action execution and monitoring task involves the motion and task
-planning, the effectors and the dedicated robot controller activity
-(Figure~\ref{architecture_fg}).
+Action execution and monitoring is the central activity of the robot executive
+controller, and involves interaction with most of the components presented on
+Figure~\ref{fig|archi}.
 
+Like most robotic architecture, actions are split into \emph{atomic actions}
+and more complex \emph{tasks}. Tasks are created either statically or dynamically.
+The {\sc pyRobots} controller, for instance, combines the actions listed in
+table~\ref{table|pyrobots_actions} to implement the high-level tasks it exposes: {\tt
+lookAt}, {\tt moveTo}, {\tt getFromHuman}, {\tt showObject}, {\tt giveObject},
+{\tt pickObject}, {\tt bringObject}, {\tt putObject}, {\tt hideObject}.
+
+Our other controller, {\sc Shary}, relies on the symbolic task planner to
+generate at runtime suitable tasks.
+
+\begin{table}
+\begin{center}
+\begin{tabular}{p{8cm}}
+\hline
+    {\bf Manipulation} \\
+     {\tt attachobject}, {\tt basicgive}, {\tt basictake}, {\tt close\_gripper}, {\tt configure\_grippers}, {\tt grab\_gripper}, {\tt handover}, {\tt hide}, {\tt open\_gripper}, {\tt pick}, {\tt put}, {\tt put\_accessible}, {\tt release\_gripper}, {\tt show}, {\tt take} \\
+\hline
+    {\bf Gaze control} \\
+     {\tt glance\_to}, {\tt look\_at}, {\tt sweep}, {\tt switch\_active\_stereo\_pair}, {\tt track}, {\tt cancel\_track} \\
+\hline
+    {\bf Navigation} \\
+     {\tt carry}, {\tt follow}, {\tt cancel\_follow}, {\tt goto}, {\tt moveclose}, {\tt waypoints} \\
+\hline
+    {\bf Local navigation} \\
+     {\tt dock}, {\tt rotate}, {\tt translate} \\
+\hline
+    {\bf Posture configuration} \\
+     {\tt extractpose}, {\tt idle}, {\tt manipose}, {\tt movearm}, {\tt rest}, {\tt setpose}, {\tt settorso}, {\tt tuckedpose} \\
+\hline
+\end{tabular}
+\end{center}
+\caption{Main {\sc pyRobots} \emph{actions}, sorted by categories. These
+actions are combined at runtime into higher-level \emph{tasks}.}
+
+\label{table|pyrobots_actions}
+\end{table}
 
 \paragraph{Human aware motion, placement and manipulation planning}
-In our scenarios, actions are only object manipulation actions: Pick,
-Place, Throw, Give. Motion and Task planning allows to compute final
-object placement, grasp and arm motion trajectories taking into
-account task specific constraints and human postures, abilities and
-preferences: see \cite{Sisbot2008, Mainprice2011, Pandey2010} for
-details.
+Manipulation and navigation actions listed in
+table~\ref{table|pyrobots_actions} rely on a collection of dedicated 3D motion
+planner to generate movements that are aware of surrounding humans. Robot
+placement and end-effectors trajectories are computed on-line to allow object
+manipulation that take into account task specific constraints and human
+postures, abilities and preferences. \cite{Sisbot2008, Mainprice2011,
+Pandey2010} detail these techniques.
 
 
 \paragraph{Action Execution and Monitoring Robot Controller}
