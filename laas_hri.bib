@@ -187,6 +187,90 @@
   timestamp = {2012.01.09}
 }
 
+@ARTICLE{Daoutis2009,
+  author = {Daoutis, M. and Coradeshi, S. and Loutfi, A.},
+  title = {Grounding Commonsense Knowledge in Intelligent Systems},
+  journal = {Journal of Ambient Intelligence and Smart Environments},
+  year = {2009},
+  pages = {311--321},
+  abstract = {Ambient environments which integrate a number of sensing devices and
+	actuators intended for use by human users need to be able to express
+	knowledge about objects, their functions and their properties to
+	assist in the performance of everyday tasks. For this to occur perceptual
+	data must be grounded to symbolic information that in its turn can
+	be used in the communication with the human. For symbolic information
+	to be meaningful it should be part of a rich knowledge base that
+	includes an ontology of concepts and common sense. In this work we
+	present an integration between ResearchCyc and an anchoring framework
+	that mediates the connection between the perceptual information in
+	an intelligent home environment and the reasoning system.
+	
+	Through simple dialogues we validate how objects placed in the home
+	environment are grounded by a network of sensors and made available
+	to a larger KB where reasoning is exploited. This first integration
+	work is a step towards integrating the richness of a KRR system developed
+	over many years in isolation, with a physically embedded intelligent
+	system.},
+  file = {Daoutis2009.pdf:Daoutis2009.pdf:PDF},
+  imprime = {oui},
+  interet = {5},
+  keywords = {grounding, ontologies, cognitive architecture, knowledge processing},
+  lu = {lu},
+  notes = {In short:
+	
+	* Roughly the same kind of ambition and architecture.
+	
+	* Way better than us on the perception side. 
+	
+	* They try the "2nd order logic" approach. I'd be curious to know
+	what kind of reasoning capability they actually have.
+	
+	* Their tests are conducted in a static environment. They don't take
+	other agents into consideration (nothing like perspective taking
+	or rich disambiguation).
+	
+	* No task planning at all (or at least, not discussed in this paper)
+	
+	
+	More in details:
+	
+	- object identification based on viewpoint independent SIFT features
+	
+	- formalized anchoring system that explicitely match percieved attributes
+	to predicates
+	
+	- Cyc predicates
+	
+	- ground 12 colors, based on a paper on color perception. Could be
+	useful for us.
+	
+	- idem, they cite a paper on what spatial relations to compute
+	
+	- location of objects based on a previously provided semantic map
+	(but not much on this semantic map)
+	
+	- two "memories": the robot memory stores the current list of percieved
+	objects ; the archive memory stores what is not percieved anymore
+	
+	- uses directly Cyc (ie, 250 000 common sense concepts...), via CycL
+	language -> 2nd and higher order logics (quantification over predicates,
+	functions, etc)
+	
+	Remark: using 2nd order logic (ie meta statements), it would be easy
+	to store the knowledge of each agent
+	
+	- disambiguation in concept name by asking human to decide amongst
+	all concepts known by Cyc
+	
+	- template based natural language
+	
+	- experiment conducted in a "smart" indoor environmement + simple
+	robot},
+  owner = {skadge},
+  relevance = {5},
+  timestamp = {2010.02.18}
+}
+
 @INPROCEEDINGS{Dean2013Fast,
   author = {Thomas Dean and Mark Ruzon and Mark Segal and Jon Shlens and Sudheendra
 	Vijayanarasimhan and Jay Yagnik},
@@ -891,6 +975,22 @@
   publisher = {The MIT Press},
   year = {1992},
   author = {Varela, F.J. and Thompson, E. and Rosch, E.}
+}
+
+@ARTICLE{Waibel2011,
+  author = {Waibel, M. and Beetz, M. and Civera, J. and D'Andrea, R. and Elfring,
+	J. and Galvez-Lopez, D. and Haussermann, K. and Janssen, R. and Montiel,
+	JMM and Perzylo, A. and others},
+  title = {RoboEarth},
+  journal = {Robotics \& Automation Magazine},
+  year = {2011},
+  volume = {18},
+  pages = {69--82},
+  number = {2},
+  __markedentry = {[slemaign]},
+  owner = {slemaign},
+  publisher = {IEEE},
+  timestamp = {2012.04.26}
 }
 
 @INPROCEEDINGS{warnier2012when,
