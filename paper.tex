@@ -32,6 +32,7 @@
 \newcommand{\ie}{{\textit{i.e.\ }}}
 \newcommand{\cf}{{\textit{cf\ }}}
 \newcommand{\eg}{{\textit{e.g.\ }}}
+\newcommand{\al}{{\textit{et al.\ }}}
 
 \begin{frontmatter}
 
@@ -501,18 +502,20 @@ to relations between objects, robots and humans (Fig.~\ref{fig|spark-oro}),
 also taking into account the different perspective that each agent has on the
 environment.
 
-SPARK is an \emph{amodal} geometric model of the environment that serves both
-as basis for the fusion of the perception modalities and as bridge with the
-symbolic layer. This geometric model is continuously updated at run-time by the
-robot based on its sensors (in our experiments, objects are identified and
-localised through 2D barcodes, while humans are tracked with Kinect-like
-devices, optionally assisted by motion capture to accurately track the head
-motion, which is required to compute what the human is looking at).
+SPARK is an \emph{amodal}~\cite{Mavridis2006} geometric model of the
+environment that serves both as basis for the fusion of the perception
+modalities and as bridge with the symbolic layer. This geometric model is
+continuously updated at run-time by the robot based on its sensors (in our
+experiments, objects are identified and localised through 2D barcodes, while
+humans are tracked with Kinect-like devices, optionally assisted by motion
+capture to accurately track the head motion, which is required to compute what
+the human is looking at).
 
+\fxnote{Add 2-3 lines to summarize the AI highlights of SPARK}
 
 \subsubsection{Situation Assessment}
 
-\paragraph{Symbolic facts production:} 
+\paragraph{Symbolic facts production} 
 
 Geometric state of the world is abstracted in symbolic facts that can
 be classified in three different categories.
@@ -530,30 +533,31 @@ be classified in three different categories.
 \end {itemize} 
 
 Reasoning about human perspective allow to compute facts such as:
-\stmt{GREY\_TAPE isBehind HUMAN1}, \stmt{GREY\_TAPE isVisibleBy
+\stmt{GREY\_TAPE isBehind HUMAN1}, \stmt{GREY\_TAPE leftOf
   HUMAN1}.
 
 Figure~\ref{fig::reach-ex} illustrates different situations for the
-\textit{reachable} relation. In this case, the robot and its human partner
-are placed face to face, in a table-top setup (Figure~\ref{fig::reach-ex}.1).
-The robot first estimates if the small grey box is reachable to itself. This is
-done by finding a collision free posture to reach the object
-(Figure~\ref{fig::reach-ex}.2). Next the robot switches to the human's
-perspective to estimate if the same object is reachable to the human as well.
-In the last scene, the human moves towards his left, farther from the object
-(Figure~\ref{fig::reach-ex}.4). The situation is then reevaluated. In this
-occasion though, the reasoner cannot find a satisfactory posture for the human
-to reach the box because he is too far from the target.
+\textit{reachable} relation. The robot and its human partner are placed face to
+face (Figure~\ref{fig::reach-ex}.1).  The robot first estimates if the small
+grey box is reachable to itself. This is done by finding a collision free
+posture to reach the object (Figure~\ref{fig::reach-ex}.2). Next the robot
+switches to the human's perspective to estimate if the same object is reachable
+to the human as well.  In the last scene, the human moves towards his left,
+farther from the object (Figure~\ref{fig::reach-ex}.4). The situation is then
+reevaluated. In this occasion though, the reasoner cannot find a satisfactory
+posture for the human to reach the box because he is too far from the target.
 
 \begin{figure*}[!t]
 	\centering
-	\includegraphics[width=1.0\textwidth]{figs/reachex.jpg}	
+    \subfigure[] { \includegraphics[width=0.2\textwidth]{figs/reachex-1.jpg} }
+    \subfigure[] {\includegraphics[width=0.2\textwidth]{figs/reachex-2.jpg} }
+    \subfigure[] {\includegraphics[width=0.2\textwidth]{figs/reachex-3.jpg} }
+    \subfigure[] {\includegraphics[width=0.2\textwidth]{figs/reachex-4.jpg} }
 	\caption{An example illustrating the \textit{reachable} relation. The relation is computed from the perspectives of both the robot and the human. The computed posture at each step is illustrated with a global view of the scene (top), and from a closest view (bottom).}
 \label{fig::reach-ex}
 \end{figure*}
 
 \begin{figure*}[ht!]
-   \label{fig:sparkSubfigures}
    \begin{center}
 %
        \subfigure[Initial state]{%
@@ -573,6 +577,7 @@ to reach the box because he is too far from the target.
      model) and GREY\_TAPE. The third tape WALLE\_TAPE (white in the
      3d model) and the trashbin PINK\_TRASHBIN are only reachable by
      the human HUMAN1. All tapes are on the table TABLE.  }%
+   \label{fig:sparkSubfigures}
 
 \end{figure*}
 
@@ -608,28 +613,28 @@ happened since the object was last seen, the robot tries to maintain a
 belief of the current possible symbolic states and their associated
 probabilities for this object. Such information can be used to update
 the beliefs using input from exploration, dialog, human visual
-focus,\ldots
+focus,\ldots \fxnote{Paragraph need write. Tell what the module actually does, not what it could do}
+
 SPARK currently provides a simple implementation of such a functionality. The
 only managed hypotheses are \emph{in container} and \emph{in agent hand}. We
 can have only one hypothesis at the same time. Hypothesis validity is checked
 geometrically in case of incoming perception values.
 
 
-\paragraph{Primitive action recognition}
-Monitoring human activity is crucial to maintain a coherent state of
-the world. Full human action and activity monitoring is a difficult
-task that requires knowledge and reasoning both on high level facts
-like goals, intentions and plans, as well as bottom-up data from agent
-and object motions. Simple temporal and geometric reasoning on human
-hand trajectories and potential objects placements can provide some
-useful clues for high level human monitoring processes. We call this
-temporal and geometric reasoning \emph{primitive action recognition}.
+\paragraph{Primitive action recognition} Monitoring human activity is crucial
+to maintain a coherent state of the world. Full human action and activity
+monitoring is a task that requires knowledge and reasoning both on high level
+facts like goals, intentions and plans, as well as bottom-up data from agent
+and object motions. Simple temporal and geometric reasoning on human hand
+trajectories and potential objects placements can provide some useful clues for
+high level human monitoring processes. We call this temporal and geometric
+reasoning \emph{primitive action recognition}.
 
 For example, a \emph{pick}, a \emph{throw} or a \emph{place} action
 can be recognized by observing that an object on table and an empty
 human hand are close to each other, or that the human hand holding an
 object is close to a container, etc. Human hand position is either
-directly perceived or inferred from its initial perceived trajectory.
+directly perceived or inferred from its initial perceived trajectory\fxwarning{we really do that?}.
 We have a simple implementation of such a primitive action recognition
 in SPARK that relies on monitoring human hand and its motion near
 objects or above containers.
@@ -641,6 +646,7 @@ SPARK enables \emph{perspective-taking}: spatial relations between entities can
 be computed from different viewpoints, which let the robot build for each
 agents it interacts with a different, \emph{perspective-aware} symbolic model
 of the environment. These models are separately stored in the knowledge base.
+\fxwarning{Rephrase: already mentioned before}
 
 This allows us to deal with ambiguities that arise when one speaker refers to
 an object within a reference system (or changes the reference system, \ie
@@ -648,22 +654,15 @@ switches perspective) without making the reference frame
 explicit~\cite{Breazeal2006, Ros2010}.
 
 As a result, the robot stores models of the environment either in the
-\emph{ego-centric} reference frame (from the robot perspective) or in the
-\emph{allo-centric} frame (addressee-centred).
+\emph{ego-centric} reference frame (from the robot perspective) or in 
+\emph{allo-centric} frames (addressee-centred).
 
 
 \subsubsection{Symbolic facts and beliefs management}
+\fxwarning{Do we need this section here?}
 
 The facts produced by the geometric and temporal reasoning component
-are stored in a central symbolic knowledge base, called ORO. Besides
-acting as a facts database, the ORO platform~\cite{Lemaignan2010}
-exposes several functions: operations on knowledge statements relying
-on inference (through a continuous first-order logic classification
-process), management of \emph{per-agent} symbolic models, and also
-higher cognitive and human-robot interaction related functionalities
-like categorization of sets of concepts, profiles of memory (that
-enable the robot to ``forget'' about some facts), natural language
-grounding~\cite{Lemaignan2011}\ldots.
+are stored in the central symbolic knowledge base.
 
 ORO stores independent knowledge models (in our implementation, as
 \emph{ontologies}) for each agent (the robot and the humans it
@@ -679,64 +678,6 @@ property \concept{isVisible \textbf{true}} and \concept{isVisible
 allows us to consider the robot to be endowed with a simple
 \emph{theory of mind}~\cite{Scassellati2002}: it can explicitly
 model the belief state of its interactors.
-
-ORO also provides an event mechanism that allows components to be
-triggered when specific events occur. A component can
-for instance subscribe to events of kind \stmt{?agent isVisible
-  true, ?agent type Human}. As soon as the perception layer detects a
-human in the robot's field of view and accordingly updates the
-knowledge base, the executive layer would be triggered back. The
-event framework also takes advantage of the inference capabilities of
-ORO. Thus an event can be indirectly triggered if its triggering
-conditions can be inferred to be true.
-
-\subsubsection{Context Management Policies} 
-
-\fxfatal{Rewrite this section to level up AI aspects (Mathieu)}
-
-Building, updating and maintaining a correct state of the world at
-geometric and symbolic level is crucial to the capacity of the robot
-to carry on successfully a multi-step interaction with a human. Tight
-integration between the robot controller and the geometric and
-temporal reasoning functions in SPARK and symbolic facts and beliefs
-management in ORO is central.
- 
-The robot controller has access to the symbolic facts in ORO that are
-automatically updated whenever object and agent positions are changed.
-Robot controller can also access geometric perceived or inferred
-positions of objects and geometric positions and postures of the human
-that will be used to orient its cameras.  Building and updating the
-state of the world first relies on perceiving objects. Robot
-controller can use:
-
-\begin {itemize}
-\item Exploration policies: robot will exhaustively scan the table to
-  see all what can be seen.
-
-\item Search policies: robot will search an object until it is
-  detected if possible, scanning all the table and looking in human
-  hand.
-
-\end {itemize} 
-
-Robot reasons on possible positions for non perceived
-objects. These hypotheses could be updated using new input from dialogue, human
-action and focus of attention. Currently, we manage at most one hypothesis per
-object. This hypothesis is produced by robot controller through an inference on
-robot or human action. In case of perception conflicts with low probability for
-the current hypothesis, robot controller will break this hypothesis and delete
-corresponding symbolic fact in the ontology.
-
-Robot must reacts to change in the world not linked to robot
-action to drive world update. Robot controller uses SPARK to monitor human hand
-motion and primitive action recognition for \emph{pick} and \emph{throw}. As
-mentioned above these primitive action recognition should be used with higher
-level information on goals, intentions and plans and some exploration to
-achieve complex human action and activity monitoring.  In the current
-implementation, these primitive actions are over-optimistically interpreted as
-the corresponding actions \emph{pick} object and \emph{throw} object.
-
-
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -756,7 +697,7 @@ with Google speech recognition) is parsed into a grammatical structure, and
 atoms of each sentence are resolved with the help of the ontology to ground
 concepts like objects (\ie when a user says ``pick the can'', resolve to which
 instance of \emph{can} the user is referring to) and actions. Sentences are
-sorted into questions, desires and statements, and processed accordingly.
+sorted into questions, desires and statements, and processed accordingly.\fxwarning{Severin: Develop this section}
 
 The system supports quantification (``give me \{a | the | some | all | any |
 ...\} can''), thematic roles (action-specific predicates that qualify the
@@ -764,10 +705,11 @@ actions), interactive disambiguation (the robot asks questions when it needs
 more information), anaphora resolution (``give \emph{it} to me'') based on
 dialogue history. It also permits knowledge extension by learning new semantic
 structures (for instance, a sentence like ``learn that cats are animals'' is
-converted into \stmt{Cat subClassOf Animal}), interprets common temporal and
-place adverbs (like \emph{above} or \emph{tomorrow}) and translates to a
-certain extend \emph{states} (``I'm tired'') into \emph{experiences}
-(\stmt{HUMAN experiences state\_1, state\_1 hasFeature tired}).
+converted into \stmt{Cat subClassOf Animal} and added to th eknowledge pool),
+interprets common temporal and place adverbs (like \emph{above} or
+\emph{tomorrow}) and translates to a certain extend \emph{states} (``I'm
+tired'') into \emph{experiences} (\stmt{HUMAN experiences state\_1, state\_1
+hasFeature tired}).
 
 \fxwarning{Give more implementation details. Why did we go for a custom NLP? (Severin)}
 
@@ -807,7 +749,7 @@ based on gaze, or \emph{implicit} like postures) are presented in a homogeneous
 way. The dialogue grounding process makes use of them at two distinct levels.
 
 First, particular steps of the grounding process explicitly check for the
-presence and value of specific facts: for instance, when a set of instances
+presence and value of specific facts: for instance, when several instances
 matches a category (the human says ``give me the bottle'' and the robot knows
 about three bottles), the module may decide (it actually depends on the
 quantifier preceding the class) to discard some of them based on their
@@ -819,8 +761,8 @@ currently pointing at some object. In that case, \emph{this} is replaced by the
 object focused on.
 
 Note that, while the system benefits from the complementary modalities, they
-are not all required. The dialogue system would for instance happily run with
-only the verbal modality, at the cost of weaker interaction.
+are not all required. The dialogue system can run with only the verbal
+modality, at the cost of a simpler interaction.
 
 The second level of integration of multi-modality is implicit: by computing
 symbolic properties from the geometry, richer descriptions and hence
@@ -833,28 +775,21 @@ on discrimination transparently benefit from added modalities.
 
 \subsection{Human-aware task planning}
 
-Our execution controllers rely on symbolic task planning to convert faraway
+Our execution controllers rely on symbolic task planning to convert long-term
 desires into a succession of atomic actions. We use in our architecture the
-HATP planner (for Human Aware Task Planner~\cite{Alili2009}).  HATP is based on
-a Hierarchical Task Network (HTN) refinement, which performs an iterative task
-decomposition into sub-tasks until reaching atomic actions. The \emph{planning
-domain} defines the set of methods describing how to decompose a task and
-represents the procedural knowledge of the robot.
+HATP planner (for Human Aware Task Planner~\cite{Alili2008, Alili2009}).  HATP
+is based on a Hierarchical Task Network (HTN) refinement, which performs an
+iterative task decomposition into sub-tasks until reaching atomic
+actions\fxwarning{Rephrase: the definition is actually generic to HTN, not HATP
+specfic}. The \emph{planning domain} defines the set of methods describing how
+to decompose a task and represents the procedural knowledge of the robot. It is
+stored outside of the central knowledge base.
 
-In order to devise how a given goal can be accomplished, the robot has
-to elaborate a plan,~\textit{i.e.} a set of actions to be achieved by
-the robot and its human partners.  This is the role of a HATP
-\cite{Alili2008} (for Human Aware Task Planner).  HATP is based on a
-Hierarchical Task Network (HTN) refinement which performs an iterative
-task decomposition into sub-tasks until reaching atomic
-actions~\cite{Nau2003}.  The planning domain defines a set of methods
-describing how to decompose a task and can be seen as the Howto
-knowledge of the robot.  HATP is able to produce plans for the robot's
-actions as well as for the other participants (humans or robots). It
-can be tuned by setting up different costs depending on the actions to
-apply and by taking into account a set of constraints called social
-rules. This tuning aims at adapting the robot's behavior according to
-the desired level of cooperation of the robot.
+HATP is able to produce plans for the robot's actions as well as for the other
+participants (humans or robots). It can be tuned by setting up different costs
+depending on the actions to apply and by taking into account a set of
+constraints called social rules. This tuning aims at adapting the robot's
+behavior according to the desired level of cooperation of the robot.
 
 \paragraph{Agents and action streams}
 The robot plans not only for itself but also for the other agents. The
@@ -1069,6 +1004,50 @@ For plan action monitoring, primitive actions recognition defined
 above are used. A primitive action detection is interpreted as action
 success if it is the expected one and failure otherwise. The robot
 also reacts to the absence of activity.
+
+
+\paragraph{Context Management Policies} \fxfatal{Rewrite this section to level up AI aspects (Mathieu)}
+Building, updating and maintaining a correct state of the world at
+geometric and symbolic level is crucial to the capacity of the robot
+to carry on successfully a multi-step interaction with a human. Tight
+integration between the robot controller and the geometric and
+temporal reasoning functions in SPARK and symbolic facts and beliefs
+management in ORO is central.
+ 
+The robot controller has access to the symbolic facts in ORO that are
+automatically updated whenever object and agent positions are changed.
+Robot controller can also access geometric perceived or inferred
+positions of objects and geometric positions and postures of the human
+that will be used to orient its cameras.  Building and updating the
+state of the world first relies on perceiving objects. Robot
+controller can use:
+
+\begin {itemize}
+\item Exploration policies: robot will exhaustively scan the table to
+  see all what can be seen.
+
+\item Search policies: robot will search an object until it is
+  detected if possible, scanning all the table and looking in human
+  hand.
+
+\end {itemize} 
+
+Robot reasons on possible positions for non perceived objects. These hypotheses
+could be updated\fxwarning{are they?} using new input from dialogue, human action and focus of
+attention. Currently, we manage at most one hypothesis per object. This
+hypothesis is produced by robot controller through an inference on robot or
+human action. In case of perception conflicts with low probability for the
+current hypothesis, robot controller will break this hypothesis and delete
+corresponding symbolic fact in the ontology.
+
+Robot must reacts to change in the world not linked to robot action to drive
+world update. Robot controller uses SPARK to monitor human hand motion and
+primitive action recognition for \emph{pick} and \emph{throw}. As mentioned
+above these primitive action recognition should be used with higher level
+information on goals, intentions and plans and some exploration to achieve
+complex human action and activity monitoring.  In the current implementation,
+these primitive actions are over-optimistically interpreted as the
+corresponding actions \emph{pick} object and \emph{throw} object.
 
 
 
