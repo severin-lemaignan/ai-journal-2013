@@ -1065,7 +1065,7 @@ corresponding actions \emph{pick} object and \emph{throw} object.
 
 Our architecture has been deployed and tested in a number of experiments on
 several robotic platforms. Table~\ref{table|experiences} lists the most
-significant ones, with their main focuses and reference publication for the
+significant ones, with their main focuses and reference publications for the
 interested reader.
 
 \begin{table*}
@@ -1090,65 +1090,239 @@ interested reader.
 \label{table|experiences}
 \end{table*}
 
+The two following sections present one such experiment (the {\it Moving to
+London} scenario), and the synopsis of another one (the {\it Cleaning the
+table} scenario).
+
+The first one is focused on knowledge representation and verbal interaction:
+the human asks for help to find and pack objects. In this experiment, robot
+actions are limited to simple motions (like head tracking or predefined
+pick-and-place).
+
+The second one involves the SHARY execution controller and the HATP symbolic
+task planner besides ORO and {\sc Dialogs}. In this scenario, the human and the
+robot try to cooperatively remove objects from a table. In this scenario,
+behaviours and motions are fully planned.
+
+\subsection{\emph{Moving to London} scenario}
+
+This first experiment is based on the following daily life situation: Tom and
+Jerry are moving to London, so they are packing things in boxes. The scenario
+takes places in the living-room, where Jido (our robot) is observing while they
+move things here and there. To assess the reasoning abilities of the robot they
+ask Jido for information (entered through keyboard). Ideally, the robot should
+also perform actions when required (e.g. hand an object when asking ``give
+me...''). However, since it is out of the scope of this work, we do not include
+any motion from the robot's side.
+
+Perception of objects is done through a tag-based system and humans are
+detected through motion capture. The robot knowledge base is pre-loaded with
+the \emph{ORO Commonsense Ontology}.  We next describe in detail two
+situations where we can follow the internal robot's reasoning and the
+interaction with the users.
+
+\paragraph{Implicit disambiguation through visual perspective taking}
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=0.9\linewidth]{./figs/pt.jpg}
+\caption{Asking the robot to hand over a tape on the table.}
+  \label{fig|vpt}
+\end{figure}
 
 
-\fxfatal{Most of the Experiment section needs to be written}
+Tom enters the room while carrying a big box (Figure~\ref{fig|vpt}, page 1). He
+approaches the table and asks Jido to handle him the video tape: ``Jido, can
+you give me the video tape''. The \textsc{Dialogs} module queries the ontology to
+identify the object the human is referring to: \stmt{?obj type VideoTape}. 
 
-We assume here that the robot (and the human) has been given the joint goal
-``CLEAN TABLE''. For HATP, this means putting all tapes that are
-currently on the table in the trashbin. Depending on the state of the
-world and agent preferences, different plans are produced.
+There are two video tapes in the scene: one on the table, and another one
+inside the cardboard box. Thus, the knowledge base returns both: $\Rightarrow$
+\concept{?obj = [videoTape1, videoTape2]}. 
 
-Figure~\ref{plan-etat2} shows a plan produced to clean the table based on the initial the initial state given in  \S~\ref{sub:gtrc}.
+However, only one is visible for Tom (the one on the
+table). Thus, although there is an ambiguity from the robot's perspective
+(since it can see both video tapes), based on the perspective of its human
+partner it infers that Tom is referring to the video tape on the table, and not
+the one inside the box which is not visible from his view. Therefore,
+non-visible objects are removed obtaining: \concept{?obj =[videoTape1]}.
+
+Since only one object is available, the robot infers
+that the human refers to it and would eventually execute the command, \ie give
+it to the human. Alternatively, the robot could first verify with the human if
+that was the object being referred to or not before proceeding to execute the
+action. Table~\ref{table|ptbeliefs} lists the robot's beliefs about itself and
+its human partner involved in this situation.
+
+\begin{table}
+\begin{center}
+\begin{tabular}{l}
+\hline
+Robot's beliefs about itself (\emph{robot's model}):\\
+\hline
+  \hspace{0.7cm}\stmt{videoTape1 type VideoTape}\\
+  \hspace{0.7cm}\stmt{videoTape1 isOn table}\\
+  \hspace{0.7cm}\stmt{videoTape1 isVisible true}\\
+  \hspace{0.7cm}\stmt{videoTape2 type VideoTape}\\
+  \hspace{0.7cm}\stmt{videoTape2 isIn cardBoardBox}\\
+  \hspace{0.7cm}\stmt{videoTape2 isVisible true}\\
+\hline
+\hline
+Robot's beliefs about Tom (\emph{Tom's model}):\\
+\hline
+  \hspace{0.7cm}\stmt{videoTape1 type VideoTape}\\
+  \hspace{0.7cm}\stmt{videoTape1 isOn table}\\
+  \hspace{0.7cm}\stmt{videoTape1 isVisible true}\\
+  \hspace{0.7cm}\stmt{videoTape2 type VideoTape}\\
+  \hspace{0.7cm}\stmt{videoTape2 isIn cardBoardBox}\\
+  \hspace{0.7cm}\stmt{videoTape2 isVisible false}\\
+ \hline
+\end{tabular}
+\end{center}
+\caption{Robot's beliefs about itself and its human partner.}
+\label{table|ptbeliefs}
+\end{table}
+
+\paragraph{Explicit disambiguation through verbal interaction and gestures}
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=0.9\linewidth]{./figs/inTheBox2.jpg}
+\caption{Jerry asks Jido for the content of the box by pointing at it.}
+  \label{fig|pointing}
+\end{figure}
+
+In this situation, Jerry enters the
+living room without knowing where Tom had placed the video tapes. So he first
+asks Jido: ``What's in the box?''. Before the robot can answer the question it
+has to figure out which box Jerry is talking about. Similar to the previous
+situation, there are two available boxes: 
+
+\begin{center}
+\begin{tabular}{l}
+\stmt{?obj type box}\\
+\hspace{0.7cm}$\Rightarrow$ {\tt ?obj = [cardBoardBox, toolbox]}
+\end{tabular}
+\end{center}
+
+However both are visible and the cognitive ambiguity resolution cannot be
+applied. The only option is to ask Jerry which box he is referring to: ``Which
+box, the toolbox or the cardboard box?'' Jerry could now simply answer the
+question. Instead, he decides to point at it while indicating: ``This box''
+(Figure~\ref{fig|pointing}). The robot's perception identifies the {\tt
+cardBoardBox} as being pointed at and looked at by the human and updates the
+ontology with this new information using a rule available in the commonsense
+ontology ({\tt \textbf{pointsAt}(?ag, ?obj) $\land$ \textbf{looksAt}(?ag, ?obj) $\to$
+\textbf{focusesOn}(?ag, ?obj)}) The \textsc{Dialogs} module is then able to merge both
+sources of information, verbal (``this'') and gestural to distinguish the box
+Jerry refers to.
+
+\begin{center}
+\begin{tabular}{l}
+\stmt{Jerry pointsAt carboardBox}\\
+\stmt{Jerry looksAt carboardBox}\\
+$\to$ \stmt{Jerry focusesAt carboardBox}\\
+\hspace{0.7cm}$\Rightarrow$ {\tt ?obj = [cardBoardBox]}
+\end{tabular}
+\end{center}
+
+Finally, the \textsc{Dialogs} queries the ontology about the content of the box
+and the question can be answered: ``Jido-E''. Note that the object's label is
+used instead of its ID. This way we enhance interaction using familiar names
+given by the users.
+
+\begin{center}
+\begin{tabular}{l}
+\stmt{?obj isIn cardBoardBox}\\
+\hspace{0.7cm}$\Rightarrow$ \concept{?obj = videoTape2}\\
+\end{tabular}
+\end{center}
+
+At this point Jerry wants to know where the other tape is, and that is exactly
+what he asks Jido: ``And where is the other tape?''. In this occasion, the
+\textsc{Dialogs} module is able to interpret that Jerry is not referring to the
+video which they were just talking about, but to the other one:
+
+\begin{center}
+\begin{tabular}{l}
+\stmt{?obj type VideoTape}\\
+\stmt{?obj differentFrom videoTape2}\\
+\hspace{0.7cm}$\Rightarrow$ \concept{?obj = [videoTape1]}
+\end{tabular}
+\end{center}
+
+Since there is only one possible ``other'' video (there are only two videos in
+the scene), it can directly answer Jerry: ``The other tape is on the table and
+next to the toolbox.''
+
+\begin{center}
+\begin{tabular}{l}
+\stmt{videoTape1 isOn table}\\
+\stmt{videoTape1 isNextTo toolbox}
+\end{tabular}
+\end{center}
+
+
+\subsection{\emph{Cleaning the table} scenario}
+
+This experiment involved a more complex decisional layer where the ORO
+server was used in conjunction with the HATP symbolic task planner and the
+SHARY execution controller (the complete software architecture we deployed for
+this experiment is pictured on Figure~\ref{fig|archi},
+page~\pageref{fig|archi}).
+
+In this scenario (Figure~\ref{fig|cleantable-video}), a human and a robot
+cooperate to remove objects from a table. The robot produces symbolic plans for
+both itself and the human (Figure~\ref{plan-etat2})
+that allow the robot to (verbally) share the task with the human (like ``I take
+the green box and I put it in the trashbin, you take the black video tape and
+you throw it in the trashbin''). Plans are created based on perceived
+visibility and reachability of the objects, and the robot also monitors the
+human activities to track the advancement of the whole plan (this last aspect
+is presented in~\cite{warnier2012when}).
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.7\columnwidth]{./figs/cleantable.jpg}
+
+    \caption{Snapshot of the film of the ``Clean the Table'' scenario. The
+    physical situation, the SPARK model, and the current step of the plan can
+    be seen.}
+
+    \label{fig|cleantable-video}
+\end{figure}
 
 \begin{figure*}[thpb]
   \centering
   \includegraphics[width=1.0\textwidth]{./figs/plan3.pdf} \\
-  \caption {A plan produced by HATP for clean the table based on the initial state given in \S~\ref{sub:gtrc}}
+  \caption {A plan produced by HATP to execute the high-level order ``clean the table''. Two streams of actions are generated: for the human (top) and for the robot(bottom). Synchronization points ensure the coordination.}
   \label{plan-etat2}
 \end{figure*}
 
-Let us now take a simpler example to illustrate a full run of the
-system. We have only one tape on the table and it is is reachable only
-by the robot while the throw position on top of the trashbin is
-reachable only by the human.
+Figure~\ref{fig|cleantable-timeline} presents a excerpt of the whole task and
+shows how the different components produce and use symbolic knowledge (note
+that the plan is actually computed {\it a priori}. It appears nevertheless on
+this diagram for better readability).
+
+This sequence of events depicts a run with only one tape on the table. The tape is
+reachable by the robot only, while the human is the one who can reach the
+trashbin to throw objects.
 
 \begin{figure*}[thpb]
   \centering
     \includegraphics[width=1.0\textwidth]{./figs/manip_run.pdf} \\
     \begin{center}
-    \caption {An example of a human-robot collaborative goal achievement}
+        \caption {Sequence of events of a simplified version of the \emph{Cleaning the table} scenario.}
     \end{center}
-  \label{manip_run_fg}
+  \label{fig|cleantable-timeline}
 \end{figure*}
 
 
-%\subsection{successful execution}
-
-Figure~\ref{manip_run_fg} illustrates the main processes occurring
-during a multi-step human-robot collaborative goal achievement.  The
-plan produced is quite straightforward and is shown in the third row
-called ``Goal and Plan''. It consists in 4 successive actions
-involving the robot and the human. Robot grasps the tape and then
-places it on the table at a position where it is visible and reachable
-for the human. Human then is asked to pick the tape and throw it in
-the trashbin. The first row, named ``Cameras'', shows several
-snapshots corresponding to various execution steps. Snapshot~1
-presents the initial situation. Snapshots~2, 3, 4 and 5 give the state
-after the successive achievement of the four actions in the plan. The
-second row, named ``3D Model'', shows the display of SPARK at the same
-instants. The fourth, row called ``Robot Speech Acts'', gives robot
-speech acts produced along the execution to inform the human partner
-about goal and plan creation and status and to verbalize the actions
-that the human is asked to execute. The fifth row illustrates robot
-knowledge on itself and on the objects. The sixth row illustrates the
-robot knowledge about the human state. The seventh row gives ongoing
-robot action with action preconditions and effects assessment as well
-as motion execution tasks. Motion trajectory typology can be found
-between the 3D Model views. The eighth row gives ongoing human action
-with action preconditions and effects assessment and monitoring
-activity.
-
+The plan produced in that case by HATP is straightforward and shown in the
+third row. It consists in four successive actions involving the robot and the
+human. Robot grasps the tape and then places it on the table at a position
+where it is visible and reachable for the human. Human then is asked to pick
+the tape and throw it in the trashbin.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1329,7 +1503,7 @@ ones, \eg, since the robot and the person share a common goal, they
 have to agree on the manner to realize it, they must show their
 commitment to the goal during execution, etc. Several robotic systems
 have already been built based on these
-theories~\cite{Rich1997,Sidner2005,Tambe2005a,Breazeal2003} and they
+theories~\cite{Rich1997,Sidner2005,Breazeal2003} and they
 all have shown benefits of this approach\fxwarning{which approach? how it is related to larger AI challenges?}. They have also shown how
 difficult it is to manage turn-taking between communication partners
 and to interleave task realization and communication in a generic
