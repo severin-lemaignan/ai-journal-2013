@@ -489,20 +489,20 @@ features.
 \begin{figure}
         \centering
         \includegraphics[width=\columnwidth]{spark-oro}
-    \caption{Functional overview of knowledge base ({\sc Oro} server, top part) and the geometric situation assessment module (\emph{SPARK}, bottom part)}
+    \caption{Functional overview of knowledge base ({\sc Oro} server, top part) and the geometric situation assessment module (\emph{{\sc Spark}}, bottom part)}
         \label{fig|spark-oro}
 \end{figure}
 
 Anchoring perceptions in a symbolic model requires perception abilities and
 their symbolic interpretation. We rely on a dedicated geometric and temporal
-reasoning module called SPARK (\emph{SPAtial Reasoning \&
+reasoning module called {\sc Spark} (\emph{SPAtial Reasoning \&
 Knowledge}~\cite{Sisbot2011}). It is a situation assessment reasoner that
 generates symbolic knowledge from the geometry of the environment with respect
 to relations between objects, robots and humans (Fig.~\ref{fig|spark-oro}),
 also taking into account the different perspective that each agent has on the
 environment.
 
-SPARK is an \emph{amodal}~\cite{Mavridis2006} geometric model of the
+{\sc Spark} is an \emph{amodal}~\cite{Mavridis2006} geometric model of the
 environment that serves both as basis for the fusion of the perception
 modalities and as bridge with the symbolic layer. This geometric model is
 continuously updated at run-time by the robot based on its sensors (in our
@@ -511,7 +511,7 @@ humans are tracked with Kinect-like devices, optionally assisted by motion
 capture to accurately track the head motion, which is required to compute what
 the human is looking at).
 
-\fxnote{Add 2-3 lines to summarize the AI highlights of SPARK}
+\fxnote{Add 2-3 lines to summarize the AI highlights of {\sc Spark}}
 
 \subsubsection{Situation Assessment}
 
@@ -615,7 +615,7 @@ probabilities for this object. Such information can be used to update
 the beliefs using input from exploration, dialog, human visual
 focus,\ldots \fxnote{Paragraph need write. Tell what the module actually does, not what it could do}
 
-SPARK currently provides a simple implementation of such a functionality. The
+{\sc Spark} currently provides a simple implementation of such a functionality. The
 only managed hypotheses are \emph{in container} and \emph{in agent hand}. We
 can have only one hypothesis at the same time. Hypothesis validity is checked
 geometrically in case of incoming perception values.
@@ -628,21 +628,14 @@ facts like goals, intentions and plans, as well as bottom-up data from agent
 and object motions. Simple temporal and geometric reasoning on human hand
 trajectories and potential objects placements can provide some useful clues for
 high level human monitoring processes. We call this temporal and geometric
-reasoning \emph{primitive action recognition}.
-
-For example, a \emph{pick}, a \emph{throw} or a \emph{place} action
-can be recognized by observing that an object on table and an empty
-human hand are close to each other, or that the human hand holding an
-object is close to a container, etc. Human hand position is either
-directly perceived or inferred from its initial perceived trajectory\fxwarning{we really do that?}.
-We have a simple implementation of such a primitive action recognition
-in SPARK that relies on monitoring human hand and its motion near
-objects or above containers.
-
+reasoning \emph{primitive action recognition}. Those primitive actions are
+assessed through monitoring situations like ``an empty hand is close to an
+object on a table'' (precursor for a \emph{pick}), or ``a hand holding an
+object is over a container'' (precursor for a \emph{throw}).
 
 \subsubsection{Ego-centric and allo-centric frames}
 
-SPARK enables \emph{perspective-taking}: spatial relations between entities can
+{\sc Spark} enables \emph{perspective-taking}: spatial relations between entities can
 be computed from different viewpoints, which let the robot build for each
 agents it interacts with a different, \emph{perspective-aware} symbolic model
 of the environment. These models are separately stored in the knowledge base.
@@ -778,18 +771,25 @@ on discrimination transparently benefit from added modalities.
 Our execution controllers rely on symbolic task planning to convert long-term
 desires into a succession of atomic actions. We use in our architecture the
 HATP planner (for Human Aware Task Planner~\cite{Alili2008, Alili2009}).  HATP
-is based on a Hierarchical Task Network (HTN) refinement, which performs an
-iterative task decomposition into sub-tasks until reaching atomic
-actions\fxwarning{Rephrase: the definition is actually generic to HTN, not HATP
-specfic}. The \emph{planning domain} defines the set of methods describing how
-to decompose a task and represents the procedural knowledge of the robot. It is
-stored outside of the central knowledge base.
+is a refinement of a Hierarchical Task Network (HTN). As an HTN, it performs an
+iterative task decomposition into sub-tasks until reaching atomic actions. The
+\emph{planning domain} defines the set of methods describing how to decompose a
+task and represents the procedural knowledge of the robot. It is stored outside
+of the central knowledge base, using a specific formalism.
 
-HATP is able to produce plans for the robot's actions as well as for the other
-participants (humans or robots). It can be tuned by setting up different costs
-depending on the actions to apply and by taking into account a set of
-constraints called social rules. This tuning aims at adapting the robot's
-behavior according to the desired level of cooperation of the robot.
+HATP originality resides in its ability to produce plans for the robot's
+actions \emph{as well as for the other participants} (humans or robots): the
+robot plans for itself, but also for its interactors, which effectively endows the robot
+with new interaction capabilities: It can partially predict the behaviour, and
+thus monitor the engagement, of its human partner; the planner generates
+synchronisation points (arrow going from the robot stram to the human stream on
+Figure~\ref{plan_hatp1}) between the agents; the controller can also verbalize
+the plans to explain its partner how a task may be shared~\cite{warnier2012when}.
+
+HATP can be tuned by setting up different costs depending on the actions to
+apply and by taking into account a set of constraints called \emph{social
+rules}. This tuning aims at adapting the robot's behavior according to the
+desired level of cooperation of the robot.
 
 \paragraph{Agents and action streams}
 The robot plans not only for itself but also for the other agents. The
@@ -1011,7 +1011,7 @@ Building, updating and maintaining a correct state of the world at
 geometric and symbolic level is crucial to the capacity of the robot
 to carry on successfully a multi-step interaction with a human. Tight
 integration between the robot controller and the geometric and
-temporal reasoning functions in SPARK and symbolic facts and beliefs
+temporal reasoning functions in {\sc Spark} and symbolic facts and beliefs
 management in ORO is central.
  
 The robot controller has access to the symbolic facts in ORO that are
@@ -1041,7 +1041,7 @@ current hypothesis, robot controller will break this hypothesis and delete
 corresponding symbolic fact in the ontology.
 
 Robot must reacts to change in the world not linked to robot action to drive
-world update. Robot controller uses SPARK to monitor human hand motion and
+world update. Robot controller uses {\sc Spark} to monitor human hand motion and
 primitive action recognition for \emph{pick} and \emph{throw}. As mentioned
 above these primitive action recognition should be used with higher level
 information on goals, intentions and plans and some exploration to achieve
@@ -1286,7 +1286,7 @@ is presented in~\cite{warnier2012when}).
     \includegraphics[width=0.7\columnwidth]{cleantable.jpg}
 
     \caption{Snapshot of the film of the ``Clean the Table'' scenario. The
-    physical situation, the SPARK model, and the current step of the plan can
+    physical situation, the {\sc Spark} model, and the current step of the plan can
     be seen.}
 
     \label{fig|cleantable-video}
@@ -1332,9 +1332,9 @@ the tape and throw it in the trashbin.
 \label{sect|conclusion}
 
 This last section goes over again the main contributions we have presented
-so far: why are they relevant to robotics and artificial intelligence? How do
-they compare to similar approaches? How do we justify our technical choices and
-what remain to be developed/explored in the future?
+so far: why they are relevant to robotics and artificial intelligence, how do
+they compare to similar approaches, how do we support our technical choices and
+what remains to be developed/explored in the future.
 
 \subsection{Foundations of cognition for the robot}
 
@@ -1381,9 +1381,11 @@ extraction and recognition challenges. Each object has a unique identifier,
 which enable us to load a proper CAD model suitable for 3D spatial reasoning
 and prevent recognition mistakes in the knowledge base. While {\sc Spark}
 algorithms themselves are ignorant of the input sources, and would work equally
-well with a full object recognition stack, it is not currently supported.
+well with a full object recognition stack, we have not tackled it yet.
 
-\fxwarning{spatial reasoning -> mention we do not support extensive temporal reasoning}
+Besides, temporal reasoning (essential for accurate action recognition for
+instance) is not properly addressed in our stack. Temporal reasoning is used
+only locally, and does not allow for tracking of long or global events.
 
 \paragraph{Robot control}
 
@@ -1460,6 +1462,7 @@ to grasp, it also effectively helped to grow awareness amongst colleagues on
 the significance of the ``semantic level'' when developing new components for
 the robot.
 
+\fxfatal{Insert here discussion of other major KRR systems for robots (Severin)}
 
 \subsection{Interacting with humans}
 
@@ -1514,8 +1517,8 @@ account at all levels\fxwarning{Old references, no new ones? we should also say 
 
 \subsection{Knowledge-oriented architecture}
 
-Altogether, the components we have presented compose an architecture that we
-call \emph{knowledge-oriented}:
+Altogether, the components we have presented compose a
+\emph{knowledge-oriented} architecture:
 
 \begin{itemize}
     
@@ -1545,16 +1548,18 @@ call \emph{knowledge-oriented}:
 
 \end{itemize}
 
-Those items are not new \emph{per se}. It seems however interesting to
+Those items are not new \emph{per se}. It is however interesting to
 underline the shift of focus this implies during the design and integration
-phases: components of our deliberative layer are defined and glued together by
+phases of robots: components of our deliberative layer are defined and glued together by
 the knowledge they produce and consume.
 
-\fxfatal{Insert here discussion of other major KRR systems for robots (Severin)}
+It reveals how the robotic community is ``catching up'' with semantic
+technologies. Human-robot interaction, because it supposes operations in
+environments with complex semantics, drives this evolution.
 
 \subsection{Embodied Cognition}
 
-Robotics is traditionally regarded as the prototypical testbed for \emph{embodied}
+Robotics is traditionally regarded as the prototypical instance of \emph{embodied}
 artificial intelligence, and this dimension is especially prevalent in
 human-robot interaction, where agents have to share a joint physical
 environment.
