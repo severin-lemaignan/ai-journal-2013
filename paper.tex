@@ -62,15 +62,15 @@ deal with, with possibly complex semantics; physical interactions with humans
 that requires fine, low-latency control, representation and management of
 several mental models, good situation assessment skills...the list goes on.
 
-This article shed light on some key decisional issues that are to be tackled
-for a cognitive robot to share space and tasks with a human. We adopt a
-constructive approach based on the identification and the effective
-implementation of individual and collaborative skills. These cognitive
-abilities cover geometric reasoning and situation assessment based essentially
-on perspective-taking and affordances, management and exploitation of each
-agent (human and robot) knowledge in separate cognitive models, natural
-multi-modal communication, human-aware task planning, and human and robot
-interleaved plan achievement.
+This article sheds light on some key decisional issues that are to be tackled
+for a cognitive robot to share space and tasks with a human, and present our
+take on these challenges. We adopt a constructive approach based on the
+identification and the effective implementation of individual and collaborative
+skills. These cognitive abilities cover geometric reasoning and situation
+assessment mainly based on perspective-taking and affordances, management and
+exploitation of each agent (human and robot) knowledge in separate cognitive
+models, natural multi-modal communication, human-aware task planning, and human
+and robot interleaved plan achievement.
 
 We present our design choices, the articulations between the diverse
 deliberative components of the robot, experimental results, and eventually
@@ -99,46 +99,35 @@ decision-making issue in human-robot interactions.
 
 Human-robot interaction is a challenge for artificial intelligence. This field
 indeed lays at the crossroad of several other domains of AI and requires to
-tackle them in a holistic manner. Modeling humans and human cognition;
+tackle them in a holistic manner: Modeling humans and human cognition;
 acquiring, representing, manipulating in a tractable way abstract knowledge;
-reasoning on this knowledge to make decisions; instanciating those decisions
-into physical actions in coordination with humans... Many AI techniques are
-invited, from visual processing to symbolic reasoning, from task planing to
-\emph{theory of mind} building, from reactive control to action recognition and
-learning.
+reasoning on this knowledge to make decisions; and eventually instanciating
+those decisions into physical actions in coordination with humans. Many AI
+techniques are invited, from visual processing to symbolic reasoning, from task
+planing to \emph{theory of mind} building, from reactive control to action
+recognition and learning.
 
 We do not tackle all these issues. This article attempts however to organize
 them into a coherent challenge for artifical intelligence, and also explicit
-some of the trails that have been explored on our robots and that result in a
-deliberative, knowledge-focused, architecture for human-robot interaction.
-
-Human-robot interaction requires to equip the robot with explicit reasoning on
-the human and on its own capacities to achieve its tasks in a legible, if not
-collaborative, way with human partners. In the following pages, we present a
-robot control system which has been especially designed for a cognitive robot
-which shares space and task with a human. It has been designed by adopting a
-constructive approach based on effective individual and collaborative skills.
-The system is comprehensive since it aims\fxnote{it *is* comprehensive, or it *aims* at being comprehensive?} at dealing with a complete set of
-abilities articulated so that the robot controller is effectively able to
-conduct in a flexible manner a collaborative task with a human partner.
-
-We illustrate below how we deal with a typical human-robot interactive task
-achievement and what are the abilities we claim are necessary. Section
-\ref{sec:problem} proposes a typical human-robot interaction problem that can
-be solved by the proposed robot controller. Section
-\ref{sec:Framework} provides an overview of the robot controller and
-introduces three activities which are described in \ref{sec:situ},
-\ref{sec:plan} and \ref{sec:action}. Section \ref{sec:expes}
-presents the structure an actual run on a real robot in face to face interaction with a
-person. Finally, section~\ref{sec:soa} discusses and analyses the impact of
-each of our contribution in the light of existing literature and alternative
-approaches.
+some of the paths that have been investigated on our robots and that result in a
+deliberative, knowledge-oriented, architecture for human-robot interaction.
 
 \subsection{The human-robot interaction challenge}\label{sec:problem}
 
-\fxfatal{Develop/reorganize this section to organize the different problems of
-HRI into one coherent challenge for AI. See how to articulate it with section
-\ref{sec:psychocognitivegrounds}}
+\begin{figure}[htb]
+\centering
+\includegraphics[width=0.9\columnwidth]{grounding_robot.pdf}
+\caption{Robot reasoning about HRI and anticipation of human activities.
+  Sources of information are multi-modal dialogue, and monitoring of the
+  environment and human activity. The robot must adapt on-line its behaviours
+  by merging computed plans with reactive control.}
+\label{fig:hri-dec}
+\end{figure}
+
+\fxfatal{Merge the following 3 paragraphs}
+Our frame is the robot which is
+expected to achieve interactive object manipulation, fetch and carry tasks and
+similar tasks in a domestic environment (Figure~\ref{fig:hri-dec}).
 
 We envision HRI in a context where two agents (a human and a robot)
 share a common space and exchange information through various
@@ -148,18 +137,15 @@ interactions with him (Figure~\ref{fig:hri-dec}). This must be
 considered at the architecture level as well as at the task/motion
 planning and execution level. 
 
-\begin{figure}[htb]
-\centering
-\includegraphics[width=0.9\columnwidth]{grounding_robot.pdf}
-\caption{Robot reasoning about HRI and anticipation of human activities:
-  sources of information are multi-modal dialogue, and observation of
-  environment and human activity}
-\label{fig:hri-dec}
-\end{figure}
+Over the last years we have focused our efforts on identifying the cognitive
+prerequisites of these challenges, and giving them experimental reality on the
+robots: what is required for sentences like ``Let's set the table together''
+to be understood by the robot, correctly interpreted in the spatial and
+temporal context of the interaction, and eventually transformed into a set of
+actions.
 
-\paragraph{The Joint Action Challenge} Let us consider a robot which is
-supposed to achieve interactive object manipulation, fetch and carry tasks and
-similar tasks in a domestic environment. The problem we are dealing with here
+
+The problem we are dealing with here
 is the following. Given:
 
 \begin {itemize}
@@ -168,6 +154,7 @@ is the following. Given:
 \item the current situation, acquired through perception or
   deduction from previous perceptions, including the state of the
   environment of the robot and of the human,
+\item [\it a priori} common-sense knowledge,
 \end {itemize}
 
 the robot controller computes an action to execute and who (the 
@@ -193,20 +180,8 @@ to provide several levels of parametrization allowing to adapt to
 various environments, and various levels of involvement of the robot
 ranging from teammate behavior to assistant or proactive helper.
 
-We have devised a decisional framework for human-robot interactive
-task achievement that is aimed to allow the robot not only to
-accomplish its tasks but also to produce behaviors that support its
-engagement vis-a-vis its human partner and to interpret human
-behaviors and intentions. 
-Together and in coherence with this framework, we have developed
-and experimented various task planners and interaction schemes that
-allow the robot to select and perform its tasks while taking into
-account explicitly the human abilities as well as the constraints
-imposed by the presence of humans, their needs and preferences. 
 
-
-
-\subsection{Our Contributions Towards the Cognitive Robot}
+\subsection{Our contributions towards the cognitive robot}
 
 The main scientific contributions of the article are summarized here, to guide
 the reader. We develop and discuss them, also in relation to other works, at
@@ -214,32 +189,29 @@ the end of the article.
 
 \fxfatal{Rewrite section 'summary of contributions'}
 
-Over the last years we have focused our efforts on identifying the cognitive
-prerequisites of these challenges, and giving them experimental reality on the
-robots: what is required for sentences like ``Let's set the table together''
-to be understood by the robot, correctly interpreted in the spatial and
-temporal context of the interaction, and eventually transformed into a set of
-actions.
+\subsection{Article organization}
 
-We have chosen to tackle the challenge from several ends: human-aware
-navigation and motion planning~\cite{Mainprice2011}, situation assessment
-coupled with motion planning~\cite{Mainprice2012}, projection of
-``mightabilities'' that anticipates what surrounding agents may
-do~\cite{Pandey2011}, and the design and deployment of a pervasive
-\emph{knowledge-oriented} software architecture~\cite{Lemaignan2013}.
+The remaining of the article discuss the robotic architecture we have built to
+tackle the AI challenges of human-robot interaction, and how its relates to
+other approaches. We propose to organize this discussion in four sections.
 
-\section{From Human-Robot Interaction to a Deliberative Architecture}
+The next section presents the overall architecture and the knowledge model we
+have developed for our robots. Section~\ref{sec:impl} gives some insights on
+the each of the main components of the architecture, and try to highlight their
+significance for artificial intelligence. Section~\ref{sec:expe} presents two
+experiments that illustrate in a concrete way what can be currently achieved
+with our robots.  Section~\ref{sect|conclusion} finally summarizes our main
+contribution and relate them to other recent researches in the field.
 
-\subsection{The Psycho-Cognitive Grounds of Human-Robot Interaction}
-\label{sec:psychocognitivegrounds}
-
-\fxfatal{write section summary of the challenges that human-robot interaction presents to robotics.}
+\section{From human-robot interaction to a deliberative architecture}
 
 \subsection{Building a human-aware deliberative layer}
 
 \fxfatal{Need to carefully introduce this section: how did we come up this this architecture?}
 
-Fig.~\ref{fig|archi} gives an overview of the connections between the
+\fxfatal{Describe archi}
+
+Figure~\ref{fig|archi} gives an overview of the connections between the
 deliberative components of our architecture~\cite{Alami2011}.
 
 \begin{figure*}
@@ -252,13 +224,14 @@ deliberative components of our architecture~\cite{Alami2011}.
 \end{figure*}
 
 
-This architecture moves away from standard layered approaches. Interactions
+This architecture moves away from standard layered approaches found in
+robotics~\cite{Gat1998three, Volpe2001CLARAty, Goldberg2002}. Interactions
 between components at the deliberative level are mostly bidirectional and we do
 not introduce layers of abstraction amongst software components\footnote{We do
 have lower-level modules to execute actions or manage sensors, but all
-cognition-related modules reside at the same level.}. This is nicely
-illustrated by the dialogue input processing. This component does not simply
-act as an alternative perceptual input to the symbolic database; it also
+cognition-related modules reside at the same level.}. Dialogue processing, for
+instance, illustrates this structure: This component does not simply act as an
+alternative perceptual input to the symbolic database; it also
 actively queries previously acquired knowledge to disambiguate and validate the
 newly created symbolic knowledge (see section~\ref{sect|com}).
 
@@ -272,20 +245,20 @@ aims at selecting at each step the best subgoal. It becomes then an intention
 that the robot commits to.
 
 This interaction between knowledge and actions is also central to our approach
-(as for any cognitive system): it is one of the activities of the
-robot, actually shared between communication components (that can acquire
-desires from interaction with agents, amongst other things) and an execution
-controller that may decide to take an incoming desire into account to create
-its own internal goals. The controller generates and manages intentions from
-these goals with the help of a symbolic task planner, that also has direct
-access to the knowledge base.
+(as for any cognitive system): it is one amongst all the activities carried by
+the robot, actually performed by the communication components (that acquire
+desires from interaction with agents) and the execution controller that may
+decide to take an incoming desire into account to create its own internal
+goals. The controller generates and manages intentions from these goals with
+the help of a symbolic task planner, that also has direct access to the
+knowledge base.
 
 This activity is however not the backbone of our architecture. Other
 activities are conducted in parallel, without being explicitly considered as
 desires: assessment of the situation and the environment, dialogue (including
 performative dialogue that can possibly change the internal state of the robot,
-but does not lead to the creation of desires, like question answering or
-statement assertion), various background monitoring and recognition tasks, etc.
+but does not lead to the creation of desires, like statement assertion or
+question answering), various background monitoring and recognition tasks, etc.
 
 Regarding the anchoring question, this architecture is bidirectional. The
 components we described provide a \textit{bottom-up} grounding process:
@@ -297,11 +270,11 @@ trigger physical behaviours.
 
 \subsection{A Knowledge model}
 
-In our architecture (Fig.~\ref{fig|archi}), knowledge manipulation relies on a
-\emph{semantic blackboard}: a central server (the {\sc Oro}
+In this architecture, knowledge manipulation relies on a
+semantic \emph{blackboard}: a central server (the {\sc Oro}
 server~\cite{Lemaignan2010}) stores knowledge as it is produced by each of the
-deliberative components. It conversely exposes a {\tt json}-based RPC API to
-query the knowledge base~\cite{lemaignan2012kbapi}.
+deliberative components. It conversely exposes a {\tt json}-based RPC
+API~\cite{lemaignan2012kbapi} to query the knowledge base.
 
 Knowledge is represented as RDF triples in the OWL sub-language. Each
 time triples are added or removed from the knowledge base, a Description
@@ -309,13 +282,13 @@ Logics reasoner ({\sc Pellet}\footnote{\url{http://clarkparsia.com/pellet/}})
 classifies the whole ontology and inserts all possible inferred triples.
 
 At any time, the knowledge available to the robot may come from three sources:
-Part of the knowledge is stored in an ontology (the {\sc OpenRobots Ontology}),
+{\it a priori} knowledge is stored in an ontology (the {\sc OpenRobots Ontology}),
 loaded when the robot initializes. This static source covers the
 \emph{common-sense} knowledge of the robot, and optionally some
 scenario-specific knowledge (for instance about objects that are to be
 manipulated). The second part of the knowledge is acquired at runtime from
 perception, interaction, decision making.  We go over the processes it involves
-in the next section. Lastly, the third source of knowledge is the output of the
+in the next sections. Lastly, the third source of knowledge is the output of the
 reasoner.
 
 \begin{figure}
@@ -335,11 +308,11 @@ upper ontology.
 This lead to a bidirectional design process: from \emph{bottom-up} regarding
 the choices of concepts to model, \emph{top-down} regarding the upper part of the
 taxonomy. This upper part of the ontology is pictured on
-figure~\ref{fig|upper_tbox}. All the classes visible on this figure belong to the
+Figure~\ref{fig|upper_tbox}. All the classes visible on this figure belong to the
 {\sc OpenCyc} namespace (the {\tt cyc:} prefix is omitted for clarity).
 
-By \emph{aligning} the upper part of the ontology on {\sc OpenCyc} (as other
-KRS, like {\sc KnowRob}~\cite{Tenorth2009a} or PEIS K\&R~\cite{Daoutis2009}, did)
+Aligning the upper part of the ontology on {\sc OpenCyc} (as done by other
+KRS, like {\sc KnowRob}~\cite{Tenorth2009a} or PEIS K\&R~\cite{Daoutis2009})
 has multiple advantages. First the design of this part of the ontology is
 generally difficult: it pertains to abstract concepts whose mutual relations
 comes to philosophical debates. The upper taxonomy of {\sc OpenCyc} represents
@@ -356,7 +329,7 @@ and actually many other entities that would not be commonly said to be objects
 (the Earth for instance). Thus the importance of relying on well-defined and
 standard semantics to exchange informations between artificial systems.
 
-This figure~\ref{fig|upper_tbox} also illustrates the fundamental disjunction
+Figure~\ref{fig|upper_tbox} also illustrates the fundamental disjunction
 in the ORO model between \emph{temporal} and \emph{spatial} entities (formally,
 $(TemporalThing \sqcap SpatialThing)^{\mathcal{I}} = \emptyset$, with
 $\mathcal{I}$ the \emph{interpretation} of our model).
@@ -368,7 +341,7 @@ ontology, but are added by the execution controller (in link with the symbolic
 task planner) and the natural language processor based on what is actually
 performable and/or understandable by the robot at run-time.
 
-The tree of figure~\ref{fig|upper_tbox} (this subset of the ontology is indeed
+The tree in Figure~\ref{fig|upper_tbox} (this subset of the ontology is indeed
 a tree: this has however not to be the case in general, and, as a matter of
 fact, the TBox of the whole ORO common-sense ontology does not form a tree) is
 not equally developed at lower levels. We have already briefly mentioned the
@@ -387,7 +360,9 @@ ontology.
 This excerpt from the ontology makes the bottom-up design process visible: only
 few types of \emph{partially tangible} things appear, and only subclasses
 relevant to the context of service robotics in an human-like environment are
-present.
+present. For performances and ease of use, we do not attempt to comprehensively
+cover the field. We opportunistically extend the common-sense knowledge when
+required by experiments.
 
 Lastly, the ORO common-sense ontology contains several rules and class
 expressions that encode non-trivial inferences.
@@ -449,32 +424,32 @@ our robots~\cite{warnier2012when}.
 \subsubsection{Working memory}
 
 The {\sc Oro} server also features a mechanism to mimic minimalistic forms of
-biological memory.  When new statements are inserted in the knowledge base, a
+memory families.  When new statements are inserted in the knowledge base, a
 \emph{memory profile} is optionally attached to them.
 
 Three such profiles are predefined: {\tt short term}, {\tt episodic} and {\tt
-long term}. They each correspond to a different lifetime for the statements
+long term}. They are currently attached to different lifetime for the statements
 (respectively 10 seconds, 5 minutes and no time limit). After this duration,
 the statements are automatically removed from the knowledge base.
 
-This approach is limited. In particular, \emph{episodic} memory primarily
-refers to the semantics of the statements (that is expected to be related to an
+This approach is limited. In particular, \emph{episodic} memory should primarily
+refer to the semantics of the statements (that is expected to be related to an
 event) and not to a specific life duration.
 
-We rely however on this short term memory for a particular use-case:
-\emph{active concepts}. Some modules, like the natural language processor, use
-the {\tt short term} memory profile to mark for a few seconds important
-concepts that are currently manipulated by the robot. For example, if a human
-asks the robot: ``Give me all red objects'', the human, the \concept{Give}
-action, and each red objects that are found are successively marked as
-\emph{active concepts} by inserting statements such as \stmt{human type
-ActiveConcept} in the short-term memory (which can be considered, in this case,
-to be a working memory). We use this feature to trace certain knowledge-related
-processes.
+We rely however on this mechanism in certain cases: for instance, some modules
+like the natural language processor use the {\tt short term} memory profile to
+mark for a few seconds important concepts that are currently manipulated by the
+robot as \emph{active concepts}. For example, if a human asks the robot: ``Give
+me all red objects'', the human, the \concept{Give} action, and each red
+objects that are found are successively marked as \emph{active concepts} by
+inserting statements such as \stmt{human type ActiveConcept} in the short-term
+memory (which can be considered, in this case, to be a working memory). We use
+this feature to trace certain knowledge-related processes.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Implementing the Cognitive Skills}
+\label{sec:impl}
 
 Previous section provided an overview of what we propose as a generic cognitive
 architecture for robots involved in interactions with other social agents.
@@ -489,7 +464,11 @@ features.
 \begin{figure}
         \centering
         \includegraphics[width=\columnwidth]{spark-oro}
-    \caption{Functional overview of knowledge base ({\sc Oro} server, top part) and the geometric situation assessment module (\emph{{\sc Spark}}, bottom part)}
+    \caption{Functional overview of knowledge base ({\sc Oro} server, top part)
+    and the geometric situation assessment module (\emph{{\sc Spark}}, bottom
+    part). {\sc Spark} computes symbolic relationships between objects and
+    agents, and fed them to the knowledge base.}
+
         \label{fig|spark-oro}
 \end{figure}
 
@@ -498,7 +477,7 @@ their symbolic interpretation. We rely on a dedicated geometric and temporal
 reasoning module called {\sc Spark} (\emph{SPAtial Reasoning \&
 Knowledge}~\cite{Sisbot2011}). It is a situation assessment reasoner that
 generates symbolic knowledge from the geometry of the environment with respect
-to relations between objects, robots and humans (Fig.~\ref{fig|spark-oro}),
+to relations between objects, robots and humans (Figure~\ref{fig|spark-oro}),
 also taking into account the different perspective that each agent has on the
 environment.
 
@@ -1062,6 +1041,7 @@ corresponding actions \emph{pick} object and \emph{throw} object.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Experimental outcomes}
+\label{sec:expe}
 
 Our architecture has been deployed and tested in a number of experiments on
 several robotic platforms. Table~\ref{table|experiences} lists the most
@@ -1620,6 +1600,19 @@ be viable soon~\cite{Dean2013Fast}.
 
 
 \subsection{The Next Steps}
+
+\fxfatal{Rewrite conclusion}
+
+We have devised a decisional framework for human-robot interactive
+task achievement that is aimed to allow the robot not only to
+accomplish its tasks but also to produce behaviors that support its
+engagement vis-a-vis its human partner and to interpret human
+behaviors and intentions. 
+Together and in coherence with this framework, we have developed
+and experimented various task planners and interaction schemes that
+allow the robot to select and perform its tasks while taking into
+account explicitly the human abilities as well as the constraints
+imposed by the presence of humans, their needs and preferences. 
 
 
 In this paper we have presented a decisional framework designed for
