@@ -9,12 +9,12 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="818.08423"
-   height="432.32516"
+   width="864.64111"
+   height="453.11215"
    id="svg2"
    version="1.1"
-   inkscape:version="0.48.3.1 r9886"
-   sodipodi:docname="archi.pdf"
+   inkscape:version="0.48+devel r"
+   sodipodi:docname="archi.svg"
    inkscape:export-filename="/home/mwarnier/Documents/Publications/mat_publications/icra2012/figs/supervisor-architecture-new.png"
    inkscape:export-xdpi="300"
    inkscape:export-ydpi="300">
@@ -55,7 +55,7 @@
        style="overflow:visible">
       <path
          id="path4090"
-         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 Z"
          style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
          transform="matrix(0.4,0,0,0.4,4,0)"
          inkscape:connector-curvature="0" />
@@ -398,7 +398,7 @@
        style="overflow:visible">
       <path
          id="path4959-61"
-         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 Z"
          style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
          transform="matrix(-0.4,0,0,-0.4,-4,0)"
          inkscape:connector-curvature="0" />
@@ -419,7 +419,7 @@
        style="overflow:visible">
       <path
          id="path4090-1"
-         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 Z"
          style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
          transform="matrix(0.4,0,0,0.4,4,0)"
          inkscape:connector-curvature="0" />
@@ -433,7 +433,7 @@
        style="overflow:visible">
       <path
          id="path4959-61-6"
-         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 Z"
          style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
          transform="matrix(-0.4,0,0,-0.4,-4,0)"
          inkscape:connector-curvature="0" />
@@ -454,7 +454,7 @@
        style="overflow:visible">
       <path
          id="path4090-6"
-         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 Z"
          style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
          transform="matrix(0.4,0,0,0.4,4,0)"
          inkscape:connector-curvature="0" />
@@ -468,7 +468,7 @@
        style="overflow:visible">
       <path
          id="path4959-61-3"
-         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 Z"
          style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
          transform="matrix(-0.4,0,0,-0.4,-4,0)"
          inkscape:connector-curvature="0" />
@@ -1419,16 +1419,16 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.979899"
-     inkscape:cx="524.56428"
-     inkscape:cy="143.73038"
+     inkscape:zoom="0.70000001"
+     inkscape:cx="450.87012"
+     inkscape:cy="267.82575"
      inkscape:document-units="px"
-     inkscape:current-layer="g9600"
+     inkscape:current-layer="g5617"
      showgrid="false"
-     inkscape:window-width="1680"
-     inkscape:window-height="1022"
-     inkscape:window-x="1600"
-     inkscape:window-y="0"
+     inkscape:window-width="1600"
+     inkscape:window-height="845"
+     inkscape:window-x="0"
+     inkscape:window-y="27"
      inkscape:window-maximized="1"
      fit-margin-top="0"
      fit-margin-left="0"
@@ -1450,21 +1450,21 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(42.884827,-611.0029)">
+     transform="translate(49.945955,-603.35563)">
     <rect
-       inkscape:transform-center-y="-38.045139"
+       inkscape:transform-center-y="-45.845592"
        inkscape:transform-center-x="19.00675"
        inkscape:export-ydpi="300"
        inkscape:export-xdpi="300"
        inkscape:export-filename="/home/mwarnier/Documents/Publications/mat_publications/icra2012/figs/supervisor-architecture-new.png"
-       ry="9.9999981"
+       ry="12.050306"
        rx="10"
-       y="633.89838"
+       y="635.75549"
        x="214.7149"
-       height="59.224522"
+       height="71.367378"
        width="557.58252"
        id="rect4794"
-       style="font-size:13.25269127px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#f2f2f2;fill-opacity:0.99607843;fill-rule:evenodd;stroke:#cccccc;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:0.99607843;stroke-dasharray:8.99999997, 8.99999997;stroke-dashoffset:0;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans" />
+       style="font-size:13.25269127px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#f2f2f2;fill-opacity:0.99607843;fill-rule:evenodd;stroke:#cccccc;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:0.99607843;stroke-dasharray:8.99999985, 8.99999985;stroke-dashoffset:0;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans" />
     <rect
        inkscape:transform-center-y="-22.142857"
        inkscape:transform-center-x="5.4644509"
@@ -1473,7 +1473,7 @@
        inkscape:export-filename="/home/mwarnier/Documents/Publications/mat_publications/icra2012/figs/supervisor-architecture-new.png"
        ry="10"
        rx="10"
-       y="646.39734"
+       y="660.39734"
        x="228.84674"
        height="34.469627"
        width="160.30481"
@@ -1487,7 +1487,7 @@
        inkscape:export-filename="/home/mwarnier/Documents/Publications/mat_publications/icra2012/figs/supervisor-architecture-new.png"
        ry="10"
        rx="10"
-       y="646.88208"
+       y="660.88208"
        x="414.67422"
        height="34.469627"
        width="167.88097"
@@ -1499,7 +1499,7 @@
        width="163.84035"
        height="34.469627"
        x="599.99658"
-       y="647.87195"
+       y="661.87195"
        rx="10"
        ry="10"
        inkscape:export-filename="/home/mwarnier/Documents/Publications/mat_publications/icra2012/figs/supervisor-architecture-new.png"
@@ -1507,62 +1507,6 @@
        inkscape:export-ydpi="300"
        inkscape:transform-center-x="5.5849521"
        inkscape:transform-center-y="-22.142857" />
-    <rect
-       style="font-size:13.25269127px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#f2f2f2;fill-opacity:0.99607843;fill-rule:evenodd;stroke:#cccccc;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:0.99607843;stroke-dasharray:9, 9;stroke-dashoffset:0;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
-       id="rect3550"
-       width="595.96832"
-       height="55.18391"
-       x="164.20728"
-       y="891.4873"
-       rx="10"
-       ry="9.999999"
-       inkscape:export-filename="/home/mwarnier/Documents/Publications/mat_publications/icra2012/figs/supervisor-architecture-new.png"
-       inkscape:export-xdpi="300"
-       inkscape:export-ydpi="300"
-       inkscape:transform-center-x="20.315227"
-       inkscape:transform-center-y="-35.449517" />
-    <rect
-       inkscape:transform-center-y="-22.142857"
-       inkscape:transform-center-x="5.2922605"
-       inkscape:export-ydpi="300"
-       inkscape:export-xdpi="300"
-       inkscape:export-filename="/home/mwarnier/Documents/Publications/mat_publications/icra2012/figs/supervisor-architecture-new.png"
-       ry="10"
-       rx="10"
-       y="901.96594"
-       x="180.31882"
-       height="34.469627"
-       width="155.25406"
-       id="rect3544"
-       style="font-size:13.25269127px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#ad80a8;fill-opacity:0.99607843;fill-rule:evenodd;stroke:#75507b;stroke-width:1.99999988;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:0.99607843;stroke-dasharray:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans" />
-    <rect
-       inkscape:transform-center-y="-22.142857"
-       inkscape:transform-center-x="5.2922605"
-       inkscape:export-ydpi="300"
-       inkscape:export-xdpi="300"
-       inkscape:export-filename="/home/mwarnier/Documents/Publications/mat_publications/icra2012/figs/supervisor-architecture-new.png"
-       ry="10"
-       rx="10"
-       y="901.96594"
-       x="383.86456"
-       height="34.469627"
-       width="155.25406"
-       id="rect3546"
-       style="font-size:13.25269127px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#ad80a8;fill-opacity:0.99607843;fill-rule:evenodd;stroke:#75507b;stroke-width:1.99999988;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:0.99607843;stroke-dasharray:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans" />
-    <rect
-       inkscape:transform-center-y="-22.142857"
-       inkscape:transform-center-x="5.2922364"
-       inkscape:export-ydpi="300"
-       inkscape:export-xdpi="300"
-       inkscape:export-filename="/home/mwarnier/Documents/Publications/mat_publications/icra2012/figs/supervisor-architecture-new.png"
-       ry="10"
-       rx="10"
-       y="901.96594"
-       x="590.94586"
-       height="34.469627"
-       width="155.25406"
-       id="rect3548"
-       style="font-size:13.25269127px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#ad80a8;fill-opacity:0.99607843;fill-rule:evenodd;stroke:#75507b;stroke-width:1.99999988;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:0.99607843;stroke-dasharray:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans" />
     <flowRoot
        xml:space="preserve"
        id="flowRoot3228"
@@ -1612,7 +1556,7 @@
          height="64.604134"
          width="279.65076"
          id="rect2816-3-7-3-4-6"
-         style="font-size:13.25269126999999969px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#73a642;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:6.49381869;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans" />
+         style="font-size:13.25269127px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#73a642;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:6.49381876;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans" />
       <g
          inkscape:export-ydpi="300"
          inkscape:export-xdpi="300"
@@ -1876,102 +1820,6 @@
          x="371.57855"
          y="2339.0745"
          id="tspan4545-7-1-9-1-6-6-0" /></text>
-    <g
-       id="g9742"
-       style="font-size:13.25269127px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
-       transform="matrix(0.75472993,0,0,0.75439755,55.235544,252.60447)"
-       inkscape:export-filename="/home/lemaigna/publications/ai-journal-2013/figs/archi.png"
-       inkscape:export-xdpi="300"
-       inkscape:export-ydpi="300">
-      <text
-         transform="scale(1.0000294,0.99997061)"
-         inkscape:export-ydpi="300"
-         inkscape:export-xdpi="300"
-         inkscape:export-filename="/home/mwarnier/Documents/Publications/mat_publications/icra2012/figs/supervisor-architecture-new.png"
-         id="text2818-3-4-1-5-7-6"
-         y="835.76062"
-         x="341.24963"
-         style="font-size:21.20430565px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-indent:0;text-align:center;text-decoration:none;line-height:normal;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:middle;color:#000000;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans Bold"
-         xml:space="preserve"><tspan
-           y="835.76062"
-           x="341.24963"
-           sodipodi:role="line"
-           id="tspan5468-7">Geometric &amp; Temporal Reasoning</tspan><tspan
-           id="tspan2999-2-9-3"
-           y="862.26599"
-           x="341.24963"
-           sodipodi:role="line" /></text>
-      <g
-         id="g12798"
-         transform="translate(-2.649958,5.3534161)">
-        <text
-           xml:space="preserve"
-           style="font-size:14.31445503px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
-           x="269.35742"
-           y="883.11261"
-           id="text2818-76-9-8-5"
-           inkscape:export-filename="/home/mwarnier/Documents/Publications/mat_publications/icra2012/figs/supervisor-architecture-new.png"
-           inkscape:export-xdpi="300"
-           inkscape:export-ydpi="300"
-           transform="scale(1.0000294,0.99997061)"><tspan
-             sodipodi:role="line"
-             id="tspan2820-0-3-1-8"
-             x="269.35742"
-             y="883.11261">Symbolic Facts Production</tspan><tspan
-             sodipodi:role="line"
-             x="269.35742"
-             y="901.00568"
-             id="tspan4743-9-7-2-8" /></text>
-      </g>
-      <g
-         id="g12808"
-         transform="translate(2.7712268,3.1222061)">
-        <text
-           xml:space="preserve"
-           style="font-size:13.25269127px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
-           x="536.00287"
-           y="885.05096"
-           id="text2818-76-9-8-5-6"
-           inkscape:export-filename="/home/mwarnier/Documents/Publications/mat_publications/icra2012/figs/supervisor-architecture-new.png"
-           inkscape:export-xdpi="300"
-           inkscape:export-ydpi="300"
-           transform="scale(1.0000294,0.99997061)"><tspan
-             sodipodi:role="line"
-             id="tspan2820-0-3-1-8-9"
-             x="536.00287"
-             y="885.05096">World Update Management</tspan><tspan
-             sodipodi:role="line"
-             x="536.00287"
-             y="901.61682"
-             id="tspan4743-9-7-2-8-9" /></text>
-      </g>
-      <g
-         id="g12816"
-         transform="translate(3.1617667e-5,1.7831861)">
-        <text
-           xml:space="preserve"
-           style="font-size:13.25269127px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
-           x="810.61163"
-           y="878.10712"
-           id="text2818-76-9-8-5-6-9"
-           inkscape:export-filename="/home/mwarnier/Documents/Publications/mat_publications/icra2012/figs/supervisor-architecture-new.png"
-           inkscape:export-xdpi="300"
-           inkscape:export-ydpi="300"
-           transform="scale(1.0000294,0.99997061)"><tspan
-             sodipodi:role="line"
-             x="810.61163"
-             y="878.10712"
-             id="tspan3581">Management of environment</tspan><tspan
-             sodipodi:role="line"
-             x="810.61163"
-             y="894.67297"
-             id="tspan3585">geometric model</tspan><tspan
-             sodipodi:role="line"
-             x="810.61163"
-             y="911.23883"
-             id="tspan4743-9-7-2-8-9-2" /></text>
-      </g>
-    </g>
     <flowRoot
        xml:space="preserve"
        id="flowRoot5011"
@@ -2066,7 +1914,8 @@
          x="325.26913"
          y="2266.3943" /></text>
     <g
-       id="g9432">
+       id="g9432"
+       transform="translate(0,14)">
       <text
          transform="scale(1.0002497,0.99975037)"
          inkscape:export-ydpi="300"
@@ -2135,135 +1984,20 @@
            x="496.36115"
            sodipodi:role="line"
            style="font-size:12px" /></text>
-      <g
-         inkscape:export-ydpi="300"
-         inkscape:export-xdpi="300"
-         inkscape:export-filename="/home/lemaigna/publications/ai-journal-2013/figs/archi.png"
-         transform="matrix(1.1112531,0,0,1.1106984,1531.0878,-2576.8663)"
-         id="g4877"
-         style="font-size:9.00109673px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans">
-        <path
-           sodipodi:type="arc"
-           style="font-size:9.84912586px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#eeeeee;stroke:#000000;stroke-width:1.47472131px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
-           id="path5264"
-           sodipodi:cx="-662.14288"
-           sodipodi:cy="1742.6659"
-           sodipodi:rx="10"
-           sodipodi:ry="10"
-           d="m -652.14288,1742.6659 c 0,5.5228 -4.47716,10 -10,10 -5.52285,0 -10,-4.4772 -10,-10 0,-5.5229 4.47715,-10 10,-10 5.52284,0 10,4.4771 10,10 z"
-           transform="matrix(0.93506493,0,0,0.89321022,-383.97033,1348.3405)"
-           inkscape:export-filename="/home/mwarnier/Documents/Publications/mat_publications/icra2012/figs/supervisor-architecture-new.png"
-           inkscape:export-xdpi="300"
-           inkscape:export-ydpi="300" />
-        <text
-           xml:space="preserve"
-           style="font-size:13.33196068px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:125%;letter-spacing:0px;word-spacing:0px;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;color:#000000;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans Bold"
-           x="-1008.1131"
-           y="2909.042"
-           id="text5266"
-           sodipodi:linespacing="125%"
-           transform="scale(0.99963704,1.0003631)"
-           inkscape:export-filename="/home/mwarnier/Documents/Publications/mat_publications/icra2012/figs/supervisor-architecture-new.png"
-           inkscape:export-xdpi="300"
-           inkscape:export-ydpi="300"><tspan
-             sodipodi:role="line"
-             id="tspan5268"
-             x="-1008.1131"
-             y="2909.042"
-             style="font-size:13.33196068px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:125%;letter-spacing:0px;word-spacing:0px;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;color:#000000;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans Bold">1</tspan></text>
-      </g>
-      <g
-         id="g8095"
-         transform="matrix(1.1112531,0,0,1.1106984,1344.3999,-2576.8663)"
-         inkscape:export-filename="/home/lemaigna/publications/ai-journal-2013/figs/archi.png"
-         inkscape:export-xdpi="300"
-         inkscape:export-ydpi="300"
-         style="font-size:9.00109673px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans">
-        <path
-           inkscape:export-ydpi="300"
-           inkscape:export-xdpi="300"
-           inkscape:export-filename="/home/mwarnier/Documents/Publications/mat_publications/icra2012/figs/supervisor-architecture-new.png"
-           transform="matrix(0.93506493,0,0,0.89321022,-383.97033,1348.3405)"
-           d="m -652.14288,1742.6659 c 0,5.5228 -4.47716,10 -10,10 -5.52285,0 -10,-4.4772 -10,-10 0,-5.5229 4.47715,-10 10,-10 5.52284,0 10,4.4771 10,10 z"
-           sodipodi:ry="10"
-           sodipodi:rx="10"
-           sodipodi:cy="1742.6659"
-           sodipodi:cx="-662.14288"
-           id="path8097"
-           style="font-size:9.84912586px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#eeeeee;stroke:#000000;stroke-width:1.47472131px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
-           sodipodi:type="arc" />
-        <g
-           id="g11552"
-           transform="translate(0,-0.9094751)">
-          <text
-             xml:space="preserve"
-             style="font-size:13.33196068px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans Bold"
-             x="-1008.1202"
-             y="2909.2993"
-             id="text8099"
-             sodipodi:linespacing="125%"
-             transform="scale(0.99963704,1.0003631)"
-             inkscape:export-filename="/home/mwarnier/Documents/Publications/mat_publications/icra2012/figs/supervisor-architecture-new.png"
-             inkscape:export-xdpi="300"
-             inkscape:export-ydpi="300"><tspan
-               sodipodi:role="line"
-               id="tspan8101"
-               x="-1008.1202"
-               y="2909.2993"
-               style="font-size:13.33196068px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans Bold">2</tspan></text>
-        </g>
-      </g>
-      <g
-         id="g8103"
-         transform="matrix(1.1112531,0,0,1.1106984,1716.3201,-2576.8663)"
-         inkscape:export-filename="/home/lemaigna/publications/ai-journal-2013/figs/archi.png"
-         inkscape:export-xdpi="300"
-         inkscape:export-ydpi="300"
-         style="font-size:9.00109673px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans">
-        <path
-           inkscape:export-ydpi="300"
-           inkscape:export-xdpi="300"
-           inkscape:export-filename="/home/mwarnier/Documents/Publications/mat_publications/icra2012/figs/supervisor-architecture-new.png"
-           transform="matrix(0.93506493,0,0,0.89321022,-383.97033,1348.3405)"
-           d="m -652.14288,1742.6659 c 0,5.5228 -4.47716,10 -10,10 -5.52285,0 -10,-4.4772 -10,-10 0,-5.5229 4.47715,-10 10,-10 5.52284,0 10,4.4771 10,10 z"
-           sodipodi:ry="10"
-           sodipodi:rx="10"
-           sodipodi:cy="1742.6659"
-           sodipodi:cx="-662.14288"
-           id="path8105"
-           style="font-size:9.84912586px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#eeeeee;stroke:#000000;stroke-width:1.47472131px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
-           sodipodi:type="arc" />
-        <text
-           inkscape:export-ydpi="300"
-           inkscape:export-xdpi="300"
-           inkscape:export-filename="/home/mwarnier/Documents/Publications/mat_publications/icra2012/figs/supervisor-architecture-new.png"
-           transform="scale(0.99963704,1.0003631)"
-           sodipodi:linespacing="125%"
-           id="text8107"
-           y="2908.7205"
-           x="-1008.1131"
-           style="font-size:13.33196068px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:125%;letter-spacing:0px;word-spacing:0px;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;color:#000000;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans Bold"
-           xml:space="preserve"><tspan
-             style="font-size:13.33196068px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:125%;letter-spacing:0px;word-spacing:0px;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;color:#000000;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans Bold"
-             y="2908.7205"
-             x="-1008.1131"
-             id="tspan8109"
-             sodipodi:role="line">3</tspan></text>
-      </g>
       <text
          xml:space="preserve"
          style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
-         x="314.43356"
-         y="623.31171"
+         x="303.43668"
+         y="640.2749"
          id="text8111"
          inkscape:export-filename="/home/lemaigna/publications/ai-journal-2013/figs/archi.png"
          inkscape:export-xdpi="300"
          inkscape:export-ydpi="300"
          transform="scale(1.0002497,0.99975037)"><tspan
-           style="font-size:16px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans Bold"
+           style="font-size:15px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
            sodipodi:role="line"
-           x="314.43356"
-           y="623.31171"
+           x="303.43668"
+           y="640.2749"
            id="tspan8115">Execution Controller</tspan></text>
       <g
          inkscape:export-ydpi="300"
@@ -2321,36 +2055,20 @@
       </g>
     </g>
     <g
-       id="g9722"
        style="font-size:13.25269127px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
-       transform="matrix(0.75472993,0,0,0.75439755,55.235544,252.60447)"
-       inkscape:export-filename="/home/lemaigna/publications/ai-journal-2013/figs/archi.png"
-       inkscape:export-xdpi="300"
-       inkscape:export-ydpi="300">
+       transform="matrix(0.75472993,0,0,0.75439755,152.21018,246.54356)"
+       id="g5587">
       <g
-         id="g13011"
-         transform="translate(0,13.25561)">
-        <g
-           style="font-size:13.25269126999999969px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;opacity:1;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
-           id="g9600"
-           transform="translate(6.0295083,-111.84062)">
-          <path
-             transform="translate(0,466.36239)"
-             id="path9598"
-             d="m 534.27696,679.0599 -402.12999,0 c -5.54,0 -10,-4.46 -10,-10 l 0,-55.0031 c 0,-5.54 4.46,-10 10,-10 l 0,0 402.12999,0"
-             style="font-size:13.25269126999999969px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#eeeeee;stroke:#000000;stroke-width:2.65053796999999980;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans;fill-opacity:1"
-             inkscape:connector-curvature="0" />
-          <path
-             transform="translate(0,466.36239)"
-             id="rect9593"
-             d="m 534.27696,604.0568 402.31746,0 c 5.54,0 10,4.46 10,10 l 0,55.0031 c 0,5.54 -4.46,10 -10,10 l -402.31746,0"
-             style="font-size:13.25269126999999969px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#cecece;stroke:#000000;stroke-width:2.65053796999999980;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans;fill-opacity:1"
-             inkscape:connector-curvature="0" />
-        </g>
+         id="g5578">
+        <path
+           inkscape:connector-curvature="0"
+           style="font-size:13.25269127px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#cecece;fill-opacity:1;stroke:#000000;stroke-width:2.65053797;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
+           d="m 419.84785,997.27557 402.31746,0 c 5.54,0 10,4.46003 10,10.00003 l 0,55.0031 c 0,5.54 -4.46,10 -10,10 l -402.31746,0"
+           id="rect9593" />
         <g
            style="font-size:13.47744751px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
            id="g3150-6"
-           transform="matrix(0.98335243,0,0,0.9832946,416.54191,381.92872)"
+           transform="matrix(0.98335243,0,0,0.9832946,296.08329,420.62569)"
            inkscape:export-filename="/home/mwarnier/Documents/Publications/mat_publications/icra2012/figs/supervisor-architecture-new.png"
            inkscape:export-xdpi="300"
            inkscape:export-ydpi="300">
@@ -2380,10 +2098,18 @@
                x="245.88078"
                sodipodi:role="line" /></text>
         </g>
+      </g>
+      <g
+         id="g5568">
+        <path
+           inkscape:connector-curvature="0"
+           style="font-size:13.25269127px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#eeeeee;fill-opacity:1;stroke:#000000;stroke-width:2.65053797;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
+           d="m 419.84785,1072.2787 -402.129994,0 c -5.54,0 -9.9999994,-4.46 -9.9999994,-10 l 0,-55.0031 c 0,-5.54 4.4599994,-10.00003 9.9999994,-10.00003 l 0,0 402.129994,0"
+           id="path9598" />
         <g
            style="font-size:13.47744751px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
            id="g3150-1-3"
-           transform="matrix(1.3611071,0,0,1.3610271,-173.85154,134.9239)"
+           transform="matrix(1.3611071,0,0,1.3610271,-294.31016,173.62087)"
            inkscape:export-filename="/home/mwarnier/Documents/Publications/mat_publications/icra2012/figs/supervisor-architecture-new.png"
            inkscape:export-xdpi="300"
            inkscape:export-ydpi="300">
@@ -2417,24 +2143,52 @@
                x="242.2854"
                sodipodi:role="line" /></text>
         </g>
-        <text
-           transform="scale(1.0000294,0.99997061)"
-           inkscape:export-ydpi="300"
-           inkscape:export-xdpi="300"
-           inkscape:export-filename="/home/mwarnier/Documents/Publications/mat_publications/icra2012/figs/supervisor-architecture-new.png"
-           id="text2818-3-4-1-5-7-6-9"
-           y="954.0495"
-           x="257.20554"
-           style="font-size:21.20430565px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-indent:0;text-align:center;text-decoration:none;line-height:normal;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:middle;color:#000000;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans Bold"
-           xml:space="preserve"><tspan
-             id="tspan2999-2-9-3-3"
-             y="954.0495"
-             x="257.20554"
-             sodipodi:role="line">Sensorimotor layer</tspan></text>
       </g>
+      <text
+         xml:space="preserve"
+         style="font-size:21.20430565px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-indent:0;text-align:center;text-decoration:none;line-height:normal;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:middle;color:#000000;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans Bold"
+         x="136.75046"
+         y="990.0965"
+         id="text2818-3-4-1-5-7-6-9"
+         inkscape:export-filename="/home/mwarnier/Documents/Publications/mat_publications/icra2012/figs/supervisor-architecture-new.png"
+         inkscape:export-xdpi="300"
+         inkscape:export-ydpi="300"
+         transform="scale(1.0000294,0.99997061)"><tspan
+           sodipodi:role="line"
+           x="136.75046"
+           y="990.0965"
+           id="tspan2999-2-9-3-3">Sensorimotor layer</tspan></text>
     </g>
     <g
-       transform="matrix(0.72227013,0,0,0.72195205,126.44141,774.13337)"
+       style="font-size:13.25269127px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
+       id="g5608"
+       transform="matrix(0.75472993,0,0,0.75439755,55.235544,252.60447)">
+      <rect
+         style="font-size:13.25269127px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;color:#000000;fill:none;stroke:#000000;stroke-width:2.65053821;stroke-miterlimit:4;stroke-dasharray:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
+         id="rect3755"
+         width="1102.8657"
+         height="460.62244"
+         x="-138.03783"
+         y="491.12057"
+         rx="13.512145"
+         ry="15.040434" />
+      <text
+         transform="scale(1.0000294,0.9999706)"
+         inkscape:export-ydpi="300"
+         inkscape:export-xdpi="300"
+         inkscape:export-filename="/home/mwarnier/Documents/Publications/mat_publications/icra2012/figs/supervisor-architecture-new.png"
+         id="text5016"
+         y="481.06604"
+         x="-15.825984"
+         style="font-size:21.20430565px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-indent:0;text-align:center;text-decoration:none;line-height:normal;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:middle;color:#000000;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans Bold"
+         xml:space="preserve"><tspan
+           id="tspan5018"
+           y="481.06604"
+           x="-15.825983"
+           sodipodi:role="line">Deliberative layer</tspan></text>
+    </g>
+    <g
+       transform="matrix(0.72227013,0,0,0.72195205,60.276419,777.6689)"
        id="g4821"
        inkscape:export-filename="/home/lemaigna/publications/ai-journal-2013/figs/archi.png"
        inkscape:export-xdpi="300"
@@ -2446,7 +2200,7 @@
          style="font-size:7.24353933px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;stroke-width:1.81088483;stroke-miterlimit:4;stroke-dasharray:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans">
         <path
            style="font-size:7.24353933px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:none;stroke:#000000;stroke-width:1.81088495;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
-           d="m 465.13733,253.17559 0.0761,13.33654"
+           d="m 465.13733,253.18506 0.0761,21.73412"
            id="path4823"
            inkscape:connector-curvature="0"
            sodipodi:nodetypes="cc" />
@@ -2458,25 +2212,35 @@
            sodipodi:nodetypes="cccc" />
       </g>
     </g>
+    <path
+       style="font-size:13.84828472px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:none;stroke:#000000;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
+       d="m 476.39027,881.77902 c -15.29472,-75.6274 -70.80423,-78.90606 -91.95413,-79.39903"
+       id="path4823-1"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="font-size:13.84828472px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#000000;stroke:#000000;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
+       d="m 380.19374,802.35675 5.68412,3.33064 5e-4,-6.63343 z"
+       id="path4825-9"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccc" />
     <g
-       transform="matrix(0.27451577,0.66777407,-0.66806829,0.27439487,405.52519,446.80524)"
-       id="g4821-2"
-       inkscape:export-filename="/home/lemaigna/publications/ai-journal-2013/figs/archi.png"
-       inkscape:export-xdpi="300"
-       inkscape:export-ydpi="300"
-       style="font-size:13.84828472px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;stroke-width:3.46207118;stroke-miterlimit:4;stroke-dasharray:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans">
+       id="g5617"
+       transform="translate(91.923881,-2.0203051)">
       <path
-         sodipodi:nodetypes="cc"
+         style="font-size:13.84828472px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:none;stroke:#000000;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
+         d="m 667.81161,697.43019 c 55.44932,29.97669 75.91406,235.03306 22.81204,299.83595"
+         id="path5497"
          inkscape:connector-curvature="0"
-         id="path4823-1"
-         d="M 594.57385,138.24158 C 489.63254,118.01412 456.2217,187.37486 444.4606,214.2004"
-         style="font-size:13.84828472px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:none;stroke:#000000;stroke-width:3.46207118;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans" />
+         sodipodi:nodetypes="cc" />
       <path
+         style="font-size:7.24353933px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#000000;stroke:#000000;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
+         d="m 689.30438,998.62452 9.45727,-2.38196 -6.88543,-7.0014 z"
+         id="path4825-5"
+         inkscape:connector-curvature="0"
          sodipodi:nodetypes="cccc"
-         inkscape:connector-curvature="0"
-         id="path4825-9"
-         d="m 442.19838,219.62108 7.25828,-5.5258 -8.49841,-3.49282 z"
-         style="font-size:13.84828472px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#000000;stroke:#000000;stroke-width:3.46207118;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans" />
+         inkscape:transform-center-x="-1.5152613"
+         inkscape:transform-center-y="3.0304231" />
     </g>
     <g
        inkscape:export-ydpi="300"
@@ -3121,5 +2885,167 @@
          y="817.60602"
          style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:end;text-anchor:end;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
          id="tspan3480">grounding</tspan></text>
+    <g
+       id="g5523"
+       transform="translate(-29.285714,-0.71428571)">
+      <rect
+         inkscape:transform-center-y="-42.911925"
+         inkscape:transform-center-x="20.315227"
+         inkscape:export-ydpi="300"
+         inkscape:export-xdpi="300"
+         inkscape:export-filename="/home/mwarnier/Documents/Publications/mat_publications/icra2012/figs/supervisor-architecture-new.png"
+         ry="12.105098"
+         rx="10"
+         y="888.45691"
+         x="164.20728"
+         height="66.800667"
+         width="595.96832"
+         id="rect3550"
+         style="font-size:13.25269127px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#f2f2f2;fill-opacity:0.99607843;fill-rule:evenodd;stroke:#cccccc;stroke-width:2.99999976;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:0.99607843;stroke-dasharray:9.00000016, 9.00000016;stroke-dashoffset:0;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans" />
+      <text
+         transform="scale(1.0002497,0.99975037)"
+         inkscape:export-ydpi="300"
+         inkscape:export-xdpi="300"
+         inkscape:export-filename="/home/mwarnier/Documents/Publications/mat_publications/icra2012/figs/supervisor-architecture-new.png"
+         id="text2818-3-4-1-5-7-6"
+         y="906.52228"
+         x="306.55542"
+         style="font-size:16px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-indent:0;text-align:center;text-decoration:none;line-height:normal;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:middle;color:#000000;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans Bold"
+         xml:space="preserve"><tspan
+           style="font-size:15px;font-weight:normal"
+           y="906.52228"
+           x="306.55542"
+           sodipodi:role="line"
+           id="tspan5468-7">Geometric &amp; Temporal Reasoning</tspan><tspan
+           style="font-size:15px;font-weight:normal"
+           id="tspan2999-2-9-3"
+           y="925.27228"
+           x="306.55542"
+           sodipodi:role="line" /></text>
+      <g
+         id="g5501">
+        <rect
+           inkscape:transform-center-y="-22.142857"
+           inkscape:transform-center-x="5.2922605"
+           inkscape:export-ydpi="300"
+           inkscape:export-xdpi="300"
+           inkscape:export-filename="/home/mwarnier/Documents/Publications/mat_publications/icra2012/figs/supervisor-architecture-new.png"
+           ry="10"
+           rx="10"
+           y="912.82812"
+           x="180.88516"
+           height="34.469627"
+           width="155.25406"
+           id="rect3544"
+           style="font-size:13.25269127px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#ad80a8;fill-opacity:0.99607843;fill-rule:evenodd;stroke:#75507b;stroke-width:1.99999988;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:0.99607843;stroke-dasharray:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans" />
+        <g
+           style="font-size:13.25269127px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
+           transform="matrix(0.75472993,0,0,0.75439755,53.801883,267.50527)"
+           id="g12798">
+          <text
+             transform="scale(1.0000294,0.99997061)"
+             inkscape:export-ydpi="300"
+             inkscape:export-xdpi="300"
+             inkscape:export-filename="/home/mwarnier/Documents/Publications/mat_publications/icra2012/figs/supervisor-architecture-new.png"
+             id="text2818-76-9-8-5"
+             y="883.11261"
+             x="269.35742"
+             style="font-size:14.31445503px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
+             xml:space="preserve"><tspan
+               y="883.11261"
+               x="269.35742"
+               id="tspan2820-0-3-1-8"
+               sodipodi:role="line">Symbolic Facts Production</tspan><tspan
+               id="tspan4743-9-7-2-8"
+               y="901.00568"
+               x="269.35742"
+               sodipodi:role="line" /></text>
+        </g>
+      </g>
+      <g
+         id="g5508">
+        <rect
+           inkscape:transform-center-y="-22.142857"
+           inkscape:transform-center-x="5.2922605"
+           inkscape:export-ydpi="300"
+           inkscape:export-xdpi="300"
+           inkscape:export-filename="/home/mwarnier/Documents/Publications/mat_publications/icra2012/figs/supervisor-architecture-new.png"
+           ry="10"
+           rx="10"
+           y="912.82812"
+           x="384.43094"
+           height="34.469627"
+           width="155.25406"
+           id="rect3546"
+           style="font-size:13.25269127px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#ad80a8;fill-opacity:0.99607843;fill-rule:evenodd;stroke:#75507b;stroke-width:1.99999988;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:0.99607843;stroke-dasharray:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans" />
+        <g
+           style="font-size:13.25269127px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
+           transform="matrix(0.75472993,0,0,0.75439755,57.893423,265.82205)"
+           id="g12808">
+          <text
+             transform="scale(1.0000294,0.99997061)"
+             inkscape:export-ydpi="300"
+             inkscape:export-xdpi="300"
+             inkscape:export-filename="/home/mwarnier/Documents/Publications/mat_publications/icra2012/figs/supervisor-architecture-new.png"
+             id="text2818-76-9-8-5-6"
+             y="885.05096"
+             x="536.00287"
+             style="font-size:13.25269127px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
+             xml:space="preserve"><tspan
+               y="885.05096"
+               x="536.00287"
+               id="tspan2820-0-3-1-8-9"
+               sodipodi:role="line">World Update Management</tspan><tspan
+               id="tspan4743-9-7-2-8-9"
+               y="901.61682"
+               x="536.00287"
+               sodipodi:role="line" /></text>
+        </g>
+      </g>
+      <g
+         id="g5515">
+        <rect
+           inkscape:transform-center-y="-22.142857"
+           inkscape:transform-center-x="5.2922364"
+           inkscape:export-ydpi="300"
+           inkscape:export-xdpi="300"
+           inkscape:export-filename="/home/mwarnier/Documents/Publications/mat_publications/icra2012/figs/supervisor-architecture-new.png"
+           ry="10"
+           rx="10"
+           y="912.82812"
+           x="591.51221"
+           height="34.469627"
+           width="155.25406"
+           id="rect3548"
+           style="font-size:13.25269127px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#ad80a8;fill-opacity:0.99607843;fill-rule:evenodd;stroke:#75507b;stroke-width:1.99999988;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:0.99607843;stroke-dasharray:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans" />
+        <g
+           style="font-size:13.25269127px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
+           transform="matrix(0.75472993,0,0,0.75439755,55.801913,264.8119)"
+           id="g12816">
+          <text
+             transform="scale(1.0000294,0.99997061)"
+             inkscape:export-ydpi="300"
+             inkscape:export-xdpi="300"
+             inkscape:export-filename="/home/mwarnier/Documents/Publications/mat_publications/icra2012/figs/supervisor-architecture-new.png"
+             id="text2818-76-9-8-5-6-9"
+             y="878.10712"
+             x="810.61163"
+             style="font-size:13.25269127px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
+             xml:space="preserve"><tspan
+               id="tspan3581"
+               y="878.10712"
+               x="810.61163"
+               sodipodi:role="line">Management of environment</tspan><tspan
+               id="tspan3585"
+               y="894.67297"
+               x="810.61163"
+               sodipodi:role="line">geometric model</tspan><tspan
+               id="tspan4743-9-7-2-8-9-2"
+               y="911.23883"
+               x="810.61163"
+               sodipodi:role="line" /></text>
+        </g>
+      </g>
+    </g>
   </g>
 </svg>
