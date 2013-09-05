@@ -2,7 +2,8 @@
 %2345678901234567890123456789012345678901234567890123456789012345678901234567890
 %        1         2         3         4         5         6         7         8
 
-\documentclass[preprint,5p]{elsarticle}
+%\documentclass[preprint,5p]{elsarticle}
+\documentclass[final,3p,times]{elsarticle}
 
 \usepackage[utf8x]{inputenc}
 \usepackage[T1]{fontenc}
@@ -14,7 +15,7 @@
 \graphicspath{{figs/}}
 \DeclareGraphicsExtensions{.pdf,.jpg,.png}
 
-\usepackage[draft, nomargin, marginclue, footnote]{fixme}
+\usepackage[draft,nomargin, marginclue, footnote]{fixme}
 
 \usepackage{listings}
 \usepackage{alltt}
@@ -91,8 +92,6 @@ decision-making issue in human-robot interactions.
 
 \end{frontmatter}
 
-\listoffixmes
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{The challenge of human-robot interaction}
@@ -112,7 +111,22 @@ them into a coherent challenge for artificial intelligence, and also explicit
 some of the paths that have been investigated on our robots and that result in a
 deliberative, knowledge-oriented, architecture for human-robot interaction.
 
-\subsection{The human-robot interaction challenge}\label{sec:problem}
+
+We scope our work to the robot which is
+expected to achieve interactive object manipulation, fetch and carry tasks and
+similar tasks in a domestic environment (Figure~\ref{fig:hri-dec}).
+
+Two agents (a human and a robot) share a common space and exchange information
+through multiple modalities. The robot is expected to explicitly take into
+account the human and to manage its interactions with him.
+
+Namely, the robot must be able to recognize, understand and participate
+to communication situations, both explicit (\eg the human addresses verbally
+the robot) and implicit (\eg the human points to an object); the robot must be
+able to take part to joint actions, both proactively (by planning and proposing
+such an action to the human) and reactively; the robot must be able to move and
+act in a safe, efficient and legible way, taking into account social rules like
+proxemics.
 
 \begin{figure}[htb]
 \centering
@@ -124,33 +138,13 @@ deliberative, knowledge-oriented, architecture for human-robot interaction.
 \label{fig:hri-dec}
 \end{figure}
 
-\fxfatal{Merge the following 3 paragraphs}
-Our frame is the robot which is
-expected to achieve interactive object manipulation, fetch and carry tasks and
-similar tasks in a domestic environment (Figure~\ref{fig:hri-dec}).
-
-We envision HRI in a context where two agents (a human and a robot)
-share a common space and exchange information through various
-modalities. Our aim is to endow the robot with an explicit
-consideration of the human and with the ability to manage its
-interactions with him (Figure~\ref{fig:hri-dec}). This must be
-considered at the architecture level as well as at the task/motion
-planning and execution level. 
-
-Over the last years we have focused our efforts on identifying the cognitive
-prerequisites of these challenges, and giving them experimental reality on the
-robots: what is required for sentences like ``Let's set the table together''
-to be understood by the robot, correctly interpreted in the spatial and
-temporal context of the interaction, and eventually transformed into a set of
-actions.
-
-
-The problem we are dealing with here
-is the following. Given:
+Those three items have broad implications regarding the required underlying
+cognitive skills.  A \emph{joint action}, for instance, can be described as
+follow. Given:
 
 \begin {itemize}
 \item a joint goal, which has been previously established and agreed
-  upon (through a process which is out of the scope of this paper),
+  upon (typically through dialogue),
 \item the current situation, acquired through perception or
   deduction from previous perceptions, including the state of the
   environment of the robot and of the human,
@@ -164,30 +158,25 @@ continues until the goal is achieved, is declared unachievable or is
 abandoned by the human.
 
 To do so, the robot has to be equipped with a number of decisional, planning
-and interpretation abilities where its human partner is taken
-explicitly into account. It needs to be able:
+and interpretation abilities where its human partner is taken explicitly into
+account. It needs to be able:
 
-\begin {itemize}
+\begin{itemize}
 \item to build and maintain relevant robot and human beliefs
   (from the robot perspective) with respect to state of the world and the task,
 \item to build and maintain iteratively shared (human-robot) plans, 
 \item to refine and execute the actions it has to perform, and to monitor 
 those achieved by its human partner.
-\end {itemize}
+\end{itemize}
 
 Besides, we would like to build such abilities in a generic way, and
 to provide several levels of parametrization allowing to adapt to
 various environments, and various levels of involvement of the robot
 ranging from teammate behavior to assistant or proactive helper.
 
-
-\subsection{Our contributions towards the cognitive robot}
-
-The main scientific contributions of the article are summarized here, to guide
-the reader. We develop and discuss them, also in relation to other works, at
-the end of the article.
-
-\fxfatal{Rewrite section 'summary of contributions'}
+We will see, in the following sections, how cognitive skills for realistic
+human-robot interaction can be implemented and organized together in a coherent
+architecture.
 
 \subsection{Article organization}
 
@@ -201,15 +190,21 @@ the each of the main components of the architecture, and try to highlight their
 significance for artificial intelligence. Section~\ref{sec:expe} presents two
 experiments that illustrate in a concrete way what can be currently achieved
 with our robots.  Section~\ref{sect|conclusion} finally summarizes our main
-contribution and relate them to other recent researches in the field.
+contributions and relate them to other recent researches in the field.
 
 \section{From human-robot interaction to a deliberative architecture}
 
 \subsection{Building a human-aware deliberative layer}
 
-\fxfatal{Need to carefully introduce this section: how did we come up this this architecture?}
+\fxwarning{Need to carefully introduce this section: how did we come up this this architecture? Describe archi}
 
-\fxfatal{Describe archi}
+Over the last years, we have been slowly ramping up explicit knowledge
+representation and manipulation in the deliberative and executive layers of our
+robots. Ranging from situation assessment to symbolic task planning, from
+verbal interaction to event-driven execution control, we have built up a
+\emph{knowledge-oriented} architecture which is now used on a daily basis on
+our robots.
+
 
 Figure~\ref{fig|archi} gives an overview of the connections between the
 deliberative components of our architecture~\cite{Alami2011}.
@@ -825,8 +820,6 @@ one (Figure~\ref{plan_hatp1}) if the wasted time social rule is used.
 The obtained shared plan is the best plan according to a global evaluation of
 these multiple criteria.
 
-\fxwarning{Relate HATP social rules to other AI techniques}
-
 \paragraph{Several levels of cooperation} 
 By tuning its costs
 and adapting its social rules, HATP can be used to compute various
@@ -1379,8 +1372,6 @@ to grasp, it also effectively helped to grow awareness amongst colleagues on
 the significance of the ``semantic level'' when developing new components for
 the robot.
 
-\fxfatal{Insert here discussion of other major KRR systems for robots (Severin)}
-
 \subsection{Interacting with humans}
 
 \paragraph{Building a model of a human during the interaction} Perspective
@@ -1406,7 +1397,7 @@ find out the referent indicated by a human partner.
 
 \paragraph{Limits of disambiguation at semantic level}
 
-\fxfatal{Introduce the paragraph} 
+\fxwarning{Introduce the paragraph} 
 
 One prototypical example of semantic disambiguation has been given in
 \cite{Ros2010b} with the child game \emph{spygame}: two players are facing
@@ -1452,12 +1443,12 @@ have to agree on the manner to realize it, they must show their
 commitment to the goal during execution, etc. Several robotic systems
 have already been built based on these
 theories~\cite{Rich1997,Sidner2005,Breazeal2003} and they
-all have shown benefits of this approach\fxwarning{which approach? how it is related to larger AI challenges?}. They have also shown how
+all have shown benefits of this approach. They have also shown how
 difficult it is to manage turn-taking between communication partners
 and to interleave task realization and communication in a generic
-way\fxwarning{is it smthg we improve one?}. Finally, today only few
+way. Finally, today only few
 systems~\cite{Fong2006,Breazeal2003,Sisbot2008} take humans into
-account at all levels\fxwarning{Old references, no new ones? we should also say what is new/better with our approach (Rachid)}.
+account at all levels.
 
 
 \subsection{Knowledge-oriented architecture}
@@ -1566,7 +1557,7 @@ be viable soon~\cite{Dean2013Fast}.
 
 \subsection{The Next Steps}
 
-\fxfatal{Rewrite conclusion}
+\fxwarning{Rewrite conclusion}
 
 We have devised a decisional framework for human-robot interactive
 task achievement that is aimed to allow the robot not only to
