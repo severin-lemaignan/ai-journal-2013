@@ -92,20 +92,20 @@ acquiring, representing, manipulating in a tractable way abstract knowledge;
 reasoning on this knowledge to make decisions; and eventually instantiating
 those decisions into physical actions in coordination with humans. Many AI
 techniques are invited, from visual processing to symbolic reasoning, from task
-planing to \emph{theory of mind} building, from reactive control to action
+planning to \emph{theory of mind} building, from reactive control to action
 recognition and learning.
 
 We do not tackle all these issues. This article attempts however to organize
-them into a coherent challenge for artificial intelligence, and also explicit
-some of the paths that have been investigated on our robots and that result in a
-deliberative, knowledge-oriented, architecture for human-robot interaction.
+them into a coherent challenge for artificial intelligence, and also to make
+explicit some of the paths that have been investigated on our robots and that
+result in a deliberative, knowledge-oriented, architecture for human-robot
+interaction.
 
-
-We scope our work to the robot which is
-expected to achieve interactive object manipulation, fetch and carry tasks and
-similar tasks in a domestic environment (Figure~\ref{fig:hri-dec}).
-
-Two agents (a human and a robot) share a common space and exchange information
+The class of interactions we consider are essentially multi-modal situated
+dialog and collaborative task achievement: a robot which is expected to achieve
+interactive object manipulation, fetch and carry tasks and similar tasks in a
+domestic environment, with human partners (Figure~\ref{fig:hri-dec}). Two
+agents (a human and a robot) share a common space and exchange information
 through multiple modalities. The robot is expected to explicitly take into
 account the human and to manage its interactions with him.
 
@@ -119,11 +119,16 @@ proxemics.
 
 \begin{figure}[htb]
 \centering
-\includegraphics[width=0.9\columnwidth]{grounding_robot.pdf}
+\includegraphics[width=0.6\columnwidth]{grounding_robot.pdf}
 \caption{Robot reasoning about HRI and anticipation of human activities.
   Sources of information are multi-modal dialogue, and monitoring of the
   environment and human activity. The robot must adapt on-line its behaviours
-  by merging computed plans with reactive control.}
+  by merging computed plans with reactive control. The robot explicitly reasons
+  on the fact that it is (or not) observed by the human. Reasoning and planning
+  take place at symbolic as well as geometric level and systematically take
+  into account both agents beliefs and activities (from the point of view of
+  the robot).}
+
 \label{fig:hri-dec}
 \end{figure}
 
@@ -169,13 +174,13 @@ architecture.
 
 \subsection{Article organization}
 
-The remaining of the article discuss the robotic architecture we have built to
+The remaining of the article discusses the robotic architecture we have built to
 tackle the AI challenges of human-robot interaction, and how its relates to
 other approaches. We propose to organize this discussion in four sections.
 
 The next section presents the overall architecture and the knowledge model we
 have developed for our robots. Section~\ref{sec:impl} gives some insights on
-the each of the main components of the architecture, and try to highlight their
+each of the main components of the architecture, and try to highlight their
 significance for artificial intelligence. Section~\ref{sec:expe} presents two
 experiments that illustrate in a concrete way what can be currently achieved
 with our robots.  Section~\ref{sect|conclusion} finally summarizes our main
@@ -200,7 +205,7 @@ deliberative components of our architecture~\cite{Alami2011}.
 
 \begin{figure*}
         \centering
-        \includegraphics[width=0.8\textwidth]{archi}
+        \includegraphics[width=0.9\textwidth]{archi}
         \caption{Overview of the LAAS deliberative layer. Knowledge is
         centrally managed in an active \emph{semantic blackboard}, pictured
         above with a thick border.}
@@ -241,7 +246,7 @@ This activity is however not the backbone of our architecture. Other
 activities are conducted in parallel, without being explicitly considered as
 desires: assessment of the situation and the environment, dialogue (including
 performative dialogue that can possibly change the internal state of the robot,
-but does not lead to the creation of desires, like statement assertion or
+but does not lead directly to the creation of desires, like statement assertion or
 question answering), various background monitoring and recognition tasks, etc.
 
 Regarding the anchoring question, this architecture is bidirectional. The
@@ -448,7 +453,7 @@ features.
 
 \begin{figure}
         \centering
-        \includegraphics[width=\columnwidth]{spark-oro.png}
+        \includegraphics[width=0.8\columnwidth]{spark-oro.png}
     \caption{Functional overview of knowledge base ({\sc Oro} server, top part)
     and the geometric situation assessment module (\emph{{\sc Spark}}, bottom
     part). {\sc Spark} computes symbolic relationships between objects and
@@ -494,12 +499,16 @@ situations and performs spatial perspective-taking.
 %
    \end{center}
 
-   \caption{% In this situation, there are three tapes on the table. Two tapes
-       are only reachable by the robot: the \concept{LOTR\_TAPE} (black in the 3D
-       model) and \concept{GREY\_TAPE}. The third tape \concept{WALLE\_TAPE} (white
-       in the 3D model) and the trashbin \concept{PINK\_TRASHBIN} are only
-       reachable by the human \concept{HUMAN1}. All tapes are on the table
-   \concept{TABLE}. The corresponding symbolic facts are listed in Table~\ref{table|beliefsfig7}.  }%
+   \caption{ The scenario involves a several videotapes that have to be
+       manipulated. Other objects are used as supports and containers.  After
+       identification and localisation of the set of objects and acquisition of
+       the position and posture of the human partner, the robot is able to compute
+       that two tapes only are reachable by itself: the \concept{LOTR\_TAPE}
+       (black in the 3D model) and \concept{GREY\_TAPE}. The third tape
+       \concept{WALLE\_TAPE} (white in the 3D model) and the trashbin
+       \concept{PINK\_TRASHBIN} are only reachable by the human. The
+       corresponding symbolic facts are listed in Table~\ref{table|beliefsfig7}.
+   }%
  
  \label{fig:sparkSubfigures}
 
@@ -681,10 +690,10 @@ Figure~\ref{dialogs|ex} gives a example of the processing of a simple order.
 	\end{tabular}
 
     \caption{Processing an order: this simple example (no ambiguity), taken
-    from~\cite{Lemaignan2011a}, shows the thematic roles computed by {\sc
-Dialogs} for the order ``Give me the book''.}
+    from~\cite{Lemaignan2011a}, shows the thematic roles computed by 
+    {\sc Dialogs} for the order ``Give me the book''.}
 
-\label{dialogs|ex}
+    \label{dialogs|ex}
 \end{figure}
 
 
@@ -1268,7 +1277,7 @@ surroundings and efficiently monitors its evolution.
 Numerous approaches exist, like amodal \emph{proxies}~\cite{Jacobsson2008},
 grounded amodal representations~\cite{Mavridis2006}, semantic maps
 (\cite{Nuechter2008, Galindo2008,Blodow2011}) or
-affordance-based planing and object classification~\cite{Lorken2008,
+affordance-based planning and object classification~\cite{Lorken2008,
 Varadarajan2011}.
 
 Our approach, implemented in the {\sc Spark} module, is a grounded amodal
@@ -1379,6 +1388,16 @@ find out the referent indicated by a human partner.
 
 \fxwarning{What are our contribution regarding perspective taking? (Mathieu)}
 \fxwarning{Mention other source of knowledge about humans -- including social rules for instance}
+
+\paragraph{Planning for cooperation} HRI offers new challenges to planning
+by adding a complementary constraint: the synthesis of plans that are not only
+feasible but legible (in terms of their intention) and compliant with human
+preferences. This constraint is often ill-defined, dynamic, context-dependent.
+
+Indeed, we posit that human-robot collaborative task achievement calls for more
+subtlety for a robot than autonomous independent task achievement. HATP, by
+co-planning for the robot and the human, and modeling social rules as planning
+parameters, is a first step in this direction.
 
 \paragraph{Reasoning with the humans}
 
@@ -1576,6 +1595,13 @@ implement it in the case of a personal robot assistant essentially
 devoted to fetch-and-carry, as well as for interactive manipulation
 tasks and associated activities.
 
+We are planning to extend the scheme by taking into accoount situation where
+divergent belief may appear between the human and the robot. Preliminary
+results have been pusblished in~\cite{warnier2012when}.
+
+There is also extensive work to be done in order to refine the notion of "good
+shared plan" and "good/acceptable robt behaviour" in this context. There are
+obviously large avenues for learning and adaptation in this context.
 
 
 \section*{Acknowledgments}
