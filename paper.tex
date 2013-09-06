@@ -3,7 +3,7 @@
 %        1         2         3         4         5         6         7         8
 
 %\documentclass[preprint,5p]{elsarticle}
-\documentclass[final,3p,times]{elsarticle}
+\documentclass[preprint,3p,times]{elsarticle}
 
 \usepackage[utf8x]{inputenc}
 \usepackage[T1]{fontenc}
@@ -11,29 +11,19 @@
 \usepackage[english]{babel}
 \usepackage{cite}
 \usepackage{graphicx, subfigure}
-\usepackage{url}
-\graphicspath{{figs/}}
-\DeclareGraphicsExtensions{.pdf,.jpg,.png}
 
 \usepackage[draft,nomargin, marginclue, footnote]{fixme}
 
-\usepackage{listings}
-\usepackage{alltt}
-\usepackage{fancyvrb}
-
-%\usepackage[bookmarks]{hyperref}
-
-\usepackage{booktabs}
-%\usepackage{tabularx}
-
 \newcommand{\concept}[1]{{\small \texttt{#1}}}
-
 \newcommand{\stmt}[1]{{\footnotesize \tt $\langle$ #1\relax$\rangle$}}
 
 \newcommand{\ie}{{\textit{i.e.\ }}}
 \newcommand{\cf}{{\textit{cf\ }}}
 \newcommand{\eg}{{\textit{e.g.\ }}}
 \newcommand{\al}{{\textit{et al.\ }}}
+
+\graphicspath{{figs/}}
+\DeclareGraphicsExtensions{.pdf,.jpg,.png}
 
 \begin{frontmatter}
 
@@ -273,7 +263,7 @@ API~\cite{lemaignan2012kbapi} to query the knowledge base.
 
 Knowledge is represented as RDF triples in the OWL sub-language. Each
 time triples are added or removed from the knowledge base, a Description
-Logics reasoner ({\sc Pellet}\footnote{\url{http://clarkparsia.com/pellet/}})
+Logics reasoner ({\sc Pellet}\footnote{\tt http://clarkparsia.com/pellet/})
 classifies the whole ontology and inserts all possible inferred triples.
 
 At any time, the knowledge available to the robot may come from three sources:
