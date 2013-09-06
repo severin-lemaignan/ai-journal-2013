@@ -11,7 +11,9 @@
 \usepackage[english]{babel}
 \usepackage{graphicx, subfigure}
 
-\usepackage[draft,nomargin, marginclue, footnote]{fixme}
+\usepackage[nomargin, marginclue, footnote]{fixme}
+
+\usepackage{hyperref}
 
 \newcommand{\concept}[1]{{\small \texttt{#1}}}
 \newcommand{\stmt}[1]{{\footnotesize \tt $\langle$ #1\relax$\rangle$}}
@@ -122,7 +124,7 @@ proxemics.
 \includegraphics[width=0.6\columnwidth]{grounding_robot.pdf}
 \caption{Robot reasoning about HRI and anticipation of human activities.
   Sources of information are multi-modal dialogue, and monitoring of the
-  environment and human activity. The robot must adapt on-line its behaviours
+  environment and human activity. The robot must adapt on-line its behaviors
   by merging computed plans with reactive control. The robot explicitly reasons
   on the fact that it is (or not) observed by the human. Reasoning and planning
   take place at symbolic as well as geometric level and systematically take
@@ -190,23 +192,35 @@ contributions and relate them to other recent researches in the field.
 
 \subsection{Building a human-aware deliberative layer}
 
-\fxwarning{Need to carefully introduce this section: how did we come up this this architecture? Describe archi}
+Connecting multiple independent software modules in one coherent robotic
+architecture is not only a technical challenge, but also a design and
+architectural challenge.
 
-Over the last years, we have been slowly ramping up explicit knowledge
-representation and manipulation in the deliberative and executive layers of our
-robots. Ranging from situation assessment to symbolic task planning, from
-verbal interaction to event-driven execution control, we have built up a
-\emph{knowledge-oriented} architecture which is now used on a daily basis on
-our robots.
+In particular, dealing with the rich semantics of natural interaction with
+humans has been one of our major focus. To this end, we have been deploying
+over the last years explicit knowledge representation and manipulation in the
+deliberative layer of the robots as a {\it lingua franca} between our
+components.
 
+Figure~\ref{fig|archi} gives an overview of resulting
+architecture~\cite{Alami2011}. An active knowledge base, conveniently thought
+as a \emph{semantic blackboard}, connects most of the modules together: the
+\emph{geometric reasoning} module (called {\sc Spark}) produces symbolic
+assertions describing the dynamics of the robot's environment. These logical
+statements are stored in the knowledge base, and reused by the language
+processing module (called {\sc Dialogs}), the symbolic task planner (HATP) and
+the execution controllers. The output of the language processing module, or the
+activities started by the robot controller are likewise stored as symbolic
+statements.
 
-Figure~\ref{fig|archi} gives an overview of the connections between the
-deliberative components of our architecture~\cite{Alami2011}.
+Incoming statements may in turn trigger events in the system, which
+allow reactive behaviors. These mechanisms are illustrated in the coming
+sections.
 
 \begin{figure*}
         \centering
         \includegraphics[width=0.9\textwidth]{archi}
-        \caption{Overview of the LAAS deliberative layer. Knowledge is
+        \caption{Overview of the deliberative layer. Knowledge is
         centrally managed in an active \emph{semantic blackboard}, pictured
         above with a thick border.}
         \label{fig|archi}
@@ -255,7 +269,7 @@ geometric reasoning and dialogue processing modules constantly build and push
 new symbolic contents about the world to the knowledge base where it becomes
 accessible to decisional layers. In parallel, the knowledge base relies on
 reasoning in a \textit{top-down} way to produce new facts that may in return
-trigger physical behaviours.
+trigger physical behaviors.
 
 \subsection{A Knowledge model}
 
@@ -756,7 +770,7 @@ of the central knowledge base, using a specific formalism.
 HATP originality resides in its ability to produce plans for the robot's
 actions \emph{as well as for the other participants} (humans or robots): the
 robot plans for itself, but also for its interactors, which effectively endows the robot
-with new interaction capabilities: It can partially predict the behaviour, and
+with new interaction capabilities: It can partially predict the behavior, and
 thus monitor the engagement, of its human partner; the planner generates
 synchronisation points (arrow going from the robot stream to the human stream on
 Figure~\ref{plan_hatp1}) between the agents; the controller can also verbalize
@@ -895,7 +909,7 @@ triggered.
 This allows us to write reactive robot controllers with a high level of
 expressiveness: for instance, by subscribing to the event \stmt{human1 desires
 ?action, ?action type Look, ?action hasGoal myself}, we could trigger a
-behaviour when the human expresses (through dialogue, gestures...) that he
+behavior when the human expresses (through dialogue, gestures...) that he
 wants to look at the robot itself.
 
 The robot controller designer does not need to directly care about how this
@@ -1025,7 +1039,7 @@ pick-and-place).
 
 The second one involves the SHARY execution controller and the HATP symbolic
 task planner besides ORO and {\sc Dialogs}. In this scenario, the human and the
-robot try to cooperatively remove objects from a table. Behaviours and motions
+robot try to cooperatively remove objects from a table. behaviors and motions
 are fully planned.
 
 \subsection{\emph{Moving to London} scenario}
@@ -1306,18 +1320,34 @@ only locally, and does not allow for tracking of long or global events.
 
 \paragraph{Robot control}
 
-\fxwarning{Robot control related work -> what is the originality of SHARY? why is it relevant from an AI point of view? (Mathieu, Aurelie)}
+Cognitive control architectures for robotics is a research field in its own right.
+Our originality of our contribution relates to the interleaving of a
+semantic-aware architecture designed for autonomy with human-aware decisional
+components. To our knowledge, no other robotic architecture covers in depth
+those two perspectives.
 
-Beetz et al.~\cite{Beetz2010} proposes a cognitive architecture called
-\textsc{CRAM} (Cognitive Robot Abstract Machine) that integrates
+The Ke Jia project~\cite{Chen2010} is maybe one of the closest approach. It
+integrates on a mobile platform a knowledge representation language with
+natural language processing, task planning and motion planning. Default and
+non-monotonic reasoning has been especially researched within the Ke Jia
+project for symbolic task planing~\cite{Ji2011} and underspecified natural
+language processing.
+
+The Ke Jia robot has been demonstrated in several tasks involving human-robot
+interaction with natural language. These tasks include a task with multiple
+\emph{pick \& carry} that are globally optimised, naive physics reasoning via
+taught rules or more complex scenarios with the robot delivering drinks, taking
+into account changing and mutually exclusive preferences of users.
+
+Also notable, Beetz et al.~\cite{Beetz2010} proposes a cognitive architecture
+called \textsc{CRAM} (Cognitive Robot Abstract Machine) that integrates
 \textsc{KnowRob}~\cite{Tenorth2009a}, a knowledge processing framework based on
 Prolog. Its underlying storage is based on an OWL ontology, derived from
 \textsc{OpenCyc}. \textsc{CRAM} and \textsc{KnowRob} have been demonstrated on
 several real-world scenarios, where natural language recipes extracted from the
 Internet had to be translated into plans and executed in a kitchen environment,
-perceived and rebuilt on-line by the robots.
-
-\fxwarning{robot control architecture for service robots: what else?}
+perceived and rebuilt on-line by the robots. This architecture has however not
+been deployed in scenarios involving human-robot interactions.
 
 \subsection{Knowledge framework}
 \label{krs-discussion}
@@ -1386,8 +1416,23 @@ perspective taking for action recognition between two
 robots.~\cite{Trafton2005} use both visual and spatial perspective taking to
 find out the referent indicated by a human partner.
 
-\fxwarning{What are our contribution regarding perspective taking? (Mathieu)}
-\fxwarning{Mention other source of knowledge about humans -- including social rules for instance}
+In our implementation, perspective taking is tightly connected to the symbolic
+knowledge models, and since our knowledge base allows for storage of one
+knowledge model per agent, we have been able to endow the robot with a simple
+theory of mind (as explained in section~\ref{sect|tom}): we explicitly model
+what the robot knows about its partners in a symbolic way. This knowledge is
+then re-used in different places, to correctly interpret what the human says,
+or to plan tasks that are actually doable for the human.
+
+The cognitive model that the robot builds for the agent it interacts with is
+still simple and mostly focused on geometric features (who sees what? What are
+our relative positions? etc.). Extending this knowledge with more subtle
+perceptions (emotional state for instance) remains to be done.
+
+We should also mention that modelling of human behaviors also appear in our
+architecture at the level of task and motion planning with a set of
+\emph{social rules}, including proxemics, action legibility or time
+optimization.
 
 \paragraph{Planning for cooperation} HRI offers new challenges to planning
 by adding a complementary constraint: the synthesis of plans that are not only
@@ -1399,13 +1444,11 @@ subtlety for a robot than autonomous independent task achievement. HATP, by
 co-planning for the robot and the human, and modeling social rules as planning
 parameters, is a first step in this direction.
 
-\paragraph{Reasoning with the humans}
-
-\fxwarning{Mention we represent the human knowledge as well (Severin)}
-
 \paragraph{Limits of disambiguation at semantic level}
 
-\fxwarning{Introduce the paragraph} 
+Interaction with humans implies the ability to deal semantics: semantics of
+verbal interaction, semantics of gestures, etc.  As a consequence, it also
+implies to deal with semantic disambiguation.
 
 One prototypical example of semantic disambiguation has been given in
 \cite{Ros2010b} with the child game \emph{spygame}: two players are facing
@@ -1565,28 +1608,15 @@ be viable soon~\cite{Dean2013Fast}.
 
 \subsection{The Next Steps}
 
-\fxwarning{Rewrite conclusion}
-
-We have devised a decisional framework for human-robot interactive
-task achievement that is aimed to allow the robot not only to
-accomplish its tasks but also to produce behaviors that support its
-engagement vis-a-vis its human partner and to interpret human
-behaviors and intentions. 
-Together and in coherence with this framework, we have developed
-and experimented various task planners and interaction schemes that
-allow the robot to select and perform its tasks while taking into
-account explicitly the human abilities as well as the constraints
-imposed by the presence of humans, their needs and preferences. 
-
-
-In this paper we have presented a decisional framework designed for
-robots operating in a human environment. Our objective is to provide a
-management of human-robot interaction that is an integral part of a
-general robot control architecture.  This was done in order to provide
-a principled way to deal with HRI scenario.  The framework is also
-suitable for the development and experiment of task planners and
-interaction schemes that explicitly consider human abilities and
-preferences.
+We have presented in this article a decisional framework for human-robot
+interactive task achievement that is aimed to allow the robot not only to
+accomplish its tasks but also to produce behaviors that support its engagement
+vis-a-vis its human partner and to interpret human behaviors and intentions.
+Together and in coherence with this framework, we have developed and
+experimented various task planners and interaction schemes that allow the robot
+to select and perform its tasks while taking into account explicitly the human
+abilities as well as the constraints imposed by the presence of humans, their
+needs and preferences. 
 
 The design choices and the results presented here are still preliminary.
 While the general scheme we propose might be difficult to implement in
@@ -1595,14 +1625,39 @@ implement it in the case of a personal robot assistant essentially
 devoted to fetch-and-carry, as well as for interactive manipulation
 tasks and associated activities.
 
-We are planning to extend the scheme by taking into accoount situation where
-divergent belief may appear between the human and the robot. Preliminary
-results have been pusblished in~\cite{warnier2012when}.
+One direction that we would like to further investigate is how to account for
+situations where divergent beliefs appear between the human and the robot.
+Preliminary results have been published in~\cite{warnier2012when}.
 
-There is also extensive work to be done in order to refine the notion of "good
-shared plan" and "good/acceptable robt behaviour" in this context. There are
+There is also extensive work to be done in order to refine the notion of ``good
+shared plan" and ``good/acceptable robot behavior" in this context. There are
 obviously large avenues for learning and adaptation in this context.
 
+Another broader direction to head deals with \emph{contexts representation}.
+Contexts are currently often limited to the current spatial and temporal
+situation. Some projects model offer the possibility to jump in the past or to
+switch to another agent's perspective, but in current approaches, selecting a
+context always basically consists in retrieving a set of beliefs corresponding
+to a situation, and temporarily replacing the current beliefs by those other
+ones. This misses the fact that at a given moment, not one but many contexts
+co-exist at different scales. We do not want to retrieve one monolithic set of
+beliefs, but instead carefully craft a context from several \emph{atomic}
+contexts. Techniques for representation of overlapping pools of knowledge
+largely remain to be developed, as well as efficient algorithms to retrieve (or
+discard) such context-related pools of knowledge. This is a challenge not only for robotics, but more generally for artificial intelligence.
+
+The ability to explicitly manage contexts and context switches would endow the
+robot with a cognitive capability similar to what is known as
+\emph{context-dependent memory} in cognitive psychology. This is also related
+to Tulving's \emph{autonoetic consciousness}~\cite{Tulving1985a}: the ability
+to reflect upon its own past or future experiences.
+
+Much remain to be done to this regard, starting with a formal analysis of what
+are the relevant contexts for our robots.
+
+Human-Robot Interaction is and is going to remain a challenging field for
+artificial intelligence. We hope that this contribution helps with clarifying
+some of these challenges.
 
 \section*{Acknowledgments}
 
