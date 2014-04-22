@@ -1,0 +1,93 @@
+\documentclass{letter}
+\usepackage{letterbib}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{booktabs}
+
+
+\signature{Séverin Lemaignan}
+\begin{document}
+
+\subsection{General Comments}
+
+\emph{1. The novelty of this paper with respect to other papers by the same
+authors, including one in IJSR 2011, has been questioned. The authors
+should convincingly explain what are the novel contributions and the
+added value of this work compared to the previous publications.}
+
+We address this question with our reponse to reviewer 3, below.
+
+\emph{2. The form and depth of the presentation are below the standards of an
+AIJ article.  The reviewers made many suggestions to make the presentation
+better structured, more detailed, and more focused.}
+
+We detail below the steps that were taken to improve the overall quality of the
+paper (note that minor typos/style issues reported by the reviewers have been
+fixed directly in the manuscript, and are not discussed here anymore).
+
+
+\subsection{Comments from Reviewer 1}
+
+\begin{itemize}
+
+    \item \emph{For longer journal articles, a citation style like 'apalike' that uses the
+author names in the references would be more pleasant to read since it saves
+reviewers from jumping back and forth all the time.
+
+[EiC note: please use the standard AIJ referencing style -- we do not have the
+liberty to change this -- thanks]}
+
+As indicated by the Editor in Chief, we need to keep the current citation style.
+
+    \item \emph{p10 l 49: How is this discrimination done?} The discrimination
+        algorithms are detailed in \cite{Ros2010b} (Best Paper Award at
+        ROMAN2010). We have added a reference to this paper.
+
+    \item \emph{The example scenarios have very bold names for often rather
+        simple things.} The reviewer is indeed right. We have mistakenly used internal
+        \emph{code names} for the experiments' names. These have been reworded.
+\end{itemize}
+
+\subsection{Comments from Reviewer 2}
+
+\begin{itemize}
+    \item \emph{pg 10 (section 3.2.1)
+            "The system supports ...". This is one example of a topic that would
+            be really interesting to the readers and it is just hinted. In
+            particular, learning rules like "cats are animals" maybe really
+            nice, but are such rules compatible with the existing knowledge?
+        Adding them as triples may work only in absence of contradictions} The
+        various natural language grounding processes that are made possible
+        within this semantic
+        architecture would require a relatively long discussion to be adequately
+        explained. They are besides already presented in~\cite{Lemaignan2011a}.
+        We have added an explicit reference to this previous publication.
+
+        To specifically answer the reviewer question on how possible
+        contradictions are managed, we indeed check that new statements proposed
+        by the human do not lead to contradictions before inserting them.
+
+    \item \emph{pg 10 (section 3.2.1)
+
+            "Note that, while the system benefits from the complementary
+            modalities, they are not all
+            required. The dialogue system can run with only the verbal modality,
+            at the cost of a simpler interaction."
+        Possibly true, but unjustified claim.} An example has been added to
+        clarify this fall-back mechanism.
+
+    \item \emph{"The second level of integration of multi-modality is implicit:
+            by computing symbolic properties 
+            from the geometry, richer descriptions and hence discrimination
+            possibilities are available: 
+            for instance, if reachability is available, the robot may ask "do
+            you mean the bottle that is 
+            accessible to me?" to discriminate between the three bottles. That
+            way, procedures relying on 
+            discrimination transparently benefit from added modalities." Concept
+        remains unclear.} The paragraph has been rephrased and the example
+        updated to clarify the concepts.
+\end{itemize}
+
+
+\end{document}
