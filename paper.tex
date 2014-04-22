@@ -310,10 +310,10 @@ reasoner.
 our experimental needs and conforming as much as possible to the {\sc OpenCyc}
 upper ontology.
 
-This lead to a bidirectional design process: from \emph{bottom-up} regarding
+This leads to a bidirectional design process: from \emph{bottom-up} regarding
 the choices of concepts to model, \emph{top-down} regarding the upper part of the
 taxonomy. This upper part of the ontology is pictured on
-Figure~\ref{fig|upper_tbox}. All the classes visible on this figure belong to the
+Figure~\ref{fig|upper_tbox}. All the classes visible in this figure belong to the
 {\sc OpenCyc} namespace (the {\tt cyc:} prefix is omitted for clarity).
 
 Aligning the upper part of the ontology on {\sc OpenCyc} (as done by other
@@ -372,7 +372,7 @@ required by experiments.
 Lastly, the ORO common-sense ontology contains several rules and class
 expressions that encode non-trivial inferences.
 
-The definition of the \concept{Bottle} is a case in point:
+The definition of the \concept{Bottle} is a typical example:
 
 \concept{Bottle} $\equiv$ \concept{Container} {\bf and} \concept{Tableware}
 {\bf that} (\concept{hasShape} {\bf value} \concept{cylinderShape} {\bf and}
@@ -721,11 +721,13 @@ actions), interactive disambiguation (the robot asks questions when it needs
 more information), anaphora resolution (``give \emph{it} to me'') based on
 dialogue history. It also permits knowledge extension by learning new semantic
 structures (for instance, a sentence like ``learn that cats are animals'' is
-converted into \stmt{Cat subClassOf Animal} and added to the knowledge base),
+converted into \stmt{Cat subClassOf Animal} and added to the knowledge base
+after checking for possible contradictions with existing knowledge),
 interprets common temporal and place adverbs (like \emph{above} or
 \emph{tomorrow}) and translates to a certain extend \emph{states} (``I'm
 tired'') into \emph{experiences} (\stmt{HUMAN experiences state\_1, state\_1
-hasFeature tired}).
+hasFeature tired}). We kindly refer the readers to~\cite{Lemaignan2011a} for a
+complete discussion of these capabilities and the related algorithms.
 
 \subsubsection{Multi-modal communication}
 
@@ -745,20 +747,25 @@ human posture).
 
 Another example, when the human says ``this'', the robot checks if the human is
 currently pointing at some object. In that case, \emph{this} is replaced by the
-object focused on.
+object focused on. Otherwise, the robot performs a lookup in the dialogue history
+to find a previous concept that the user could refer to (anaphora resolution).
 
-Note that, while the system benefits from the complementary modalities, they
-are not all required. The dialogue system can run with only the verbal
-modality, at the cost of a simpler interaction.
+Note that, while the system benefits from the complementary modalities, they are
+not all required. The dialogue system can run with the verbal modality alone, at
+the cost of a simpler interaction: if the human says ``this'' without the robot
+tracking what the human points at, no \stmt{HUMAN pointsAt ...} fact is
+available in the knowledge base, and the robot fallbacks on the anaphora
+resolution step alone.
 
-The second level of integration of multi-modality is implicit: by computing
-symbolic properties from the geometry, richer descriptions and hence
-discrimination possibilities are available: for instance, if reachability is
-available, the robot may ask ``do you mean the bottle that is accessible to
-me?'' to discriminate between the three bottles. That way, procedures relying
-on discrimination transparently benefit from added modalities (we kindly refer
-the interested readers to~\cite{Ros2010b} for a detailed account of our
-approach to interactive concept discrimination with the accompanying algorithms).
+The second level of integration of multi-modality is implicit. By continuously
+computing symbolic properties from the geometric model, richer descriptions and
+hence discrimination possibilities are available. For instance, the robot may
+compute that one bottle is next to a glass while another one stands alone, and
+these symbolic descriptions are transparently re-used in a dialogue context to
+generate unambiguous references to discriminate between similar objects: ``do
+you mean the bottle that is next to the glass?'' (we kindly refer the interested
+readers to~\cite{Ros2010b} for a detailed account of our approach to interactive
+concept discrimination, along with the related algorithms).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -875,7 +882,7 @@ While parts of the architecture (SPARK, ORO) have been deployed with external
 execution controllers (like {\sc Cram}~\cite{Beetz2010} or the BERT
 platform~\cite{Lallee2010b}, as reported in~\cite{Lemaignan2010}), we have also
 developed dedicated robot controllers which integrate the whole stack introduced
-on Figure~\ref{fig|archi}. {\sc Shary}~\cite{clodic2008shary} is the main one,
+in Figure~\ref{fig|archi}. {\sc Shary}~\cite{clodic2008shary} is the main one,
 written in the PRS~\cite{Ingrand1996} language. We also use the Python-based
 {\sc pyRobots} collection of tools that provide a large set of high-level
 actions and an event-based architecture well suited for prototyping.
@@ -1215,7 +1222,7 @@ next to the toolbox.''
 This experiment involved a more complex decisional layer where the ORO server
 was used in conjunction with the HATP symbolic task planner and the {\sc Shary}
 execution controller (the complete software architecture we deployed for this
-experiment is the one pictured on Figure~\ref{fig|archi},
+experiment is the one pictured in Figure~\ref{fig|archi},
 page~\pageref{fig|archi}).
 
 In this scenario (Figure~\ref{fig|cleantable-video}), a human and a robot
