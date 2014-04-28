@@ -1112,15 +1112,17 @@ table). Thus, although there is an ambiguity from the robot's perspective
 partner it infers that Tom is referring to the video tape on the table, and not
 the one inside the box which is not visible for him.
 
-Since only one object remains, the robot infers
-that the human refers to it and would eventually execute the command, \ie give
-it to the human. Alternatively, the robot could first verify with the human if
-that was the object being referred to or not before proceeding to execute the
-action. Table~\ref{table|ptbeliefs} lists the robot's beliefs about itself and
-its human partner involved in this situation.
+Since only one object remains (\ie the referent that \concept{VideoTape} stands
+for is not ambiguous anymore), the robot infers that the human refers to it and
+eventually execute the command, \ie give it to the human. Alternatively, the
+robot first asks the human for confirmation (``was \concept{videoTape1} the
+object you had in mind?'') before proceeding with the action.
+Table~\ref{table|ptbeliefs} lists the robot's beliefs about itself and its human
+partner involved in this situation.
 
-\begin{table}
+\begin{table}[ht!]
 \begin{center}
+    \subfigure{
 \begin{tabular}{l}
 \hline
 Robot's beliefs about itself (\emph{robot's model}):\\
@@ -1132,6 +1134,10 @@ Robot's beliefs about itself (\emph{robot's model}):\\
   \hspace{0.7cm}\stmt{videoTape2 isIn cardBoardBox}\\
   \hspace{0.7cm}\stmt{videoTape2 isVisible true}\\
 \hline
+\end{tabular}
+}\hspace{1em}%
+    \subfigure{
+\begin{tabular}{l}
 \hline
 Robot's beliefs about Tom (\emph{Tom's model}):\\
 \hline
@@ -1143,6 +1149,7 @@ Robot's beliefs about Tom (\emph{Tom's model}):\\
   \hspace{0.7cm}\stmt{videoTape2 isVisible false}\\
  \hline
 \end{tabular}
+}
 \end{center}
 \caption{Robot's beliefs about itself and its human partner.}
 \label{table|ptbeliefs}
