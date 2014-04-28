@@ -1397,14 +1397,14 @@ knowledge is questionable) and practical: RDF triples imply only binary
 predicates, which constrains the expressiveness of the system or leads to
 cumbersome reifications. Alternatives exist (like {\sc
 KnowRob}~\cite{Tenorth2009a}) that mix RDF with more expressive logic languages
-like {\sc Prolog}, at the price, however, of other limitations, like
-closed-world reasoning or immutable T-Box. The classification performance is
-another issue: from our experience, with an ontology sized for a standard
-experiment (about 100 classes and 200 instances), classification typically
-takes about 100ms, which becomes problematic during interactions.  Besides, the
-performances are difficult to predict, since a seemingly inoffensive new
-statement may indirectly change abruptly the logical complexity of the whole
-knowledge model and lead to notable degradation of classification time.
+like {\sc Prolog} with other limitations, like closed-world reasoning. The
+classification performance is another issue: from our experience, with an
+ontology sized for a standard experiment (about 100 classes and 200 instances),
+classification typically takes about 100ms, which becomes problematic during
+interactions.  Besides, the performances are difficult to predict, since a
+seemingly inoffensive new statement may indirectly change abruptly the logical
+complexity of the whole knowledge model and lead to notable degradation of
+classification time.
 
 This knowledge model also largely excludes representation of continuous
 phenomena (like time) or uncertain phenomena. When required (for instance for
