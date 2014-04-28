@@ -76,11 +76,7 @@ decision-making issue in human-robot interactions.
 \end{abstract}
 
 \begin{keyword}
-    %% keywords here, in the form: keyword \sep keyword
     human-robot interaction \sep cognitive robotics \sep perspective taking \sep knowledge representation and reasoning
-    %% MSC codes here, in the form: \MSC code \sep code
-    %% or \MSC[2008] code \sep code (2000 is the default)
-
 \end{keyword}
 
 \end{frontmatter}
@@ -295,6 +291,18 @@ manipulated). The second part of the knowledge is acquired at runtime from
 perception, interaction, decision making.  We go over the processes it involves
 in the next sections. Lastly, the third source of knowledge is the output of the
 reasoner.
+
+Contrary to other projects like KnowRob~\cite{Tenorth2009a} that have introduced
+the concept of \emph{computables} to lazily evaluate/acquire symbolic facts when
+needed, we have an \emph{explicit} approach where we greedly compute and assert
+symbolic statements (like spatial relations between objects, see
+Section~\ref{sect|sit-ass}). This design choice trades scalability for explicit
+reasoning: at any time, the full belief state is explicitely stated, and
+provides the reasoner with the largest possible inference domain. This is of
+special importance for an \emph{event-based} architecture (see
+Section~\ref{sect|ctrl}), where, by definition, we do not know beforehand what
+we are ``looking for'', and we prefer instead greedly infer as much as possible
+to build a belief state as comprehensive as possible.
 
 \begin{figure}
     \centering
