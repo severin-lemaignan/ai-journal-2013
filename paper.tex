@@ -10,6 +10,9 @@
 
 \usepackage[english]{babel}
 \usepackage{graphicx, subfigure}
+\usepackage[usenames,dvipsnames]{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
 
 \usepackage{paralist}
 
@@ -212,16 +215,91 @@ activities started by the robot controller are likewise stored as symbolic
 statements.
 
 Incoming statements may in turn trigger events in the system, which
-allow reactive behaviors. These mechanisms are illustrated in the coming
+allow reactive behaviours. These mechanisms are illustrated in the coming
 sections.
 
 \begin{figure*}
         \centering
-        \includegraphics[width=0.9\textwidth]{archi}
-        \caption{Overview of the deliberative layer. Knowledge is
-        centrally managed in an active \emph{semantic blackboard}, pictured
-        above with a thick border.}
-        \label{fig|archi}
+
+\resizebox{\textwidth}{!}{%
+
+\tikzset{subpart/.style={draw, font=\scriptsize, fill opacity=0.5, text opacity=1, fill=black!50}}
+
+\begin{tikzpicture}[
+    >=latex,
+    every edge/.style={draw, very thick},
+    skill/.style={draw, rounded corners, align=center, inner sep=5pt, fill=black!20},
+    label/.style={midway, align=center, font=\scriptsize, fill=white}]
+
+  %%% ORO
+  \node at (0,0)[skill, ultra thick, fill=LimeGreen!50] (oro) {Symbolic facts \\ and beliefs management};
+  
+  %%% HATP
+  \node at (-6, 2)[skill, fill=PineGreen!50] (hatp) {Human-aware symbolic \\ task planning};
+  
+  %%% DIALOGS
+  \node at (-6, -2) [skill, fill=BrickRed!50] (dialogs) {Dialogue processing};
+
+  %%% SPARK
+  \node at (4,-3)[skill, fill=Purple!50] (spark) {%
+      \begin{tikzpicture}
+        \node at (0,0) (geom) {Geometric \& Temporal Reasoning};
+        \node [subpart, below=0.2 of geom.south west, anchor=north west] (world-update) {Sensors fusion};
+        \node [subpart, right=0.2 of world-update] (geom-model) {Geometric model of the environment};
+        \node [subpart, right=0.2 of geom-model] (fact-prod) {Symbolic facts production};
+      \end{tikzpicture}
+    };
+
+  %%% MHP
+  \node at (9,0)[skill, fill=BurntOrange!50] (mhp) {Human-aware \\ Motion and Manipulation \\ Planning};
+
+  %%% SHARY
+  \node at (4,4)[skill, fill=RoyalBlue!50] (shary) {%
+      \begin{tikzpicture}
+        \node at (0,0) (exec) {Execution Controller};
+        \node [subpart, below=0.2 of exec.south west, anchor=north west] (plans) {Goal \& Plans \\ management};
+        \node [subpart, right=0.2 of plans] (sit-asses) {Situation assessment \\ and context management};
+        \node [subpart, right=0.2 of sit-asses] {Action instanciation, \\ execution and monitoring};
+      \end{tikzpicture}
+    };
+
+
+  %%% LOWLEVEL
+  \node [skill, below=of spark] (lowlevel) {%
+      \begin{tikzpicture}
+        \node at (0,0) (sensori) {Sensorimotor layer};
+        \node [subpart, below=0.2 of sensori.south west, anchor=north west, align=left] (perception) {{\bf Perception} \\ 2D markers, RGB-D, motion capture};
+        \node [subpart, align=right, right=0.2 of perception] {{\bf Actuation} \\ Head's pan-tilt unit, grippers, arms, wheels};
+      \end{tikzpicture}
+  };
+
+  %%% Separation between deliberative layer and sensori-motor layer
+  \draw[dotted, thick] (-8,-4.5) -- (12, -4.5);
+
+  %%% Relations between components
+  \path (shary.340) edge [<->, bend left] node[label] {motion plan \\ requests} (mhp);
+  \path (shary.west) edge [<->, bend right] node[label] {shared \\ plans} (hatp);
+  \path (hatp) edge [<->, bend right] node[label] {world model and \\ agents beliefs} (oro.170);
+  \path (dialogs) edge [<->, bend left] node[label] {natural language \\ grounding} (oro.190);
+  \path (spark.100) edge [->, bend right] node[label] {symbolic \\ facts} (oro);
+  \path (shary) edge [<->, bend left] node[label] {Events, \\ World model and \\ agents beliefs} (oro);
+  \path (shary) edge [<->, bend left] node[label] {action monitoring \\ and management of \\ position hypotheses} (spark);
+  \path (lowlevel) edge [->] (spark);
+  \path (lowlevel.east) edge [<-, bend right=80, looseness=1.2] (shary.east);
+
+\end{tikzpicture}
+}
+
+\caption{Overview of the architecture. The deliberative layer (on the top),
+composed of six main modules, interacts with the low-level sensori-motor
+layer (on the bottom). Knowledge is centrally managed in an active
+\emph{semantic blackboard}, pictured above with a thick border. The links
+between components depicted on the figure underline the central role of the
+knowledge base: most of the datastreams are actually symbolic statements exchanged
+through the semantic blackboard.}
+
+
+    \label{fig|archi}
 \end{figure*}
 
 
