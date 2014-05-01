@@ -28,6 +28,8 @@
 \newcommand{\eg}{{\textit{e.g.\ }}}
 \newcommand{\al}{{\textit{et al.\ }}}
 
+\newcommand{\action}[3]{#1\\\textsf{\scriptsize #2,}\\\textsf{\scriptsize #3}}
+
 \graphicspath{{figs/}}
 \DeclareGraphicsExtensions{.pdf,.jpg,.png}
 
@@ -961,7 +963,7 @@ the human partner during joint tasks.
 
 The planner also generates synchronisation points between the agents.
 Figure~\ref{plan_hatp1} illustrates such a plan with two streams.  Here, the
-robot needs to wait for the success of the human agent's {\tt THROW} action
+robot needs to wait for the success of the human agent's {\tt PUT} action
 (estimated through the fulfilment of the action post-conditions, typically
 $\neg$\stmt{GREY\_TAPE isOn TABLE}) to be able to start its own action.
 
@@ -969,9 +971,42 @@ We also use shared plans to verbalize the sequence of actions and to explain
 the human partner how a task may be shared~\cite{warnier2012when}.
 
 \begin{figure}[htbp]
-  \centering
-  \includegraphics[width=0.95\columnwidth]{first_plan.pdf}
-  \caption{A plan produced by HATP with 2 streams}
+    \centering
+\resizebox{0.9\textwidth}{!}{%
+\begin{tikzpicture}[
+    >=latex,
+    robot/.style={fill=RoyalBlue!50},
+    every edge/.style={<-, draw, ultra thick},
+    every node/.style={ draw, 
+                        thick,  
+                        circle, 
+                        font=\sf,
+                        align=center,
+                        node distance=2cm,
+                        fill=BurntOrange!50, 
+                        minimum size=2cm, 
+                        inner sep=0.1cm}]
+
+    \node (h1) {TAKE\\{\tiny \it \sf GREY\_TAPE, TABLE}};
+    \node[right=of h1] (h2) {PUT\\{\tiny\it\sf GREY\_TAPE, BIN1 }} edge (h1);
+
+    \node[robot, below=1.5 of h1] (r1) {TAKE\\{\tiny \it \sf BLACK\_TAPE, TABLE }};
+    \node[robot, right=of r1] (r2) {PUT\\{\tiny \it \sf BLACK\_TAPE, BIN2 }} edge (r1);
+    \node[robot, right=of r2] (r3) {TAKE\\{\tiny \it \sf BOTTLE, TABLE }} edge (r2);
+    \node[robot, right=of r3] (r4) {PUTRV\\{\tiny \it \sf BOTTLE, TABLE}} edge (r3);
+    \node[robot, right=of r4] (r5) {TAKE\\{\tiny \it \sf BOOK, TABLE }} edge (r4);
+    \node[robot, right=of r5] (r6) {PUT\\{\tiny \it \sf BOOK, BIN2 }} edge (r5);
+
+    \node[right=9cm of h2] (h3) {TAKE\\{\tiny \it \sf BOTTLE, TABLE}} edge (h2) edge (r4);
+    \node[right=of h3] (h4) {PUT\\{\tiny \it \sf BOTTLE, BIN1}} edge (h3);
+
+\end{tikzpicture}
+}
+\caption{A plan produced by HATP with two action streams (here, human actions
+    are at the top while robot actions are at the bottom). The arrow between the
+    two streams represents a synchronization point ({\sf PUTRV} stands for {\it Put it so it is both
+    reachable and visible}).}
+
   \label{plan_hatp1}
 \end{figure}
 
@@ -1001,8 +1036,40 @@ The social rules we have defined so far deal with:
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=0.95\columnwidth]{second_plan.pdf}
-  \caption{A plan with the wasted time social rule. {\tt PUTRV} stands for {\it Put it so it is both Reachable and Visible}.}
+\resizebox{0.9\textwidth}{!}{%
+\begin{tikzpicture}[
+    >=latex,
+    robot/.style={fill=RoyalBlue!50},
+    every edge/.style={<-, draw, ultra thick},
+    every node/.style={ draw, 
+                        thick,  
+                        circle, 
+                        font=\sf,
+                        align=center,
+                        node distance=2cm,
+                        fill=BurntOrange!50, 
+                        minimum size=2cm, 
+                        inner sep=0.1cm}]
+
+    \node (h1) {TAKE\\{\tiny \it \sf GREY\_TAPE, TABLE}};
+    \node[right=of h1] (h2) {PUT\\{\tiny\it\sf GREY\_TAPE, BIN1 }} edge (h1);
+
+    \node[robot, below=1.5 of h1] (r3) {TAKE\\{\tiny \it \sf BOTTLE, TABLE }};
+    \node[robot, right=of r3] (r4) {PUTRV\\{\tiny \it \sf BOTTLE, TABLE}} edge (r3);
+    \node[robot, right=of r4] (r1) {TAKE\\{\tiny \it \sf BLACK\_TAPE, TABLE }} edge (r4);
+    \node[robot, right=of r1] (r2) {PUT\\{\tiny \it \sf BLACK\_TAPE, BIN2 }} edge (r1);
+    \node[robot, right=of r2] (r5) {TAKE\\{\tiny \it \sf BOOK, TABLE }} edge (r2);
+    \node[robot, right=of r5] (r6) {PUT\\{\tiny \it \sf BOOK, BIN2 }} edge (r5);
+
+    \node[right=of h2] (h3) {TAKE\\{\tiny \it \sf BOTTLE, TABLE}} edge (h2) edge (r4);
+    \node[right=of h3] (h4) {PUT\\{\tiny \it \sf BOTTLE, BIN1}} edge (h3);
+
+\end{tikzpicture}
+}
+
+\caption{An alternative plan where the \emph{wasted time} social rule is used to optimize the
+total duration of the task. }
+
   \label{plan_hatp2}
 \end{figure}
 
@@ -1421,10 +1488,45 @@ human activities to track the advancement of the whole plan.
     \label{fig|cleantable-video}
 \end{figure}
 
+
 \begin{figure*}[thpb]
   \centering
-  \includegraphics[width=1.0\textwidth]{third_plan.pdf} \\
-  \caption {A plan produced by HATP to execute the high-level order ``clean the table''. Two streams of actions are generated: for the human (top) and for the robot(bottom). Synchronization points ensure the coordination.}
+\resizebox{0.9\textwidth}{!}{%
+\begin{tikzpicture}[
+    >=latex,
+    robot/.style={fill=RoyalBlue!50},
+    every edge/.style={<-, draw, ultra thick},
+    every node/.style={ draw, 
+                        thick,  
+                        circle, 
+                        font=\sf,
+                        align=center,
+                        node distance=2cm,
+                        fill=BurntOrange!50, 
+                        minimum size=2cm, 
+                        inner sep=0.1cm}]
+
+    \node (h1) {\action{TAKE}{WALLE\_TAPE}{TABLE}};
+    \node[right=of h1] (h2) {\action{THROW}{WALLE\_TAPE}{TRASH\_1 }} edge (h1);
+
+    \node[robot, below=1.5 of h1] (r1) {\action{TAKE}{GREY\_TAPE}{TABLE }};
+    \node[robot, right=of r1] (r2) {\action{PUTRV}{GREY\_TAPE}{TABLE}} edge (r1);
+    \node[robot, right=of r2] (r3) {\action{TAKE}{LOTR\_TAPE}{TABLE }} edge (r2);
+    \node[robot, right=of r3] (r4) {\action{PUTRV}{LOTR\_TAPE}{TABLE }} edge (r3);
+
+    \node[right=of h2] (h3) {\action{TAKE}{GREY\_TAPE}{TABLE}} edge (h2) edge (r2);
+    \node[right=of h3] (h4) {\action{THROW}{GREY\_TAPE}{TRASH\_1}} edge (h3);
+    \node[right=of h4] (h5) {\action{TAKE}{LOTR\_TAPE}{TABLE}} edge (h4) edge (r4);
+    \node[right=of h5] (h6) {\action{THROW}{LOTR\_TAPE}{TRASH\_1}} edge (h5);
+
+
+\end{tikzpicture}
+}
+
+  \caption {A plan produced by HATP to execute the high-level order ``clean the
+  table''. Two streams of actions are generated: for the human (top) and for the
+  robot (bottom). Synchronization points ensure the coordination.}
+
   \label{plan-etat2}
 \end{figure*}
 
