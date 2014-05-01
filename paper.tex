@@ -86,94 +86,106 @@ decision-making issue in human-robot interactions.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{The challenge of human-robot interaction}
+\section{The Challenge of Human-Robot Interaction}
+
+\subsection{The Human-Robot Interaction Context}
 
 Human-robot interaction is a challenge for artificial intelligence. This field
-indeed lays at the crossroad of several other domains of AI and requires to
-tackle them in a holistic manner: Modeling humans and human cognition;
-acquiring, representing, manipulating in a tractable way abstract knowledge;
-reasoning on this knowledge to make decisions; and eventually instantiating
-those decisions into physical actions in coordination with humans. Many AI
-techniques are invited, from visual processing to symbolic reasoning, from task
-planning to \emph{theory of mind} building, from reactive control to action
-recognition and learning.
+lays at the crossroad of several domains of AI and requires to tackle them in a
+holistic manner: Modeling humans and human cognition; acquiring, representing,
+manipulating in a tractable way abstract knowledge at the human level; reasoning
+on this knowledge to make decisions; and eventually instantiating those
+decisions into physical actions both legible to and in coordination with humans.
+Many AI techniques are invited, from visual processing to symbolic reasoning,
+from task planning to \emph{theory of mind} building, from reactive control to
+action recognition and learning.
 
-We do not tackle all these issues. This article attempts however to organize
-them into a coherent challenge for artificial intelligence, and also to make
-explicit some of the paths that have been investigated on our robots and that
+We do not claim to address here the whole issue. This article attempts however to organize
+it into a coherent challenge for artificial intelligence, and to explain and
+illustrate some of the paths that we have investigated on our robots and that
 result in a deliberative, knowledge-oriented, architecture for human-robot
 interaction.
 
-The class of interactions we consider are essentially multi-modal situated
-dialog and collaborative task achievement: a robot which is expected to achieve
-interactive object manipulation, fetch and carry tasks and similar tasks in a
-domestic environment, with human partners (Figure~\ref{fig:hri-dec}). Two
-agents (a human and a robot) share a common space and exchange information
-through multiple modalities. The robot is expected to explicitly take into
-account the human and to manage its interactions with him.
-
-Namely, the robot must be able to recognize, understand and participate
-to communication situations, both explicit (\eg the human addresses verbally
-the robot) and implicit (\eg the human points to an object); the robot must be
-able to take part to joint actions, both proactively (by planning and proposing
-such an action to the human) and reactively; the robot must be able to move and
-act in a safe, efficient and legible way, taking into account social rules like
-proxemics.
+We focus on a specific class of interactions: collaborative task achievement
+supported by multi-modal and situated communication. Figure~\ref{fig:hri-dec}
+illustrates this context: the two agents share a common space and exchange
+information through multiple modalities, and the robot is expected to achieve
+interactive object manipulation, fetch and carry tasks and other similar
+domestic tasks by taking into account, at every stages, the intentions, beliefs,
+perspectives, skills of the human partner.  Namely, the robot must be able to
+recognize, understand and participate to communication situations, both explicit
+(\eg the human addresses verbally the robot) and implicit (\eg the human points
+to an object); the robot must be able to take part to joint actions, both
+proactively (by planning and proposing resulting plans to the human) and
+reactively; the robot must be able to move and act in a safe, efficient and
+legible way, taking into account social rules like proxemics.
 
 \begin{figure}[htb]
 \centering
-\includegraphics[width=0.6\columnwidth]{grounding_robot.pdf}
-\caption{Robot reasoning about HRI and anticipation of human activities.
-  Sources of information are multi-modal dialogue, and monitoring of the
-  environment and human activity. The robot must adapt on-line its behaviors
-  by merging computed plans with reactive control. The robot explicitly reasons
-  on the fact that it is (or not) observed by the human. Reasoning and planning
-  take place at symbolic as well as geometric level and systematically take
-  into account both agents beliefs and activities (from the point of view of
-  the robot).}
+\begin{tikzpicture}
+    \node at (0,0) {\includegraphics[width=0.6\textwidth]{grounding_robot.png}};
+    \node[circle, draw] at (-3.5,2.5) {A};
+    \node[circle, draw] at (5.5,2) {D};
+    \node[circle, draw] at (5.2,-1) {C};
+    \node[circle, draw] at (-1,2) {B};
+\end{tikzpicture}
+
+\caption{The robot reasons and acts in domestic interaction scenarios.  The
+    sources of information are multi-modal dialogue {\it (A)}, and
+    perspective-aware monitoring of the environment and human activity {\it
+    (B)}. The robot must adapt on-line its behaviours by merging computed plans
+    with reactive control. The robot explicitly reasons on the fact that it is
+    (or not) observed by the human. Reasoning and planning take place at
+    symbolic {\it (C)} as well as geometric level and take into account agents
+    beliefs, perspectives and capabilities {\it (D)} as estimated by the robot.}
 
 \label{fig:hri-dec}
 \end{figure}
 
-Those three items have broad implications regarding the required underlying
-cognitive skills.  A \emph{joint action}, for instance, can be described as
-follow. Given:
+\emph{Communication}, \emph{Joint Actions}, \emph{Human-Aware Execution}: these
+three challenges structure the whole field of human-robot interaction research,
+and can be analysed in terms of the cognitive skills that they require.
+
+A \emph{joint action}, for instance, builds from:
 
 \begin {itemize}
-\item a joint goal, which has been previously established and agreed
-  upon (typically through dialogue),
-\item the current situation, acquired through perception or
-  deduction from previous perceptions, including the state of the
-  environment of the robot and of the human,
-\item {\it a priori} common-sense knowledge,
+    \item a joint \emph{goal}, which has been previously established and agreed
+        upon (typically through dialogue),
+    
+    \item a physical environment, estimated through the robot's exteroceptive
+        sensing capabilities, and complemented by inferences drawn from previous
+        observations,
+    
+    \item a belief state that includes {\it a priori} common-sense knowledge and
+        mental models of each of the interactors.
+
 \end {itemize}
 
-the robot controller computes an action to execute and who (the 
-human or the robot, or both in case of a joint action) has to perform
-it, and then controls or monitors its execution. The operation
-continues until the goal is achieved, is declared unachievable or is
-abandoned by the human.
+The robot controller then decides on an action to execute next and who has to
+perform it, from the human, the robot or both in case of a joint action, and
+eventually controls or monitors its execution. The operation continues until the
+goal is achieved, is declared unachievable or is abandoned by the human.
 
-To do so, the robot has to be equipped with a number of decisional, planning
-and interpretation abilities where its human partner is taken explicitly into
-account. It needs to be able:
+\begin{inparaenum}
+This translates into several decisional, planning, representation skills that
+need to be available to the robot. It must be able \item to represent and
+manipulate symbolic belief states, \item to acquire and maintain them up-to-date
+with respect to state of the world and the task at hand, \item to build and
+maintain, and iteratively refine shared (human-robot) plans, \item to
+instantiate and execute the actions it has to perform, and conversely,
+to monitor those achieved by its human partner.
+\end{inparaenum}
 
-\begin{itemize}
-\item to build and maintain relevant robot and human beliefs
-  (from the robot perspective) with respect to state of the world and the task,
-\item to build and maintain iteratively shared (human-robot) plans, 
-\item to refine and execute the actions it has to perform, and to monitor 
-those achieved by its human partner.
-\end{itemize}
+Such abilities must be designed and implemented in generic ways and
+provide several levels of parametrization such as they adapt to
+various environments, different tasks and variable levels of engagement of the
+robot, ranging from teammate behaviour to assistant or proactive helper.
 
-Besides, we would like to build such abilities in a generic way, and
-to provide several levels of parametrization allowing to adapt to
-various environments, and various levels of involvement of the robot
-ranging from teammate behavior to assistant or proactive helper.
+\subsection{The Key Issues}
 
-We will see, in the following sections, how cognitive skills for realistic
-human-robot interaction can be implemented and organized together in a coherent
-architecture.
+
+
+TDB
 
 \subsection{Article organization}
 
@@ -345,7 +357,7 @@ geometric reasoning and dialogue processing modules constantly build and push
 new symbolic contents about the world to the knowledge base where it becomes
 accessible to decisional layers. In parallel, the knowledge base relies on
 reasoning in a \textit{top-down} way to produce new facts that may in return
-trigger physical behaviors.
+trigger physical behaviours.
 
 \subsection{A Knowledge model}
 
@@ -640,6 +652,18 @@ sensing modalities, it computes and grounds perceptions into symbolic
 knowledge (situation assessment), it is responsible for temporal interpretation of
 situations and performs spatial perspective-taking.
 
+SPARK is designed to run and continously update the knowledge base (in our
+experiments, it runs at about 10Hz). At each steps, it re-computes spatial
+relationships and affordances for the whole scene, and send the delta (new
+relations and relations that do not hold anymore) to the knowledge base. This
+approach may raise scalability concerns (we did not however hit such issues in
+our constrainted scenarios), but greatly simplifies the management of the
+\emph{dynamics} of the knowledge (\emph{When do I discard outdated knowledge?
+When do I update it?}). Since it is equivalent to a reset of the reasoner
+domain, it also hides issues linked to non-monotonic reasoning
+(see~\cite{McCarthy2007} for a discussion on that question).
+
+
 \begin{figure*}[ht!]
    \begin{center}
 %
@@ -670,9 +694,10 @@ situations and performs spatial perspective-taking.
 
 \begin{table}
 \begin{center}
+    \subfigure{
 \begin{tabular}{l}
 \hline
-Robot's beliefs about itself (\emph{robot's model}):\\
+Robot's beliefs about itself (\emph{robot's model})\\
 \hline
   \hspace{0.7cm}\stmt{PINK\_TRASHBIN isReachable false}\\
   \hspace{0.7cm}\stmt{WALLE\_TAPE isReachable {\bf false}}\\
@@ -685,8 +710,12 @@ Robot's beliefs about itself (\emph{robot's model}):\\
   \hspace{0.7cm}\stmt{LOTR\_TAPE isOn TABLE}\\
   \hspace{0.7cm}\stmt{GREY\_TAPE isOn TABLE}\\
 \hline
+\end{tabular}
+}\hspace{1em}%
+\subfigure{
+\begin{tabular}{l}
 \hline
-Robot's beliefs about the human (\emph{human's model}):\\
+Robot's beliefs about the human (\emph{human's model})\\
 \hline
   \hspace{0.7cm}\stmt{PINK\_TRASHBIN isReachable false}\\
   \hspace{0.7cm}\stmt{WALLE\_TAPE isReachable {\bf true}}\\
@@ -700,6 +729,7 @@ Robot's beliefs about the human (\emph{human's model}):\\
   \hspace{0.7cm}\stmt{GREY\_TAPE isOn TABLE}\\ 
  \hline
 \end{tabular}
+}
 \end{center}
 \caption{Symbolic facts computed from the situation depicted in
 Figure~\ref{fig:sparkSubfigures}. Note how reachability differs for the two
@@ -1069,7 +1099,7 @@ triggered.
 This allows us to write reactive robot controllers with a high level of
 expressiveness: for instance, by subscribing to the event \stmt{human1 desires
 ?action, ?action type Look, ?action hasGoal myself}, we could trigger a
-behavior when the human expresses (through dialogue, gestures...) that he
+behaviour when the human expresses (through dialogue, gestures...) that he
 wants to look at the robot itself.
 
 The robot controller designer does not need to directly care about how this
@@ -1199,7 +1229,7 @@ pick-and-place).
 
 The second one involves the {\sc Shary} execution controller and the HATP symbolic
 task planner besides ORO and {\sc Dialogs}. In this scenario, the human and the
-robot try to cooperatively remove objects from a table. behaviors and motions
+robot try to cooperatively remove objects from a table. behaviours and motions
 are fully planned.
 
 \subsection{\emph{Moving to London} scenario}
@@ -1594,7 +1624,7 @@ still simple and mostly focused on geometric features (who sees what? What are
 our relative positions? etc.). Extending this knowledge with more subtle
 perceptions (emotional state for instance) remains to be done.
 
-We should also mention that modelling of human behaviors also appear in our
+We should also mention that modelling of human behaviours also appear in our
 architecture at the level of task and motion planning with a set of
 \emph{social rules}, including proxemics, action legibility or time
 optimization.
@@ -1775,8 +1805,8 @@ be viable soon~\cite{Dean2013Fast}.
 
 We have presented in this article a decisional framework for human-robot
 interactive task achievement that is aimed to allow the robot not only to
-accomplish its tasks but also to produce behaviors that support its engagement
-vis-a-vis its human partner and to interpret human behaviors and intentions.
+accomplish its tasks but also to produce behaviours that support its engagement
+vis-a-vis its human partner and to interpret human behaviours and intentions.
 Together and in coherence with this framework, we have developed and
 experimented various task planners and interaction schemes that allow the robot
 to select and perform its tasks while taking into account explicitly the human
@@ -1795,7 +1825,7 @@ situations where divergent beliefs appear between the human and the robot.
 Preliminary results have been published in~\cite{warnier2012when}.
 
 There is also extensive work to be done in order to refine the notion of ``good
-shared plan" and ``good/acceptable robot behavior" in this context. There are
+shared plan" and ``good/acceptable robot behaviour" in this context. There are
 obviously large avenues for learning and adaptation in this context.
 
 Another broader direction to head deals with \emph{contexts representation}.
