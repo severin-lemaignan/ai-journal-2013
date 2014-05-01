@@ -384,7 +384,37 @@ to build a belief state as comprehensive as possible.
 
 \begin{figure}
     \centering
-    \includegraphics[width=\columnwidth]{top_tbox.pdf}
+
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[
+    >=latex,
+    every edge/.style={<-, draw, very thick},
+    every node/.style={draw, font=\tt, node distance=0.5, rounded corners,
+align=center, inner sep=5pt,fill=LimeGreen!50}]
+
+    \node[fill=Purple!50] (thing) {\textbf{thing}};
+    \node [fill=BurntOrange!50, node distance=1.8, below left=of thing](sthing) {spatial thing} edge (thing);
+        \node [fill=BurntOrange!50, above left=of sthing] {posture} edge (sthing);
+        \node [fill=BurntOrange!50, left=of sthing] {shape} edge (sthing);
+        \node [fill=BurntOrange!50, below=of sthing] (location) {location} edge (sthing);
+            \node [fill=BurntOrange!50, below right=of location] {zone} edge (location);
+            \node [fill=BurntOrange!50, below left=of location] (set) {spatial enduring thing} edge (location);
+                \node [fill=BurntOrange!50, below right=of set] {obstacle} edge (set);
+                \node [fill=BurntOrange!50, below left=of set] {opening} edge (set);
+                \node [fill=BurntOrange!50, below=1 of set] {partially tangible thing} edge (set);
+                \node [fill=BurntOrange!50, above left=of set] {place} edge (set);
+
+    \node [node distance=1, below right=of thing] (tthing) {temporal thing} edge (thing);
+        \node [below=of tthing] (tte) {thing with temporal extend} edge (tthing);
+            \node [below right=of tte] {time interval} edge (tte);
+            \node [below=1 of tte] (sit) {situation} edge (tte);
+                \node [below right=of sit] (evt) {event} edge (sit);
+                    \node [below right=of evt] (act) {action} edge (evt);
+                        \node [below=of act] {purposeful action} edge (act);
+                \node [below left=of sit] {static situation} edge (sit);
+
+\end{tikzpicture}
+}
 
     \caption{The upper part of the ORO common-sense TBox. All these concepts
     belong to the {\sc OpenCyc} namespace.}
@@ -443,7 +473,30 @@ ontology.
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.6\columnwidth]{tangible_things_tbox.pdf}
+
+\resizebox{0.7\textwidth}{!}{%
+\begin{tikzpicture}[
+    >=latex,
+    every edge/.style={<-, draw, very thick},
+    every node/.style={draw, font=\tt, node distance=0.5, rounded corners,
+align=center, inner sep=5pt,fill=BurntOrange!50}]
+
+    \node[fill=Purple!50] (thing) {\textbf{thing}};
+    \node [below=1.5 of thing] (ptt) {partially tangible thing} edge[dashed] (thing);
+        \node [left=of ptt] {physical support} edge (ptt);
+        \node [below left=of ptt] {visual mark} edge (ptt);
+        \node [below right=of ptt] {container} edge (ptt);
+        \node [right=of ptt] {fluid} edge (ptt);
+        \node [below=1.5 of ptt] (stt) {solid tangible thing} edge (ptt);
+            \node [below=1 of stt] {graspable object} edge (stt);
+            \node [below left=of stt] {body part} edge (stt);
+            \node [left=of stt] {furniture} edge (stt);
+            \node [below right=of stt] (ea) {embodied agent} edge (stt);
+                \node [below=of ea] {human} edge (ea);
+                \node [right=of ea] {robot} edge (ea);
+
+\end{tikzpicture}
+}
     \caption{TBox of the specialisations of \concept{PartiallyTangible}.}
     \label{fig|tangible_things_tbox}
 \end{figure}
