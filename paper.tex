@@ -621,8 +621,46 @@ features.
 \label{sect|sit-ass}
 
 \begin{figure}
-        \centering
-        \includegraphics[width=0.8\columnwidth]{spark-oro.png}
+\centering
+\resizebox{0.8\textwidth}{!}{%
+\begin{tikzpicture}[
+        >=latex,
+        box/.style={draw,rectangle, dotted, minimum width=#1, minimum height=3.8cm},
+        box/.default={4.5cm},
+        every edge/.style={draw, ultra thick},
+        every node/.style={align=center}]
+
+    %\draw[step=1cm, draw=black!20] (-10,-5) grid (10,5);
+
+    \node[draw=none] at (0,0) {\includegraphics[width=0.8\columnwidth]{spark-oro-notext.pdf}};
+
+    \node[box=16cm, minimum height=5.7cm, solid, thick, rounded corners] at (0,1.8) (oro) {};
+    \node at (0,4.2) {\sc \Large oro-server};
+
+    \node[anchor=south] at (-4.6,2.4) {Description Logics \\ (Open World assumption)};
+    \node[box=3.7cm] at (-4.6,1.9) (owl) {};
+    \node[anchor=south] at (-1,2.4) {Multiple simultaneous \\ symbolic models};
+    \node[box=3.3cm] at (-1,1.9) (multi) {};
+    \node[anchor=south] at (2.1,2.4) {Bio-inspired \\ memory};
+    \node[box=2.7cm] at (2.1,1.9) (mem) {};
+    \node[anchor=south] at (5,2.4) {Discrimination \& \\ categorization};
+    \node[box=3cm] at (5,1.9) (disc) {};
+
+    \node at (-3,-0.6) {{\it OWL store:} OpenJena};
+    \node at (3,-0.6) {{\it Reasoner:} Pellet};
+
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+    \node[box=16cm, minimum height=3cm, dotted, thick, rounded corners] at (0,-3.75) (spark) {};
+    \path (spark.north) edge[->] node[align=left,anchor=west] {Symbolic\\facts} (oro.south);
+
+    \node[anchor=north] at (-4.5,-4.5) {Relative locations};
+    \node[anchor=north] at (-1.5,-4.5) {Spatial relations};
+    \node[anchor=north] at (1.5,-4.5) {Visibility};
+    \node[anchor=north] at (4.8,-4.5) {Reachability};
+
+\end{tikzpicture}
+}
     \caption{Functional overview of knowledge base ({\sc Oro} server, top part)
     and the geometric situation assessment module (\emph{{\sc Spark}}, bottom
     part). {\sc Spark} computes symbolic relationships between objects and
