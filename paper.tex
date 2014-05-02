@@ -14,6 +14,8 @@
 \usepackage{tikz}
 \usetikzlibrary{positioning}
 
+\usepackage{amsmath} % \text
+
 \usepackage{paralist}
 
 \usepackage[draft, nomargin, marginclue, footnote]{fixme}
@@ -203,37 +205,11 @@ experiments that illustrate in a concrete way what can be currently achieved
 with our robots.  Section~\ref{sect|conclusion} finally summarizes our main
 contributions and relate them to other recent researches in the field.
 
-\section{From human-robot interaction to a deliberative architecture}
+\section{Deliberative Architecture and Knowledge Model}
 
-\subsection{Building a human-aware deliberative layer}
 
-Connecting multiple independent software modules in one coherent robotic
-architecture is not only a technical challenge, but also a design and
-architectural challenge.
-
-In particular, dealing with the rich semantics of natural interaction with
-humans has been one of our major focus. To this end, we have been deploying
-over the last years explicit knowledge representation and manipulation in the
-deliberative layer of the robots as a {\it lingua franca} between our
-components.
-
-Figure~\ref{fig|archi} gives an overview of resulting
-architecture~\cite{Alami2011}. An active knowledge base, conveniently thought
-as a \emph{semantic blackboard}, connects most of the modules together: the
-\emph{geometric reasoning} module (called {\sc Spark}) produces symbolic
-assertions describing the dynamics of the robot's environment. These logical
-statements are stored in the knowledge base, and reused by the language
-processing module (called {\sc Dialogs}), the symbolic task planner (HATP) and
-the execution controllers. The output of the language processing module, or the
-activities started by the robot controller are likewise stored as symbolic
-statements.
-
-Incoming statements may in turn trigger events in the system, which
-allow reactive behaviours. These mechanisms are illustrated in the coming
-sections.
-
-\begin{figure*}
-        \centering
+\begin{figure*}[ht]
+\centering
 
 \resizebox{\textwidth}{!}{%
 
@@ -246,18 +222,18 @@ sections.
     label/.style={midway, align=center, font=\scriptsize, fill=white}]
 
   %%% ORO
-  \node at (0,0)[skill, ultra thick, fill=LimeGreen!50] (oro) {Symbolic facts \\ and beliefs management};
+    \node at (0,0)[skill, ultra thick, fill=LimeGreen!50] (oro) {{\sc Oro} -- Symbolic facts \\ and beliefs management};
   
   %%% HATP
-  \node at (-6, 2)[skill, fill=PineGreen!50] (hatp) {Human-aware symbolic \\ task planning};
+  \node at (-6, 2)[skill, fill=PineGreen!50] (hatp) {HATP -- Human-aware \\ symbolic task planning};
   
   %%% DIALOGS
-  \node at (-6, -2) [skill, fill=BrickRed!50] (dialogs) {Dialogue processing};
+  \node at (-6, -2) [skill, fill=BrickRed!50] (dialogs) {{\sc Dialogs} \\ Dialogue processing};
 
   %%% SPARK
   \node at (4,-3)[skill, fill=Purple!50] (spark) {%
       \begin{tikzpicture}
-        \node at (0,0) (geom) {Geometric \& Temporal Reasoning};
+          \node at (0,0) (geom) {{\sc Spark} -- Geometric \& Temporal Reasoning};
         \node [subpart, below=0.2 of geom.south west, anchor=north west] (world-update) {Sensors fusion};
         \node [subpart, right=0.2 of world-update] (geom-model) {Geometric model of the environment};
         \node [subpart, right=0.2 of geom-model] (fact-prod) {Symbolic facts production};
@@ -265,7 +241,7 @@ sections.
     };
 
   %%% MHP
-  \node at (9,0)[skill, fill=BurntOrange!50] (mhp) {Human-aware \\ Motion and Manipulation \\ Planning};
+    \node at (9,0)[skill, fill=BurntOrange!50] (mhp) {{\sc mhp} -- Human-aware \\ Motion and Manipulation \\ Planning};
 
   %%% SHARY
   \node at (4,4)[skill, fill=RoyalBlue!50] (shary) {%
@@ -296,7 +272,7 @@ sections.
   \path (hatp) edge [<->, bend right] node[label] {world model and \\ agents beliefs} (oro.170);
   \path (dialogs) edge [<->, bend left] node[label] {natural language \\ grounding} (oro.190);
   \path (spark.100) edge [->, bend right] node[label] {symbolic \\ facts} (oro);
-  \path (shary) edge [<->, bend left] node[label] {Events, \\ World model and \\ agents beliefs} (oro);
+  \path (shary) edge [<->, bend left] node[label] {events, \\ world model and \\ agents beliefs} (oro);
   \path (shary) edge [<->, bend left] node[label] {action monitoring \\ and management of \\ position hypotheses} (spark);
   \path (lowlevel) edge [->] (spark);
   \path (lowlevel.east) edge [<-, bend right=80, looseness=1.2] (shary.east);
@@ -316,90 +292,125 @@ through the semantic blackboard.}
     \label{fig|archi}
 \end{figure*}
 
+\subsection{Building a human-aware deliberative layer}
 
-This architecture moves away from standard layered approaches found in
-robotics~\cite{Gat1998three, Volpe2001CLARAty, Goldberg2002}. Interactions
-between components at the deliberative level are mostly bidirectional and we do
-not introduce layers of abstraction amongst software components\footnote{We do
-have lower-level modules to execute actions or manage sensors, but all
-cognition-related modules reside at the same level.}. Dialogue processing, for
-instance, illustrates this structure: This component does not simply act as an
-alternative perceptual input to the symbolic database; it also
-actively queries previously acquired knowledge to disambiguate and validate the
-newly created symbolic knowledge (see section~\ref{sect|com}).
+Connecting multiple independent software modules in one coherent robotic
+architecture is not only a technical challenge, but also a design and
+architectural challenge.
 
-Our architecture relates to \emph{Beliefs, Desires, Intentions} (BDI)
-architectures. BDI architectures are primarily focused on \emph{practical
-reasoning}, \ie the process of deciding, step by step, which action to perform
-to reach a goal (as summarized by Woolridge~\cite{Woolridge1999}). The
-management of the interaction between knowledge (the beliefs) and task and plan
-representation and execution (the desires and the intentions) is central, and
-aims at selecting at each step the best subgoal. It becomes then an intention
-that the robot commits to.
+In particular, dealing with the rich semantics of natural interaction with
+humans has been one of our major focus. To this end, we have been deploying
+over the last years explicit knowledge representation and manipulation in the
+deliberative layer of the robots as a {\it lingua franca} between our
+components.
 
-This interaction between knowledge and actions is also central to our approach
-(as for any cognitive system): it is one amongst all the activities carried by
-the robot, actually performed by the communication components (that acquire
-desires from interaction with agents) and the execution controller that may
-decide to take an incoming desire into account to create its own internal
-goals. The controller generates and manages intentions from these goals with
-the help of a symbolic task planner, that also has direct access to the
-knowledge base.
+Figure~\ref{fig|archi} gives an overview of our architecture. An active
+knowledge base ({\sc Oro}), conveniently thought as a \emph{semantic
+blackboard}, connects most of the modules together: the \emph{geometric
+reasoning} module (called {\sc Spark}) produces symbolic assertions (like
+\stmt{BOOK1 isOn TABLE}) describing the state and dynamics of the robot's
+environment. These logical statements are stored in the knowledge base, and
+reused by the language processing module ({\sc Dialogs}), the symbolic task
+planner (HATP) and the execution controller. The output of the language
+processing module, or the activities started by the robot controller are
+likewise stored as symbolic statements.
 
-This activity is however not the backbone of our architecture. Other
-activities are conducted in parallel, without being explicitly considered as
-desires: assessment of the situation and the environment, dialogue (including
-performative dialogue that can possibly change the internal state of the robot,
-but does not lead directly to the creation of desires, like statement assertion or
-question answering), various background monitoring and recognition tasks, etc.
+For instance, when processing a sentence like ``give me another book'', the {\sc
+Dialogs} module sends at some point a request to the knowledge base that looks
+like {\tt \footnotesize find(?book type Book, ?book differentFrom
+BOOK1)}\footnote{We present a similar but complete example at
+section~\ref{moving-london}.} and may write back assertions like \stmt{HUMAN
+desires GIVE\_ACTION45, GIVE\_ACTION45 actsOn BOOK2} to {\sc Oro}. The HATP
+planner then uses the knowledge base to initialize the planning domains with
+similar requests ({\tt \footnotesize find(BOOK2 isAt ?location)}, etc.). The
+execution controller typically monitor conditions (by subscribing to events
+like: {\tt \footnotesize onNewMatch(HUMAN desires ?goal)}) and stores what the
+robot is currently doing (\stmt{myself currentlyPerforms GIVE\_ACTION45}).
 
-Regarding the anchoring question, this architecture is bidirectional. The
-components we described provide a \textit{bottom-up} grounding process:
-geometric reasoning and dialogue processing modules constantly build and push
-new symbolic contents about the world to the knowledge base where it becomes
-accessible to decisional layers. In parallel, the knowledge base relies on
-reasoning in a \textit{top-down} way to produce new facts that may in return
-trigger physical behaviours.
+To some extend, this architecture moves away from classical layered approaches
+found in robotics~\cite{Gat1998three, Volpe2001CLARAty, Goldberg2002}.
+Interactions between components at the deliberative level are mostly
+bidirectional and we do not introduce layers of abstraction amongst software
+components\footnote{We do have lower-level modules to execute actions or manage
+sensors, but all cognition-related modules live in the same global deliberative
+layer.}. Dialogue processing, for instance, illustrates this structure. This
+component does not purely act as an alternative sensing modality that would be
+fed to a distinct deliberative component: on the contrary, it actively queries
+the knowledge base to interpret and disambiguate natural language, and in that
+regards, it is fully integrated to the deliberative process itself (we detail
+natural language processing at section~\ref{sect|com}).
 
-\subsection{A Knowledge model}
+Our architecture however relates to \emph{Beliefs, Desires, Intentions} (BDI)
+architectures. As put by Woolridge~\cite{Woolridge1999}, BDI architectures are
+primarily focused on \emph{practical reasoning}, \ie the process of deciding,
+step by step, which action to perform to reach a goal. The management of the
+interaction between knowledge (the beliefs) and task and plan representation and
+execution (the desires and the intentions) is central, and aims at selecting at
+each step the best subgoal. It becomes then an intention that the robot commits
+to.
 
-In this architecture, knowledge manipulation relies on a
-semantic \emph{blackboard}: a central server (the {\sc Oro}
-server~\cite{Lemaignan2010}) stores knowledge as it is produced by each of the
-deliberative components. It conversely exposes a {\tt json}-based RPC
-API~\cite{lemaignan2012kbapi} to query the knowledge base.
+As for any cognitive system, this fundamental interaction between knowledge and
+actions is central to our approach, and involves the dialogue component that
+acquires \emph{desires} from the other agents, the planner and the execution
+controller that may first decide to take or not into account an incoming desire
+as a \emph{goal}, and then generates and manages \emph{intentions} from these
+goals with the help of a symbolic task planner.
 
-Knowledge is represented as RDF triples in the OWL sub-language. Each
-time triples are added or removed from the knowledge base, a Description
-Logics reasoner ({\sc Pellet}\footnote{\tt http://clarkparsia.com/pellet/})
-classifies the whole ontology and inserts all possible inferred triples.
+Other activities are however conducted in parallel, without being explicitly
+triggered by \emph{desires} in the BDI sense, like situation assessment and
+monitoring or other forms of dialogue (including performative dialogue that can
+possibly change the internal state of the robot, but does not lead directly to
+the creation of \emph{desires}, like assertion of new facts or question
+answering).
 
-At any time, the knowledge available to the robot may come from three sources:
-{\it a priori} knowledge is stored in an ontology (the {\sc OpenRobots Ontology}),
-loaded when the robot initializes. This static source covers the
+\subsection{Knowledge Model}
+
+In our architecture, knowledge manipulation relies on a central server (the {\sc
+Oro} server~\cite{Lemaignan2010}, Figure~\ref{fig|spark-oro} top) which stores
+knowledge as it is produced by each of the deliberative components. It
+conversely exposes a {\tt json}-based RPC API~\cite{lemaignan2012kbapi} to query
+the knowledge base.  We represent knowledge as RDF triples in the OWL
+sub-language. Each time triples are added or removed from the knowledge base, a
+Description Logics reasoner ({\sc Pellet}\footnote{\tt
+http://clarkparsia.com/pellet/}) classifies the whole ontology and inserts all
+possible inferred triples.
+
+This architecture design (a central knowledge base that essentially appears as a
+passive component to the rest of the system -- even though it actually actively
+processes the knowledge pool in the background, for instance with the reasoner)
+departs from other approaches like the CAST model~\cite{Hawes2007} where
+knowledge is represented as a diffuse resource, or the CRAM/KnowRob
+architecture~\cite{Beetz2010} where the knowledge base is an active hub that
+pro-actively queries perceptual components to acquire knowledge. We believe that
+our design leads to a good \emph{observability} (knowledge flows are explicit
+and easy to capture since they are centralized) as well as high modularity
+(modules communicate through a defined and unified API).
+
+At run-time, the knowledge available to the robot at a given time comes from
+three sources. {\it A priori} knowledge is stored in an ontology (the {\sc
+OpenRobots} ontology, discussed below) and loaded at startup. This static source covers the
 \emph{common-sense} knowledge of the robot, and optionally some
-scenario-specific knowledge (for instance about objects that are to be
-manipulated). The second part of the knowledge is acquired at runtime from
-perception, interaction, decision making.  We go over the processes it involves
-in the next sections. Lastly, the third source of knowledge is the output of the
-reasoner.
+scenario-specific knowledge (for instance, about objects that are to be
+manipulated). The second part of the knowledge is acquired at run-time from
+perception, interaction and planning. The next sections detail these processes.
+Lastly, the third source of symbolic statements is the reasoner itself.
 
-Contrary to other projects like KnowRob~\cite{Tenorth2009a} that have introduced
+Contrary to other projects like KnowRob~\cite{Tenorth2009a} that relies on
 the concept of \emph{computables} to lazily evaluate/acquire symbolic facts when
 needed, we have an \emph{explicit} approach where we greedly compute and assert
 symbolic statements (like spatial relations between objects, see
 Section~\ref{sect|sit-ass}). This design choice trades scalability for explicit
 reasoning: at any time, the full belief state is explicitely stated, and
 provides the reasoner with the largest possible inference domain. This is of
-special importance for an \emph{event-based} architecture (see
+special importance for an \emph{event-based} architecture like ours (see
 Section~\ref{sect|ctrl}), where, by definition, we do not know beforehand what
-we are ``looking for'', and we prefer instead greedly infer as much as possible
+we are ``looking for'', and we need instead greedly infer as much as possible
 to build a belief state as comprehensive as possible.
 
 \begin{figure}
     \centering
 
-\resizebox{\textwidth}{!}{%
+\resizebox{0.8\textwidth}{!}{%
 \begin{tikzpicture}[
     >=latex,
     every edge/.style={<-, draw, very thick},
@@ -436,59 +447,67 @@ align=center, inner sep=5pt,fill=LimeGreen!50}]
     \label{fig|upper_tbox}
 \end{figure}
 
-\paragraph{The OpenRobots Ontology} The ORO common-sense ontology has been designed from two requirements: covering
-our experimental needs and conforming as much as possible to the {\sc OpenCyc}
-upper ontology.
+\paragraph{The OpenRobots Ontology} The ORO common-sense ontology has been
+designed from two requirements: covering our experimental needs and conforming
+as much as possible to the {\sc OpenCyc} upper ontology.
 
 This leads to a bidirectional design process: from \emph{bottom-up} regarding
-the choices of concepts to model, \emph{top-down} regarding the upper part of the
-taxonomy. This upper part of the ontology is pictured on
-Figure~\ref{fig|upper_tbox}. All the classes visible in this figure belong to the
-{\sc OpenCyc} namespace (the {\tt cyc:} prefix is omitted for clarity).
+the choices of concepts to model, \emph{top-down} regarding the upper part of
+the taxonomy. This upper part of the ontology is pictured on
+Figure~\ref{fig|upper_tbox}. All the classes visible in this figure belong to
+the {\sc OpenCyc} namespace.
 
 Aligning the upper part of the ontology on {\sc OpenCyc} (as done by other
-KRS, like {\sc KnowRob}~\cite{Tenorth2009a} or PEIS K\&R~\cite{Daoutis2009})
-has multiple advantages. First the design of this part of the ontology is
-generally difficult: it pertains to abstract concepts whose mutual relations
-comes to philosophical debates. The upper taxonomy of {\sc OpenCyc} represents
-a relative consensus, at least within the semantic Web community. Then, because
-it is a well established project with numerous links to other on-line databases
-(like Wikipedia or WordNet), the reuse of important {\sc OpenCyc} concepts
-ensures to a certain extend that the knowledge stored by the robot can be
-shared or extended with well-defined semantics. A good example is the concept
-of \emph{Object}: In everyday conversation, an object is a relatively small
-physical thing, that can be typically manipulated. Normally, a human is not
-considered as an object. In {\sc Cyc}, an object has a more precise definition:
-it is something \emph{partially tangible}. That includes obviously the humans,
-and actually many other entities that would not be commonly said to be objects
-(the Earth for instance). Thus the importance of relying on well-defined and
-standard semantics to exchange informations between artificial systems.
+knowledge representation systems, like {\sc KnowRob}~\cite{Tenorth2009a} or PEIS
+K\&R~\cite{Daoutis2009}) has multiple advantages. First the design of this part
+of the ontology is generally difficult: it pertains to abstract concepts whose
+mutual relations comes to philosophical debates. The upper taxonomy of {\sc
+OpenCyc} represents a relative consensus, at least within the semantic Web
+community. Then, because it is a well established project with numerous links to
+other on-line databases (like Wikipedia or WordNet), the reuse of important {\sc
+OpenCyc} concepts ensures to a certain extend that the knowledge stored by the
+robot can be shared or extended with well-defined semantics. A good example is
+the concept of \emph{Object}: In everyday conversation, an object is a
+relatively small physical thing, that can be typically manipulated. Normally, a
+human is not considered as an object. In {\sc Cyc}, an object has a more precise
+definition: it is something \emph{partially tangible}. That includes obviously
+the humans, and actually many other entities that would not be commonly said to
+be objects (the Earth for instance). Thus the importance of relying on
+well-defined and standard semantics to exchange informations between artificial
+systems.
 
 Figure~\ref{fig|upper_tbox} also illustrates the fundamental disjunction
 in the ORO model between \emph{temporal} and \emph{spatial} entities (formally,
-$(TemporalThing \sqcap SpatialThing)^{\mathcal{I}} = \emptyset$, with
+$(\text{TemporalThing} \sqcap \text{SpatialThing})^{\mathcal{I}} = \emptyset$, with
 $\mathcal{I}$ the \emph{interpretation} of our model).
 
-The class \concept{purposeful action} is the superset of all the actions that
-are voluntarily performed by the robot (or another agent). Subclasses (like
-\concept{Give}, \concept{LookAt}, etc.) are not asserted in the common-sense
-ontology, but are added by the execution controller (in link with the symbolic
-task planner) and the natural language processor based on what is actually
-performable and/or understandable by the robot at run-time.
+The class \concept{PurposefulAction} is the superset of all the actions that are
+voluntarily performed by the robot (or another agent). Actual actions (\ie
+subclasses of \concept{PurposefulAction} like \concept{Give} or
+\concept{LookAt}) are not initially asserted in the common-sense ontology. They
+are instead added at run-time by the execution controller (in link with the
+symbolic task planner) and the natural language processor based on what is
+actually performable and/or understandable in the scenario context (\ie the
+current robot configuration and the actions required by the scenario).
 
-The tree in Figure~\ref{fig|upper_tbox} (this subset of the ontology is indeed
-a tree: this has however not to be the case in general, and, as a matter of
-fact, the TBox of the whole ORO common-sense ontology does not form a tree) is
-not equally developed at lower levels. We have already briefly mentioned the
-developments of the actions. The other important part is the descendants of the
-\concept{partially tangible thing} (what is commonly called an \emph{object}).
-Figure~\ref{fig|tangible_things_tbox} gives more details on this part of the
-ontology.
+The tree in Figure~\ref{fig|upper_tbox}\footnote{This subset of the ontology is
+indeed a tree. This has however not to be the case in general, and, as a matter
+of fact, the TBox of the whole ORO common-sense ontology does not form a tree}
+is not equally developed in each directions at lower levels. The descendants of
+\concept{PartiallyTangibleThing} (\ie what we commonly call \emph{objects}), for
+instance, are pictured in Figure~\ref{fig|tangible_things_tbox}. This excerpt
+from the ontology makes the bottom-up design process clear: only few types of
+\emph{partially tangible} things appear, and those are only subclasses relevant
+to the context of service robotics in an human-like environment. For performance
+reasons as well as clarity, we do not attempt to proactively extend the
+conceptual coverage of the field. We instead opportunistically extend the
+common-sense knowledge when required by experiments.
+
 
 \begin{figure}
     \centering
 
-\resizebox{0.7\textwidth}{!}{%
+\resizebox{0.5\textwidth}{!}{%
 \begin{tikzpicture}[
     >=latex,
     every edge/.style={<-, draw, very thick},
@@ -511,21 +530,13 @@ align=center, inner sep=5pt,fill=BurntOrange!50}]
 
 \end{tikzpicture}
 }
-    \caption{TBox of the specialisations of \concept{PartiallyTangible}.}
+    \caption{TBox of the specialisations of \concept{PartiallyTangibleThing}.}
     \label{fig|tangible_things_tbox}
 \end{figure}
 
-This excerpt from the ontology makes the bottom-up design process visible: only
-few types of \emph{partially tangible} things appear, and only subclasses
-relevant to the context of service robotics in an human-like environment are
-present. For performances and ease of use, we do not attempt to comprehensively
-cover the field. We opportunistically extend the common-sense knowledge when
-required by experiments.
-
 Lastly, the ORO common-sense ontology contains several rules and class
-expressions that encode non-trivial inferences.
-
-The definition of the \concept{Bottle} is a typical example:
+expressions that encode non-trivial inferences. The definition of
+\concept{Bottle} as found in the ORO ontology is a typical example:
 
 \concept{Bottle} $\equiv$ \concept{Container} {\bf and} \concept{Tableware}
 {\bf that} (\concept{hasShape} {\bf value} \concept{cylinderShape} {\bf and}
@@ -533,15 +544,43 @@ The definition of the \concept{Bottle} is a typical example:
 0.3]})
 
 If a human informs the robot that a given object is indeed a bottle, the robot
-can then infer much more on this object. And if the human affirms that a car is
-a bottle, the robot may question this assertion because of the inconsistent
-size.
+can then derive a few more informations on this object. And, conversely, if the
+human affirms that a car is a bottle, the robot may question this assertion
+because of the inconsistent size (the {\sc Dialogs} module relies on such
+logical consistency checks when processing natural language inputs, both to
+ensure that the verbal input has been correctly acquired and to verify that what
+the human says does actually make sense).
 
-We discuss in section~\ref{krs-discussion} the strengths and weaknesses of our
-knowledge framework.
+We will come back and discuss in section~\ref{krs-discussion} the strengths and
+weaknesses of this knowledge framework.
 
-\subsection{Internal cognitive processes}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Implementing the Cognitive Skills}
+\label{sec:impl}
+
+Previous section provided an overview of our cognitive architecture for robots
+involved in interactions with other social agents, as well as the knowledge
+model we rely on.
+
+We now introduce each of the components and give insights on their main
+features.
+
+\subsection{Internal Cognitive Processes}
 \label{sect|intern}
+
+\subsubsection{Symbolic Anchoring}
+
+TDB
+
+Regarding the anchoring question, this architecture is bidirectional. The
+components we described provide a \textit{bottom-up} grounding process:
+geometric reasoning and dialogue processing modules constantly build and push
+new symbolic contents about the world to the knowledge base where it becomes
+accessible to decisional layers. In parallel, the knowledge base relies on
+reasoning in a \textit{top-down} way to produce new facts that may in return
+trigger physical behaviours.
+
 
 \subsubsection{Theory of Mind}
 \label{sect|tom}
@@ -604,17 +643,6 @@ inserting statements such as \stmt{human type ActiveConcept} in the short-term
 memory (which can be considered, in this case, to be a working memory). We use
 this feature to trace certain knowledge-related processes.
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Implementing the Cognitive Skills}
-\label{sec:impl}
-
-Previous section provided an overview of our cognitive architecture for robots
-involved in interactions with other social agents, as well as the knowledge
-model we rely on.
-
-We now introduce each of the components and give insights on their main
-features.
 
 
 \subsection{Situation Assessment, Human Awareness, Perspective Taking}
@@ -1229,7 +1257,7 @@ lookAt}, {\tt moveTo}, {\tt getFromHuman}, {\tt showObject}, {\tt giveObject},
 {\tt pickObject}, {\tt bringObject}, {\tt putObject}, {\tt hideObject}.
 
 Our other controller, {\sc Shary}, relies on the symbolic task planner to
-generate at runtime suitable sets of atomic actions.
+generate at run-time suitable sets of atomic actions.
 
 \begin{table}
 \begin{center}
@@ -1253,7 +1281,7 @@ generate at runtime suitable sets of atomic actions.
 \end{tabular}
 \end{center}
 \caption{Main {\sc pyRobots} \emph{actions}, sorted by categories. These
-actions are combined at runtime into higher-level \emph{tasks}.}
+actions are combined at run-time into higher-level \emph{tasks}.}
 
 \label{table|pyrobots_actions}
 \end{table}
@@ -1338,6 +1366,7 @@ robot try to cooperatively remove objects from a table. behaviours and motions
 are fully planned.
 
 \subsection{\emph{Moving to London} scenario}
+\label{moving-london}
 
 This first experiment is based on the following daily life situation: Tom and
 Jerry are moving to London, so they are packing things in boxes. The scenario

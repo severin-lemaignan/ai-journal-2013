@@ -158,11 +158,7 @@
   Keywords                 = {cognitive robotics, human-robot interaction, knowledge representation, modeling natural language},
   Location                 = {Toronto, Canada},
   Lu                       = {oui},
-  Notes                    = {- Utilise ASP (Awser Set Programming) pour representer les connaissances
-- Grosse section sur le grounding du natural language
-- planning with ASP
-- Possible to acquire new FOL rules from NLP
-- Expe: optimizing "pick and carry" tasks, causal reasoning with NLP, serving drinks to people using changing, mutualy exclusive constraints},
+  Notes                    = {- Utilise ASP (Awser Set Programming) pour representer les connaissances - Grosse section sur le grounding du natural language - planning with ASP - Possible to acquire new FOL rules from NLP - Expe: optimizing "pick and carry" tasks, causal reasoning with NLP, serving drinks to people using changing, mutualy exclusive constraints},
   Numpages                 = {8},
   Owner                    = {slemaign},
   Relevance                = {5},
@@ -210,33 +206,13 @@
   Year                     = {2009},
   Pages                    = {311--321},
 
-  Abstract                 = {Ambient environments which integrate a number of sensing devices and actuators intended for use by human users need to be able to express knowledge about objects, their functions and their properties to assist in the performance of everyday tasks. For this to occur perceptual data must be grounded to symbolic information that in its turn can be used in the communication with the human. For symbolic information to be meaningful it should be part of a rich knowledge base that includes an ontology of concepts and common sense. In this work we present an integration between ResearchCyc and an anchoring framework that mediates the connection between the perceptual information in an intelligent home environment and the reasoning system.
-Through simple dialogues we validate how objects placed in the home environment are grounded by a network of sensors and made available to a larger KB where reasoning is exploited. This first integration work is a step towards integrating the richness of a KRR system developed over many years in isolation, with a physically embedded intelligent system.},
+  Abstract                 = {Ambient environments which integrate a number of sensing devices and actuators intended for use by human users need to be able to express knowledge about objects, their functions and their properties to assist in the performance of everyday tasks. For this to occur perceptual data must be grounded to symbolic information that in its turn can be used in the communication with the human. For symbolic information to be meaningful it should be part of a rich knowledge base that includes an ontology of concepts and common sense. In this work we present an integration between ResearchCyc and an anchoring framework that mediates the connection between the perceptual information in an intelligent home environment and the reasoning system. Through simple dialogues we validate how objects placed in the home environment are grounded by a network of sensors and made available to a larger KB where reasoning is exploited. This first integration work is a step towards integrating the richness of a KRR system developed over many years in isolation, with a physically embedded intelligent system.},
   File                     = {Daoutis2009.pdf:Daoutis2009.pdf:PDF},
   Imprime                  = {oui},
   Interet                  = {5},
   Keywords                 = {grounding, ontologies, cognitive architecture, knowledge processing},
   Lu                       = {lu},
-  Notes                    = {In short:
-* Roughly the same kind of ambition and architecture.
-* Way better than us on the perception side. 
-* They try the "2nd order logic" approach. I'd be curious to know what kind of reasoning capability they actually have.
-* Their tests are conducted in a static environment. They don't take other agents into consideration (nothing like perspective taking or rich disambiguation).
-* No task planning at all (or at least, not discussed in this paper)
-
-More in details:
-- object identification based on viewpoint independent SIFT features
-- formalized anchoring system that explicitely match percieved attributes to predicates
-- Cyc predicates
-- ground 12 colors, based on a paper on color perception. Could be useful for us.
-- idem, they cite a paper on what spatial relations to compute
-- location of objects based on a previously provided semantic map (but not much on this semantic map)
-- two "memories": the robot memory stores the current list of percieved objects ; the archive memory stores what is not percieved anymore
-- uses directly Cyc (ie, 250 000 common sense concepts...), via CycL language -> 2nd and higher order logics (quantification over predicates, functions, etc)
-Remark: using 2nd order logic (ie meta statements), it would be easy to store the knowledge of each agent
-- disambiguation in concept name by asking human to decide amongst all concepts known by Cyc
-- template based natural language
-- experiment conducted in a "smart" indoor environmement + simple robot},
+  Notes                    = {In short: * Roughly the same kind of ambition and architecture. * Way better than us on the perception side. * They try the "2nd order logic" approach. I'd be curious to know what kind of reasoning capability they actually have. * Their tests are conducted in a static environment. They don't take other agents into consideration (nothing like perspective taking or rich disambiguation). * No task planning at all (or at least, not discussed in this paper) More in details: - object identification based on viewpoint independent SIFT features - formalized anchoring system that explicitely match percieved attributes to predicates - Cyc predicates - ground 12 colors, based on a paper on color perception. Could be useful for us. - idem, they cite a paper on what spatial relations to compute - location of objects based on a previously provided semantic map (but not much on this semantic map) - two "memories": the robot memory stores the current list of percieved objects ; the archive memory stores what is not percieved anymore - uses directly Cyc (ie, 250 000 common sense concepts...), via CycL language -> 2nd and higher order logics (quantification over predicates, functions, etc) Remark: using 2nd order logic (ie meta statements), it would be easy to store the knowledge of each agent - disambiguation in concept name by asking human to decide amongst all concepts known by Cyc - template based natural language - experiment conducted in a "smart" indoor environmement + simple robot},
   Owner                    = {skadge},
   Relevance                = {5},
   Timestamp                = {2010.02.18}
@@ -356,8 +332,7 @@ Remark: using 2nd order logic (ie meta statements), it would be easy to store th
   File                     = {:Harnad1990.pdf:PDF},
   ISSN                     = {0167-2789},
   Keywords                 = {grounding, symbolic models, artificial intelligence},
-  Lu                       = {a 
-lire},
+  Lu                       = {a lire},
   Owner                    = {slemaign},
   Publisher                = {Elsevier Science Publishers B. V.},
   Timestamp                = {2009.07.16}
@@ -592,22 +567,7 @@ lire},
   Interet                  = {5},
   Keywords                 = {theory of mind, neurosciences, false belief},
   Lu                       = {oui},
-  Notes                    = {- The "Ann and Sally" experiment.
-A child watches this scene: Ann watches Sally to put an object in a basket. Sally leaves and Ann moves the object from the basket to the table.
-The child is asked: where Sally will look for the object when she will return?
-
-The paper explain that children under 4 (as well as autistic children) doesn't answer "on the table"
-The robot can successfully pass this test if and only if it has an explicit and independent model for Sally believes on the world. So it should work with ORO. But it's a great experiment to set up!
-
-- The ToMM-SP model: Leslie proposes a general Theory of Mind Mechanism model based on what he call M-representation. M-representation are made of four components. An (1) agent, an (2) attitude (Leslie names 3 of them: to pretend, to believe or to want), an (3) "aspect of the world that anchors the agent's attitude" and the (4) content of the attitude.
-The example he takes is a mother that plays and uses a banana as a phone. If correctly understood by the children, this scene can be interpreted as: the (1) mother (2) pretend-true (3) the banana (4) to be a telephone.
-
-I would be curious to know your opinion about how feasible it would be to get the robot to actually understand the "mother and banana" scene.
-
-In false-belief scenarii (like the Sally-Ann one), the child must be able to attribute a false belief to the agent.
-Leslie adds to the model ToMM model a Selection Processing (SP) that allows the belief attributer to /inhibit/ the default (true) belief that he/she would tend to attribute to the agent.
-
-The whole model looks extremely relevant for us and I think it could be integrated in our current modelling of knowledge.},
+  Notes                    = {- The "Ann and Sally" experiment. A child watches this scene: Ann watches Sally to put an object in a basket. Sally leaves and Ann moves the object from the basket to the table. The child is asked: where Sally will look for the object when she will return? The paper explain that children under 4 (as well as autistic children) doesn't answer "on the table" The robot can successfully pass this test if and only if it has an explicit and independent model for Sally believes on the world. So it should work with ORO. But it's a great experiment to set up! - The ToMM-SP model: Leslie proposes a general Theory of Mind Mechanism model based on what he call M-representation. M-representation are made of four components. An (1) agent, an (2) attitude (Leslie names 3 of them: to pretend, to believe or to want), an (3) "aspect of the world that anchors the agent's attitude" and the (4) content of the attitude. The example he takes is a mother that plays and uses a banana as a phone. If correctly understood by the children, this scene can be interpreted as: the (1) mother (2) pretend-true (3) the banana (4) to be a telephone. I would be curious to know your opinion about how feasible it would be to get the robot to actually understand the "mother and banana" scene. In false-belief scenarii (like the Sally-Ann one), the child must be able to attribute a false belief to the agent. Leslie adds to the model ToMM model a Selection Processing (SP) that allows the belief attributer to /inhibit/ the default (true) belief that he/she would tend to attribute to the agent. The whole model looks extremely relevant for us and I think it could be integrated in our current modelling of knowledge.},
   Owner                    = {skadge},
   Publisher                = {MIT Press},
   Relevance                = {4},
@@ -686,6 +646,23 @@ The whole model looks extremely relevant for us and I think it could be integrat
   Lu                       = {oui},
   Owner                    = {skadge},
   Timestamp                = {2011.02.10}
+}
+
+@Article{McCarthy2007,
+  Title                    = {From here to human-level {AI}},
+  Author                   = {McCarthy, J.},
+  Journal                  = {Artificial Intelligence},
+  Year                     = {2007},
+
+  File                     = {:McCarthy2007.pdf:PDF},
+  Interet                  = {5},
+  Keywords                 = {human interaction, artificial intelligence},
+  Lu                       = {oui},
+  Notes                    = {- un papier majeur sur les défis à long terme de l'intelligence artificielle - résume 7 grands enjeux pour faire une machine intelligente. - pour faire une critique, probablement incomplet, ou du moins avec un angle d'attaque peut-être moins pertinent aujourd'hui},
+  Owner                    = {skadge},
+  Publisher                = {Elsevier},
+  Relevance                = {5},
+  Timestamp                = {2009.02.26}
 }
 
 @Article{Nau2003,
@@ -972,9 +949,7 @@ The whole model looks extremely relevant for us and I think it could be integrat
   Interet                  = {5},
   Keywords                 = {affordances},
   Lu                       = {oui},
-  Notes                    = {- Focused on affordances
-- Bonne reference, typologie détaillée
-- Lien avec les ontologie mentionné mais pas explicite},
+  Notes                    = {- Focused on affordances - Bonne reference, typologie détaillée - Lien avec les ontologie mentionné mais pas explicite},
   Owner                    = {slemaign},
   Relevance                = {4},
   Timestamp                = {2011.12.08}
@@ -988,7 +963,7 @@ The whole model looks extremely relevant for us and I think it could be integrat
 }
 
 @InProceedings{Volpe2001CLARAty,
-  Title                    = {The CLARAty architecture for robotic autonomy},
+  Title                    = {The {CLARAty} architecture for robotic autonomy},
   Author                   = {Volpe, R. and Nesnas, I. and Estlin, T. and Mutz, D. and Petras, R. and Das, H.},
   Booktitle                = {Aerospace Conference, 2001, IEEE Proceedings.},
   Year                     = {2001},
