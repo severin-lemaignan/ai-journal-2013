@@ -554,56 +554,102 @@ the human says does actually make sense).
 We will come back and discuss in section~\ref{krs-discussion} the strengths and
 weaknesses of this knowledge framework.
 
+\subsection{Symbol Grounding}
+
+\emph{Grounding} (also called \emph{anchoring} when specifically referring to
+the building of links between \emph{percepts} and \emph{physical
+objects}~\cite{Coradeschi2003}) is the task consisting in building and
+maintaining a bi-directional link between sub-symbolic representations (sensors
+data, low-level actuation) and symbolic representations that can be manipulated
+and reasoned about~\cite{Harnad1990}. This represents an important cognitive
+skill, in particular in the human-robot interaction context: in that case, the
+link that the robot has to established between its percepts and its symbol must
+\emph{model} to a large extend the human representations in order to effectively
+support communication.
+
+\emph{Symbol grounding} relates the knowledge model to the perception and
+actuation capabilities of the robot, and our architecture adopts here a
+bidirectional approach.  The different components that we have described so far
+provide a \textit{bottom-up} grounding process: geometric reasoning and dialogue
+processing modules constantly build and push new symbolic contents about the
+world to the knowledge base where it becomes accessible to decisional layers. In
+parallel, the knowledge base relies on reasoning in a \textit{top-down} way to
+produce new facts, \ie new beliefs that may lead to actual decision making and
+physical actions.
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Implementing the Cognitive Skills}
+\section{Cognitive Skills}
 \label{sec:impl}
 
-Previous section provided an overview of our cognitive architecture for robots
-involved in interactions with other social agents, as well as the knowledge
-model we rely on.
+While the previous section provided an overview of our cognitive architecture,
+as well as its associated knowledge model, this section discuss each of its main
+``building blocks'' that we each consider to instantiate different cognitive
+skills. Since each of these components have multiple connections to the others,
+no obvious presentation order stands out, and the reader may have to rely on
+Figure~\ref{fig|archi} as a guide.
 
-We now introduce each of the components and give insights on their main
-features.
+We start by discussing the main \emph{internal} cognitive capabilities,
+implemented in the knowledge base itself, and then discuss successively {\sc
+Spark}, the situation assessment module, {\sc Dialogs}, the dialogue processor,
+HATP, the symbolic task planner, and finally the main features of our execution
+controllers.
 
-\subsection{Internal Cognitive Processes}
+\subsection{Internal Cognitive Skills}
 \label{sect|intern}
 
-\subsubsection{Symbolic Anchoring}
+We call \emph{internal} those cognitive capabilities that are tightly bound to
+the knowledge model, and hence implemented directly inside {\sc Oro}, the knowledge base.
+We present here three of them, \emph{reasoning}, \emph{theory of mind} modeling
+and our (naive) approach to \emph{memory management}.
 
-TDB
+\subsubsection{Reasoning}
 
-Regarding the anchoring question, this architecture is bidirectional. The
-components we described provide a \textit{bottom-up} grounding process:
-geometric reasoning and dialogue processing modules constantly build and push
-new symbolic contents about the world to the knowledge base where it becomes
-accessible to decisional layers. In parallel, the knowledge base relies on
-reasoning in a \textit{top-down} way to produce new facts that may in return
-trigger physical behaviours.
+As mentioned in the previous section, we use the Pellet open-source reasoner to
+reason on the knowledge base. This enables several standard inference services:
+\emph{consistency checking}, \emph{concept satisfiability},
+\emph{classification} and \emph{realisation} (computation of the most specific
+classes that an individual belongs to). In case of logical inconsistency, the
+reasoner can also provide \emph{explanations} that are important for debugging.
 
+Besides those, {\sc Oro} server implements several algorithms to identify
+similarities and differences between concepts (classes or
+instances)~\cite{Ros2010b}: the \emph{Common Ancestors} algorithm, useful to
+determine the most specific class(es) that include a given set of individuals;
+the \emph{First Different Ancestors} algorithm that returns what can be
+intuitively understood as the most generic types that \emph{differentiate} two
+concepts; and \emph{clarification} and \emph{discrimination} algorithms that
+play a key role in the process of \emph{interactive grounding} of the semantics
+of concepts (we discuss this process at section~\ref{sect|com}). Clarification
+and discrimination algorithms are based on what we call \emph{descriptors}, \ie
+properties of individuals, either statically asserted in the common-sense
+ontology, acquired by the robot through perception or proactive questioning of
+the human partner, or derived from other reasoning algorithms like the
+\emph{Common Ancestors} and \emph{Different Ancestors}. The
+\emph{discrimination} algorithm consists then in looking for discriminants, \ie
+descriptors that allow a maximum discrimination among a set of individuals.
 
 \subsubsection{Theory of Mind}
 \label{sect|tom}
 
 Theory of Mind (originally defined in~\cite{Premack1978}) is the cognitive
-ability that a subject possesses to represent the mental state of another
+ability that allows a subject to represent the mental state of another
 agent, possibly including knowledge that contradicts the subject's own model: for
 example, a book can be at the same time \emph{visible} for myself, and \emph{not
-visible} for you.
+visible} for you. Children develop this skill, which is essential to understand others' perspectives during
+interactions, around the age of three. 
 
-Children develop this skill, which is essential to understand others' perspectives during
-interactions, around the age of three. It supposes the
-ability to build, store and retrieve separate models of the knowledge of the
-interactors.
-
-Our knowledge base implements such a mechanism: when the robots infers a new
-agent has been introduced in the knowledge base, it initializes a new,
+From a robotics point of view, it supposes the ability to build, store and
+retrieve separate models of the beliefs of the agents the robot interacts with.
+Our knowledge base implements such a mechanism: when the robots recognises that
+a new agent has been created in the knowledge base, it initializes a new,
 independent, ontology for this agent. All the ontologies that are created share
 the same common-sense knowledge, but rely on each agent's perspective for the
-actual instantiation: the robot (geometrically) computes that the book is in
-its own field of view, but not in the human one. The robot knowledge contains
-the fact \stmt{book isVisible true} while the human model contains \stmt{book
-isVisible false}.
+actual instantiation: the robot (geometrically) computes that the book is in its
+own field of view, but not in the human one. The robot knowledge contains the
+fact \stmt{book isVisible true} while the human model contains \stmt{book
+isVisible false} (this computation, called \emph{perspective taking}, is
+discussed in the next section).
 
 One classical application of this cognitive skill is the so-called
 \emph{False-Belief} experiment (also known as the \emph{Sally and Ann}
@@ -636,7 +682,7 @@ event) and not to a specific life duration.
 We rely however on this mechanism in certain cases: for instance, some modules
 like the natural language processor use the {\tt short term} memory profile to
 mark for a few seconds important concepts that are currently manipulated by the
-robot as \emph{active concepts}. For example, if a human asks the robot: ``Give
+robot as \emph{active concepts}: If a human asks the robot ``Give
 me all red objects'', the human, the \concept{Give} action, and each red
 objects that are found are successively marked as \emph{active concepts} by
 inserting statements such as \stmt{human type ActiveConcept} in the short-term
