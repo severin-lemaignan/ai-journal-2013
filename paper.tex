@@ -1099,18 +1099,21 @@ the human partner how a task may be shared~\cite{warnier2012when}.
                         minimum size=2cm, 
                         inner sep=0.1cm}]
 
-    \node (h1) {TAKE\\{\tiny \it \sf GREY\_TAPE, TABLE}};
-    \node[right=of h1] (h2) {PUT\\{\tiny\it\sf GREY\_TAPE, BIN1 }} edge (h1);
+    \node[font=\rm\large, draw=none, fill=none, rotate=90] at (-2, 0) {Human\\actions};
+    \node[font=\rm\large, draw=none, fill=none, rotate=90] at (-2, -3.5) {Robot\\actions};
 
-    \node[robot, below=1.5 of h1] (r1) {TAKE\\{\tiny \it \sf BLACK\_TAPE, TABLE }};
-    \node[robot, right=of r1] (r2) {PUT\\{\tiny \it \sf BLACK\_TAPE, BIN2 }} edge (r1);
-    \node[robot, right=of r2] (r3) {TAKE\\{\tiny \it \sf BOTTLE, TABLE }} edge (r2);
-    \node[robot, right=of r3] (r4) {PUTRV\\{\tiny \it \sf BOTTLE, TABLE}} edge (r3);
-    \node[robot, right=of r4] (r5) {TAKE\\{\tiny \it \sf BOOK, TABLE }} edge (r4);
-    \node[robot, right=of r5] (r6) {PUT\\{\tiny \it \sf BOOK, BIN2 }} edge (r5);
+    \node (h1) {\action{TAKE}{GREY\_TAPE}{TABLE}};
+    \node[right=of h1] (h2) {\action{PUT}{GREY\_TAPE}{BIN1 }} edge (h1);
 
-    \node[right=9cm of h2] (h3) {TAKE\\{\tiny \it \sf BOTTLE, TABLE}} edge (h2) edge (r4);
-    \node[right=of h3] (h4) {PUT\\{\tiny \it \sf BOTTLE, BIN1}} edge (h3);
+    \node[robot, below=1.5 of h1] (r1) {\action{TAKE}{BLACK\_TAPE}{TABLE }};
+    \node[robot, right=of r1] (r2) {\action{PUT}{BLACK\_TAPE}{BIN2 }} edge (r1);
+    \node[robot, right=of r2] (r3) {\action{TAKE}{BOTTLE}{TABLE }} edge (r2);
+    \node[robot, right=of r3] (r4) {\action{PUTRV}{BOTTLE}{TABLE}} edge (r3);
+    \node[robot, right=of r4] (r5) {\action{TAKE}{BOOK}{TABLE }} edge (r4);
+    \node[robot, right=of r5] (r6) {\action{PUT}{BOOK}{BIN2 }} edge (r5);
+
+    \node[right=9cm of h2] (h3) {\action{TAKE}{BOTTLE}{TABLE}} edge (h2) edge (r4);
+    \node[right=of h3] (h4) {\action{PUT}{BOTTLE}{BIN1}} edge (h3);
 
 \end{tikzpicture}
 }
@@ -1163,18 +1166,22 @@ The social rules we have defined so far deal with:
                         minimum size=2cm, 
                         inner sep=0.1cm}]
 
-    \node (h1) {TAKE\\{\tiny \it \sf GREY\_TAPE, TABLE}};
-    \node[right=of h1] (h2) {PUT\\{\tiny\it\sf GREY\_TAPE, BIN1 }} edge (h1);
+    \node[font=\rm\large, draw=none, fill=none, rotate=90] at (-2, 0) {Human\\actions};
+    \node[font=\rm\large, draw=none, fill=none, rotate=90] at (-2, -3.5) {Robot\\actions};
 
-    \node[robot, below=1.5 of h1] (r3) {TAKE\\{\tiny \it \sf BOTTLE, TABLE }};
-    \node[robot, right=of r3] (r4) {PUTRV\\{\tiny \it \sf BOTTLE, TABLE}} edge (r3);
-    \node[robot, right=of r4] (r1) {TAKE\\{\tiny \it \sf BLACK\_TAPE, TABLE }} edge (r4);
-    \node[robot, right=of r1] (r2) {PUT\\{\tiny \it \sf BLACK\_TAPE, BIN2 }} edge (r1);
-    \node[robot, right=of r2] (r5) {TAKE\\{\tiny \it \sf BOOK, TABLE }} edge (r2);
-    \node[robot, right=of r5] (r6) {PUT\\{\tiny \it \sf BOOK, BIN2 }} edge (r5);
 
-    \node[right=of h2] (h3) {TAKE\\{\tiny \it \sf BOTTLE, TABLE}} edge (h2) edge (r4);
-    \node[right=of h3] (h4) {PUT\\{\tiny \it \sf BOTTLE, BIN1}} edge (h3);
+    \node (h1) {\action{TAKE}{GREY\_TAPE}{TABLE}};
+    \node[right=of h1] (h2) {\action{PUT}{GREY\_TAPE}{BIN1 }} edge (h1);
+
+    \node[robot, below=1.5 of h1] (r3) {\action{TAKE}{BOTTLE}{TABLE }};
+    \node[robot, right=of r3] (r4) {\action{PUTRV}{BOTTLE}{TABLE}} edge (r3);
+    \node[robot, right=of r4] (r1) {\action{TAKE}{BLACK\_TAPE}{TABLE }} edge (r4);
+    \node[robot, right=of r1] (r2) {\action{PUT}{BLACK\_TAPE}{BIN2 }} edge (r1);
+    \node[robot, right=of r2] (r5) {\action{TAKE}{BOOK}{TABLE }} edge (r2);
+    \node[robot, right=of r5] (r6) {\action{PUT}{BOOK}{BIN2 }} edge (r5);
+
+    \node[right=of h2] (h3) {\action{TAKE}{BOTTLE}{TABLE}} edge (h2) edge (r4);
+    \node[right=of h3] (h4) {\action{PUT}{BOTTLE}{BIN1}} edge (h3);
 
 \end{tikzpicture}
 }
@@ -1618,6 +1625,10 @@ human activities to track the advancement of the whole plan.
                         fill=BurntOrange!50, 
                         minimum size=2cm, 
                         inner sep=0.1cm}]
+
+    \node[font=\rm\large, draw=none, fill=none, rotate=90] at (-2, 0) {Human\\actions};
+    \node[font=\rm\large, draw=none, fill=none, rotate=90] at (-2, -3.5) {Robot\\actions};
+
 
     \node (h1) {\action{TAKE}{WALLE\_TAPE}{TABLE}};
     \node[right=of h1] (h2) {\action{THROW}{WALLE\_TAPE}{TRASH\_1 }} edge (h1);
