@@ -38,13 +38,44 @@ reviewers from jumping back and forth all the time.}
 
 As indicated by the Editor in Chief, we need to keep the current citation style.
 
+    \item \emph{p9: Instead of storing these models separately (having to
+    update each
+of them), wouldn't it be easier to compute them once they are needed, and
+to maintain a quasi-global world belief?} This is a design choice that trades
+off scalability for complete domain explicitation. We have clarified and
+justified this design choice in section 2.2 (\emph{Knowledge model}). Also, in
+the specific case of agent-dependent models, we want to represent
+false-beliefs situations (where one agent carries wrong beliefs on the world)
+that can typically not be computed ``on demand'' because they are observable
+only in specific situations.
+
     \item \emph{p10 l 49: How is this discrimination done?} The discrimination
         algorithms are detailed in \cite{Ros2010b} (Best Paper Award at
         ROMAN2010). We have added a reference to this paper.
 
+    \item \emph{p15 While the production of such rules is one thing, managing the
+    dynamics of this knowledge and e.g. removing it once it's outdated or updating
+once it has changed are crucial. This should be explained in more detail.}
+The dynamics of the knowledge are managed by the clients (ie, the deliberative
+components like the situation assessment module, the dialogue processing module,
+etc.) of the knowledge base themselves. In particular, the situation assessment
+module recomputes at every step the whole set of spatial relations, and update
+accordingly the knowledge base. This has been clarified in both section 2.2
+(\emph{Knowledge model}) and section 3.2 (\emph{Situation Assessment, Human
+Awareness, Perspective Taking})
+
     \item \emph{The example scenarios have very bold names for often rather
         simple things.} The reviewer is indeed right. We have mistakenly used internal
         \emph{code names} for the experiments' names. These have been reworded.
+
+    \item \emph{p 20: AFAIK KnowRob stores OWL as facts in Prolog, why
+        should the TBOX be immutable?} The reviewer is right insofar as there is
+        not limitations inherent to Prolog in that regard. We have removed the
+        reference to KnowRob TBOX, that originated in a discussion with KnowRob's author who told
+        us then that KnowRob could not update at run-time its TBox. Since we were
+        not able to find litterature confirming this fact, it is likely better
+        not to mention it.
+
 \end{itemize}
 
 \section{Comments from Reviewer 2}
@@ -55,16 +86,16 @@ As indicated by the Editor in Chief, we need to keep the current citation style.
             be really interesting to the readers and it is just hinted. In
             particular, learning rules like "cats are animals" maybe really
             nice, but are such rules compatible with the existing knowledge?
-        Adding them as triples may work only in absence of contradictions} The
-        various natural language grounding processes that are made possible
-        within this semantic
-        architecture would require a relatively long discussion to be adequately
-        explained. They are besides already presented in~\cite{Lemaignan2011a}.
-        We have added an explicit reference to this previous publication.
+            Adding them as triples may work only in absence of contradictions} The
+            various natural language grounding processes that are made possible
+            within this semantic
+            architecture would require a relatively long discussion to be adequately
+            explained. They are besides already presented in~\cite{Lemaignan2011a}.
+            We have added an explicit reference to this previous publication.
 
-        To specifically answer the reviewer question on how possible
-        contradictions are managed, we indeed check that new statements proposed
-        by the human do not lead to contradictions before inserting them.
+            To specifically answer the reviewer question on how possible
+            contradictions are managed, we indeed check that new statements proposed
+            by the human do not lead to contradictions before inserting them.
 
     \item \emph{pg 10 (section 3.2.1)
             "Note that, while the system benefits from the complementary
@@ -83,8 +114,27 @@ As indicated by the Editor in Chief, we need to keep the current citation style.
             accessible to me?" to discriminate between the three bottles. That
             way, procedures relying on 
             discrimination transparently benefit from added modalities." Concept
-        remains unclear.} The paragraph has been rephrased and the example
-        updated to clarify the concepts.
+            remains unclear.} The paragraph has been rephrased and the example
+            updated to clarify the concepts.
+
+    \item \emph{In the current form, Section 2.3 seems outside the scope of the
+            paper. The discussion on working memory is quite interesting, but
+            since it is still to be developed in detail it maybe a topic for
+            future perspectives. In that case it would be nice to read which AI
+            techniques could help tackling the issue.} The presentation of
+            ``internal cognitive skills'' has been extended, refined and integrated
+            to section 3. Specifically, several litterature references have been
+            added to the discussion on memory, both on the theoritical side and on
+            existing implementations.
+
+    \item \emph{``Subclasses (like Give, LookAt, etc.) are not asserted in the
+            common-sense ontology, but are added by the execution controller (in
+            link with the symbolic task planner) and the natural language
+            processor based on what is actually performable and/or
+            understandable by the robot at run-time'' This is very difficult to
+            understand. Provide more details and, possibly, an example} The paragraph
+            has been rephrased and illustrated to be easier to understand.
+
 \end{itemize}
 
 \section{Comments from Reviewer 3}
