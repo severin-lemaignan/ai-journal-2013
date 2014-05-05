@@ -367,13 +367,18 @@ answering).
 
 In our architecture, knowledge manipulation relies on a central server (the {\sc
 Oro} server~\cite{Lemaignan2010}, Figure~\ref{fig|spark-oro} top) which stores
-knowledge as it is produced by each of the deliberative components. It
-conversely exposes a {\tt json}-based RPC API~\cite{lemaignan2012kbapi} to query
-the knowledge base.  We represent knowledge as RDF triples in the OWL
-sub-language. Each time triples are added or removed from the knowledge base, a
-Description Logics reasoner ({\sc Pellet}\footnote{\tt
-http://clarkparsia.com/pellet/}) classifies the whole ontology and inserts all
-possible inferred triples.
+knowledge as it is produced by each of the deliberative components (the
+clients). It exposes a {\tt json}-based RPC API~\cite{lemaignan2012kbapi} to
+query the knowledge base. The clients of the {\sc Oro} server are in charge of
+managing themselves the knowledge (when to add, when to update, when to
+retract knowledge): no meta-semantics is carried over that would let the server
+manage these dynamics itself.\footnote{There is one exception: so-called
+\emph{memory profiles} let the server discard facts after a specific period
+of time. We present this experimental feature at section~\ref{memory}.} We
+represent knowledge as RDF triples in the OWL sub-language. Each time
+triples are added or removed from the knowledge base, a Description Logics
+reasoner ({\sc Pellet}\footnote{\tt http://clarkparsia.com/pellet/})
+classifies the whole ontology and inserts all possible inferred triples.
 
 This architecture design (a central knowledge base that essentially appears as a
 passive component to the rest of the system -- even though it actually actively
