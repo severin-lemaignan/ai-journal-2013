@@ -669,15 +669,29 @@ in the knowledge base, we have been able to replicate this experience with
 our robots~\cite{warnier2012when}.
 
 \subsubsection{Working memory}
+\label{memory}
 
-The {\sc Oro} server also features a mechanism to mimic minimalistic forms of
-memory families.  When new statements are inserted in the knowledge base, a
-\emph{memory profile} is optionally attached to them.
+Memory has been studied at length in the cognitive psychology and
+neuropsychology communities: very briefly, the idea of \emph{short-term} and
+\emph{long-term} memory is due to Atkinson and Shiffrin~\cite{Atkinson1968} ,
+Anderson~\cite{Anderson1976} splits memory into \emph{declarative} (explicit)
+and \emph{procedural} (implicit) memories, Tulving~\cite{Tulving1985} organises
+the concepts of \emph{procedural}, \emph{semantic} and \emph{episodic} memories
+into a hierarchy. Short-term memory is eventually refined with the concept of
+\emph{working memory} by Baddeley~\cite{Baddeley2010}
 
-Three such profiles are predefined: {\tt short term}, {\tt episodic} and {\tt
-long term}. They are currently attached to different lifetime for the statements
-(respectively 10 seconds, 5 minutes and no time limit). After this duration,
-the statements are automatically removed from the knowledge base.
+It is worth emphasising that if memory is commonly associated to the process of
+forgetting facts after a variable amount of \emph{time}, it actually covers
+more mechanisms that are relevant to robotics, like selective remembering
+triggered by a specific context or reinforcement learning.
+
+The {\sc Oro} server features a mechanism to mimic only minimalistic forms of memory
+families.  When new statements are inserted in the knowledge base, a
+\emph{memory profile} is optionally attached to them.  Three such profiles are
+predefined: {\tt short term}, {\tt episodic} and {\tt long term}. They are
+currently attached to different lifetime for the statements (respectively 10
+seconds, 5 minutes and no time limit). After this duration, the statements are
+automatically removed from the knowledge base.
 
 This approach is limited. In particular, \emph{episodic} memory should primarily
 refer to the semantics of the statements (that is expected to be related to an
@@ -693,6 +707,11 @@ inserting statements such as \stmt{human type ActiveConcept} in the short-term
 memory (which can be considered, in this case, to be a working memory). We use
 this feature to trace certain knowledge-related processes.
 
+In the larger field of cognitive architectures, the {\sc Soar}
+architecture~\cite{Lehman2006} is one of those that tries to reproduce a
+human-like memory organisation. The GLAIR cognitive
+architecture~\cite{Shapiro2009} also has a concept of long term/short term and
+episodic/semantic memories.
 
 
 \subsection{Situation Assessment, Human Awareness, Perspective Taking}
