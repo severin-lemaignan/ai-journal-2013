@@ -721,7 +721,7 @@ architecture~\cite{Shapiro2009} also has a concept of long term/short term and
 episodic/semantic memories.
 
 
-\subsection{Situation Assessment, Human Awareness, Perspective Taking}
+\subsection{Acquiring and Anchoring Knowledge in the Physical World}
 \label{sect|sit-ass}
 
 \begin{figure}
@@ -819,12 +819,12 @@ sensing modalities, it computes and grounds perceptions into symbolic
 knowledge (situation assessment), it is responsible for temporal interpretation of
 situations and performs spatial perspective-taking.
 
-{\sc Spark} is designed to run and continously update the knowledge base (in our
+{\sc Spark} is designed to run and continuously update the knowledge base (in our
 experiments, it runs at about 10Hz). At each steps, it re-computes spatial
 relationships and affordances for the whole scene, and send the delta (new
 relations and relations that do not hold anymore) to the knowledge base. This
 approach may raise scalability concerns (we did not however hit such issues in
-our constrainted scenarios), but greatly simplifies the management of the
+our constrained scenarios), but greatly simplifies the management of the
 \emph{dynamics} of the knowledge (\emph{When do I discard outdated knowledge?
 When do I update it?}). Since it is equivalent to a reset of the reasoner
 domain, it also hides issues linked to non-monotonic reasoning
@@ -834,7 +834,7 @@ domain, it also hides issues linked to non-monotonic reasoning
 \begin{figure*}[ht!]
    \begin{center}
 %
-       \subfigure[Initial state]{%
+       \subfigure[Physical setting]{%
 %           \label{fig:wuweiPhoto}
            \includegraphics[width=0.5\textwidth]{etat2-P1010769_brightened-v2.jpg}
        }%
@@ -845,16 +845,15 @@ domain, it also hides issues linked to non-monotonic reasoning
 %
    \end{center}
 
-   \caption{The toy scenario pictured here involves videotapes that have to be
-       manipulated, with other objects used as supports and containers.  After
-       identification and localisation of the set of objects and acquisition of
-       the position and posture of the human partner, the robot is able to
-       compute that two tapes only are reachable by itself: the
-       \concept{LOTR\_TAPE} (black in the 3D model) and \concept{GREY\_TAPE}.
-       The third tape \concept{WALLE\_TAPE} (white in the 3D model) and the
-   trashbin \concept{PINK\_TRASHBIN} are only reachable by the human. The
-   corresponding symbolic facts are listed in Table~\ref{table|beliefsfig7}.  }%
- 
+   \caption{Toy scenario involving videotapes that have to be manipulated, with
+       other objects used as supports and containers.  After identification and
+       localisation of the set of objects and acquisition of the position and
+       posture of the human partner, the robot is able to compute that two tapes
+       only are reachable by itself: the black and grey (in the 3D model) tapes.
+       The third tape and the pink box are only reachable by the human. This
+       situation leads to the symbolic model presented in
+       Table~\ref{table|beliefsfig7}.  }%
+        
  \label{fig:sparkSubfigures}
 
 \end{figure*}
@@ -866,15 +865,15 @@ domain, it also hides issues linked to non-monotonic reasoning
 \hline
 Robot's beliefs about itself (\emph{robot's model})\\
 \hline
-  \hspace{0.7cm}\stmt{PINK\_TRASHBIN isReachable false}\\
-  \hspace{0.7cm}\stmt{WALLE\_TAPE isReachable {\bf false}}\\
-  \hspace{0.7cm}\stmt{LOTR\_TAPE isReachable {\bf true}}\\
+  \hspace{0.7cm}\stmt{PINK\_BOX isReachable false}\\
+  \hspace{0.7cm}\stmt{WHITE\_TAPE isReachable {\bf false}}\\
+  \hspace{0.7cm}\stmt{BLACK\_TAPE isReachable {\bf true}}\\
   \hspace{0.7cm}\stmt{GREY\_TAPE isReachable {\bf true}}\\
-  \hspace{0.7cm}\stmt{WALLE\_TAPE isVisible true}\\
-  \hspace{0.7cm}\stmt{LOTR\_TAPE isVisible true}\\
+  \hspace{0.7cm}\stmt{WHITE\_TAPE isVisible true}\\
+  \hspace{0.7cm}\stmt{BLACK\_TAPE isVisible true}\\
   \hspace{0.7cm}\stmt{GREY\_TAPE isVisible true}\\
-  \hspace{0.7cm}\stmt{WALLE\_TAPE isOn TABLE}\\
-  \hspace{0.7cm}\stmt{LOTR\_TAPE isOn TABLE}\\
+  \hspace{0.7cm}\stmt{WHITE\_TAPE isOn TABLE}\\
+  \hspace{0.7cm}\stmt{BLACK\_TAPE isOn TABLE}\\
   \hspace{0.7cm}\stmt{GREY\_TAPE isOn TABLE}\\
 \hline
 \end{tabular}
@@ -884,15 +883,15 @@ Robot's beliefs about itself (\emph{robot's model})\\
 \hline
 Robot's beliefs about the human (\emph{human's model})\\
 \hline
-  \hspace{0.7cm}\stmt{PINK\_TRASHBIN isReachable false}\\
-  \hspace{0.7cm}\stmt{WALLE\_TAPE isReachable {\bf true}}\\
-      \hspace{0.7cm}\stmt{LOTR\_TAPE isReachable {\bf false}}\\
+  \hspace{0.7cm}\stmt{PINK\_BOX isReachable false}\\
+  \hspace{0.7cm}\stmt{WHITE\_TAPE isReachable {\bf true}}\\
+      \hspace{0.7cm}\stmt{BLACK\_TAPE isReachable {\bf false}}\\
       \hspace{0.7cm}\stmt{GREY\_TAPE isReachable {\bf false}}\\
-  \hspace{0.7cm}\stmt{WALLE\_TAPE isVisible true}\\
-  \hspace{0.7cm}\stmt{LOTR\_TAPE isVisible true}\\
+  \hspace{0.7cm}\stmt{WHITE\_TAPE isVisible true}\\
+  \hspace{0.7cm}\stmt{BLACK\_TAPE isVisible true}\\
   \hspace{0.7cm}\stmt{GREY\_TAPE isVisible true}\\
-  \hspace{0.7cm}\stmt{WALLE\_TAPE isOn TABLE}\\
-  \hspace{0.7cm}\stmt{LOTR\_TAPE isOn TABLE}\\
+  \hspace{0.7cm}\stmt{WHITE\_TAPE isOn TABLE}\\
+  \hspace{0.7cm}\stmt{BLACK\_TAPE isOn TABLE}\\
   \hspace{0.7cm}\stmt{GREY\_TAPE isOn TABLE}\\ 
  \hline
 \end{tabular}
@@ -905,55 +904,260 @@ agents.}
 \label{table|beliefsfig7}
 \end{table}
 
-\subsubsection{Situation Assessment}
+\subsubsection{Building an Agent-aware Symbolic Model of the Environment}
+\label{sect|situ}
 
-\paragraph{Symbolic Facts Production} 
+\paragraph{On Perspective Taking} Visual perspective taking refers to the
+ability for visually perceiving the environment from other's point of view.
+This ability allows us to identify the objects in situations where the visual
+perception of one person differs from the other one. In developmental
+psychology, one typical example consists of two similar objects in a room (\eg.
+two balls) where both are visible for the child, but only one is visible for
+the adult. Thus, when the adult asks the child to hand over ``the ball'', the
+child is able to correctly identify which ball the adult is referring to (\ie
+the one visible from the adult point of view), without asking~\cite{Moll2006}.
 
-\begin{inparaenum}[\itshape 1\upshape)]
-Geometric state of the world is abstracted in symbolic facts that can be
-classified in three different categories: \item relative positions of object and
-agents, \eg  \stmt{GREY\_TAPE isOn TABLE}, \item perception and manipulation
-capacity and state of agents, \eg \stmt{ROBOT looksAt GREY\_TAPE},
-\stmt{GREY\_TAPE isVisibleBy HUMAN1}, \item motion status for object or
-agent parts, \eg \stmt{GREY\_TAPE isMoving true}, \stmt{ROBOT\_HEAD
-isTurning true}.
-\end{inparaenum}
-By reasoning about human perspective, it computes facts such as:
-\stmt{GREY\_TAPE isBehind HUMAN1}, \stmt{GREY\_TAPE leftOf HUMAN1}.
+Besides, in order to compute a visual perspective, the actual visibility alone
+is not enough. We include not only what the other person sees in a given
+moment, but also what he \emph{can} see with a minimal effort (moving the eyes
+or the head). To model the potential visibility of an object we compute a
+visibility ratio while turning the head of the agent model towards the object.
 
-As an illustration, Figure~\ref{fig::reach-ex} explains how the \emph{reachable}
-affordance is mutually computed for the human and the robot. The \emph{is visible},
-\emph{looks at}, \emph{points at} affordances are computed in similar ways, by
-virtually placing OpenGL cameras in different pose (human head pose, robot head
-pose, human index finger, etc.) and evaluating which objects are visible to the camera
-(hence taking into account possible occlusions).
+Spatial perspective taking refers to the qualitative spatial location of
+objects (or agents) with respect to a frame (\eg \emph{the keys on my left}).
+Based on this frame of reference, the description of an object
+varies~\cite{Marin2008}. Humans mix perspectives frequently during interaction.
+This is more effective than maintaining a consistent one, either because the
+(cognitive) cost of switching is lower than remaining with the same
+perspective, or if the cost is about the same, because the spatial situation
+may be more easily described from one perspective rather than
+another~\cite{Tversky1999}. Ambiguities arise when one speaker refers to an
+object within a reference system (or changes the reference system, \ie switches
+perspective) without informing his/her partner about it~\cite{Breazeal2006,
+Ros2010}. For example, the speaker could ask for the ``keys on the left''.
+Since no reference system has been given, the listener would not know where
+exactly to look.  However, asking for ``the keys on your left'' gives enough
+information to the listener to understand where the speaker is referring to. On
+the contrary, when using an exact, unambiguous term of reference to describe a
+location (\eg. ``go north'') no ambiguity arises.
 
-\begin{figure*}[!t]
-	\centering
-    \subfigure[] { \includegraphics[width=0.2\textwidth]{reachex-1.png} }
-    \subfigure[] {\includegraphics[width=0.2\textwidth]{reachex-2.jpg} }
-    \subfigure[] {\includegraphics[width=0.2\textwidth]{reachex-3.jpg} }
-    \subfigure[] {\includegraphics[width=0.2\textwidth]{reachex-4.jpg} }
-    \caption{An example illustrating the \textit{reachable} relation. The
-        relation is computed from the perspectives of both the robot and the
-        human. The computed posture at each step is illustrated with a global
-        view of the scene (top), and from a closest view (bottom). The robot
-        and its human partner are placed face to face (a).  The robot first
-        estimates if the small grey box is reachable to itself using an inverse
-        kinematic (IK) solver and collision checks to find a collision free
-        posture to reach the object (b). Next the robot switches to the human's
-        perspective to estimate if the same object is reachable to the human as
-        well (c).  In the last scene, the human moves towards his left, farther
-        from the object (d). The situation is then reevaluated. In this occasion
-        though, the reasoner cannot find a satisfactory posture for the human to
-    reach the box because he is too far from the target.  }
+In {\sc Spark}, we use two types of the frames of reference: \emph{egocentric}
+(from the robot perspective) and \emph{allo-centric}, \ie addressee-centred
+(from the human perspective).
 
-\label{fig::reach-ex}
-\end{figure*}
+\paragraph{Symbolic Locations}
 
+Humans commonly refer to the positions of objects with symbolic descriptors
+(like \emph{on}, \emph{next to}...) instead of precise, absolute positions.
+These type of descriptors have been studied in the context of language
+grounding \cite{O'Keefe1999,Matuszek2010,Regier2001,Kelleher2006,Blisard2005}.
+In {\sc Spark} we focus on agent-independent symbolic locations and agent-dependent,
+relative locations.
+
+\paragraph{Agent-Independent Locations}
+
+We can refer to object locations with respect to other objects in the
+environment, such as \emph{above, next to, in}, etc. {\sc Spark} computes
+three main relations based on the bounding box and centre of mass of the
+objects (Figure~\ref{fig|spark-oro}\emph{a}):
+
+\begin{itemize}
+	\item \concept{isOn}: computes if an object $O_1$ is on another object $O_2$ by
+	evaluating the center of mass of $O_1$ according to the bounding box of $O_2$.
+
+	\item \concept{isIn}: evaluates if an object $O_1$ is inside another object
+	$O_2$ based on their bounding boxes $BB_{O_1}$ and $BB_{O_2}$.
+
+	\item \concept{isNextTo}: indicates whether an object $O_1$ is next to another
+	object $O_2$. We cannot use a simple distance threshold to determine if two
+	objects are next to each other since the relation is highly dependent on the
+	dimensions of the objects. For instance, the maximum distance between large
+	objects (\eg two houses) to consider them as being next to each other is much
+	larger than the maximum distance we would consider for two small objects (\eg
+	two bottles). Thus, the relation between the dimensions and the distances of
+	the objects are taken into account.  
+
+\end{itemize} 
+
+{\sc Spark} also compute symbolic facts related to agent independent world dynamics.
+The predicate \concept{isMoving} states, for each tracked entity, whether it is
+currently moving or not.
+
+
+\paragraph{Agent-Dependent Placements}
+
+While in previous section we listed several \emph{absolute} location predicate,
+many topological relations are directly dependent from the observation point.
+
+The predicate \concept{hasRelativePosition} represents spatial locations
+between agents and objects that are agent dependent.  We compute these spatial
+locations by dividing the space around the referent (an agent) into $n$ regions
+based on arbitrary angle values relative to the referent orientation
+(Figure~\ref{fig|spark-oro}\emph{b}).  For
+example, for $n = 4$ we would have the space divided into \emph{front, left,
+right} and \emph{back}. Additionally, two proximity values, \emph{near} and
+\emph{far}, are also considered. The number of regions and proximity values can
+be chosen depending on the context where the interaction takes place.
+
+Through perspective taking, {\sc Spark} computes for each agent a symbolic
+description of the relative positioning of objects in the environment.
+
+\subsubsection{Building a Model of Agents}
+\label{sect|grounding_agents}
+
+Building a grounded symbolic model of the physical environment does not suffice
+in general to fully ground the human-robot interaction, and a model of the
+current capabilities of the agents surrounding the robot is also required.
+
+There are a number of common properties for a robot and a human related to
+their capabilities in a given situation: they can both reach, grasp, look at,
+point at, etc.: we group them in the \emph{Agent} category, defined as entities
+that can act in the environment and manipulate it.
+
+{\sc Spark} computes the following capabilities from the perspectives of each agent:
+
+\begin{itemize}
+
+\item \emph{Sees}: An important ability to know about an agent is to predict
+\emph{What can it see?}, \ie what is within its field of view (FOV). Being able
+to compute this information, the robot can reuse it for instance to infers
+which object a human is searching for (the one that is not currently visible,
+otherwise the user would not be searching for it).  In
+figure~\ref{fig|spark-oro}\emph{c} the field of view of a person is
+illustrated with a grey cone (broader one). While he is able to see the two
+small boxes on the table in front of him, the big box on his right is out of
+his FOV, and therefore, he is not able to see it. 
+
+\item \emph{Looks At}: this relation corresponds to what the agent is focused
+on, \ie where its focus of attention is directed. This model is based on a
+narrower field of view, the field of attention (FOA). 
+Figure~\ref{fig::sparkRepresentations}\emph{c}
+shows the field of attention of a person with a green cone (narrower one). In
+this example only the grey box satisfies the \concept{looksAt} relation.
+
+\item \emph{Points At}: verifies whether an object is pointed at by an agent.
+    This relation is computed by placing a virtual camera on the hand, aligned
+    with the forearm. \concept{pointsAt} is particularly useful during
+    interaction when one of the agents is referring to an object saying ``this''
+    or ``that'' while pointing at it.
+ 
+If a larger object occludes a smaller one while an agent is pointing at them, the
+outcome of the evaluation will result only in one relation, \ie \stmt{agent\_01
+pointsAt object\_01} since the small one is not visible to the agent.  On the
+contrary, if the small object is in front of the big one, then both objects
+will satisfy the relation, which may generate an ambiguity (which object the
+agent refers to?) that is let to be solved by other discrimination algorithms.
+
+To make recognition more robust, these three first capabilities are filtered
+with an hysteresis function at the geometric level.
+
+\item \emph{Reachable}: it allows the robot to estimate the agent's capability
+to reach an object, which is fundamental for task planning. For example, if the
+user asks the robot to give him/her an object, the robot must compute a transfer
+point where the user is able to get the object afterwards. 
+Figure~\ref{fig::reach-ex} explains how addressee-dependent reachability is
+computed, based on Generalized Inverse Kinematics and collision detection.
+
+\end{itemize}
+
+Table~\ref{facts} lists all the symbolic facts that are computed by {\sc Spark},
+along with the type of the statements' subjects and objects.
+
+\renewcommand{\concept}[1]{{\scriptsize \texttt{#1}}}
+\begin{table}[h]
+    \centering
+    \begin{tabular}{p{1.5cm}lp{2cm}p{3.7cm}}
+    \textbf{Subject} & \textbf{Predicate} & \textbf{Object} & \emph{Notes} \\ 
+    \hline
+	 \concept{Location} & \concept{isAt} $\equiv$ \concept{cyc:objectFoundInLocation}  &  \concept{Location} & \\ 
+	 &  $\rightarrow$ \concept{isOn} $\equiv$ \concept{cyc:above\_Touching}  &  & \\ 
+	 &  $\rightarrow$ \concept{isIn}  &  & \\ 
+	 &  $\rightarrow$ \concept{isNextTo}  & &  \\ 
+	 \concept{Location}  & \concept{isAbove} $\equiv$ \concept{cyc:above-Generally}  &  \concept{Location}  &  inverse of \concept{isBelow} \par \concept{isOn} $\Rightarrow$ \concept{isAbove}\\ 
+	 \concept{Location}  & \concept{isBelow}  & \concept{Location}  &  inverse
+	of \concept{isAbove} \\
+	\hline
+	 \concept{Location}  & \concept{hasRelativePosition}  & \concept{Location} & \\ 
+	 & 	$\rightarrow$ \concept{behind} $\equiv$ \concept{cyc:behind-Generally}  &  & inverse of \concept{inFrontOf}  \\ 
+	 &  $\rightarrow$ \concept{inFrontOf} $\equiv$ \concept{cyc:inFrontOf-Generally}  & 	 & 	 inverse of \concept{behind}  \\ 
+	 &  $\rightarrow$ \concept{leftOf}  &  &  inverse of \concept{rightOf} \\ 
+	 &  $\rightarrow$ \concept{rightOf}  & 	 & 	 inverse of \concept{leftOf}  \\ 
+	 \concept{Object}  & \concept{cyc:farFrom}  &  \concept{Agent} & \\ 
+	 \concept{Object}  & \concept{cyc:near}  &  \concept{Agent} & \\
+
+		\hline
+		 \concept{Agent}  & \concept{looksAt}  & \concept{SpatialThing} \\
+		 \concept{Agent}  & \concept{sees}  &  \concept{SpatialThing}  &    \\ 
+		 \concept{SpatialThing}  & \concept{isInFieldOfView}  &  \concept{xsd:boolean}  & via inference: \par \tiny \stmt{myself sees *} $\Leftrightarrow$ \stmt{* isInFieldOfView true} \\ 
+		 \concept{Agent}  & \concept{pointsAt} $\equiv$ \concept{cyc:pointingToward}  & \concept{SpatialThing} \\ 
+		 \concept{Agent}  & \concept{focusesOn}  &  \concept{SpatialThing}  &  via inference: \par \tiny \concept{looksAt} $\wedge$ \concept{pointsAt} $\Rightarrow$ \concept{focusesOn} \\
+		\concept{Agent} & \concept{seesWithHeadMovement} &  \concept{SpatialThing} \\
+		\concept{Agent} & \concept{reaches} &  \concept{Object} \\ 
+
+	\end{tabular}
+
+    \caption{List of statements describing agent-independent spatial
+        relationships between objects (top), agent-dependent placements (middle)
+        and attentional states and abilities of agents (bottom).
+        ``$\rightarrow$'' indicates sub-properties. When existing, the
+        equivalent predicate in the {\sc OpenCyc} standard (prefix \concept{cyc:})
+        is specified. Note that some relationships are not computed by {\sc Spark}, but
+        are instead inferred by the reasoner.}
+
+	\label{facts}
+\end{table}
+\renewcommand{\concept}[1]{{\small \texttt{#1}}}
+
+%\subsubsection{Situation Assessment}
+%
+%\paragraph{Symbolic Facts Production} 
+%
+%\begin{inparaenum}[\itshape 1\upshape)]
+%Geometric state of the world is abstracted in symbolic facts that can be
+%classified in three different categories: \item relative positions of object and
+%agents, \eg  \stmt{GREY\_TAPE isOn TABLE}, \item perception and manipulation
+%capacity and state of agents, \eg \stmt{ROBOT looksAt GREY\_TAPE},
+%\stmt{GREY\_TAPE isVisibleBy HUMAN1}, \item motion status for object or
+%agent parts, \eg \stmt{GREY\_TAPE isMoving true}, \stmt{ROBOT\_HEAD
+%isTurning true}.
+%\end{inparaenum}
+%By reasoning about human perspective, it computes facts such as:
+%\stmt{GREY\_TAPE isBehind HUMAN1}, \stmt{GREY\_TAPE leftOf HUMAN1}.
+%
+%As an illustration, Figure~\ref{fig::reach-ex} explains how the \emph{reachable}
+%affordance is mutually computed for the human and the robot. The \emph{is visible},
+%\emph{looks at}, \emph{points at} affordances are computed in similar ways, by
+%virtually placing OpenGL cameras in different pose (human head pose, robot head
+%pose, human index finger, etc.) and evaluating which objects are visible to the camera
+%(hence taking into account possible occlusions).
+%
+%\begin{figure*}[!t]
+%	\centering
+%    \subfigure[] { \includegraphics[width=0.2\textwidth]{reachex-1.png} }
+%    \subfigure[] {\includegraphics[width=0.2\textwidth]{reachex-2.jpg} }
+%    \subfigure[] {\includegraphics[width=0.2\textwidth]{reachex-3.jpg} }
+%    \subfigure[] {\includegraphics[width=0.2\textwidth]{reachex-4.jpg} }
+%    \caption{An example illustrating the \textit{reachable} relation. The
+%        relation is computed from the perspectives of both the robot and the
+%        human. The computed posture at each step is illustrated with a global
+%        view of the scene (top), and from a closest view (bottom). The robot
+%        and its human partner are placed face to face (a).  The robot first
+%        estimates if the small grey box is reachable to itself using an inverse
+%        kinematic (IK) solver and collision checks to find a collision free
+%        posture to reach the object (b). Next the robot switches to the human's
+%        perspective to estimate if the same object is reachable to the human as
+%        well (c).  In the last scene, the human moves towards his left, farther
+%        from the object (d). The situation is then reevaluated. In this occasion
+%        though, the reasoner cannot find a satisfactory posture for the human to
+%    reach the box because he is too far from the target.  }
+%
+%\label{fig::reach-ex}
+%\end{figure*}
+%
 
 \paragraph{Hypotheses on Objects States and Positions}
 
+\fxfatal{Rephrase}
 It is sometimes difficult or even impossible to see and/or track an object in
 certain states. This happens, for instance, when the object is hidden in a
 container, when the robot holds it in its gripper, and more generally in any
@@ -963,7 +1167,7 @@ hand, in a container, etc.): According to the robot perception of what has
 happened since the object was last seen, the robot builds a belief of the
 current possible state with associated probability model.
 
-\paragraph{Primitive Action Recognition}
+\subsubsection{Primitive Action Recognition}
 
 Monitoring human activity is crucial for maintaining a coherent state of the
 world. Full human action and activity monitoring is a task that requires
@@ -979,25 +1183,25 @@ a \emph{throw}). \emph{Spark} recognizes a handful \fxfatal{which ones?} of thes
 primitives, that are relied on by the robot to track the state transitions in
 the human plans (as explained below, at section~\ref{hatp}).
 
-\subsubsection{Ego-centric and Allo-centric Frames}
+%\subsubsection{Ego-centric and Allo-centric Frames}
+%
+%{\sc Spark} also supports \emph{perspective-taking}: spatial relations between entities can
+%be computed from different viewpoints, which let the robot build for each
+%agents it interacts with a different, \emph{perspective-aware} symbolic model
+%of the environment. These models are separately stored in the knowledge base.
+%
+%This allows us to deal with ambiguities that arise when one speaker refers to
+%an object within a reference system (or changes the reference system, \ie
+%switches perspective) without making the reference frame
+%explicit~\cite{Breazeal2006, Ros2010}.
+%
+%As a result, the robot stores models of the environment either in the
+%\emph{ego-centric} reference frame (from the robot perspective) or in 
+%\emph{allo-centric} frames (addressee-centred).
 
-{\sc Spark} also supports \emph{perspective-taking}: spatial relations between entities can
-be computed from different viewpoints, which let the robot build for each
-agents it interacts with a different, \emph{perspective-aware} symbolic model
-of the environment. These models are separately stored in the knowledge base.
+\subsubsection{Limitations}
 
-This allows us to deal with ambiguities that arise when one speaker refers to
-an object within a reference system (or changes the reference system, \ie
-switches perspective) without making the reference frame
-explicit~\cite{Breazeal2006, Ros2010}.
-
-As a result, the robot stores models of the environment either in the
-\emph{ego-centric} reference frame (from the robot perspective) or in 
-\emph{allo-centric} frames (addressee-centred).
-
-\subsubsection{Specific Limitations}
-
-One of the main limit of our current approach is the way semantics are
+The main weakness of our current implementation relates to the way semantics are
 conveyed: because we use 2D markers for artifacts, we skip most of the object
 extraction and recognition challenges. Each object has a unique identifier,
 which enable us to load a proper CAD model suitable for 3D spatial reasoning
