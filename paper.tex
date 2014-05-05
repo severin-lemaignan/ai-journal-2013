@@ -440,13 +440,13 @@ align=center, inner sep=5pt,fill=LimeGreen!50}]
 \end{tikzpicture}
 }
 
-    \caption{The upper part of the ORO common-sense TBox. All these concepts
+\caption{The upper part of the {\sc Oro} common-sense TBox. All these concepts
     belong to the {\sc OpenCyc} namespace.}
     
     \label{fig|upper_tbox}
 \end{figure}
 
-\paragraph{The OpenRobots Ontology} The ORO common-sense ontology has been
+\paragraph{The OpenRobots Ontology} The {\sc Oro} common-sense ontology has been
 designed from two requirements: covering our experimental needs and conforming
 as much as possible to the {\sc OpenCyc} upper ontology.
 
@@ -476,7 +476,7 @@ well-defined and standard semantics to exchange informations between artificial
 systems.
 
 Figure~\ref{fig|upper_tbox} also illustrates the fundamental disjunction
-in the ORO model between \emph{temporal} and \emph{spatial} entities (formally,
+in the {\sc Oro} model between \emph{temporal} and \emph{spatial} entities (formally,
 $(\text{TemporalThing} \sqcap \text{SpatialThing})^{\mathcal{I}} = \emptyset$, with
 $\mathcal{I}$ the \emph{interpretation} of our model).
 
@@ -495,7 +495,7 @@ available to the symbolic task planner.
 
 The tree in Figure~\ref{fig|upper_tbox}\footnote{This subset of the ontology is
 indeed a tree. This has however not to be the case in general, and, as a matter
-of fact, the TBox of the whole ORO common-sense ontology does not form a tree}
+of fact, the TBox of the whole {\sc Oro} common-sense ontology does not form a tree}
 is not equally developed in each directions at lower levels. The descendants of
 \concept{PartiallyTangibleThing} (\ie what we commonly call \emph{objects}), for
 instance, are pictured in Figure~\ref{fig|tangible_things_tbox}. This excerpt
@@ -537,9 +537,9 @@ align=center, inner sep=5pt,fill=BurntOrange!50}]
     \label{fig|tangible_things_tbox}
 \end{figure}
 
-Lastly, the ORO common-sense ontology contains several rules and class
+Lastly, the {\sc Oro} common-sense ontology contains several rules and class
 expressions that encode non-trivial inferences. The definition of
-\concept{Bottle} as found in the ORO ontology is a typical example:
+\concept{Bottle} as found in the {\sc Oro} ontology is a typical example:
 
 \concept{Bottle} $\equiv$ \concept{Container} {\bf and} \concept{Tableware}
 {\bf that} (\concept{hasShape} {\bf value} \concept{cylinderShape} {\bf and}
@@ -774,13 +774,29 @@ episodic/semantic memories.
 \end{figure}
 
 Anchoring perceptions in a symbolic model requires perception abilities and
-their symbolic interpretation. We rely on a dedicated geometric and temporal
-reasoning module called {\sc Spark} (\emph{SPAtial Reasoning \&
-Knowledge}~\cite{Sisbot2011}). It is a situation assessment reasoner that
-generates symbolic knowledge from the geometry of the environment with respect
-to relations between objects, robots and humans (Figures~\ref{fig|spark-oro} and~\ref{fig:sparkSubfigures}),
-also taking into account the different perspective that each agent has on the
-environment.
+their symbolic interpretation. We call \emph{physical situation assessment} the
+cognitive skill that a robot exhibits when it assesses the nature and content of its
+surroundings and efficiently monitors its evolution.
+
+Numerous approaches exist, like amodal \emph{proxies}~\cite{Jacobsson2008},
+grounded amodal representations~\cite{Mavridis2006}, semantic maps
+(\cite{Nuechter2008, Galindo2008,Blodow2011}) or affordance-based planning and
+object classification~\cite{Lorken2008, Varadarajan2011}.
+
+%Spatial reasoning~\cite{O'Keefe1999} is a field in its own right, and has been
+%used for natural language processing for applications such as direction
+%recognition ~\cite{Kollar2010,Matuszek2010} or language
+%grounding~\cite{Tellex2010}.~\cite{Skubic2004} present a spatial reasoner
+%integrated in a robot which computes symbolic positions of objects.
+
+
+We rely on a dedicated geometric and temporal reasoning module called {\sc
+Spark} (\emph{SPAtial Reasoning \& Knowledge}~\cite{Sisbot2011}). It is a
+situation assessment reasoner that generates symbolic knowledge from the
+geometry of the environment with respect to relations between objects,
+robots and humans (Figures~\ref{fig|spark-oro}
+and~\ref{fig:sparkSubfigures}), also taking into account the different
+perspective that each agent has on the environment.
 
 {\sc Spark} is an \emph{amodal}~\cite{Mavridis2006} geometric model of the
 environment that serves both as basis for the fusion of the perception
@@ -791,12 +807,19 @@ humans are tracked with Kinect-like devices, optionally assisted by motion
 capture to accurately track the head motion, which is required to compute what
 the human is looking at).
 
+%Our approach, implemented in the {\sc Spark} module, is a grounded amodal
+%representation of the robot environment, where different sensing modalities
+%(vision-based fiducial markers tracking, RGBD human tracking, motion capture)
+%are merged and where amodal spatial reasoning takes place (for instance,
+%explanation generation for unexpected perceptions like a disappearing object).
+
+
 From an artificial intelligence perspective, {\sc Spark} takes care of merging
 sensing modalities, it computes and grounds perceptions into symbolic
 knowledge (situation assessment), it is responsible for temporal interpretation of
 situations and performs spatial perspective-taking.
 
-SPARK is designed to run and continously update the knowledge base (in our
+{\sc Spark} is designed to run and continously update the knowledge base (in our
 experiments, it runs at about 10Hz). At each steps, it re-computes spatial
 relationships and affordances for the whole scene, and send the delta (new
 relations and relations that do not hold anymore) to the knowledge base. This
@@ -884,7 +907,7 @@ agents.}
 
 \subsubsection{Situation Assessment}
 
-\paragraph{Symbolic facts production} 
+\paragraph{Symbolic Facts Production} 
 
 \begin{inparaenum}[\itshape 1\upshape)]
 Geometric state of the world is abstracted in symbolic facts that can be
@@ -929,7 +952,7 @@ pose, human index finger, etc.) and evaluating which objects are visible to the 
 \end{figure*}
 
 
-\paragraph{Hypotheses on objects states and positions}
+\paragraph{Hypotheses on Objects States and Positions}
 
 It is sometimes difficult or even impossible to see and/or track an object in
 certain states. This happens, for instance, when the object is hidden in a
@@ -940,7 +963,7 @@ hand, in a container, etc.): According to the robot perception of what has
 happened since the object was last seen, the robot builds a belief of the
 current possible state with associated probability model.
 
-\paragraph{Primitive action recognition}
+\paragraph{Primitive Action Recognition}
 
 Monitoring human activity is crucial for maintaining a coherent state of the
 world. Full human action and activity monitoring is a task that requires
@@ -956,7 +979,7 @@ a \emph{throw}). \emph{Spark} recognizes a handful \fxfatal{which ones?} of thes
 primitives, that are relied on by the robot to track the state transitions in
 the human plans (as explained below, at section~\ref{hatp}).
 
-\subsubsection{Ego-centric and allo-centric frames}
+\subsubsection{Ego-centric and Allo-centric Frames}
 
 {\sc Spark} also supports \emph{perspective-taking}: spatial relations between entities can
 be computed from different viewpoints, which let the robot build for each
@@ -971,6 +994,21 @@ explicit~\cite{Breazeal2006, Ros2010}.
 As a result, the robot stores models of the environment either in the
 \emph{ego-centric} reference frame (from the robot perspective) or in 
 \emph{allo-centric} frames (addressee-centred).
+
+\subsubsection{Specific Limitations}
+
+One of the main limit of our current approach is the way semantics are
+conveyed: because we use 2D markers for artifacts, we skip most of the object
+extraction and recognition challenges. Each object has a unique identifier,
+which enable us to load a proper CAD model suitable for 3D spatial reasoning
+and prevent recognition mistakes in the knowledge base. While {\sc Spark}
+algorithms themselves are ignorant of the input sources, and would work equally
+well with a full object recognition stack, we do not have tackled it yet.
+
+Besides, temporal reasoning (essential for accurate action recognition for
+instance) is not properly addressed in our stack. Temporal reasoning is used
+only locally, and does not allow for tracking of long or global events.
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Multi-modal Communication}
@@ -1263,7 +1301,7 @@ knowledge stores.
 \subsection{Robot control}
 \label{sect|ctrl}
 
-While parts of the architecture (SPARK, ORO) have been deployed with external
+While parts of the architecture ({\sc Spark}, {\sc Oro}) have been deployed with external
 execution controllers (like {\sc Cram}~\cite{Beetz2010} or the BERT
 platform~\cite{Lallee2010b}, as reported in~\cite{Lemaignan2010}), we have also
 developed dedicated robot controllers which integrate the whole stack introduced
@@ -1271,10 +1309,34 @@ in Figure~\ref{fig|archi}. {\sc Shary}~\cite{clodic2008shary} is the main one,
 written in the PRS~\cite{Ingrand1996} language. We also use the Python-based
 {\sc pyRobots} collection of tools that provide a large set of high-level
 actions and an event-based architecture well suited for prototyping.
-
-They both rely on extensive integration with the knowledge base that serves as the
+They both rely on deep integration with the knowledge base that serves as the
 primary source of semantics for decision making.
 
+The novelty of our contribution here is the interleaving of a semantic-aware
+architecture designed for autonomy with human-aware decisional components. To
+our knowledge, no other robotic architecture covers in depth those two
+perspectives.
+
+The Ke Jia project~\cite{Chen2010} is maybe one of the closest
+approach. It integrates on a mobile platform a knowledge representation language
+with natural language processing, task planning and motion planning. Default and
+non-monotonic reasoning has been especially researched within the Ke Jia project
+for symbolic task planning~\cite{Ji2011} and underspecified natural language
+processing. The Ke Jia robot has been demonstrated in several tasks involving human-robot
+interaction with natural language. These tasks include a task with multiple
+\emph{pick \& carry} that are globally optimised, naive physics reasoning via
+taught rules or more complex scenarios with the robot delivering drinks, taking
+into account changing and mutually exclusive preferences of users.
+
+Also notable, Beetz et al.~\cite{Beetz2010} proposes a cognitive architecture
+called \textsc{CRAM} (Cognitive Robot Abstract Machine) that deeply integrates
+with \textsc{KnowRob}~\cite{Tenorth2009a}, a knowledge processing framework
+based on Prolog. Its underlying storage is based on an OWL ontology, derived
+from \textsc{OpenCyc}. \textsc{CRAM} and \textsc{KnowRob} have been demonstrated
+on several real-world scenarios, where natural language recipes extracted from
+the Internet had to be translated into plans and executed in a kitchen
+environment, perceived and rebuilt on-line by the robots. This architecture has
+however not been deployed in many scenarios involving human-robot interactions.
 
 
 \subsubsection{Desires and experiences}
@@ -1444,7 +1506,7 @@ actions are limited to simple motions (like head tracking or predefined
 pick-and-place).
 
 The second one involves the {\sc Shary} execution controller and the HATP symbolic
-task planner besides ORO and {\sc Dialogs}. In this scenario, the human and the
+task planner besides {\sc Oro} and {\sc Dialogs}. In this scenario, the human and the
 robot try to cooperatively remove objects from a table. behaviours and motions
 are fully planned.
 
@@ -1461,7 +1523,7 @@ me...'').
 
 Perception of objects is done through a tag-based system and humans are
 detected through motion capture. The robot knowledge base is pre-loaded with
-the \emph{ORO Commonsense Ontology}.  We next describe two
+the \emph{{\sc Oro} Commonsense Ontology}.  We next describe two
 situations where we can follow the internal robot's reasoning and the
 interaction with the users.
 
@@ -1612,7 +1674,7 @@ next to the toolbox.''
 
 \subsection{\emph{Cleaning the table} scenario}
 
-This experiment involved a more complex decisional layer where the ORO server
+This experiment involved a more complex decisional layer where the {\sc Oro} server
 was used in conjunction with the HATP symbolic task planner and the {\sc Shary}
 execution controller (the complete software architecture we deployed for this
 experiment is the one pictured in Figure~\ref{fig|archi},
@@ -1709,14 +1771,13 @@ the tape and throw it in the trashbin.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Discussion: when Artificial Intelligence enables Human Robot
+\section{Discussion: when Artificial Intelligence enables Human-Robot
 Interaction}
 \label{sect|conclusion}
 
-This last section goes over again the main contributions we have presented
-so far: why they are relevant to robotics and artificial intelligence, how do
-they compare to similar approaches, how do we support our technical choices and
-what remains to be developed/explored in the future.
+This last section summarises our main contributions and tries to clarify the ``take home'' message: what are the challenges
+that human-robot interaction brings to artificial intelligence, and what is the
+current state-of-the-art in this field?
 
 \subsection{The Key Issues}
 
@@ -1725,284 +1786,8 @@ raised by human-robot interaction.
 
 \fxfatal{TDB}
 
-\subsection{Foundations of cognition for the robot}
 
-Because we build autonomous \emph{companion} robots, designed to live and
-interact in environments primarily conceived for humans, we endow our machines
-with a set of fundamental cognitive capabilities. The robots perform typically
-in dynamics, partially unknown environments, with a variety of places,
-artifacts and agents that may carry complex semantics.
-
-While our main focus is on the cognitive abilities required to interact with
-humans, \emph{situation assessment}, \emph{spatial reasoning}, \emph{knowledge
-representation and reasoning}, \emph{task planning} or \emph{high-level
-control} are mandatory cognitive foundations to build upon.
-
-\paragraph{Situation assessment, spatial reasoning}
-
-Real service robots need to ground their decision-making processes in their
-perceptions, be it physical (\eg what a camera sees) or not (\eg remote
-knowledge bases, dialogue). We call \emph{physical situation assessment} the
-cognitive skill that a robot exhibits when it assesses the nature and content of its
-surroundings and efficiently monitors its evolution.
-
-Numerous approaches exist, like amodal \emph{proxies}~\cite{Jacobsson2008},
-grounded amodal representations~\cite{Mavridis2006}, semantic maps
-(\cite{Nuechter2008, Galindo2008,Blodow2011}) or
-affordance-based planning and object classification~\cite{Lorken2008,
-Varadarajan2011}.
-
-Our approach, implemented in the {\sc Spark} module, is a grounded amodal
-representation of the robot environment, where different sensing modalities
-(vision-based fiducial markers tracking, RGBD human tracking, motion capture)
-are merged and where amodal spatial reasoning takes place (for instance,
-explanation generation for unexpected perceptions like a disappearing object).
-
-Spatial reasoning~\cite{O'Keefe1999} is a field in its own right, and has been
-used for natural language processing for applications such as direction
-recognition ~\cite{Kollar2010,Matuszek2010} or language
-grounding~\cite{Tellex2010}.~\cite{Skubic2004} present a spatial reasoner
-integrated in a robot which computes symbolic positions of objects.
-
-One of the main limit of our current approach is the way semantics are
-conveyed: because we use 2D markers for artifacts, we skip most of the object
-extraction and recognition challenges. Each object has a unique identifier,
-which enable us to load a proper CAD model suitable for 3D spatial reasoning
-and prevent recognition mistakes in the knowledge base. While {\sc Spark}
-algorithms themselves are ignorant of the input sources, and would work equally
-well with a full object recognition stack, we have not tackled it yet.
-
-Besides, temporal reasoning (essential for accurate action recognition for
-instance) is not properly addressed in our stack. Temporal reasoning is used
-only locally, and does not allow for tracking of long or global events.
-
-\paragraph{Robot control}
-
-Cognitive control architectures for robotics is a research field in its own right.
-Our originality of our contribution relates to the interleaving of a
-semantic-aware architecture designed for autonomy with human-aware decisional
-components. To our knowledge, no other robotic architecture covers in depth
-those two perspectives.
-
-The Ke Jia project~\cite{Chen2010} is maybe one of the closest approach. It
-integrates on a mobile platform a knowledge representation language with
-natural language processing, task planning and motion planning. Default and
-non-monotonic reasoning has been especially researched within the Ke Jia
-project for symbolic task planning~\cite{Ji2011} and underspecified natural
-language processing.
-
-The Ke Jia robot has been demonstrated in several tasks involving human-robot
-interaction with natural language. These tasks include a task with multiple
-\emph{pick \& carry} that are globally optimised, naive physics reasoning via
-taught rules or more complex scenarios with the robot delivering drinks, taking
-into account changing and mutually exclusive preferences of users.
-
-Also notable, Beetz et al.~\cite{Beetz2010} proposes a cognitive architecture
-called \textsc{CRAM} (Cognitive Robot Abstract Machine) that integrates
-\textsc{KnowRob}~\cite{Tenorth2009a}, a knowledge processing framework based on
-Prolog. Its underlying storage is based on an OWL ontology, derived from
-\textsc{OpenCyc}. \textsc{CRAM} and \textsc{KnowRob} have been demonstrated on
-several real-world scenarios, where natural language recipes extracted from the
-Internet had to be translated into plans and executed in a kitchen environment,
-perceived and rebuilt on-line by the robots. This architecture has however not
-been deployed in scenarios involving human-robot interactions.
-
-\subsection{Knowledge framework}
-\label{krs-discussion}
-
-Knowledge flows in our architecture through a \emph{semantic blackboard}, the
-{\sc Oro}-server. We rely on Description Logics (OWL) to represent and
-manipulate facts.
-
-Relying on RDF triples and Description Logics has advantages such as good
-understanding of its trades-off, thanks to being widespread in the semantic Web
-community, the availability of mature libraries to manipulate the ontology,
-interoperability with several major on-line knowledge bases ({\sc
-OpenCyc}, {\sc WordNet}, {\sc DBPedia} or {\sc RoboEarth}~\cite{Waibel2011} are
-some examples), open-world reasoning, and the formal guarantee of decidability
-(it is always possible to classify a Description Logics ontology).
-
-It also has notable limitations, both fundamental (the suitability of
-Description Logics when reasoning on --typically non-monotonic-- commonsense
-knowledge is questionable) and practical: RDF triples imply only binary
-predicates, which constrains the expressiveness of the system or leads to
-cumbersome reifications. Alternatives exist (like {\sc
-KnowRob}~\cite{Tenorth2009a}) that mix RDF with more expressive logic languages
-like {\sc Prolog} with other limitations, like closed-world reasoning. The
-classification performance is another issue: from our experience, with an
-ontology sized for a standard experiment (about 100 classes and 200 instances),
-classification typically takes about 100ms, which becomes problematic during
-interactions.  Besides, the performances are difficult to predict, since a
-seemingly inoffensive new statement may indirectly change abruptly the logical
-complexity of the whole knowledge model and lead to notable degradation of
-classification time.
-
-This knowledge model also largely excludes representation of continuous
-phenomena (like time) or uncertain phenomena. When required (for instance for
-action recognition), these are managed by dedicated components (like {\sc
-Spark}), and are not exposed at the semantic level.
-
-Tools to manipulate and reason over ontologies are readily available, mature,
-and already well accepted in the robotic community~\cite{Tenorth2009a,
-Lim2011}. Alternatives like \emph{Answer Set Programming} have also been
-successfully investigated in robotics~\cite{Chen2010,Erdem2012}, in particular
-to deal with non-monotonic reasoning. However we did not actually hit any brick wall
-while working with OWL ontologies. We may reconsider this choice at a later
-stage, but until now it has proven an effective framework to quickly explore
-implementations of new cognitive abilities (for instance, it has been
-conceptually and technically easy to add support for independent knowledge
-models, one per agent the robot interacts with --see section~\ref{sect|tom}).
-
-Besides, because ontologies and RDF statements are relatively simple concepts
-to grasp, it also effectively helped to grow awareness amongst colleagues on
-the significance of the ``semantic level'' when developing new components for
-the robot.
-
-\subsection{Interacting with humans}
-
-\paragraph{Building a model of a human during the interaction} Perspective
-Taking is a human ability which allows one to put him/herself in another
-person's point of view. Studied in psychology
-literature~\cite{Flavell1992,Tversky1999}, this ability is crucial when
-interacting with people by allowing one to reason on others' understanding of
-the world in terms of visual perception, spatial descriptions, affordances and
-beliefs, etc.  In the last years these notions have been gradually
-employed in HRI.~\cite{Breazeal2006} presents a learning
-algorithm that takes into account information about a teacher's visual
-perspective in order to learn a task. ~\cite{Johnson2005} apply visual
-perspective taking for action recognition between two
-robots.~\cite{Trafton2005} use both visual and spatial perspective taking to
-find out the referent indicated by a human partner.
-
-In our implementation, perspective taking is tightly connected to the symbolic
-knowledge models, and since our knowledge base allows for storage of one
-knowledge model per agent, we have been able to endow the robot with a simple
-theory of mind (as explained in section~\ref{sect|tom}): we explicitly model
-what the robot knows about its partners in a symbolic way. This knowledge is
-then re-used in different places, to correctly interpret what the human says,
-or to plan tasks that are actually doable for the human.
-
-The cognitive model that the robot builds for the agent it interacts with is
-still simple and mostly focused on geometric features (who sees what? What are
-our relative positions? etc.). Extending this knowledge with more subtle
-perceptions (emotional state for instance) remains to be done.
-
-We should also mention that modelling of human behaviours also appear in our
-architecture at the level of task and motion planning with a set of
-\emph{social rules}, including proxemics, action legibility or time
-optimization.
-
-\paragraph{Planning for cooperation} HRI offers new challenges to planning
-by adding a complementary constraint: the synthesis of plans that are not only
-feasible but legible (in terms of their intention) and compliant with human
-preferences. This constraint is often ill-defined, dynamic, context-dependent.
-
-Indeed, we posit that human-robot collaborative task achievement calls for more
-subtlety for a robot than autonomous independent task achievement. HATP, by
-co-planning for the robot and the human, and modeling social rules as planning
-parameters, is a first step in this direction.
-
-\paragraph{Limits of disambiguation at semantic level}
-
-Interaction with humans implies the ability to deal with semantics: semantics of
-verbal interaction, semantics of gestures, etc.  As a consequence, it also
-implies to deal with semantic disambiguation.
-
-One prototypical example of semantic disambiguation has been given in
-\cite{Ros2010b} with the child game \emph{spygame}: two players are facing
-each other with a set of random objects in-between, one player mentally choose
-one object, and the other player has to guess the object by asking closed
-questions like \emph{Is your object small or large?} Based on the knowledge it
-has acquired, the robot is able to minimize the number of questions required to
-find the object.
-
-When playing this kind of game, however, the issue arises that the robot has no
-way to select which knowledge about the object is relevant in the interaction
-context. For instance, the knowledge base may store facts like \stmt{obj1 type
-ActiveConcept} (which internally means that this concept was mentioned in a
-discussion in the last few seconds): this information is not a relevant
-property of \concept{obj1} when trying to disambiguate concepts with humans.
-This distinction between \emph{internal knowledge} (meaningful to
-the system only) and \emph{common knowledge} (whose meaning is understood by
-all the interactors) has not been properly dealt with in our architecture.
-
-Besides, even knowledge that belongs to the \emph{common knowledge} may not be
-appropriate in a given interaction context. For instance, the system may
-compute that at a given instant the human is looking at the object: \stmt{human
-looksAt obj1}. This property makes sense to both parties, but in the context of
-the \emph{spygame}, we would like to mainly use immanent properties, not
-volatile like a gaze. More research is required to identify relevant
-interaction contexts and knowledge classes attached to them.
-
-\subsection{Joint actions with humans}
-\label{sec:soa}
-
-The human presence brings new requirements for robot's abilities both
-at the functional and at the deliberative levels~\cite{Klein2004}. The
-topics involve motion~\cite{Kulic2007,Berg2004,Madhava2006},
-navigation~\cite{Althaus2004,Sisbot2007}, manipulation~\cite{Kemp2007}
-in presence of humans as well as perception of human
-activities~\cite{Breazeal2001,Burger2008}. Also, when
-interacting with humans, robots need to incorporate communication and
-collaboration abilities. Several theories dealing with
-collaboration~\cite{Cohen1991,Grosz1996,Clark1996} emphasize that
-collaborative tasks have specific requirements compared to individual
-ones, \eg, since the robot and the person share a common goal, they
-have to agree on the manner to realize it, they must show their
-commitment to the goal during execution, etc. Several robotic systems
-have already been built based on these
-theories~\cite{Rich1997,Sidner2005,Breazeal2003} and they
-all have shown benefits of this approach. They have also shown how
-difficult it is to manage turn-taking between communication partners
-and to interleave task realization and communication in a generic
-way. Finally, today only few
-systems~\cite{Fong2006,Breazeal2003,Sisbot2008} take humans into
-account at all levels.
-
-
-\subsection{Knowledge-oriented architecture}
-
-Altogether, the components we have presented compose a
-\emph{knowledge-oriented} architecture:
-
-\begin{itemize}
-    
-    \item{Knowledge is explicitly stored in one central and consistent
-    repository of facts, accessible for all modules.} 
-
-    \item{Knowledge is represented in a strict formalism (OWL statements) and
-    with a clearly defined vocabulary (stated in the common-sense ontology).}
-
-    \item{The first two points enable a loosely-coupled architecture where
-    modules can be removed or replaced easily by other ones as long as
-    they share the same semantics (modules are defined by the knowledge they
-    produce),} 
-
-    \item{We adopt a \emph{symbolic}, reactive, event-driven approach to robot control.
-    By managing events at the same level as the reasoner, we take full
-    advantage of the inference abilities of {\sc Oro} to trigger events whose
-    \texttt{true} conditions can be inferred.} 
-
-    \item{Finally, this architecture allows for the combination of very
-    different knowledge modalities in a single homogeneous environment,
-    bringing mutual benefits to components. For instance, the dialogue
-    processing module can perfectly run without any geometric
-    perception, but its disambiguation routines can transparently
-    benefit from it when available (since richer symbolic descriptions of
-    objects are then available).}
-
-\end{itemize}
-
-Those items are not new \emph{per se}. It is however interesting to
-underline the shift of focus this implies during the design and integration
-phases of robots: components of our deliberative layer are defined and glued together by
-the knowledge they produce and consume.
-
-It reveals how the robotic community is ``catching up'' with semantic
-technologies. Human-robot interaction, because it supposes operations in
-environments with complex semantics, drives this evolution.
-
-\subsection{Embodied Cognition}
+\subsubsection{Embodied Cognition}
 
 Robotics is traditionally regarded as the prototypical instance of \emph{embodied}
 artificial intelligence, and this dimension is especially prevalent in
@@ -2064,17 +1849,201 @@ Real-time recognition of large libraries of objects is another path which may
 be viable soon~\cite{Dean2013Fast}.
 
 
+\subsection{Knowledge and Robotics}
+\label{krs-discussion}
+
+\subsubsection{RDF as a Formalism for Semantics}
+
+Knowledge flows in our architecture through a \emph{semantic blackboard}, the
+{\sc Oro} server. We rely on Description Logics (OWL) to represent and
+manipulate facts.
+
+Relying on RDF triples and Description Logics has advantages such as good
+understanding of its trades-off, thanks to being widespread in the semantic Web
+community, the availability of mature libraries to manipulate the ontology,
+interoperability with several major on-line knowledge bases ({\sc
+OpenCyc}, {\sc WordNet}, {\sc DBPedia} or {\sc RoboEarth}~\cite{Waibel2011} are
+some examples), open-world reasoning, and the formal guarantee of decidability
+(it is always possible to classify a Description Logics ontology).
+
+It also has notable limitations, both fundamental (the suitability of
+Description Logics when reasoning on --typically non-monotonic-- commonsense
+knowledge is questionable) and practical: RDF triples imply only binary
+predicates, which constrains the expressiveness of the system or leads to
+cumbersome reifications. Alternatives exist (like {\sc
+KnowRob}~\cite{Tenorth2009a}) that mix RDF with more expressive logic languages
+like {\sc Prolog} with other limitations, like closed-world reasoning. The
+classification performance is another issue: from our experience, with an
+ontology sized for a standard experiment (about 100 classes and 200 instances),
+classification typically takes about 100ms, which becomes problematic during
+interactions.  Besides, the performances are difficult to predict, since a
+seemingly inoffensive new statement may indirectly change abruptly the logical
+complexity of the whole knowledge model and lead to notable degradation of
+classification time.
+
+This knowledge model also largely excludes representation of continuous
+phenomena (like time) or uncertain phenomena. When required (for instance for
+action recognition), these are managed by dedicated components (like {\sc
+Spark}), and are not exposed at the semantic level.
+
+Alternatives like \emph{Answer Set Programming} have also been
+successfully investigated in robotics~\cite{Chen2010,Erdem2012}, in particular
+to deal with non-monotonic reasoning. However we did not actually hit any brick wall
+while working with OWL ontologies. We may reconsider this choice at a later
+stage, but until now it has proven an effective framework to quickly explore
+implementations of new cognitive abilities (for instance, it has been
+conceptually and technically easy to add support for independent knowledge
+models, one per agent the robot interacts with --see section~\ref{sect|tom}).
+
+Besides, because ontologies and RDF statements are relatively simple concepts
+to grasp, it also effectively helped to grow awareness amongst colleagues on
+the significance of the ``semantic level'' when developing new components for
+the robot.
+
+\subsubsection{Knowledge and Architecture}
+
+As a whole, the components that we have introduced so far build a
+knowledge-oriented architecture: Knowledge is explicitly stored in one central
+and consistent repository of facts, accessible for all modules. It relies on a
+\emph{strict formalism} (OWL statements), with a \emph{well defined vocabulary}
+(stated in the common-sense ontology). These first two points lead to a
+\emph{loosely-coupled architecture} where modules can be removed or replaced
+easily by other ones as long as they share the same semantics (modules are
+defined by the knowledge they produce).
+
+Also, we adopt a symbolic, reactive, event-driven approach to robot control. By
+managing events at the same level as the reasoner, we take full advantage of the
+inference abilities of {\sc Oro} to trigger events whose \texttt{true}
+conditions can be inferred.
+
+And finally, this architecture allows for the combination of very different
+knowledge modalities in a single homogeneous environment, bringing mutual
+benefits to components. For instance, the dialogue processing module can
+perfectly run without any geometric perception, but its disambiguation routines
+can transparently benefit from it when available (since richer symbolic
+descriptions of objects are then available).
+
+Those items are not new \emph{per se}. It is however interesting to underline
+the shift of focus this implies during the design and integration phases of
+robots: components of our deliberative layer are defined and glued together by
+the knowledge they produce and consume. Human-robot interaction, because it
+supposes operations at \emph{human-level} and in environments with complex
+semantics, acts here as a motivational force.
+
+
+\subsection{Bringing the Humans into the Equation}
+
+\subsubsection{Modelling the Humans}
+
+Perspective taking is this human ability which allows one to put him/herself in
+another person's point of view. Studied in psychology
+literature~\cite{Flavell1992,Tversky1999}, this ability is crucial when
+interacting with people by allowing one to reason on others' understanding of
+the world in terms of visual perception, spatial descriptions, affordances and
+beliefs, etc.  In the last years these notions have been gradually employed in
+HRI.~\cite{Breazeal2006} presents a learning algorithm that takes into account
+information about a teacher's visual perspective in order to learn a task.
+~\cite{Johnson2005} apply visual perspective taking for action recognition
+between two robots.~\cite{Trafton2005} use both visual and spatial perspective
+taking to find out the referent indicated by a human partner.
+
+In our implementation, perspective taking is tightly connected to the symbolic
+knowledge models, and since our knowledge base allows for storage of one
+knowledge model per agent, we have been able to endow the robot with a simple
+theory of mind (as explained in section~\ref{sect|tom}): we explicitly model
+what the robot knows about its partners in a symbolic way. This knowledge is
+then re-used in different places, to correctly interpret what the human says,
+or to plan tasks that are actually doable for the human.
+
+The cognitive model that the robot builds for the agent it interacts with is
+still simple and mostly focused on geometric features (who sees what? What are
+our relative positions? etc.). Extending this knowledge with more subtle
+perceptions (emotional state for instance) remains to be done.
+
+We should also mention that modelling of human behaviours also appear in our
+architecture at the level of task and motion planning with a set of
+\emph{social rules}, including proxemics, action legibility or time
+optimization.
+
+\subsubsection{Acting in Presence of Humans}
+
+HRI offers new challenges to planning
+by adding a complementary constraint: the synthesis of plans that are not only
+feasible but legible (in terms of their intention) and compliant with human
+preferences. This constraint is often ill-defined, dynamic, context-dependent.
+
+Indeed, we posit that human-robot collaborative task achievement calls for more
+subtlety for a robot than autonomous independent task achievement. HATP, by
+co-planning for the robot and the human, and modeling social rules as planning
+parameters, is a first step in this direction.
+
+\paragraph{Joint actions with humans}\label{sec:soa}
+The human presence brings new requirements for robot's abilities both
+at the functional and at the deliberative levels~\cite{Klein2004}. The
+topics involve motion~\cite{Kulic2007,Berg2004,Madhava2006},
+navigation~\cite{Althaus2004,Sisbot2007}, manipulation~\cite{Kemp2007}
+in presence of humans as well as perception of human
+activities~\cite{Breazeal2001,Burger2008}. Also, when
+interacting with humans, robots need to incorporate communication and
+collaboration abilities. Several theories dealing with
+collaboration~\cite{Cohen1991,Grosz1996,Clark1996} emphasize that
+collaborative tasks have specific requirements compared to individual
+ones, \eg, since the robot and the person share a common goal, they
+have to agree on the manner to realize it, they must show their
+commitment to the goal during execution, etc. Several robotic systems
+have already been built based on these
+theories~\cite{Rich1997,Sidner2005,Breazeal2003} and they
+all have shown benefits of this approach. They have also shown how
+difficult it is to manage turn-taking between communication partners
+and to interleave task realization and communication in a generic
+way. Finally, today only few
+systems~\cite{Fong2006,Breazeal2003,Sisbot2008} take humans into
+account at all levels.
+
+
+\paragraph{Limits of Disambiguation at Semantic Level}
+
+Interaction with humans implies the ability to deal with semantics: semantics of
+verbal interaction, semantics of gestures, etc.  As a consequence, it also
+implies to deal with semantic disambiguation.
+
+One prototypical example of semantic disambiguation has been given in
+\cite{Ros2010b} with the child game \emph{spygame}: two players are facing
+each other with a set of random objects in-between, one player mentally choose
+one object, and the other player has to guess the object by asking closed
+questions like \emph{Is your object small or large?} Based on the knowledge it
+has acquired, the robot is able to minimize the number of questions required to
+find the object.
+
+When playing this kind of game, however, the issue arises that the robot has no
+way to select which knowledge about the object is relevant in the interaction
+context. For instance, the knowledge base may store facts like \stmt{obj1 type
+ActiveConcept} (which internally means that this concept was mentioned in a
+discussion in the last few seconds): this information is not a relevant
+property of \concept{obj1} when trying to disambiguate concepts with humans.
+This distinction between \emph{internal knowledge} (meaningful to
+the system only) and \emph{common knowledge} (whose meaning is understood by
+all the interactors) has not been properly dealt with in our architecture.
+
+Besides, even knowledge that belongs to the \emph{common knowledge} may not be
+appropriate in a given interaction context. For instance, the system may
+compute that at a given instant the human is looking at the object: \stmt{human
+looksAt obj1}. This property makes sense to both parties, but in the context of
+the \emph{spygame}, we would like to mainly use immanent properties, not
+volatile like a gaze. More research is required to identify relevant
+interaction contexts and knowledge classes attached to them.
+
 \subsection{The Next Steps}
 
-We have presented in this article a decisional framework for human-robot
-interactive task achievement that is aimed to allow the robot not only to
-accomplish its tasks but also to produce behaviours that support its engagement
-vis-a-vis its human partner and to interpret human behaviours and intentions.
-Together and in coherence with this framework, we have developed and
-experimented various task planners and interaction schemes that allow the robot
-to select and perform its tasks while taking into account explicitly the human
-abilities as well as the constraints imposed by the presence of humans, their
-needs and preferences. 
+%We have presented in this article a decisional framework for human-robot
+%interactive task achievement that is aimed to allow the robot not only to
+%accomplish its tasks but also to produce behaviours that support its engagement
+%vis-a-vis its human partner and to interpret human behaviours and intentions.
+%Together and in coherence with this framework, we have developed and
+%experimented various task planners and interaction schemes that allow the robot
+%to select and perform its tasks while taking into account explicitly the human
+%abilities as well as the constraints imposed by the presence of humans, their
+%needs and preferences. 
 
 The design choices and the results presented here are still preliminary.
 While the general scheme we propose might be difficult to implement in
@@ -2088,7 +2057,7 @@ situations where divergent beliefs appear between the human and the robot.
 Preliminary results have been published in~\cite{warnier2012when}.
 
 There is also extensive work to be done in order to refine the notion of ``good
-shared plan" and ``good/acceptable robot behaviour" in this context. There are
+shared plan'' and ``good/acceptable robot behaviour'' in this context. There are
 obviously large avenues for learning and adaptation in this context.
 
 Another broader direction to head deals with \emph{contexts representation}.
@@ -2102,7 +2071,8 @@ co-exist at different scales. We do not want to retrieve one monolithic set of
 beliefs, but instead carefully craft a context from several \emph{atomic}
 contexts. Techniques for representation of overlapping pools of knowledge
 largely remain to be developed, as well as efficient algorithms to retrieve (or
-discard) such context-related pools of knowledge. This is a challenge not only for robotics, but more generally for artificial intelligence.
+discard) such context-related pools of knowledge. This is a challenge not only
+for robotics, but more generally for artificial intelligence.
 
 The ability to explicitly manage contexts and context switches would endow the
 robot with a cognitive capability similar to what is known as
