@@ -585,25 +585,33 @@ physical actions.
 \section{Cognitive Skills}
 \label{sec:impl}
 
-While the previous section provided an overview of our cognitive architecture,
-as well as its associated knowledge model, this section discuss each of its main
-``building blocks'' that we each consider to instantiate different cognitive
-skills. Since each of these components have multiple connections to the others,
-no obvious presentation order stands out, and the reader may have to rely on
-Figure~\ref{fig|archi} as a guide.
+While the previous section provided an overview of our cognitive architecture
+as well as its associated knowledge model, this section discusses each of its main
+``building blocks''. Each of these components may have connections to several
+others, and we invite the reader to refer to Figure~\ref{fig|archi} as a guide
+if needed.
 
-We start by discussing the main \emph{internal} cognitive capabilities,
-implemented in the knowledge base itself, and then discuss successively {\sc
-Spark}, the situation assessment module, {\sc Dialogs}, the dialogue processor,
-HATP, the symbolic task planner, and finally the main features of our execution
+\begin{inparaenum} In our context, we call \emph{cognitive skills} the
+deliberative behaviours that are \item \emph{stateful} both in terms of
+\emph{time} (keeping track of previous states is required for the component
+to perform adequately) and \emph{modalities} (for instance, \emph{situated}
+dialogue requires interleaving different communication modalities), \item
+manipulate \emph{explicit semantics}, typically by the mean of symbolic
+reasoning, \item operate at the \emph{human-level}, \ie are legible to the
+humans, typically by acting at similar levels of abstraction.\end{inparaenum}
+
+We start by discussing first the main \emph{internal} cognitive capabilities,
+implemented in the knowledge base itself, and then discuss successively the
+situation assessment module {\sc Spark}, the dialogue processor {\sc Dialogs},
+the symbolic task planner HATP, and finally the main features of our execution
 controllers.
 
 \subsection{Internal Cognitive Skills}
 \label{sect|intern}
 
 We call \emph{internal} those cognitive capabilities that are tightly bound to
-the knowledge model, and hence implemented directly inside {\sc Oro}, the knowledge base.
-We present here three of them, \emph{reasoning}, \emph{theory of mind} modeling
+the knowledge model, and hence implemented directly within the {\sc Oro} server.
+We present here three of them: \emph{reasoning}, \emph{theory of mind} modeling
 and our (naive) approach to \emph{memory management}.
 
 \subsubsection{Reasoning}
