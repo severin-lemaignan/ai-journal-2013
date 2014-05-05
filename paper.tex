@@ -482,13 +482,17 @@ $(\text{TemporalThing} \sqcap \text{SpatialThing})^{\mathcal{I}} = \emptyset$, w
 $\mathcal{I}$ the \emph{interpretation} of our model).
 
 The class \concept{PurposefulAction} is the superset of all the actions that are
-voluntarily performed by the robot (or another agent). Actual actions (\ie
+purposefully performed by the robot (or another agent). Actual actions (\ie
 subclasses of \concept{PurposefulAction} like \concept{Give} or
 \concept{LookAt}) are not initially asserted in the common-sense ontology. They
 are instead added at run-time by the execution controller (in link with the
-symbolic task planner) and the natural language processor based on what is
-actually performable and/or understandable in the scenario context (\ie the
-current robot configuration and the actions required by the scenario).
+symbolic task planner) and the natural language processor based on what the
+robot is actually able to perform and/or to interpret in the current context
+(\ie the current robot configuration and the actions required by the scenario).
+The set of actions that the robot can interpret typically corresponds to the
+planing domain in use: the robot can only process the \concept{GoTo} action if
+the corresponding task description with its pre- and post-conditions is
+available to the symbolic task planner.
 
 The tree in Figure~\ref{fig|upper_tbox}\footnote{This subset of the ontology is
 indeed a tree. This has however not to be the case in general, and, as a matter
