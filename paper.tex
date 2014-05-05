@@ -736,7 +736,7 @@ episodic/semantic memories.
 
     %\draw[step=1cm, draw=black!20] (-10,-5) grid (10,5);
 
-    \node[draw=none] at (0,0) {\includegraphics[width=0.8\columnwidth]{spark-oro-notext.pdf}};
+    \node[draw=none] at (0,-1) {\includegraphics[width=0.8\columnwidth]{spark-oro-notext.pdf}};
 
     \node[box=16cm, minimum height=5.7cm, solid, thick, rounded corners] at (0,1.8) (oro) {};
     \node at (0,4.2) {\sc \Large oro-server};
@@ -755,13 +755,13 @@ episodic/semantic memories.
 
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-    \node[box=16cm, minimum height=3cm, dotted, thick, rounded corners] at (0,-3.75) (spark) {};
+    \node[box=16cm, minimum height=3.5cm, dotted, thick, rounded corners] at (0,-3.75) (spark) {};
     \path (spark.north) edge[->] node[align=left,anchor=west] {Symbolic\\facts} (oro.south);
 
-    \node[anchor=north] at (-4.5,-4.5) {Relative locations};
-    \node[anchor=north] at (-1.5,-4.5) {Spatial relations};
-    \node[anchor=north] at (1.5,-4.5) {Visibility};
-    \node[anchor=north] at (4.8,-4.5) {Reachability};
+    \node[anchor=north] at (-5.5,-4.5) {a) Agent-independent\\locations};
+    \node[anchor=north] at (-1.8,-4.5) {b) Agent-dependent\\placements};
+    \node[anchor=north] at (1.5,-4.5) {c) Visibility};
+    \node[anchor=north] at (5.3,-4.5) {d) Reachability};
 
 \end{tikzpicture}
 }
