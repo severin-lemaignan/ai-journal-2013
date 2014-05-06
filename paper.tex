@@ -1020,21 +1020,22 @@ that can act in the environment and manipulate it.
 \begin{itemize}
 
 \item \emph{Sees}: An important ability to know about an agent is to predict
-\emph{What can it see?}, \ie what is within its field of view (FOV). Being able
-to compute this information, the robot can reuse it for instance to infers
-which object a human is searching for (the one that is not currently visible,
-otherwise the user would not be searching for it).  In
-figure~\ref{fig|spark-oro}\emph{c} the field of view of a person is
-illustrated with a grey cone (broader one). While he is able to see the two
-small boxes on the table in front of him, the big box on his right is out of
-his FOV, and therefore, he is not able to see it. 
+    \emph{What can it see?}, \ie what is within its field of view (FOV). Being
+    able to compute this information (by dynamically placing an OpenGL camera at
+    the location of the eyes and running occlusion checks from it), the robot
+    can reuse it for instance to infers which object a human is searching for
+    (the one that is not currently visible, otherwise the user would not be
+    searching for it).  In figure~\ref{fig|spark-oro}\emph{c} the field of view
+    of a person is illustrated with a grey cone (broader one). While he is able
+    to see the two small boxes on the table in front of him, the big box on his
+    right is out of his FOV, and therefore, he is not able to see it. 
 
 \item \emph{Looks At}: this relation corresponds to what the agent is focused
-on, \ie where its focus of attention is directed. This model is based on a
-narrower field of view, the field of attention (FOA). 
-Figure~\ref{fig::sparkRepresentations}\emph{c}
-shows the field of attention of a person with a green cone (narrower one). In
-this example only the grey box satisfies the \concept{looksAt} relation.
+    on, \ie where its focus of attention is directed. This model is based on a
+    narrower field of view, the field of attention (FOA).
+    Figure~\ref{fig::sparkRepresentations}\emph{c} shows the field of attention
+    of a person with a green cone (narrower one). In this example only the grey
+    box satisfies the \concept{looksAt} relation.
 
 \item \emph{Points At}: verifies whether an object is pointed at by an agent.
     This relation is computed by placing a virtual camera on the hand, aligned
