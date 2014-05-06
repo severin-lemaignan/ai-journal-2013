@@ -615,6 +615,7 @@ We present here three of them: \emph{reasoning}, \emph{theory of mind} modelling
 and our (naive) approach to \emph{memory management}.
 
 \subsubsection{Reasoning}
+\label{reasoning}
 
 As mentioned in the previous section, we use the Pellet open-source reasoner to
 reason on the knowledge base. This enables several standard inference services:
@@ -1608,9 +1609,9 @@ lookAt}, {\tt moveTo}, {\tt getFromHuman}, {\tt showObject}, {\tt giveObject},
 Our other controller, {\sc Shary}, relies on the symbolic task planner to
 generate at run-time suitable sets of atomic actions.
 
-\begin{table}
+\begin{table}[ht!]
 \begin{center}
-\begin{tabular}{p{8cm}}
+\begin{tabular}{p{0.8\columnwidth}}
 \hline
     {\bf Manipulation} \\
      {\tt attachobject}, {\tt basicgive}, {\tt basictake}, {\tt close\_gripper}, {\tt configure\_grippers}, {\tt grab\_gripper}, {\tt handover}, {\tt hide}, {\tt open\_gripper}, {\tt pick}, {\tt put}, {\tt put\_accessible}, {\tt release\_gripper}, {\tt show}, {\tt take} \\
@@ -1670,13 +1671,12 @@ failure otherwise. The robot also reacts to the absence of activity.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Experimental Support}
+\section{Support Studies}
 \label{sec:expe}
 
 Our architecture has been deployed and tested in a number of studies on
 several robotic platforms. Table~\ref{table|experiences} lists the most
-significant ones, with their main focuses and reference publications for the
-interested reader.
+significant ones, with their main focuses and reference publications.
 
 \begin{table*}
 \begin{center}
@@ -1696,123 +1696,120 @@ interested reader.
 
 \end{tabular}
 \end{center}
-\caption{Main experiments conducted with our cognitive architecture.}
-\label{table|experiences}
+\caption{Main studies conducted with our cognitive architecture.}
+\label{table|experiments}
 \end{table*}
 
-The two following sections present one such experiment (the {\it Interactive
-Grounding I} scenario), and the synopsis of another one (the {\it Cleaning the
-table} scenario).
+We briefly introduce two of them in order to illustrate in a practical way
+different aspects of the architecture that were previously presented.  The first
+one is focused on knowledge representation and verbal interaction: the human
+asks for help to find and pack objects ({\it Interactive Grounding I} in
+Table~\ref{table|experiments}). The second one ({\it Cleaning the table})
+involves the {\sc Shary} execution controller and the HATP symbolic task planner
+besides {\sc Oro} and {\sc Dialogs}. In this scenario, the human and the robot
+try to cooperatively remove objects from a table, and behaviours and motions are
+fully planned and executed.
 
-The first one is focused on knowledge representation and verbal interaction:
-the human asks for help to find and pack objects. In this experiment, robot
-actions are limited to simple motions (like head tracking or predefined
-pick-and-place).
-
-The second one involves the {\sc Shary} execution controller and the HATP symbolic
-task planner besides {\sc Oro} and {\sc Dialogs}. In this scenario, the human and the
-robot try to cooperatively remove objects from a table. behaviours and motions
-are fully planned.
-
-\subsection{\emph{Moving to London} scenario}
+\subsection{Interactive Grounding}
 \label{moving-london}
 
-This first experiment is based on the following daily life situation: Tom and
-Jerry are moving to London, so they are packing things in boxes. The scenario
-takes places in the living-room, where Jido (our robot) is observing while they
-move things here and there. To assess the reasoning abilities of the robot they
-ask Jido for information. Ideally, the robot should
-also perform actions when required (\eg hand an object when asking ``give
-me...'').
+This first study is based on the following scenario: Tom and Jerry are moving to
+London, so they are packing things in boxes. \emph{Jido}, a dual-arm
+manipulator, is observing while they move things here and there
+(Figure~\ref{fig|vpt}).  They ask questions to Jido to know where certain
+objects are located (\emph{Where is the white tape? What is behind the toolbox?}
+etc.). This study focuses on multi-modal ,interactive grounding only, and
+the robot does not perform any action.
 
-Perception of objects is done through a tag-based system and humans are
-detected through motion capture. The robot knowledge base is pre-loaded with
-the \emph{{\sc Oro} Commonsense Ontology}.  We next describe two
+Objects are perceived solely through 2D fiducial markers sticked on them, and humans are
+tracked through motion capture. The robot knowledge base is initialised with
+the {\sc Oro} commonsense ontology.  We next describe two
 situations where we can follow the internal robot's reasoning and the
 interaction with the users.
 
-\paragraph{Implicit disambiguation through visual perspective taking}
+\paragraph{Implicit Disambiguation Through Visual Perspective Taking}
 
 \begin{figure}[!ht]
   \centering
-  \includegraphics[width=0.9\linewidth]{pt.jpg}
-\caption{Asking the robot to hand over a tape on the table.}
+  \subfigure [Interactive grounding in a cluttered environment.]{
   \label{fig|vpt}
+  \includegraphics[width=0.48\linewidth]{pt.jpg}
+}%
+\subfigure [Disambiguation through pointing.]{
+  \label{fig|pointing}
+  \includegraphics[width=0.48\linewidth]{inTheBox2.jpg}
+}
 \end{figure}
 
 
 Tom enters the room while carrying a big box (Figure~\ref{fig|vpt}). He
 approaches the table and asks Jido to hand him the video tape: ``Jido, can
-you give me the video tape''. The \textsc{Dialogs} module queries the ontology to
+you give me the video tape''. The \textsc{Dialogs} module processes this
+sentence, and queries the ontology to
 identify the object the human is referring to: \stmt{?obj type VideoTape}. 
 
 There are two video tapes in the scene: one on the table, and another one
 inside the cardboard box. Thus, the knowledge base returns both: $\Rightarrow$
 \concept{?obj = [videoTape1, videoTape2]}. 
 
-However, only one is visible for Tom (the one on the
-table). Thus, although there is an ambiguity from the robot's perspective
-(since it can see both video tapes), based on the perspective of its human
-partner it infers that Tom is referring to the video tape on the table, and not
-the one inside the box which is not visible for him.
+However, only one is visible for Tom (the one on the table). Although there is
+an ambiguity from the robot's perspective, the human referred to the tape using
+the definite article \emph{the}: this is interpreted by the natural language
+processor as the human referring to a precise object, in that case, the visible
+one.\footnote{Other heuristics are available to the {\sc Dialogs} module: for
+instance, if a tape had been recently mentioned in the dialogue, this instance
+would have been selected instead as the referent.}
 
-Since only one object remains (\ie the referent that \concept{VideoTape} stands
-for is not ambiguous anymore), the robot infers that the human refers to it and
-eventually execute the command, \ie give it to the human. Alternatively, the
-robot first asks the human for confirmation (``was \concept{videoTape1} the
-object you had in mind?'') before proceeding with the action.
-Table~\ref{table|ptbeliefs} lists the robot's beliefs about itself and its human
-partner involved in this situation.
+%Since only one object remains (\ie the referent that \concept{VideoTape} stands
+%for is not ambiguous any more), the robot infers that the human refers to it and
+%eventually execute the command, \ie give it to the human. Alternatively, the
+%robot first asks the human for confirmation (``was \concept{videoTape1} the
+%object you had in mind?'') before proceeding with the action.
+%Table~\ref{table|ptbeliefs} lists the robot's beliefs about itself and its human
+%partner involved in this situation.
+%
+%\begin{table}[ht!]
+%\begin{center}
+%    \subfigure{
+%\begin{tabular}{l}
+%\hline
+%Robot's beliefs about itself (\emph{robot's model}):\\
+%\hline
+%  \hspace{0.7cm}\stmt{videoTape1 type VideoTape}\\
+%  \hspace{0.7cm}\stmt{videoTape1 isOn table}\\
+%  \hspace{0.7cm}\stmt{videoTape1 isVisible true}\\
+%  \hspace{0.7cm}\stmt{videoTape2 type VideoTape}\\
+%  \hspace{0.7cm}\stmt{videoTape2 isIn cardBoardBox}\\
+%  \hspace{0.7cm}\stmt{videoTape2 isVisible true}\\
+%\hline
+%\end{tabular}
+%}\hspace{1em}%
+%    \subfigure{
+%\begin{tabular}{l}
+%\hline
+%Robot's beliefs about Tom (\emph{Tom's model}):\\
+%\hline
+%  \hspace{0.7cm}\stmt{videoTape1 type VideoTape}\\
+%  \hspace{0.7cm}\stmt{videoTape1 isOn table}\\
+%  \hspace{0.7cm}\stmt{videoTape1 isVisible true}\\
+%  \hspace{0.7cm}\stmt{videoTape2 type VideoTape}\\
+%  \hspace{0.7cm}\stmt{videoTape2 isIn cardBoardBox}\\
+%  \hspace{0.7cm}\stmt{videoTape2 isVisible false}\\
+% \hline
+%\end{tabular}
+%}
+%\end{center}
+%\caption{Robot's beliefs about itself and its human partner.}
+%\label{table|ptbeliefs}
+%\end{table}
+%
+\paragraph{Explicit Disambiguation Through Verbal Interaction and Gestures}
 
-\begin{table}[ht!]
-\begin{center}
-    \subfigure{
-\begin{tabular}{l}
-\hline
-Robot's beliefs about itself (\emph{robot's model}):\\
-\hline
-  \hspace{0.7cm}\stmt{videoTape1 type VideoTape}\\
-  \hspace{0.7cm}\stmt{videoTape1 isOn table}\\
-  \hspace{0.7cm}\stmt{videoTape1 isVisible true}\\
-  \hspace{0.7cm}\stmt{videoTape2 type VideoTape}\\
-  \hspace{0.7cm}\stmt{videoTape2 isIn cardBoardBox}\\
-  \hspace{0.7cm}\stmt{videoTape2 isVisible true}\\
-\hline
-\end{tabular}
-}\hspace{1em}%
-    \subfigure{
-\begin{tabular}{l}
-\hline
-Robot's beliefs about Tom (\emph{Tom's model}):\\
-\hline
-  \hspace{0.7cm}\stmt{videoTape1 type VideoTape}\\
-  \hspace{0.7cm}\stmt{videoTape1 isOn table}\\
-  \hspace{0.7cm}\stmt{videoTape1 isVisible true}\\
-  \hspace{0.7cm}\stmt{videoTape2 type VideoTape}\\
-  \hspace{0.7cm}\stmt{videoTape2 isIn cardBoardBox}\\
-  \hspace{0.7cm}\stmt{videoTape2 isVisible false}\\
- \hline
-\end{tabular}
-}
-\end{center}
-\caption{Robot's beliefs about itself and its human partner.}
-\label{table|ptbeliefs}
-\end{table}
-
-\paragraph{Explicit disambiguation through verbal interaction and gestures}
-
-\begin{figure}[!ht]
-  \centering
-  \includegraphics[width=0.9\linewidth]{inTheBox2.jpg}
-\caption{Jerry asks Jido for the content of the box by pointing at it.}
-  \label{fig|pointing}
-\end{figure}
-
-In this situation, Jerry enters the living room without knowing where Tom had
+In this second situation, Jerry enters the living room without knowing where Tom had
 placed the video tapes (Figure~\ref{fig|pointing}). So he first asks Jido:
 ``What's in the box?''. Before the robot can answer the question it has to
 figure out which box Jerry is talking about. Similar to the previous situation,
-there are two available boxes: 
+two boxes are visible: 
 
 \begin{center}
 \begin{tabular}{l}
@@ -1821,40 +1818,40 @@ there are two available boxes:
 \end{tabular}
 \end{center}
 
-However both are visible and the cognitive ambiguity resolution cannot be
-applied. The only option is to ask Jerry which box he is referring to: ``Which
-box, the toolbox or the cardboard box?'' Jerry could answer the
-question. Instead, he decides to point at it while indicating: ``This box''
-(Figure~\ref{fig|pointing}). The robot's perception identifies the {\tt
+However both are also visible to the human and the previous ambiguity resolution
+procedure can not be applied. The robot generates a question (using the
+\emph{Discrimination} algorithm that we introduced at section~\ref{reasoning})
+and asks Jerry which box he is referring to: ``Which box, the toolbox or the
+cardboard box?'' Jerry can answer the question, but he instead decides to point
+at it: ``This box'' (Figure~\ref{fig|pointing}). {\sc Spark} identifies the {\tt
 cardBoardBox} as being pointed at and looked at by the human and updates the
-ontology with this new information using a rule available in the commonsense
-ontology ({\tt \textbf{pointsAt}(?ag, ?obj) $\land$ \textbf{looksAt}(?ag, ?obj) $\to$
-\textbf{focusesOn}(?ag, ?obj)}). The \textsc{Dialogs} module is then able to merge both
+ontology with this new information using a rule available in the common-sense
+ontology \stmt{pointsAt(?ag, ?obj) $\land$ looksAt(?ag, ?obj) $\to$
+focusesOn(?ag, ?obj)}. The \textsc{Dialogs} module is then able to merge both
 sources of information, verbal (``this'') and deictic to distinguish the box
 Jerry refers to:
-\begin{center}
-\begin{tabular}{l}
-\stmt{Jerry pointsAt carboardBox}\\
-\stmt{Jerry looksAt carboardBox}\\
-$\to$ \stmt{Jerry focusesAt carboardBox}\\
-\hspace{0.7cm}$\Rightarrow$ {\tt ?obj = [cardBoardBox]}
-\end{tabular}
+
+\begin{center} 
+    \begin{tabular}{l} 
+        \stmt{Jerry pointsAt carboardBox}\\ 
+        \stmt{Jerry looksAt carboardBox}\\ 
+        $\to$ \stmt{Jerry focusesAt carboardBox}\\ 
+        \hspace{0.7cm}$\Rightarrow$ {\tt ?obj = [cardBoardBox]}
+    \end{tabular} 
 \end{center}
 
 Finally, the \textsc{Dialogs} queries the ontology about the content of the box
-and the question can be answered: ``Jido-E''. Note that the object's label is
-used instead of its ID. This way we enhance interaction using familiar names
-given by the users:
+and the question can be answered: ``Wall-E'' (the label of the object, stored in the
+ontology, is used to interact with the user).
 
-\begin{center}
-\stmt{?obj isIn cardBoardBox}\\
-\hspace{0.7cm}$\Rightarrow$ \concept{?obj = videoTape2}\\
-\end{center}
+%\begin{center}
+%\stmt{?obj isIn cardBoardBox}\\
+%\hspace{0.7cm}$\Rightarrow$ \concept{?obj = videoTape2}\\
+%\end{center}
 
-At this point Jerry wants to know where the other tape is, and that is exactly
-what he asks Jido: ``And where is the other tape?''. In this situation, the
-\textsc{Dialogs} module is able to interpret that Jerry is not referring to the
-video which they were just talking about, but to the other one:
+At this point Jerry wants to know where is the other tape: ``And where is the
+other tape?''. \textsc{Dialogs} processes this sentence using the
+\concept{differentFrom} OWL predicate:
 
 \begin{center}
 \begin{tabular}{l}
@@ -1864,9 +1861,9 @@ video which they were just talking about, but to the other one:
 \end{tabular}
 \end{center}
 
-Since there is only one possible ``other'' video (there are only two videos in
-the scene), it can directly answer Jerry: ``The other tape is on the table and
-next to the toolbox.''
+Since there is only one possible ``other'' video, no specific disambiguation is
+required, and the robot verbalises the result of the query to the knowledge
+base: ``The other tape is on the table and next to the toolbox.''
 
 \begin{center}
 \begin{tabular}{l}
