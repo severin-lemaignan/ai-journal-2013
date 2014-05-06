@@ -1972,23 +1972,23 @@ the tape and throw it in the trashbin.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Discussion: when Artificial Intelligence enables Human-Robot
+\section{Discussion: When Artificial Intelligence Enables Human-Robot
 Interaction}
 \label{sect|conclusion}
 
-This last section summarises our main contributions and tries to clarify the ``take home'' message: what are the challenges
+This last section tries to clarify the ``take home'' message: what are the challenges
 that human-robot interaction brings to artificial intelligence, and what is the
 current state-of-the-art in this field?
 
-\subsection{The Key Issues}
+We first restate the challenge of \emph{embodied cognition} and list what we
+seen as the main decisional issues that need to be tackled to push forward
+human-robot interaction. We then reflect on the importance of knowledge handling
+in modern robotics and put our choice of the RDF formalism into perspective.
+Finally, we briefly re-discuss two facets of HRI: the importance of
+\emph{modelling the humans}, and the difficulty of \emph{acting in presence of
+humans}.
 
-We would like first to restate the main challenges to artificial intelligence
-raised by human-robot interaction.
-
-\fxfatal{TDB}
-
-
-\subsubsection{Embodied Cognition}
+\subsection{Embodied Cognition}
 
 Robotics is traditionally regarded as the prototypical instance of \emph{embodied}
 artificial intelligence, and this dimension is especially prevalent in
@@ -2049,9 +2049,48 @@ robot is expected to be used in a well-defined, slowly changing environment.
 Real-time recognition of large libraries of objects is another path which may
 be viable soon~\cite{Dean2013Fast}.
 
+\subsection{The Key Decisional Issues}
+
+How can we restate the main challenges, in particular in term of decision
+making, that human-robot interaction brings to artificial intelligence?
+
+\fxfatal{TDB}
+
+
 
 \subsection{Knowledge and Robotics}
 \label{krs-discussion}
+
+
+\subsubsection{Knowledge and Architecture}
+
+As a whole, the components that we have introduced so far build a
+knowledge-oriented architecture: Knowledge is explicitly stored in one central
+and consistent repository of facts, accessible for all modules. It relies on a
+\emph{strict formalism} (OWL statements), with a \emph{well defined vocabulary}
+(stated in the common-sense ontology). These first two points lead to a
+\emph{loosely-coupled architecture} where modules can be removed or replaced
+easily by other ones as long as they share the same semantics (modules are
+defined by the knowledge they produce).
+
+Also, we adopt a symbolic, reactive, event-driven approach to robot control. By
+managing events at the same level as the reasoner, we take full advantage of the
+inference abilities of {\sc Oro} to trigger events whose \texttt{true}
+conditions can be inferred.
+
+And finally, this architecture allows for the combination of very different
+knowledge modalities in a single homogeneous environment, bringing mutual
+benefits to components. For instance, the dialogue processing module can
+perfectly run without any geometric perception, but its disambiguation routines
+can transparently benefit from it when available (since richer symbolic
+descriptions of objects are then available).
+
+Those items are not new \emph{per se}. It is however interesting to underline
+the shift of focus this implies during the design and integration phases of
+robots: components of our deliberative layer are defined and glued together by
+the knowledge they produce and consume. Human-robot interaction, because it
+supposes operations at \emph{human-level} and in environments with complex
+semantics, acts here as a motivational force.
 
 \subsubsection{RDF as a Formalism for Semantics}
 
@@ -2100,36 +2139,6 @@ Besides, because ontologies and RDF statements are relatively simple concepts
 to grasp, it also effectively helped to grow awareness amongst colleagues on
 the significance of the ``semantic level'' when developing new components for
 the robot.
-
-\subsubsection{Knowledge and Architecture}
-
-As a whole, the components that we have introduced so far build a
-knowledge-oriented architecture: Knowledge is explicitly stored in one central
-and consistent repository of facts, accessible for all modules. It relies on a
-\emph{strict formalism} (OWL statements), with a \emph{well defined vocabulary}
-(stated in the common-sense ontology). These first two points lead to a
-\emph{loosely-coupled architecture} where modules can be removed or replaced
-easily by other ones as long as they share the same semantics (modules are
-defined by the knowledge they produce).
-
-Also, we adopt a symbolic, reactive, event-driven approach to robot control. By
-managing events at the same level as the reasoner, we take full advantage of the
-inference abilities of {\sc Oro} to trigger events whose \texttt{true}
-conditions can be inferred.
-
-And finally, this architecture allows for the combination of very different
-knowledge modalities in a single homogeneous environment, bringing mutual
-benefits to components. For instance, the dialogue processing module can
-perfectly run without any geometric perception, but its disambiguation routines
-can transparently benefit from it when available (since richer symbolic
-descriptions of objects are then available).
-
-Those items are not new \emph{per se}. It is however interesting to underline
-the shift of focus this implies during the design and integration phases of
-robots: components of our deliberative layer are defined and glued together by
-the knowledge they produce and consume. Human-robot interaction, because it
-supposes operations at \emph{human-level} and in environments with complex
-semantics, acts here as a motivational force.
 
 
 \subsection{Bringing the Humans into the Equation}
