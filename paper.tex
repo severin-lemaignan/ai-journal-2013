@@ -2007,7 +2007,7 @@ assess the overall progress of the plan.
         %%% PLANS
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-        \node[below=1 of plan] (incoming) {\bf \Large Incoming plan \\ \it Clean the table!};
+        \node[below=1 of plan] (incoming) {\bf \Large Incoming goal \\ \it Clean the table!};
 
         \node[anchor=north, plan, robot] at (cam1.south -| probot) (pr1) {\action{TAKE}{GREY\_TAPE}{TABLE}};
         \node[anchor=north, plan, robot] at (cam2.south -| probot)  (pr2) {\action{PUTRV}{GREY\_TAPE}{TABLE}} edge[<-] (pr1);
