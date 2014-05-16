@@ -56,12 +56,12 @@ Univ de Toulouse, LAAS, F-31400 Toulouse, France\\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{abstract}
 
-Human-Robot interaction is an area filled with challenges for artificial
+Human-Robot interaction is an area full of challenges for artificial
 intelligence: dynamic, partially unknown environments that are not originally
 designed for autonomous machines; a large variety of situations and objects to
 deal with, with possibly complex semantics; physical interactions with humans
 that requires fine, low-latency control, representation and management of
-several mental models, good situation assessment skills...the list goes on.
+several mental models, pertinent situation assessment skills...the list goes on.
 
 This article sheds light on some key decisional issues that are to be tackled
 for a cognitive robot to share space and tasks with a human, and present our
@@ -70,7 +70,7 @@ identification and the effective implementation of individual and collaborative
 skills. These cognitive abilities cover geometric reasoning and situation
 assessment mainly based on perspective-taking and affordances, management and
 exploitation of each agent (human and robot) knowledge in separate cognitive
-models, natural multi-modal communication, human-aware task planning, and human
+models, natural multi-modal communication, ``human-aware'' task planning, and human
 and robot interleaved plan achievement.
 
 We present our design choices, the articulations between the diverse
@@ -96,7 +96,7 @@ decision-making issue in human-robot interactions.
 
 Human-robot interaction is a challenge for artificial intelligence. This field
 lays at the crossroad of several domains of AI and requires to tackle them in a
-holistic manner: Modelling humans and human cognition; acquiring, representing,
+holistic manner: modelling humans and human cognition; acquiring, representing,
 manipulating in a tractable way abstract knowledge at the human level; reasoning
 on this knowledge to make decisions; and eventually instantiating those
 decisions into physical actions both legible to and in coordination with humans.
@@ -115,7 +115,7 @@ supported by multi-modal and situated communication. Figure~\ref{fig:hri-dec}
 illustrates this context: the two agents share a common space and exchange
 information through multiple modalities, and the robot is expected to achieve
 interactive object manipulation, fetch and carry tasks and other similar
-domestic tasks by taking into account, at every stages, the intentions, beliefs,
+domestic tasks by taking into account, at every stage, the intentions, beliefs,
 perspectives, skills of the human partner.  Namely, the robot must be able to
 recognise, understand and participate to communication situations, both explicit
 (\eg the human addresses verbally the robot) and implicit (\eg the human points
@@ -146,9 +146,10 @@ legible way, taking into account social rules like proxemics.
 \label{fig:hri-dec}
 \end{figure}
 
-\emph{Communication}, \emph{Joint Actions}, \emph{Human-Aware Execution}: these
-three challenges structure the whole field of human-robot interaction research,
-and they can be analysed in terms of the cognitive skills that they require.
+These three challenges, \emph{Communication}, \emph{Joint Actions},
+\emph{Human-Aware Execution}, structure the whole field of human-robot
+interaction research, and they can be analysed in terms of the cognitive skills
+that they require.
 
 A \emph{joint action}, for instance, builds from:
 
@@ -169,7 +170,7 @@ The robot controller (with the help of a task planner) decides what action to
 execute next, and who should perform it from the human or the robot (or both in
 case of a joint action), and finally controls or monitors its execution. The
 operation continues until the goal is achieved, is declared unachievable or is
-abandoned by the human.
+abandoned by the human~\cite{Klein2004}.
 
 \begin{inparaenum}
 
@@ -183,7 +184,7 @@ its human partner.
 
 \end{inparaenum}
 
-Such abilities must be designed and implemented in generic ways and
+Such abilities must be designed and implemented in a generic way and
 must provide several levels of parametrization such as they adapt to
 various environments, different tasks and variable levels of engagement of the
 robot, ranging from teammate behaviour to assistant or pro-active helper.
@@ -199,7 +200,7 @@ other approaches. We propose to organise this discussion in four sections.
 The next section introduces the architecture as a whole, as well as the
 knowledge model that we have developed for our robots. Then,
 section~\ref{sec:impl} gives some insights on each of the main components of the
-architecture, and try to highlight their significance for artificial
+architecture, and tries to highlight their significance for artificial
 intelligence. Section~\ref{sec:expe} presents two studies that illustrate in a
 practical way what can be currently achieved with our robots.
 Section~\ref{sect|conclusion} finally restate our main contributions and discuss
@@ -273,10 +274,11 @@ intelligence.
   \path (hatp) edge [<->, bend right] node[label] {world model and \\ agents beliefs} (oro.170);
   \path (dialogs) edge [<->, bend left] node[label] {natural language \\ grounding} (oro.190);
   \path (spark.100) edge [->, bend right] node[label] {symbolic \\ facts} (oro);
+  \path (spark.5) edge [->, bend right] node[label] {environment\\model} (mhp);
   \path (shary) edge [<->, bend left] node[label] {events, \\ world model and \\ agents beliefs} (oro);
   \path (shary) edge [<->, bend left] node[label] {action monitoring \\ and management of \\ position hypotheses} (spark);
   \path (lowlevel) edge [->] (spark);
-  \path (lowlevel.east) edge [<-, bend right=80, looseness=1.2] (shary.east);
+  \path (lowlevel.east) edge [<-, bend right=80, looseness=1.2] node[label] {atomic\\actions} (shary.east);
 
 \end{tikzpicture}
 }
@@ -298,7 +300,7 @@ architecture is not only a technical challenge, but also a design and
 architectural challenge.
 
 In particular, dealing with the rich semantics of natural interaction with
-humans has been one of our major focus. To this end, we have been deploying
+humans has been one major focus. To this end, we have been deploying
 over the last years explicit knowledge representation and manipulation in the
 deliberative layer of the robots as a {\it lingua franca} between our
 components.
@@ -326,7 +328,7 @@ conditions (by subscribing to events like: {\tt \footnotesize
 onNewMatch(HUMAN desires ?goal)}) and stores what the robot is currently
 doing (\stmt{myself currentlyPerforms GIVE\_ACTION45}).
 
-To some extend, this architecture moves away from classical layered approaches
+To some extent, this architecture moves away from classical layered approaches
 found in robotics~\cite{Gat1998three, Volpe2001CLARAty, Goldberg2002}.
 Interactions between components at the deliberative level are mostly
 bidirectional and we do not introduce layers of abstraction amongst software
@@ -336,7 +338,7 @@ layer.}. Dialogue processing, for instance, illustrates this structure. This
 component does not purely act as an alternative sensing modality that would be
 fed to a distinct deliberative component. On the contrary, it actively queries
 the knowledge base to interpret and disambiguate natural language, and in that
-regards, it is fully integrated to the deliberative process itself (we detail
+regards, it is fully integrated to the deliberative process itself (we explain
 natural language processing at section~\ref{sect|com}).
 
 Our architecture however relates to \emph{Beliefs, Desires, Intentions} (BDI)
@@ -396,8 +398,9 @@ OpenRobots} ontology, discussed below) and loaded at start-up. This static sourc
 \emph{common-sense} knowledge of the robot, and optionally some
 scenario-specific knowledge (for instance, about objects that are to be
 manipulated). The second part of the knowledge is acquired at run-time from
-perception, interaction and planning. The next sections detail these processes.
-Lastly, the third source of symbolic statements is the reasoner itself.
+perception, interaction and planning. The next sections go into details of these
+processes.  Lastly, the third source of symbolic statements is the reasoner
+itself.
 
 Contrary to other projects like KnowRob~\cite{Tenorth2009a} that relies on
 the concept of \emph{computables} to lazily evaluate/acquire symbolic facts when
@@ -434,7 +437,7 @@ align=center, inner sep=5pt,fill=LimeGreen!50}]
                 \node [fill=BurntOrange!50, above left=of set] {place} edge (set);
 
     \node [node distance=1, below right=of thing] (tthing) {temporal thing} edge (thing);
-        \node [below=of tthing] (tte) {thing with temporal extend} edge (tthing);
+        \node [below=of tthing] (tte) {thing with temporal extent} edge (tthing);
             \node [below right=of tte] {time interval} edge (tte);
             \node [below=1 of tte] (sit) {situation} edge (tte);
                 \node [below right=of sit] (evt) {event} edge (sit);
@@ -469,9 +472,9 @@ mutual relations comes to philosophical debates. The upper taxonomy of {\sc
 OpenCyc} represents a relative consensus, at least within the semantic Web
 community. Then, because it is a well established project with numerous links to
 other on-line databases (like Wikipedia or WordNet), the reuse of key {\sc
-OpenCyc} concepts ensures to a certain extend that the knowledge stored by the
+OpenCyc} concepts ensures to a certain extent that the knowledge stored by the
 robot can be shared or extended with well-defined semantics. A good example is
-the concept of \emph{Object}: In everyday conversation, an object is a
+the concept of \emph{Object}: in everyday conversation, an object is a
 relatively small physical thing, that can be typically manipulated. Normally, a
 human is not considered as an object. In {\sc Cyc}, an object has a more precise
 definition: it is something \emph{partially tangible}. This includes obviously
@@ -494,7 +497,7 @@ symbolic task planner) and the natural language processor based on what the
 robot is actually able to perform and/or to interpret in the current context
 (\ie the current robot configuration and the actions required by the scenario).
 The set of actions that the robot can interpret typically corresponds to the
-planing domain in use: the robot can only process the \concept{GoTo} action if
+planning domain in use: the robot can only process the \concept{GoTo} action if
 the corresponding task description with its pre- and post-conditions is
 available to the symbolic task planner.
 
@@ -574,18 +577,18 @@ data, low-level actuation) and symbolic representations that can be manipulated
 and reasoned about~\cite{Harnad1990}. This represents an important cognitive
 skill, in particular in the human-robot interaction context: in that case, the
 link that the robot has to established between its percepts and its symbol must
-\emph{model} to a large extend the human representations in order to effectively
+\emph{model} to a large extent the human representations in order to effectively
 support communication.
 
 \emph{Symbol grounding} connects hence the knowledge model to the perception and
 actuation capabilities of the robot, and our architecture adopts here also a
-bidirectional approach.  The different components that we have mentioned so far
-provide a \textit{bottom-up} grounding process: geometric reasoning and dialogue
-processing modules constantly build and push new symbolic contents about the
-world to the knowledge base where it becomes accessible to decisional layers. In
-parallel, the knowledge base relies on reasoning in a \textit{top-down} way to
-produce new facts, \ie new beliefs that may lead to actual decision making and
-physical actions.
+bidirectional approach: \emph{bottom-up} and \emph{top-down}.  The different
+components that we have mentioned so far provide a bottom-up grounding process:
+geometric reasoning and dialogue processing modules constantly build and push
+new symbolic contents about the world to the knowledge base where it becomes
+accessible to decisional layers. In parallel, the knowledge base relies on
+reasoning in a top-down way to produce new facts, \ie new beliefs that may lead
+to actual decision making and physical actions.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -599,13 +602,13 @@ others, and we invite the reader to refer to Figure~\ref{fig|archi} as a guide
 if needed.
 
 \begin{inparaenum} In our context, we call \emph{cognitive skills} the
-deliberative behaviours that are \item \emph{stateful} both in terms of
-\emph{time} (keeping track of previous states is required for the component
-to perform adequately) and \emph{modalities} (for instance, \emph{situated}
-dialogue requires interleaving different communication modalities), \item
-manipulate \emph{explicit semantics}, typically by the mean of symbolic
-reasoning, \item operate at the \emph{human-level}, \ie are legible to the
-humans, typically by acting at similar levels of abstraction.\end{inparaenum}
+deliberative behaviours that are \item \emph{stateful} (keeping track of
+previous states is typically required for the component to perform adequately),
+\item \emph{amodal} in that the skill is not inherently bound to a specific
+perception of actuation modality, \item manipulate \emph{explicit semantics},
+typically by the mean of symbolic reasoning, \item operate at the
+    \emph{human-level}, \ie are legible to the humans, typically by acting at
+similar levels of abstraction.\end{inparaenum}
 
 We start by discussing first the main \emph{internal} cognitive capabilities,
 implemented in the knowledge base itself, and then discuss successively the
@@ -621,7 +624,7 @@ the knowledge model, and hence implemented directly within the {\sc Oro} server.
 We present here three of them: \emph{reasoning}, \emph{theory of mind} modelling
 and our (naive) approach to \emph{memory management}.
 
-\subsubsection{Reasoning}
+\subsubsection{Symbolic Reasoning}
 \label{reasoning}
 
 As mentioned in the previous section, we use the Pellet open-source reasoner to
@@ -722,12 +725,15 @@ event) and not to a specific lifespan.
 We rely however on this mechanism in certain cases: for instance, some modules
 like the natural language processor use the {\it short term} memory profile to
 mark for a few seconds important concepts that are currently manipulated by the
-robot as \emph{active concepts}: If a human asks the robot ``Give
+robot as \emph{active concepts}: if a human asks the robot ``Give
 me all red objects'', the human, the \concept{Give} action, and each red
 objects that are found are successively marked as \emph{active concepts} by
 inserting statements such as \stmt{human type ActiveConcept} in the short-term
 memory (which can be considered, in this case, to be a working memory). We use
-this feature to trace certain knowledge-related processes.
+this feature to trace certain knowledge-related processes. On the other hand,
+our perception layer does not make use of this mechanism: as described in the
+next section, the environment model of the robot is continuously updated and the
+derived symbolic knowledge is therefore transient.
 
 
 \subsection{Acquiring and Anchoring Knowledge in the Physical World}
@@ -739,15 +745,15 @@ this feature to trace certain knowledge-related processes.
 \begin{tikzpicture}[
         >=latex,
         box/.style={draw,rectangle, dotted, minimum width=#1, minimum height=3.8cm},
-        box/.default={4.5cm},
+        box/.default={4cm},
         every edge/.style={draw, ultra thick},
         every node/.style={align=center}]
 
     %\draw[step=1cm, draw=black!20] (-10,-5) grid (10,5);
 
-    \node[draw=none] at (0,-1) {\includegraphics[width=0.8\columnwidth]{spark-oro-notext.pdf}};
+    \node[draw=none] at (0,-1.5) {\includegraphics[width=1.\columnwidth]{spark-oro-notext.pdf}};
 
-    \node[box=16cm, minimum height=5.7cm, solid, thick, rounded corners] at (0,1.8) (oro) {};
+    \node[box=16cm, minimum height=5.3cm, solid, thick, rounded corners] at (0,1.8) (oro) {};
     \node at (0,4.2) {\sc \Large oro-server};
 
     \node[anchor=south] at (-4.6,2.4) {Description Logics \\ (Open World assumption)};
@@ -759,18 +765,18 @@ this feature to trace certain knowledge-related processes.
     \node[anchor=south] at (5,2.4) {Discrimination \& \\ categorization};
     \node[box=3cm] at (5,1.9) (disc) {};
 
-    \node at (-3,-0.6) {{\it OWL store:} OpenJena};
-    \node at (3,-0.6) {{\it Reasoner:} Pellet};
+    \node at (-3,-0.4) {{\it OWL store:} OpenJena};
+    \node at (3,-0.4) {{\it Reasoner:} Pellet};
 
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-    \node[box=16cm, minimum height=3.5cm, dotted, thick, rounded corners] at (0,-3.75) (spark) {};
+    \node[box=18cm, minimum height=4.5cm, dotted, thick, rounded corners] at (0,-4.2) (spark) {};
     \path (spark.north) edge[->] node[align=left,anchor=west] {Symbolic\\facts} (oro.south);
 
-    \node[anchor=north] at (-5.5,-4.5) {a) Agent-independent\\locations};
-    \node[anchor=north] at (-1.8,-4.5) {b) Agent-dependent\\placements};
-    \node[anchor=north] at (1.5,-4.5) {c) Visibility};
-    \node[anchor=north] at (5.3,-4.5) {d) Reachability};
+    \node[anchor=north] at (-6.5,-5.3) {a) Agent-independent\\locations};
+    \node[anchor=north] at (-2.1,-5.3) {b) Agent-dependent\\placements};
+    \node[anchor=north] at (1.6,-5.3) {c) Visibility};
+    \node[anchor=north] at (6.5,-5.3) {d) Reachability};
 
 \end{tikzpicture}
 }
@@ -807,14 +813,15 @@ robots and humans (Figures~\ref{fig|spark-oro}
 and~\ref{fig:sparkSubfigures}), also taking into account the different
 perspective that each agent has on the environment.
 
-{\sc Spark} is an \emph{amodal}~\cite{Mavridis2006} geometric model of the
+{\sc Spark} embeds an \emph{amodal}~\cite{Mavridis2006} geometric model of the
 environment that serves both as basis for the fusion of the perception
-modalities and as bridge with the symbolic layer. This geometric model is
-updated at run-time by the robot based on its sensors (in most of
-our studies, objects are identified and localised through 2D fiducial markers,
-while humans are tracked with Kinect-like devices, optionally assisted by motion
-capture to accurately track the head motion, which is required to compute what
-the human is looking at).
+modalities and as bridge with the symbolic layer. This geometric model is made
+of CAD 3D models of the objects, furnitures and robots, and full body, rigged
+models of the humans, and it is updated at run-time by the robot based on its
+sensors (in most of our studies, objects are identified and localised through 2D
+fiducial markers, while humans are tracked with Kinect-like devices, optionally
+assisted by motion capture to accurately track the head motion, which is
+required to compute what the human is looking at).
 
 %Our approach, implemented in the {\sc Spark} module, is a grounded amodal
 %representation of the robot environment, where different sensing modalities
@@ -824,7 +831,7 @@ the human is looking at).
 
 
 {\sc Spark} is designed to run and continuously update the knowledge base (in
-our experiments, it runs at about 10Hz). At each steps, it re-computes spatial
+our experiments, it runs at about 10Hz). At each step, it re-computes spatial
 relationships and affordances for the whole scene, and send the delta (new
 relations and relations that do not hold anymore) to the knowledge base. This
 approach may raise scalability concerns (we did not however hit major
@@ -1004,16 +1011,14 @@ current capabilities of the agents interacting with the robot is also required.
 
 \begin{itemize}
 
-\item \emph{Sees}: An important ability to know about an agent is to predict
-    \emph{What can it see?}, \ie what is within its field of view (FOV). Being
-    able to compute this information (by dynamically placing an OpenGL camera at
-    the location of the eyes and running occlusion checks from it), the robot
-    can reuse it for instance to infers which object a human is searching for
-    (the one that is not currently visible, otherwise the user would not be
-    searching for it).  In figure~\ref{fig|spark-oro}\emph{c} the field of view
-    of a person is illustrated with a grey cone (broader one). While he is able
-    to see the two small boxes on the table in front of him, the big box on his
-    right is out of his FOV, and therefore, he is not able to see it. 
+\item \emph{Sees}: this relation describes what the agent can see, \ie what is
+    within its field of view (FOV). In our current implementation, this
+    affordance is computed by dynamically placing an OpenGL camera at the
+    location of the eyes and running occlusion checks from it.  In
+    figure~\ref{fig|spark-oro}\emph{c} the field of view of a person is
+    illustrated with a grey cone (broader one). While he is able to see the two
+    small boxes on the table in front of him, the big box on his right is out of
+    his FOV, and therefore, he is not able to see it. 
 
 \item \emph{Looks At}: this relation corresponds to what the agent is focused
     on, \ie where its focus of attention is directed. This model is based on a
@@ -1143,7 +1148,7 @@ certain states. This happens, for instance, when the object is hidden in a
 container, when the robot holds it in its gripper, and more generally in any
 state in which it is hidden by something else. {\sc Spark} models the possible
 symbolic states of objects (whether the object is on a furniture, in an agent
-hand, in a container, etc.): According to the robot perception of what has
+hand, in a container, etc.): according to the robot perception of what has
 happened since the object was last seen, the robot builds a belief of the
 current possible state with associated probability model.
 
@@ -1168,14 +1173,14 @@ the human plans.
 The main weakness of our current implementation relates to the way semantics are
 conveyed: because we use 2D markers for artifacts, we avoid issues related to object
 segmentation and recognition. Each object has a unique identifier,
-which enable us to load a proper CAD model suitable for 3D spatial reasoning
+which enables us to load a proper CAD model suitable for 3D spatial reasoning
 and prevent recognition mistakes in the knowledge base. While {\sc Spark}
 algorithms themselves are ignorant of the input sources, and would work equally
 well with a full object recognition stack, we do not have tackled it yet.
 
 Besides, temporal reasoning (essential for accurate action recognition for
 instance) is not properly addressed in our stack. Temporal reasoning is used
-only locally, and does not allow for tracking of long or global events.
+only locally, and does not allow for tracking of long sequences or global events.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1186,7 +1191,7 @@ only locally, and does not allow for tracking of long or global events.
 
 In our experience, natural language processing is one of the fields of
 human-robot interaction for which the introduction of the semantic layer has
-been most beneficial.  In~\cite{Lemaignan2011a} we detail the techniques and the
+been most beneficial.  In~\cite{Lemaignan2011a} we explain the techniques and the
 tool called {\sc Dialogs} that we have developed for natural English language
 parsing and grounding, along with verbalisation and (minimalist) dialogue
 management.
@@ -1245,12 +1250,12 @@ structures (for instance, a sentence like ``learn that cats are animals'' is
 converted into \stmt{Cat subClassOf Animal} and added to the knowledge base
 after checking for possible contradictions with existing knowledge),
 interprets common temporal and place adverbs (like \emph{above} or
-\emph{tomorrow}) and translates to a certain extend \emph{states} (``I'm
+\emph{tomorrow}) and translates to a certain extent \emph{states} (``I'm
 tired'') into \emph{experiences} (\stmt{HUMAN experiences state\_1, state\_1
 hasFeature tired}). We kindly refer the readers to~\cite{Lemaignan2011a} for a
 complete discussion of these capabilities and the related algorithms.
 
-\subsubsection{Multi-Modal Communication}
+\subsubsection{Multi-Modality}
 
 Because all components rely on the same RDF formalism to format their outputs,
 the different communication modalities (\emph{explicit} like verbal, deictic or
@@ -1541,7 +1546,7 @@ This allows us to write reactive robot controllers with a high level of
 expressiveness: for instance, by subscribing to the event \stmt{human1 desires
 ?action, ?action type Take, ?action actsOnObject ?obj, ?obj type Toy}, we could trigger a
 behaviour when the human expresses (through dialogue, gestures...) that he
-wants to somehow get a toy.
+wants a toy.
 
 The robot controller designer does not need to directly care about how this
 \emph{desire} is produced (this is delegated to perception modules), he can
@@ -1590,11 +1595,12 @@ actions are combined at run-time into higher-level \emph{tasks}.}
 \end{table}
 
 Manipulation and navigation actions listed in table~\ref{table|pyrobots_actions}
-rely ona dedicated 3D motion planner ({\sc Mhp}, depicted in
+rely on a dedicated 3D motion planner ({\sc Mhp}, depicted in
 Figure~\ref{fig|archi}): robot placement and end-effectors trajectories are
 computed on-line to allow object manipulation that take into account task
 specific constraints and human postures, abilities and preferences.
-\cite{Sisbot2008, Mainprice2011, Pandey2011} detail these techniques.
+We kindly refer the interested reader to~\cite{Sisbot2008, Mainprice2011,
+Pandey2011} for details of these techniques.
 
 
 %\paragraph{Action Execution and Monitoring Robot Controller}
@@ -2132,7 +2138,7 @@ while AI at its origins was mostly a matter of symbolic models, it has been
 since recognised that not only the mind is not a purely abstract system,
 disconnected from the physical world, but even more, cognition fundamentally
 relies on its relation to the physical world (so-called \emph{embodied
-cognition}). Varela~\cite{Varela1992} is one of the main discoverer of these
+cognition}). Varela~\cite{Varela1992} is one of the main discoverers of these
 mechanisms, and coined the concept of \emph{enactivism} as the theoretical
 framework that study the links between cognition, embodiment and actions.
 
@@ -2169,7 +2175,7 @@ knowledge pool (typically, if I ask the robot ``bring me a platypus'', the
 robot asks ``what is a platypus''. I may answer ``a mammal'' and the robot will
 ask ``what is a mammal?'' and so on until it anchors the new concepts to ones
 it already knows). Non verbal interaction (like gestures) is also partially
-grounded: We have presented how pointing, for instance, is used by the robot to
+grounded: we have presented how pointing, for instance, is used by the robot to
 ground \emph{``this''} or \emph{``that''} to the pointed artifact.
 
 Because only objects marked with tags are currently recognised (in our typical
@@ -2202,7 +2208,7 @@ making, that human-robot interaction brings to artificial intelligence?
 \subsubsection{Knowledge and Architecture}
 
 As a whole, the components that we have introduced so far build a
-knowledge-oriented architecture: Knowledge is explicitly stored in one central
+knowledge-oriented architecture: knowledge is explicitly stored in one central
 and consistent repository of facts, accessible for all modules. It relies on a
 strict formalism (OWL statements), with a well defined vocabulary
 (stated in the common-sense ontology). These first two points lead to a
@@ -2216,9 +2222,9 @@ inference abilities of {\sc Oro} to trigger events whose \texttt{true}
 conditions can be (possibly indirectly) inferred.
 
 And finally, this architecture allows for the combination of very different
-knowledge modalities in a single homogeneous environment, bringing mutual
+knowledge sources in a single homogeneous environment, bringing mutual
 benefits to components. For instance, the dialogue processing module can
-run without any geometric perception, but its disambiguation routines
+run without any situation assessment, but its disambiguation routines
 can transparently benefit from it when available (since richer symbolic
 descriptions of objects are then available).
 
