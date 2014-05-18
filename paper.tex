@@ -1528,32 +1528,33 @@ provide a large set of high-level actions and an event-based architecture well
 suited for prototyping.  They both rely on deep integration with the knowledge
 base that serves as the primary source of semantics for decision making.
 
-%The novelty of our contribution here is the interleaving of a semantic-aware
-%architecture designed for autonomy with human-aware decisional components. To
-%our knowledge, no other robotic architecture covers in depth those two
-%perspectives.
-%
-%The Ke Jia project~\cite{Chen2010} is maybe one of the closest
-%approach. It integrates on a mobile platform a knowledge representation language
-%with natural language processing, task planning and motion planning. Default and
-%non-monotonic reasoning has been especially researched within the Ke Jia project
-%for symbolic task planning~\cite{Ji2011} and underspecified natural language
-%processing. The Ke Jia robot has been demonstrated in several tasks involving human-robot
-%interaction with natural language. These tasks include a task with multiple
-%\emph{pick \& carry} that are globally optimised, naive physics reasoning via
-%taught rules or more complex scenarios with the robot delivering drinks, taking
-%into account changing and mutually exclusive preferences of users.
-%
-%Also notable, Beetz et al.~\cite{Beetz2010} proposes a cognitive architecture
-%called \textsc{CRAM} (Cognitive Robot Abstract Machine) that deeply integrates
-%with \textsc{KnowRob}~\cite{Tenorth2009a}, a knowledge processing framework
-%based on Prolog. Its underlying storage is based on an OWL ontology, derived
-%from \textsc{OpenCyc}. \textsc{CRAM} and \textsc{KnowRob} have been demonstrated
-%on several real-world scenarios, where natural language recipes extracted from
-%the Internet had to be translated into plans and executed in a kitchen
-%environment, perceived and rebuilt on-line by the robots. This architecture has
-%however not been deployed in many scenarios involving human-robot interactions.
-%
+One of the main role of {\sc Shary} is to control the elaboration and execution
+of shared plans~\cite{Grosz1996,Clark1996,Kemp2007}. This means essentially
+contex-based refinement and robot actions execution as well as monitoring of
+those achieved by its human partner~\cite{Breazeal2003}. The challenge is to
+build such abilities in a generic way, and to provide several levels of
+parametrization allowing to adapt to various environments, and various levels of
+involvement of the robot ranging from teammate behavior to assistant or
+proactive helper.  Depending on this, the robot controller invokes the various
+human-aware planners and will react to events detected at ORO level.
+
+SHARY’S originality, as a supervision system, lies in its ability to take into
+account not only the task achievement but also communication and monitoring
+needed to support interactive task achievement ~\cite{Rich1997,Sidner2005} in a
+flexible way. SHARY allows to link action execution to more or less elaborated
+“communication policies” in order to produce signals towards the human and to
+react to human action.
+
+A communication act is the central notion in the formalism. It plays the role of
+transition condition. Consequently, a communication act represents an
+information exchange between the two agents. This exchange can be realized
+through dialog or by an expressive motion or a combination of the two. It
+enables each agent to communicate his belief about the task to be realized in
+order to share mutual knowledge and to synchronyze their activities.  This is
+done through real-time task-based situation assessment achieved by the
+combination of SPARK monitoring processes and ORO inference mechanisms
+\cite{fiore2014}.  
+
 
 \subsubsection{Desires and Experiences}
 
