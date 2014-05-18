@@ -1300,19 +1300,39 @@ with the related algorithms).
 
 Our execution controllers rely on symbolic task planning to convert long-term
 desires into a succession of atomic actions. We use in our architecture the HATP
-planner (for Human Aware Task Planner~\cite{Alili2008, Alili2009}).  HATP is a
-refinement of a Hierarchical Task Network (HTN). As an HTN, it performs an
-iterative task decomposition into sub-tasks until reaching atomic actions. The
-\emph{planning domain} defines the set of methods describing how to decompose a
-task and represents the procedural knowledge of the robot. It is stored outside
-of the central knowledge base, using a specific formalism (see the related
-discussion at the end of this section).
+planner (for Human Aware Task Planner~\cite{Alili2008,
+Alili2009,Lallement2014}).  
+
+HATP (Hierarchical Agent- based Task Planner) planning framework extends the
+traditional HTN (Hierarchical Task Network) planning domain representation and
+semantics by making them more suitable to elaborate plans which involve humans
+and robots acting together toward a joint goal. HATP is used by the robot to
+elaborate human-robot \emph{shared plans} which are then used to anticipate
+human action, to propose to human to act or even to ask help from the human.
+
+The HATP \emph{planning domain} defines a set of methods describing how to
+decompose a task and represents the procedural knowledge of the robot as well as
+its knowledge about the actions that the human partner is able to achieve. It is
+stored outside of the central knowledge base, using a specific formalism (see
+the related discussion at the end of this section).
 
 \subsubsection{Agents and Action Streams}
 
 The originality of HATP resides in its ability to produce plans for the robot's
 actions \emph{as well as} for the other participants (humans or robots), that we
-call \emph{shared plans}. This effectively enriches the interaction capabilities
+call \emph{shared plans}. 
+
+An important feature of HATP is that it treats agents as ``first-class
+entities'' in the domain representation language. It can therefore
+distinguish between the different agents in the domain as well as
+between agents and the other entities such as tables and chairs. This
+facilitates a post-processing step in HATP that splits the final
+solution (sequence of actions) into two (or more if there are several
+humans) synchronised solution
+streams, one for the robot and one for the human, so that the streams may be executed in
+parallel and synchronised when necessary.
+
+This effectively enriches the interaction capabilities
 of the robot by allowing for a form of human behaviour \emph{prediction}, which
 is used by the robot execution controller to monitor the engagement of the human
 partner during joint tasks.
@@ -1377,15 +1397,42 @@ function provides a duration interval for the action achievement and is used, in
 one hand, to schedule the different streams and, in the other hand, as an
 additional cost function.
 
-In addition to these costs, HATP also takes into account a set of social rules.
-Social rules are heuristics aiming at leading the plan construction towards the
-best plan according to some human preferences.  The social rules we have defined
-so far deal with \emph{undesirable states} to avoid a state in which the human
-could feel uncomfortable; \emph{undesirable sequences} to eliminate sequences of
-actions that can be misinterpreted by the human; \emph{effort balancing} to
-adjust the work effort of each of the agents; \emph{no wasted time} to avoid
-long delays between the actions of the human partner; and \emph{no intricate
-links} to limit dependencies between the actions of two or more agents.
+To address some of those challenges HATP includes mechanisms called
+"social tules" to filter plans so as to keep only those suitable for
+HRI. To this end, HATP allows the specification of the following
+filtering criteria: 
+
+\emph{Wasted time}: Avoids plans where the human mentioned in a plan spends a lot
+of its time waiting.  
+
+\emph{Effort balancing:} Avoids plans where efforts are
+not fairly distributed among the agents mentioned in a plan.  It is
+indeed sometimes beneficial to balance efforts between the human and
+the robot. 
+
+\emph{Control of intricacy:} Avoids plans with too many interdependencies
+between the actions of agents mentioned in the plan, as a problem with
+executing just one of those actions could invalidate the entire
+plan. Also intricate human-robot activity may cause discomfort since
+the human will find himself repeatedly in a situation where his is
+waiting for the robot to act
+
+\emph{Undesirable sequences:} Avoids plans that violate specific user-defined
+sequences (for instance sequences which can be misinterpreted by the human).
+
+Combining some of the above criteria could help yield the
+following interesting \emph{shared plans}: (1) the human ends up doing a
+number of the tasks, but yet the overall effort is significantly lower than what the robot puts
+to do a lower number of effort-intensive tasks; (2) avoiding, when
+possible, having the human wait for the robot several times, which
+essentially prevents the streams from having too many causal links
+between them.
+
+ In the current implementation, the so-called social rules are
+implemented by looking through all the plans produced and filtering
+out the ones that do not meet the requirements specified. In the
+future we intend to study algorithms that do such filtering online,
+rather than after primitive solutions are found.
 
 \begin{figure}[htbp]
   \centering
