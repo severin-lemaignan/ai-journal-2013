@@ -2242,11 +2242,56 @@ accounted for when grounding human-robot interaction.
 
 \subsection{The Key Decisional Issues}
 
-How can we restate the main challenges, in particular in term of decision
-making, that human-robot interaction brings to artificial intelligence?
 
-\fxfatal{TDB}
+Human-robot interaction and more particularly one of it major subfields
+which is human-robot collaboration provides a rich and renewed context
+and challenge for the decisional abilities of a robot.
+Indeed, the context where a robot has to achieve a task together with
+humans gives rise to the following questions, each of them being a
+challenge of is own for the robot decisional capabilities  what, who,
+when; where and how ?
 
+
+\emph{What to do next,} at different levels of abstractions and taking into
+account several not only the current state but also the a long term
+goal, is the basic or standard question for an intelligent robot. Its
+is enriched here by complementary considerations dealing with the
+physical and mental state of its human partner, the set of possible
+actions are enriched by communication robot acts.
+
+\emph{Who should act now} is of key importance and need also to be
+decided upon by the robot. Indeed, it is sometimes better - one could
+say ``more intelligent'' - for the robot to wait and leave ist human
+partner act. Turn-taking opens various decisional challenges.
+
+\emph{When to perform a given action} is enriched here by the
+human-context since it has take into account the human, his needs, his
+rhythms and his mental state. While performing its share of the task
+the robot will have to produce signals towards the human and to
+respond to signals produced by him at the proper pace.
+
+\emph{Where to perform an action} plays an important role in presence of
+humans since here again, the choice is not trivial and might need
+elaborated decision. Robot here has to take into account effort
+sharing, visibility of its action by the human, disturbance or
+discomfort  induced by its action.
+
+\emph{How to perform an action} plays a key role when it comes to a
+robot which has to interact with humans. Very often, there are
+numerous ways to perform an action or to achieve a goal. Deciding which
+one to perform is a non trivial decision problem. One way to take into
+account this aspect is to develop cost-based planners which tend to
+search for plans that satisfy an acceptable "cost" in terms, for
+instance, of ``acceptability'' or ``legibility''.
+
+It is also clear that these different questions are not independent
+and should often be considered in one decision step. The human-aware task and
+motion planners, which we have built, are instances of systems which
+have been specially designed to deal with this intricacy.
+
+In one word, the quality of the decision will be measured here in
+terms of ``pertinence'' of robot behaviour. This notion covefrs
+several aspects as dicussed above, including efficiency. 
 
 
 \subsection{Knowledge and Robotics}
