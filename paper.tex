@@ -2407,13 +2407,21 @@ the \emph{spygame}, we would like to mainly use immanent properties, not
 volatile like a gaze. More research is required to identify relevant
 interaction contexts and knowledge classes attached to them.
 
-
-
 \subsection{Bringing the Humans into the Equation}
 
-\subsubsection{Modelling the Humans}
+One essential and incredibly complex question is the consideration of
+humans in the system, how they are modeled and how these models are
+used by the robot to perceive and interpret their motion and action,
+to synthesize its behaviour in order to act on the environment and to
+interact with its human partners.
 
-\fxfatal{Re-organise, rephrase, complement}
+We claim that it is possible and useful to devise and use models of
+the humans, how they act, their needs and preferences. This can be
+done in very limited, but still interesting and useful, contexts such
+as collaborative human-robot objects manipulation, fetch-and-carry and
+associated activities in a domestic or professional environment. 
+
+\subsubsection{Estimate human mental state}
 
 In our implementation, perspective taking is tightly connected to the symbolic
 knowledge models, and since our knowledge base allows for storage of one
@@ -2424,14 +2432,21 @@ then re-used in different places, to correctly interpret what the human says,
 or to plan tasks that are actually doable for the human.
 
 The cognitive model that the robot builds for the agent it interacts with is
-still simple and mostly focused on geometric features (\emph{Who sees what? What are
-our relative positions?} etc.). Extending this knowledge with more subtle
+still simple and mostly focused on geometric features and affordances (\emph{Who sees what? What are
+our relative positions? reachability estimation}  etc.). Extending this knowledge with more subtle
 perceptions (emotional state for instance) remains to be done.
 
-We should also mention that modelling of human behaviours also appear in our
-architecture at the level of task and motion planning with a set of
-\emph{social rules}, including proxemics, action legibility or time
-optimization.
+\subsubsection{Motion and action execution in close vicinity to the human}
+
+The human model we use embeds also human preferences and associated
+constraints that could be taken into account when synthesizing robot motion
+or elaborating robot plans.
+
+This includes proxemics (human-robot distance) and associated issues
+(visibility) but also legibility and acceptability criterias
+expressed in terms of \emph{social rules} that the elaborated plans should
+satisfy.
+
 
 \subsubsection{Acting in Presence of Humans}
 
@@ -2467,7 +2482,6 @@ and to interleave task realization and communication in a generic
 way. Finally, today only few
 systems~\cite{Fong2006,Breazeal2003,Sisbot2008} take humans into
 account at all levels.
-
 
 \subsection{The Next Steps}
 
