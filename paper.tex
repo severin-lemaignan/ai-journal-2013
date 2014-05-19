@@ -1520,35 +1520,34 @@ in Figure~\ref{fig|archi}. {\sc Shary}~\cite{clodic2008shary} is the main one,
 written in the \emph{Procedural Reasoning System} language~\cite{Ingrand1996}.
 We have also developed the Python-based {\sc pyRobots} collection of tools to
 provide a large set of high-level actions and an event-based architecture well
-suited for prototyping.  They both rely on deep integration with the knowledge
-base that serves as the primary source of semantics for decision making.
+suited for prototyping.  They both rely on extensive integration with the knowledge
+base, that serves as the primary source of semantics for decision making process.
 
 One of the main role of {\sc Shary} is to control the elaboration and execution
 of shared plans~\cite{Grosz1996,Clark1996,Kemp2007}. This means essentially
-contex-based refinement and robot actions execution as well as monitoring of
+context-based refinement and robot actions execution, as well as monitoring of
 those achieved by its human partner~\cite{Breazeal2003}. The challenge is to
 build such abilities in a generic way, and to provide several levels of
-parametrization allowing to adapt to various environments, and various levels of
+parametrisation allowing to adapt to various environments, and various levels of
 involvement of the robot ranging from teammate behaviour to assistant or
 proactive helper.  Depending on this, the robot controller invokes the various
-human-aware planners and will react to events detected at ORO level.
+human-aware planners and will react to events detected at {\sc Oro} level (as
+described below).
 
-SHARY’S originality, as a supervision system, lies in its ability to take into
-account not only the task achievement but also communication and monitoring
-needed to support interactive task achievement ~\cite{Rich1997,Sidner2005} in a
-flexible way. SHARY allows to link action execution to more or less elaborated
-“communication policies” in order to produce signals towards the human and to
-react to human action.
-
-A communication act is the central notion in the formalism. It plays the role of
-transition condition. Consequently, a communication act represents an
-information exchange between the two agents. This exchange can be realized
-through dialog or by an expressive motion or a combination of the two. It
-enables each agent to communicate his belief about the task to be realized in
-order to share mutual knowledge and to synchronyze their activities.  This is
-done through real-time task-based situation assessment achieved by the
-combination of SPARK monitoring processes and ORO inference mechanisms
-\cite{fiore2014}.  
+{\sc Shary}'s originality, as an execution control system, lies in its ability
+to take into account not only the task achievement but also communication and
+monitoring needed to support interactive task
+achievement~\cite{Rich1997,Sidner2005} in a flexible way. {\sc Shary} allows to
+link action execution \emph{communication policies} in order to produce signals
+towards the human and to react to human actions. The \emph{communication act} is
+the central concept in this formalism. It plays the role of transition
+condition, and, as such, represents an information exchange between the two
+agents. This exchange can be realised through dialogue, by an expressive motion
+or a combination of the two. It enables each agent to communicate their beliefs
+about the task to be achieved, in order to share mutual knowledge and to
+synchronise their activities.  This is done through real-time task-based
+situation assessment achieved by the combination of {\sc Shary} monitoring
+processes and {\sc Oro} inference mechanisms~\cite{fiore2014}.
 
 
 \subsubsection{Desires and Experiences}
