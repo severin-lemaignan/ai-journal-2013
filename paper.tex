@@ -1511,8 +1511,6 @@ base: the planning domain (with task pre- and postconditions) is stored in a
 specific format, outside of the central declarative knowledge repository, and
 the plans are directly communicated to the robot controller. This leads to
 independent declarative and procedural knowledge stores.
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Robot Execution Control}
 \label{sect|ctrl}
@@ -1534,7 +1532,7 @@ contex-based refinement and robot actions execution as well as monitoring of
 those achieved by its human partner~\cite{Breazeal2003}. The challenge is to
 build such abilities in a generic way, and to provide several levels of
 parametrization allowing to adapt to various environments, and various levels of
-involvement of the robot ranging from teammate behavior to assistant or
+involvement of the robot ranging from teammate behaviour to assistant or
 proactive helper.  Depending on this, the robot controller invokes the various
 human-aware planners and will react to events detected at ORO level.
 
@@ -2162,17 +2160,13 @@ assess the overall progress of the plan.
 Interaction}
 \label{sect|conclusion}
 
-This last section tries to clarify the ``takeaway'' message: what are the challenges
-that human-robot interaction brings to artificial intelligence, and what is the
-current state-of-the-art in this field?
-
-We first restate the challenge of \emph{embodied cognition} in general and list
-what we see as the main decisional issues that need to be tackled to push
-forward human-robot interaction. We then reflect on the importance of knowledge
-handling in robotic architectures that deal with complex semantics and put into
-perspective our choice of the RDF formalism.  Finally, we briefly re-discuss two
-facets of HRI: the importance of \emph{modelling the humans}, and the difficulty
-of \emph{acting in presence of humans}.
+This last section tries to clarify the ``takeaway'' message: what are the
+challenges that human-robot interaction brings to artificial intelligence?  We
+first restate the challenge of \emph{embodied cognition} in general and
+summarise what we see as the main decisional issues that need to be tackled to
+push forward human-robot interaction. Finally, we reflect on the importance of
+knowledge handling in robotic architectures that deal with complex semantics and
+put into perspective our choice of the RDF formalism. 
 
 \subsection{Embodied Cognition}
 
@@ -2188,7 +2182,9 @@ disconnected from the physical world, but even more, cognition fundamentally
 relies on its relation to the physical world (so-called \emph{embodied
 cognition}). Varela~\cite{Varela1992} is one of the main discoverers of these
 mechanisms, and coined the concept of \emph{enactivism} as the theoretical
-framework that study the links between cognition, embodiment and actions.
+framework that study the links between cognition, embodiment and actions.  This
+has since been thoroughly studied in robotics and artificial intelligence
+(Pfeifer and Bongard~\cite{pfeifer2007body} is one of the reference).
 
 The challenge of symbol grounding is also tightly linked to this issue. It
 corresponds to the identification or creation, and then, maintenance of a link
@@ -2206,97 +2202,148 @@ its knowledge.
 
 As we have seen, grounding is implemented at different levels in our
 architecture. The main source of grounded symbolic knowledge is the situation
-assessment module, {\sc Spark}.  Not only it builds symbolic facts from spatial
-reasoning, but it also relies on (limited) temporal reasoning to track the world
-state and build explanations to interpret unexpected perceptions (like a
-suddenly disappearing object).
-
-Because {\sc Spark} is also able to track humans, which enables in turn
-perspective-aware spatial reasoning, it produces grounded symbolic knowledge
-for interacting agents as well. This is a typical \emph{embodied} cognitive
-skill.
+assessment module, {\sc Spark}. It builds symbolic facts from spatial reasoning,
+and also relies on (limited) temporal reasoning to track the world state and
+build explanations to interpret unexpected perceptions (like an object that
+suddendly disappears). Because {\sc Spark} also tracks humans, which enables
+perspective-aware spatial reasoning, it can produce as well grounded symbolic
+knowledge for the agents it interacts with. This is a typical \emph{embodied}
+cognitive skill.
 
 Grounding also occurs during verbal and non-verbal communication. The {\sc
-Dialogs} module grounds new concepts introduced by the speaker by asking questions
-until it can attach the new concept to concepts already present in the
-knowledge pool (typically, if I ask the robot ``bring me a platypus'', the
-robot asks ``what is a platypus''. I may answer ``a mammal'' and the robot will
-ask ``what is a mammal?'' and so on until it anchors the new concepts to ones
-it already knows). Non verbal interaction (like gestures) is also partially
-grounded: we have presented how pointing, for instance, is used by the robot to
-ground \emph{``this''} or \emph{``that''} to the pointed artifact.
+Dialogs} module grounds new concepts introduced by the speaker by asking
+questions until it can attach the new concept to concepts already present in the
+knowledge pool (typically, if I ask the robot ``bring me a platypus'', the robot
+asks ``what is a platypus''. I may answer ``a mammal'' and the robot will ask
+``what is a mammal?'' and so on until it anchors the new concepts to ones it
+already knows). Embodied interactions (like gestures) are also taken into
+account at this level: we have presented how pointing, for instance, is used by
+the robot to ground \emph{``this''} or \emph{``that''} to the pointed artifact.
 
-Because only objects marked with tags are currently recognised (in our typical
-lab experiments, it may be a dozen of them), the robot grounding mechanisms work
-in a small-sized closed world. This assumption obviously greatly facilitates
-the task. It remains to be seen if systematic marking of manipulated objects
-(for instance with RFID tags) is a realistic path.\footnote{It may be the case if the
-robot is expected to be used in a well-defined, slowly changing environment.
-Real-time recognition of large libraries of objects is another path which may
-be viable soon~\cite{Dean2013Fast}.}
-
-We see however that we have only scratched the surface of a generic grounding
-capability. Context, cultural background, ``naive physics'' knowledge, emotional
-state of the human are some of the numerous other determinants that need to be
-accounted for when grounding human-robot interaction.
+Note that because only objects marked with 2D fiducial markers are currently
+recognised (in our typical lab experiments, it may be a dozen of them), the
+robot's grounding mechanisms only work in a small-sized closed world. This
+assumption greatly facilitates the task, and we see that we have only scratched
+the surface of a generic grounding capability. Context, cultural background,
+``naive physics'' knowledge, emotional state of the human are some of the
+numerous other determinants that need to be accounted for when grounding
+human-robot interaction.
 
 \subsection{The Key Decisional Issues}
 
+With this perspective on \emph{embodied cognition} in mind, it seems appropriate
+to restate the key challenges brought by human-robot interaction to artificial
+intelligence.
 
-Human-robot interaction and more particularly one of it major subfields
-which is human-robot collaboration provides a rich and renewed context
-and challenge for the decisional abilities of a robot.
-Indeed, the context where a robot has to achieve a task together with
-humans gives rise to the following questions, each of them being a
-challenge of is own for the robot decisional capabilities  what, who,
-when; where and how ?
+\subsubsection{The W-questions}
 
+Our context, where a robot has to achieve a task together with
+humans, raises issues to be tackled by the robots' decisional components, and
+that we can summarises as ``W-questions'': \emph{What}, \emph{Who}, \emph{When},
+\emph{Where} and \emph{How}?
 
-\emph{What to do next,} at different levels of abstractions and taking into
-account several not only the current state but also the a long term
-goal, is the basic or standard question for an intelligent robot. Its
-is enriched here by complementary considerations dealing with the
-physical and mental state of its human partner, the set of possible
-actions are enriched by communication robot acts.
+\emph{What to do next}, at different levels of abstractions and while taking
+into account not only the current state but also the long term goals, is the
+basic question for an intelligent robot. Its is made more complex here by having
+to deal with the partially observable physical and mental state of the human
+partner, and by the extended set of possible actions.
 
-\emph{Who should act now} is of key importance and need also to be
-decided upon by the robot. Indeed, it is sometimes better - one could
-say ``more intelligent'' - for the robot to wait and leave ist human
-partner act. Turn-taking opens various decisional challenges.
+\emph{Who should act now} is of key importance and also needs to be
+decided upon by the robot. It is sometimes expected as an intelligent behaviour
+for the robot to wait and let its human partner act instead. Correct management
+of \emph{turn-taking} leads to various decisional challenges.
 
-\emph{When to perform a given action} is enriched here by the
-human-context since it has take into account the human, his needs, his
-rhythms and his mental state. While performing its share of the task
-the robot will have to produce signals towards the human and to
-respond to signals produced by him at the proper pace.
+\emph{When to perform a given action} is enriched here by the human-context
+since it has to take into account the human, his/her needs, his/her rhythms and
+pace, and his/her mental state. While performing its share of the task, the
+robot has to produce signals directed towards the human and to respond to
+signals produced back at the proper pace.
 
-\emph{Where to perform an action} plays an important role in presence of
-humans since here again, the choice is not trivial and might need
-elaborated decision. Robot here has to take into account effort
-sharing, visibility of its action by the human, disturbance or
-discomfort  induced by its action.
+\emph{Where to perform an action} plays an important role as well: the choice is
+not trivial and might need elaborated decision. The robot is expected to take
+into account effort sharing, visibility of its action by the human, disturbance
+or discomfort induced by its action.
 
-\emph{How to perform an action} plays a key role when it comes to a
-robot which has to interact with humans. Very often, there are
-numerous ways to perform an action or to achieve a goal. Deciding which
-one to perform is a non trivial decision problem. One way to take into
-account this aspect is to develop cost-based planners which tend to
-search for plans that satisfy an acceptable "cost" in terms, for
-instance, of ``acceptability'' or ``legibility''.
+\emph{How to perform an action}, finally, needs to be reflected upon by the
+robot: several options to perform an action or to achieve a goal are often
+available, and selecting one is a non-trivial decision problem. Cost-based
+planners are one possible approach: they search for plans that satisfy an
+acceptable cost in terms of \emph{acceptability} or \emph{legibility}, for
+instance.
 
-It is also clear that these different questions are not independent
-and should often be considered in one decision step. The human-aware task and
-motion planners, which we have built, are instances of systems which
-have been specially designed to deal with this intricacy.
+These five questions should not be considered independently from each others and
+often require, on the contrary, to be dealt with in a single decision step. The
+human-aware task and motion planners which we have built, are instances of
+systems which have been designed to deal with such intricate decision issues.
 
-In one word, the quality of the decision will be measured here in
-terms of ``pertinence'' of robot behaviour. This notion covefrs
-several aspects as dicussed above, including efficiency. 
+\subsubsection{Putting the Humans into Equations}
+
+The correlate of these five \emph{W-questions} is the issue the \emph{human
+models}: taking appropriate decisions with and in presence of humans require
+appropriate models of the human. Models that tell the robot what the human
+\emph{can do}, \emph{would like to do}, \emph{knows}, \emph{could infer}, etc.
+
+While the task of describing all the (dynamic!) human models that are useful to
+robots is immense (if doable at all), we claim that it is possible to devise and
+use such models in limited, but still interesting and useful, contexts such as
+collaborative human-robot objects manipulation, fetch-and-carry and associated
+activities in a domestic or professional environment.
+
+In our implementation, perspective taking, for instance, is tightly connected to
+the symbolic knowledge models, and since our knowledge base allows for storage
+of one knowledge model per agent, we have been able to endow the robot with a
+simple theory of mind (as explained in section~\ref{sect|tom}): we explicitly
+model what the robot knows about its partners in a symbolic way. This knowledge
+is then re-used in different places, to correctly interpret what the human says,
+or to plan tasks that are actually doable for the human.
+
+The cognitive model that the robot builds for the agents it interacts with
+remains today simple and mostly focused on geometric features and affordances
+(\emph{who sees what? what are our relative positions? what is reachable to
+whom?}  etc.). Extending this knowledge with more subtle perceptions (emotional
+state for instance) remains to be done.
+
+Motion and action execution also requires human models, and the one we use
+embeds human preferences and physical constraints that need to be accounted for
+when synthesizing robot motion or elaborating robot plans. This includes
+proxemics (human-robot distance) and associated issues (visibility) but also
+legibility and acceptability criterias expressed in terms of \emph{social rules}
+that the elaborated plans should satisfy.
+
+%
+%\paragraph{Joint actions with humans}\label{sec:soa}
+%\fxfatal{too many citation -> synthesis needed!}
+%
+%The human presence brings new requirements for robot's abilities both
+%at the functional and at the deliberative levels~\cite{Klein2004}. The
+%topics involve motion~\cite{Kulic2007,Berg2004,Madhava2006},
+%navigation~\cite{Althaus2004,Sisbot2007}, manipulation~\cite{Kemp2007}
+%in presence of humans as well as perception of human
+%activities~\cite{Breazeal2001,Burger2008}. Also, when
+%interacting with humans, robots need to incorporate communication and
+%collaboration abilities. Several theories dealing with
+%collaboration~\cite{Cohen1991,Grosz1996,Clark1996} emphasise that
+%collaborative tasks have specific requirements compared to individual
+%ones, \eg, since the robot and the person share a common goal, they
+%have to agree on the manner to realise it, they must show their
+%commitment to the goal during execution, etc. Several robotic systems
+%have already been built based on these
+%theories~\cite{Rich1997,Sidner2005,Breazeal2003} and they
+%all have shown benefits of this approach. They have also shown how
+%difficult it is to manage turn-taking between communication partners
+%and to interleave task realization and communication in a generic
+%way. Finally, today only few
+%systems~\cite{Fong2006,Breazeal2003,Sisbot2008} take humans into
+%account at all levels.
 
 
 \subsection{Knowledge and Robotics}
 \label{krs-discussion}
 
+As thorougly presented in this article, we have built the decisional
+capabilities of our robots around this idea of explicit knowledge manipulation.
+We finally briefely comment on this design choice, our implementation based on RDF,
+and the limitations that we perceive.
 
 \subsubsection{Knowledge and Architecture}
 
@@ -2407,81 +2454,6 @@ the \emph{spygame}, we would like to mainly use immanent properties, not
 volatile like a gaze. More research is required to identify relevant
 interaction contexts and knowledge classes attached to them.
 
-\subsection{Bringing the Humans into the Equation}
-
-One essential and incredibly complex question is the consideration of
-humans in the system, how they are modeled and how these models are
-used by the robot to perceive and interpret their motion and action,
-to synthesize its behaviour in order to act on the environment and to
-interact with its human partners.
-
-We claim that it is possible and useful to devise and use models of
-the humans, how they act, their needs and preferences. This can be
-done in very limited, but still interesting and useful, contexts such
-as collaborative human-robot objects manipulation, fetch-and-carry and
-associated activities in a domestic or professional environment. 
-
-\subsubsection{Estimate human mental state}
-
-In our implementation, perspective taking is tightly connected to the symbolic
-knowledge models, and since our knowledge base allows for storage of one
-knowledge model per agent, we have been able to endow the robot with a simple
-theory of mind (as explained in section~\ref{sect|tom}): we explicitly model
-what the robot knows about its partners in a symbolic way. This knowledge is
-then re-used in different places, to correctly interpret what the human says,
-or to plan tasks that are actually doable for the human.
-
-The cognitive model that the robot builds for the agent it interacts with is
-still simple and mostly focused on geometric features and affordances (\emph{Who sees what? What are
-our relative positions? reachability estimation}  etc.). Extending this knowledge with more subtle
-perceptions (emotional state for instance) remains to be done.
-
-\subsubsection{Motion and action execution in close vicinity to the human}
-
-The human model we use embeds also human preferences and associated
-constraints that could be taken into account when synthesizing robot motion
-or elaborating robot plans.
-
-This includes proxemics (human-robot distance) and associated issues
-(visibility) but also legibility and acceptability criterias
-expressed in terms of \emph{social rules} that the elaborated plans should
-satisfy.
-
-
-\subsubsection{Acting in Presence of Humans}
-
-HRI offers new challenges to planning by adding a supplementary constraint: the
-synthesis of plans that are not only feasible but legible (in terms of their
-intention) and compliant with human preferences. This constraint is often
-ill-defined, dynamic and context-dependent.  HATP, by co-planning for the robot and
-the human, and modelling social rules as planning parameters, is a first step in
-this direction.
-
-\fxfatal{What are the next steps?}
-
-\paragraph{Joint actions with humans}\label{sec:soa}
-\fxfatal{too many citation -> synthesis needed!}
-The human presence brings new requirements for robot's abilities both
-at the functional and at the deliberative levels~\cite{Klein2004}. The
-topics involve motion~\cite{Kulic2007,Berg2004,Madhava2006},
-navigation~\cite{Althaus2004,Sisbot2007}, manipulation~\cite{Kemp2007}
-in presence of humans as well as perception of human
-activities~\cite{Breazeal2001,Burger2008}. Also, when
-interacting with humans, robots need to incorporate communication and
-collaboration abilities. Several theories dealing with
-collaboration~\cite{Cohen1991,Grosz1996,Clark1996} emphasise that
-collaborative tasks have specific requirements compared to individual
-ones, \eg, since the robot and the person share a common goal, they
-have to agree on the manner to realise it, they must show their
-commitment to the goal during execution, etc. Several robotic systems
-have already been built based on these
-theories~\cite{Rich1997,Sidner2005,Breazeal2003} and they
-all have shown benefits of this approach. They have also shown how
-difficult it is to manage turn-taking between communication partners
-and to interleave task realization and communication in a generic
-way. Finally, today only few
-systems~\cite{Fong2006,Breazeal2003,Sisbot2008} take humans into
-account at all levels.
 
 \subsection{The Next Steps}
 
