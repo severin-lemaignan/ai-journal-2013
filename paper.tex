@@ -18,7 +18,7 @@
 
 \usepackage{paralist}
 
-\usepackage[draft, nomargin, marginclue, footnote]{fixme}
+\usepackage[nomargin, marginclue, footnote]{fixme}
 
 \usepackage{hyperref}
 
@@ -104,11 +104,11 @@ Many AI techniques are invited, from visual processing to symbolic reasoning,
 from task planning to \emph{theory of mind} building, from reactive control to
 action recognition and learning.
 
-We do not claim to address here the whole issue. This article attempts however to organise
-it into a coherent challenge for artificial intelligence, and to explain and
-illustrate some of the paths that we have investigated on our robots and that
-result in a deliberative, knowledge-oriented, architecture for human-robot
-interaction.
+We do not claim to address here the issue as a whole. This article attempts
+however to organise it into a coherent challenge for artificial intelligence,
+and to explain and illustrate some of the paths that we have investigated on our
+robots, that result in a set of deliberative, knowledge-oriented, software
+components designed for human-robot interaction.
 
 We focus on a specific class of interactions: collaborative task achievement
 supported by multi-modal and situated communication. Figure~\ref{fig:hri-dec}
@@ -793,8 +793,9 @@ their symbolic interpretation. We call \emph{physical situation assessment} the
 cognitive skill that a robot exhibits when it assesses the nature and content of its
 surroundings and efficiently monitors its evolution.
 
-Numerous approaches exist, like amodal \emph{proxies}~\cite{Jacobsson2008},
-grounded amodal representations~\cite{Mavridis2006}, semantic
+Numerous approaches exist, like amodal (in the sense of modality-independent)
+\emph{proxies}~\cite{Jacobsson2008}, grounded amodal
+representations~\cite{Mavridis2006}, semantic
 maps~\cite{Nuechter2008, Galindo2008,Blodow2011} or affordance-based planning
 and object classification~\cite{Lorken2008, Varadarajan2011}.
 
@@ -1142,13 +1143,12 @@ along with the admissible classes for the subjects and objects of the statements
 
 \paragraph{Hypotheses on Objects States and Positions}
 
-\fxfatal{Rephrase or remove}
 It is sometimes difficult or even impossible to see and/or track an object in
 certain states. This happens, for instance, when the object is hidden in a
 container, when the robot holds it in its gripper, and more generally in any
 state in which it is hidden by something else. {\sc Spark} models the possible
 symbolic states of objects (whether the object is on a furniture, in an agent
-hand, in a container, etc.): according to the robot perception of what has
+hand, in a container, etc.), and according to the robot perception of what has
 happened since the object was last seen, the robot builds a belief of the
 current possible state with associated probability model.
 
@@ -1159,14 +1159,13 @@ world. While full human action and activity recognition is a task that requires
 knowledge and reasoning both on high level facts like goals, intentions and
 plans, as well as bottom-up data from agent and object motions, simple temporal
 and geometric reasoning on human hand trajectories and potential objects
-placements can provide clues for high level human monitoring
-processes. We call this temporal and geometric reasoning \emph{primitive action
-recognition}. Those primitive actions are assessed through monitoring situations
-like ``an empty hand is close to an object on a table'' (precursor for a
-\emph{pick}), or ``a hand holding an object is over a container'' (precursor for
-a \emph{throw}). {\sc Spark} recognises a handful \fxfatal{which ones?} of these
-primitives, that are relied on by the robot to track the state transitions in
-the human plans.
+placements can provide clues for high level human monitoring processes. We call
+this temporal and geometric reasoning \emph{primitive action recognition}. Those
+primitive actions are assessed through monitoring situations like ``an empty
+hand is close to an object on a table'' (precursor for a \emph{pick}), or ``a
+hand holding an object is over a container'' (precursor for a \emph{throw}).
+{\sc Spark} recognises a core set of such primitives that are relied upon by the
+robot to track the state transitions in the human plans.
 
 \subsubsection{Limitations}
 
@@ -1496,18 +1495,16 @@ total duration of the task. }
 Because HATP is a generic symbolic task planner, we have been able to design a
 planning domain at a semantic level which is close to the one used in the
 human-robot dialogue (the planner vocabulary contains concepts like
-\texttt{give}, \texttt{table}, \texttt{is on}...). Hence only a few ontology
-rules have been required to map both the knowledge extracted from the situation
-assessment and the statements originated from the verbal interaction to the
-planner domain.
+\texttt{give}, \texttt{table}, \texttt{is on}...). This leads to a natural
+mapping (low ``impedance mismatch'') between the knowledge extracted from the situation
+assessment or the dialogue, and the planner.
 
-Also, we would like to mention that, after some research (see appendix B
-of~\cite{Lemaignan2012a} for a detailed discussion)  we have decided to
-represent neither the planning domain nor the resulting plans in the knowledge
-base: the planning domain (with task pre- and postconditions) is stored in a
-specific format, outside of the central declarative knowledge repository, and
-the plans are directly communicated to the robot controller. This leads to
-independent declarative and procedural knowledge stores.
+Also, we would like to mention that, after some research we have decided against
+representing the planning domain (\ie, the set of tasks with their pre- and
+post-conditions) in the knowledge base itself due to expressiveness issues (see
+appendix B of~\cite{Lemaignan2012a} for a detailed discussion). This effectively
+leads to independent declarative and procedural knowledge stores.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Robot Execution Control}
 \label{sect|ctrl}
