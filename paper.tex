@@ -1300,10 +1300,10 @@ with the related algorithms).
 
 Our execution controllers rely on symbolic task planning to convert long-term
 desires into a succession of atomic actions. We use in our architecture the HATP
-planner (for Human Aware Task Planner~\cite{Alili2008,
-Alili2009,Lallement2014}).  
+planner (\emph{Human Aware Task Planner})~\cite{Alili2008,
+Alili2009,Lallement2014}.
 
-HATP (Hierarchical Agent- based Task Planner) planning framework extends the
+The HATP planning framework extends the
 traditional HTN (Hierarchical Task Network) planning domain representation and
 semantics by making them more suitable to elaborate plans which involve humans
 and robots acting together toward a joint goal. HATP is used by the robot to
@@ -1330,18 +1330,18 @@ facilitates a post-processing step in HATP that splits the final
 solution (sequence of actions) into two (or more if there are several
 humans) synchronised solution
 streams, one for the robot and one for the human, so that the streams may be executed in
-parallel and synchronised when necessary.
+parallel and synchronised when necessary (Figure~\ref{plan_hatp1}).
 
 This effectively enriches the interaction capabilities
 of the robot by allowing for a form of human behaviour \emph{prediction}, which
 is used by the robot execution controller to monitor the engagement of the human
 partner during joint tasks.
 
-The planner also generates synchronisation points between the agents.
-Figure~\ref{plan_hatp1} illustrates such a plan with two streams.  Here, the
-robot needs to wait for the success of the human agent's {\tt PUT} action
-(estimated through the fulfilment of the action post-conditions, typically
-$\neg$\stmt{GREY\_TAPE isOn TABLE}) to be able to start its own action.
+The planner also generates synchronisation points between the agents.  In the
+plan depicted on Figure~\ref{plan_hatp1}, the robot needs to wait for the
+success of the human agent's {\tt PUT} action (estimated through the fulfilment
+of the action post-conditions, typically $\neg$\stmt{GREY\_TAPE isOn TABLE}) to
+be able to start its own action.
 
 We also use shared plans to verbalise the sequence of actions and to explain
 the human partner how a task may be shared~\cite{warnier2012when}.
@@ -1383,9 +1383,9 @@ the human partner how a task may be shared~\cite{warnier2012when}.
 }
 
 \caption{A plan produced by HATP with two action streams (human actions at the
-top, robot actions at the bottom). The arrow between the two streams represents
-a synchronization point ({\sf PUTRV} stands for {\it Put it so it is both
-reachable and visible}).}
+top, robot actions at the bottom, {\sf PUTRV} stands here for {\it Put it so it is both
+reachable and visible}). The arrow between the two streams represents
+a synchronization point.}
 
   \label{plan_hatp1}
 \end{figure}
@@ -1397,42 +1397,44 @@ function provides a duration interval for the action achievement and is used, in
 one hand, to schedule the different streams and, in the other hand, as an
 additional cost function.
 
-To address some of those challenges HATP includes mechanisms called
-"social tules" to filter plans so as to keep only those suitable for
-HRI. To this end, HATP allows the specification of the following
-filtering criteria: 
+HATP includes mechanisms called \emph{social rules} to filter plans so as to
+keep only those considered as suitable for human-robot interaction. The planner
+allows the specification of the following filtering criteria:
 
-\emph{Wasted time}: Avoids plans where the human mentioned in a plan spends a lot
-of its time waiting.  
+\emph{Wasted time}: avoids plans where the human spends a lot
+of its time being idle,
 
-\emph{Effort balancing:} Avoids plans where efforts are
-not fairly distributed among the agents mentioned in a plan.  It is
+\emph{Effort balancing}: avoids plans where efforts are
+not fairly distributed among the agents taking part to the plan.  It is
 indeed sometimes beneficial to balance efforts between the human and
-the robot. 
+the robot,
 
-\emph{Control of intricacy:} Avoids plans with too many interdependencies
+\emph{Control of intricacy}: avoids plans with too many interdependencies
 between the actions of agents mentioned in the plan, as a problem with
 executing just one of those actions could invalidate the entire
 plan. Also intricate human-robot activity may cause discomfort since
 the human will find himself repeatedly in a situation where his is
-waiting for the robot to act
+waiting for the robot to act,
 
-\emph{Undesirable sequences:} Avoids plans that violate specific user-defined
+\emph{Undesirable sequences}: avoids plans that violate specific user-defined
 sequences (for instance sequences which can be misinterpreted by the human).
 
-Combining some of the above criteria could help yield the
-following interesting \emph{shared plans}: (1) the human ends up doing a
-number of the tasks, but yet the overall effort is significantly lower than what the robot puts
-to do a lower number of effort-intensive tasks; (2) avoiding, when
-possible, having the human wait for the robot several times, which
-essentially prevents the streams from having too many causal links
-between them.
+Combining the above criteria, we typically yield shared plans with desirable
+interaction features like the human still being engaged in a number of tasks
+while its overall level of required efforts remains low, or avoiding having the
+human to wait for the robot (by essentially preventing the action streams from
+having too many causal links between them).
 
- In the current implementation, the so-called social rules are
+Figure~\ref{plan_hatp2} illustrates such a socially-optimised plan where the
+\emph{no wasted time} social rule is applied. The resulting shared plan is
+considered better than the one depicted on Figure~\ref{plan_hatp1} according to
+a global evaluation of the costs and rules.
+
+In the current implementation, the social rules are effectively
 implemented by looking through all the plans produced and filtering
-out the ones that do not meet the requirements specified. In the
+out the ones that do not meet the desired requirements. In the
 future we intend to study algorithms that do such filtering online,
-rather than after primitive solutions are found.
+rather than after initial solutions are found.
 
 \begin{figure}[htbp]
   \centering
@@ -1476,11 +1478,6 @@ total duration of the task. }
 
   \label{plan_hatp2}
 \end{figure}
-
-Figure~\ref{plan_hatp2} illustrates an alternative plan to the previous 
-one (Figure~\ref{plan_hatp1}) where the \emph{no wasted time} social rule is
-applied. The resulting shared plan is a better plan according to a global evaluation of
-the costs and rules.
 
 %\subsubsection{Commitment Levels}
 %
