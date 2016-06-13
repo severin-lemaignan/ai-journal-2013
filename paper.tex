@@ -23,12 +23,13 @@
 \usepackage{hyperref}
 
 \newcommand{\concept}[1]{{\small \texttt{#1}}}
-\newcommand{\stmt}[1]{{\footnotesize \tt $\langle$ #1\relax$\rangle$}}
+\newcommand{\stmt}[1]{{\footnotesize\tt$\langle$#1\relax$\rangle$}}
 
-\newcommand{\ie}{{\textit{i.e.\ }}}
+\usepackage{xspace}
+\newcommand{\ie}{{i.e.\xspace}}
 \newcommand{\cf}{{\textit{cf\ }}}
-\newcommand{\eg}{{\textit{e.g.\ }}}
-\newcommand{\al}{{\textit{et al.\ }}}
+\newcommand{\eg}{{e.g.\xspace}}
+\newcommand{\al}{{et al.\xspace}}
 
 \newcommand{\action}[3]{#1\\\textsf{\scriptsize #2,}\\\textsf{\scriptsize #3}}
 
@@ -117,9 +118,10 @@ components designed for human-robot interaction.
 We focus on a specific class of interactions: collaborative task achievement
 supported by multi-modal and situated communication. Figure~\ref{fig:hri-dec}
 illustrates this context: the two agents share a common space and exchange
-information through multiple modalities, and the robot is expected to achieve
+information through multiple modalities (we specifically consider verbal
+communication, deictic gestures and social gaze), and the robot is expected to achieve
 interactive object manipulation, fetch and carry tasks and other similar
-domestic tasks by taking into account, at every stage, the intentions, beliefs,
+chores by taking into account, at every stage, the intentions, beliefs,
 perspectives, skills of the human partner.  Namely, the robot must be able to
 recognise, understand and participate to communication situations, both explicit
 (\eg the human addresses verbally the robot) and implicit (\eg the human points
@@ -139,7 +141,7 @@ legible way, taking into account social rules like proxemics.
 \end{tikzpicture}
 
 \caption{The robot reasons and acts in domestic interaction scenarios.  The
-    sources of information are multi-modal dialogue {\it (A)}, and
+    sources of information are multi-modal dialogue {\it (A)} and
     perspective-aware monitoring of the environment and human activity {\it
     (B)}. The robot must adapt on-line its behaviours by merging computed plans
     {\it (C)} with reactive control. The robot explicitly reasons on the fact
@@ -150,12 +152,10 @@ legible way, taking into account social rules like proxemics.
 \label{fig:hri-dec}
 \end{figure}
 
-These three challenges, \emph{Communication}, \emph{Joint Actions},
-\emph{Human-Aware Execution}, structure the whole field of human-robot
-interaction research, and they can be analysed in terms of the cognitive skills
-that they require.
-
-A \emph{joint action}, for instance, builds from:
+These three challenges, \emph{communication}, \emph{joint actions},
+\emph{human-aware execution}, structure the research in human-robot
+interaction. They can be understood in terms of cognitive skills that they
+mandate. \emph{Joint action}, for instance, builds from:
 
 \begin {itemize}
     \item a joint \emph{goal}, which has been previously established and agreed
@@ -171,7 +171,7 @@ A \emph{joint action}, for instance, builds from:
 \end {itemize}
 
 The robot controller (with the help of a task planner) decides what action to
-execute next, and who should perform it from the human or the robot (or both in
+execute next, and who should perform it from the robot or the human (or both in
 case of a joint action), and finally controls or monitors its execution. The
 operation continues until the goal is achieved, is declared unachievable or is
 abandoned by the human~\cite{Klein2004}.
@@ -180,31 +180,31 @@ abandoned by the human~\cite{Klein2004}.
 
 This translates into several decisional, planning, representation skills that
 need to be available to the robot. It must be able \item to represent and
-manipulate symbolic belief states, \item to acquire and maintain them up-to-date
-with respect to state of the world and the task at hand, \item to build and
+manipulate symbolic belief states, \item to acquire and keep them up-to-date
+with respect to the state of the world and the task at hand, \item to build and
 iteratively refine shared (human-robot) plans, \item to instantiate and execute
 the actions it has to perform, and conversely, to monitor those achieved by
 its human partner.
 
 \end{inparaenum}
 
-Such abilities must be designed and implemented in a generic way and
-must provide several levels of parametrization such as they adapt to
+Besides, such abilities should be designed and implemented in a yask-independent
+manner, and should provide sufficient levels of parametrization such as they adapt to
 various environments, different tasks and variable levels of engagement of the
 robot, ranging from teammate behaviour to assistant or pro-active helper.
 
 These are the challenges that we will discuss in this article.
 
-\subsection{Article organization}
+\subsection{Article overview}
 
-The remaining of the article discusses the robotic architecture we have built to
+The remaining of the article discusses the robotic architecture that we have built to
 tackle the AI challenges of human-robot interaction, and how its relates to
 other approaches. We propose to organise this discussion in four sections.
 
 The next section introduces the architecture as a whole, as well as the
 knowledge model that we have developed for our robots. Then,
-section~\ref{sec:impl} gives some insights on each of the main components of the
-architecture, and tries to highlight their significance for artificial
+Section~\ref{sec:impl} details each of the main components of the
+architecture, and highlights their significance for artificial
 intelligence. Section~\ref{sec:expe} presents two studies that illustrate in a
 practical way what can be currently achieved with our robots.
 Section~\ref{sect|conclusion} finally restate our main contributions and discuss
@@ -234,12 +234,13 @@ intelligence.
   \node at (-6, 2)[skill, fill=PineGreen!50] (hatp) {HATP -- Human-aware \\ symbolic task planning};
   
   %%% DIALOGS
-  \node at (-6, -2) [skill, fill=BrickRed!50] (dialogs) {{\sc Dialogs} \\ Dialogue processing};
+  \node at (-6, -2) [skill, fill=BrickRed!50] (dialogs) {{\sc Dialogs} --
+      Natural\\ language processing};
 
   %%% SPARK
   \node at (4,-3)[skill, fill=Purple!50] (spark) {%
       \begin{tikzpicture}
-          \node at (0,0) (geom) {{\sc Spark} -- Geometric \& Temporal Reasoning};
+          \node at (0,0) (geom) {{\sc Spark} -- Geometric \& temporal situation assessment};
         \node [subpart, below=0.2 of geom.south west, anchor=north west] (world-update) {Sensors fusion};
         \node [subpart, right=0.2 of world-update] (geom-model) {Geometric model of the environment};
         \node [subpart, right=0.2 of geom-model] (fact-prod) {Symbolic facts production};
@@ -247,12 +248,12 @@ intelligence.
     };
 
   %%% MHP
-    \node at (9,0)[skill, fill=BurntOrange!50] (mhp) {{\sc mhp} -- Human-aware \\ Motion and Manipulation \\ Planning};
+    \node at (9,0)[skill, fill=BurntOrange!50] (mhp) {{\sc mhp} -- Human-aware \\ motion and manipulation \\ planning};
 
   %%% SHARY
   \node at (4,4)[skill, fill=RoyalBlue!50] (shary) {%
       \begin{tikzpicture}
-        \node at (0,0) (exec) {Execution Controller};
+          \node at (0,0) (exec) {{\sc Shary | pyRobots} -- Execution controllers};
         \node [subpart, below=0.2 of exec.south west, anchor=north west] (plans) {Goal \& Plans \\ management};
         \node [subpart, right=0.2 of plans] (sit-asses) {Situation assessment \\ and context management};
         \node [subpart, right=0.2 of sit-asses] {Action instantiation, \\ execution and monitoring};
@@ -273,9 +274,9 @@ intelligence.
   \draw[dotted, thick] (-8,-4.5) -- (12, -4.5);
 
   %%% Relations between components
-  \path (shary.340) edge [<->, bend left] node[label] {motion plan \\ requests} (mhp);
+  \path (shary.340) edge [->, bend left] node[label] {motion plan \\ requests} (mhp);
   \path (shary.west) edge [<->, bend right] node[label] {shared \\ plans} (hatp);
-  \path (hatp) edge [<->, bend right] node[label] {world model and \\ agents beliefs} (oro.170);
+  \path (hatp) edge [<-, bend right] node[label] {world model and \\ agents beliefs} (oro.170);
   \path (dialogs) edge [<->, bend left] node[label] {natural language \\ grounding} (oro.190);
   \path (spark.100) edge [->, bend right] node[label] {symbolic \\ facts} (oro);
   \path (spark.5) edge [->, bend right] node[label] {environment\\model} (mhp);
@@ -291,7 +292,7 @@ intelligence.
     main modules, interacts with a low-level sensori-motor layer. Knowledge is
     centrally managed in an active \emph{semantic blackboard}, pictured above
     with a thick border. The links between components depicted on the figure
-    underline the central role of the knowledge base: most of the datastreams are
+    underline the central role of the knowledge base: many of the datastreams are
     actually symbolic statements exchanged through this semantic blackboard.}
 
     \label{fig|archi}
@@ -299,20 +300,21 @@ intelligence.
 
 \subsection{Building a Human-Aware Deliberative Layer}
 
-Connecting multiple independent software modules in one coherent robotic
+Bridging multiple independent software modules in one coherent robotic
 architecture is not only a technical challenge, but also a design and
-architectural challenge.
-
-In particular, dealing with the rich semantics of natural interaction with
-humans has been one major focus. To this end, we have been deploying
-over the last years explicit knowledge representation and manipulation in the
-deliberative layer of the robots as a {\it lingua franca} between our
-components.
+architectural challenge. In particular, properly managing the rich semantics of
+human-level natural interaction raises a range of issues. Our basic assumption
+and guiding principle is that human-level interaction is easier to achieve if
+the robot itself relies internally on human-level semantics.  We implement this
+principle by extensively relying on explicit knowledge representation and
+manipulation: software components communicate with each other using first-order
+logic statements organized into ontologies and whose semantics are close to the
+ones manipulated by humans.
 
 Figure~\ref{fig|archi} gives an overview of our architecture. An active
-knowledge base ({\sc Oro}), conveniently thought as a \emph{semantic
-blackboard}, connects most of the modules together: the \emph{geometric
-reasoning} module ({\sc Spark}) produces symbolic assertions (like
+knowledge base ({\sc Oro}), conveniently thought as a semantic
+blackboard, connects most of the modules together: the geometric
+reasoning module ({\sc Spark}) produces symbolic assertions (like
 \stmt{BOOK1 isOn TABLE}) describing the state and dynamics of the robot's
 environment. These logical statements are stored in the knowledge base, and
 queried back by the language processing module ({\sc Dialogs}), the symbolic task
@@ -322,28 +324,30 @@ likewise stored as symbolic statements.
 
 For instance, when processing a sentence like ``give me another book'', the {\sc
 Dialogs} module queries the knowledge base: {\tt \footnotesize find(?book type
-Book, ?book differentFrom BOOK1)}\footnote{We present study with a complete
+Book, ?book differentFrom BOOK1)}\footnote{We present a complete
 example at section~\ref{moving-london}.}, and write back assertions like
 \stmt{HUMAN desires GIVE\_ACTION45, GIVE\_ACTION45 actsOn BOOK2} to {\sc
 Oro}. The HATP planner then uses the knowledge base to initialise the
-planning domains with similar requests ({\tt \footnotesize find(BOOK2 isAt
-?location)}, etc.), and the execution controller typically monitor
+planning domains with similar requests (like {\tt \footnotesize find(BOOK2 isAt
+?location)}), and the execution controller typically monitor
 conditions (by subscribing to events like: {\tt \footnotesize
 onNewMatch(HUMAN desires ?goal)}) and stores what the robot is currently
 doing (\stmt{myself currentlyPerforms GIVE\_ACTION45}).
 
-To some extent, this architecture moves away from classical layered approaches
-found in robotics~\cite{Gat1998three, Volpe2001CLARAty, Goldberg2002}.
-Interactions between components at the deliberative level are mostly
-bidirectional and we do not introduce layers of abstraction amongst software
-components\footnote{We do have lower-level modules to execute actions or manage
-sensors, but all cognition-related modules live in the same global deliberative
-layer.}. Dialogue processing, for instance, illustrates this structure. This
-component does not purely act as an alternative sensing modality that would be
-fed to a distinct deliberative component. On the contrary, it actively queries
-the knowledge base to interpret and disambiguate natural language, and in that
-regards, it is fully integrated to the deliberative process itself (we explain
-natural language processing at section~\ref{sect|com}).
+This architecture moves away from classical layered approaches found in
+robotics~\cite{Gat1998three, Volpe2001CLARAty, Goldberg2002}. Contrary to
+layered architectures, interactions between components at the deliberative level
+are here essentially bidirectional and we do not introduce layers of abstraction
+amongst these deliberative components\footnote{We do have lower-level modules to
+execute actions or manage sensors, but all cognition-related modules live in the
+same global deliberative space.}. The natural language processing component
+illustrates this structure: instead of being an independent input modality whose
+outputs would be unidirectionally fed to ``higher'' decisional components, it
+lives in the deliberative space at the same level as other deliberative
+components, and uses the knowledge base in a bidirectional manner, to interpret,
+disambiguate natural language, and eventually store newly produced
+interpretations (natural language processing is discussed in
+Section~\ref{sect|com}).
 
 Our architecture however relates to \emph{Beliefs, Desires, Intentions} (BDI)
 architectures. As put by Woolridge~\cite{Woolridge1999}, BDI architectures are
@@ -357,24 +361,24 @@ to.
 As for any cognitive system, this fundamental interaction between knowledge and
 actions is central to our approach as well, and typically involves the dialogue
 module to acquire \emph{desires} from the other agents, and the planner and the
-execution controller that to first decide to take or not into account an
+execution controller to first decide to take into account (or not) an
 incoming desire as a \emph{goal}, and then to generate and manage
 \emph{intentions} from these goals through the symbolic task planner.
 
-Building upon a BDI architecture, other activities are conducted in parallel,
-without being explicitly triggered by \emph{desires} in the BDI sense, like
-situation assessment and monitoring or other forms of dialogue (including
-performative dialogue that can possibly change the internal state of the robot,
-but does not lead directly to the creation of \emph{desires}, like assertion of
-new facts or question answering).
+We extend upon BDI architectures by running other background deliberative task,
+without them being explicitly triggered by \emph{desires} in the BDI sense.
+The main ones include situation assessment, action monitoring and processing of
+non-imperative speech (including performative dialogue that can possibly change
+the internal state of the robot, but does not lead directly to the creation of
+\emph{desires}, like assertion of new facts or question answering).
 
 \subsection{Knowledge Model}
 
 In our architecture, knowledge manipulation relies on a central server (the {\sc
 Oro} server~\cite{Lemaignan2010}, Figure~\ref{fig|spark-oro} top) which stores
 knowledge as it is produced by each of the other deliberative components (the
-clients). It exposes a {\tt json}-based RPC API~\cite{lemaignan2012kbapi} to
-query the knowledge base.  We represent knowledge as RDF triples in the OWL
+clients). It exposes a {\tt json}-based RPC API to
+query the knowledge base~\cite{lemaignan2012kbapi}.  We represent knowledge as RDF triples in the OWL
 sub-language. Each time triples are added or removed from the knowledge base, a
 Description Logics reasoner ({\sc Pellet}\footnote{\tt
 http://clarkparsia.com/pellet/}) classifies the whole ontology and inserts all
@@ -2284,7 +2288,7 @@ While the task of describing all the (dynamic!) human models that are useful to
 robots is immense (if doable at all), we claim that it is possible to devise and
 use such models in limited, but still interesting and useful, contexts such as
 collaborative human-robot objects manipulation, fetch-and-carry and associated
-activities in a domestic or professional environment.
+activities in home or work environment.
 
 In our implementation, perspective taking, for instance, is tightly connected to
 the symbolic knowledge models, and since our knowledge base allows for storage
