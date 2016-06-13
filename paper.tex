@@ -377,21 +377,22 @@ the internal state of the robot, but does not lead directly to the creation of
 In our architecture, knowledge manipulation relies on a central server (the {\sc
 Oro} server~\cite{Lemaignan2010}, Figure~\ref{fig|spark-oro} top) which stores
 knowledge as it is produced by each of the other deliberative components (the
-clients). It exposes a {\tt json}-based RPC API to
-query the knowledge base~\cite{lemaignan2012kbapi}.  We represent knowledge as RDF triples in the OWL
-sub-language. Each time triples are added or removed from the knowledge base, a
-Description Logics reasoner ({\sc Pellet}\footnote{\tt
-http://clarkparsia.com/pellet/}) classifies the whole ontology and inserts all
-possible inferred triples.  The clients of the {\sc Oro} server are in charge of
-managing themselves the knowledge (when to add, when to update, when to retract
-knowledge): no meta-semantics is carried over that would let the server manage
-these dynamics itself.\footnote{There is one exception: so-called \emph{memory
-profiles} let the server discard facts after a specific period of time. We
-present this experimental feature at section~\ref{memory}.}
+clients). It exposes a {\tt json}-based RPC API to query the knowledge
+base~\cite{lemaignan2012kbapi}.  We represent knowledge as RDF triples in the
+OWL sub-language~\footnote{\url{http://www.w3.org/TR/owl2-overview/}}. Every
+time triples are added or removed from the knowledge base, a Description Logics
+reasoner ({\sc Pellet}\footnote{\url{https://github.com/complexible/pellet}})
+classifies the whole ontology and inserts all possible inferred triples.  The
+clients of the {\sc Oro} server are in charge of managing themselves the
+knowledge (when to add, when to update, when to retract knowledge): no
+meta-semantics are carried over that would let the server manage these dynamics
+itself.\footnote{With one exception: so-called \emph{memory profiles} let
+the server automatically discard facts (\ie forget about them) after a specific
+period of time. We present this feature at section~\ref{memory}.}
 
 This architecture design (a central knowledge base that essentially appears as a
 passive component to the rest of the system -- even though it actually actively
-processes the knowledge pool in the background, for instance with the reasoner)
+processes the knowledge pool in the background to perform inferences)
 departs from other approaches like the CAST model~\cite{Hawes2007} where
 knowledge is represented as a diffuse, pervasive resource, or the CRAM/KnowRob
 architecture~\cite{Beetz2010} where the knowledge base is an active hub that
@@ -400,17 +401,17 @@ our design leads to a good \emph{observability} (knowledge flows are explicit
 and easy to capture since they are centralised) as well as high modularity
 (modules communicate through an explicit and unified API).
 
-At run-time, the knowledge available to the robot at a given time comes from
-three sources. {\it A priori} knowledge is stored in an ontology (the {\sc
-OpenRobots} ontology, discussed below) and loaded at start-up. This static source covers the
+At run-time, the knowledge available to the robot comes from three sources. {\it
+A priori} knowledge is stored in an ontology (the {\sc OpenRobots} ontology,
+discussed hereafter) and loaded at start-up. This static source covers the
 \emph{common-sense} knowledge of the robot, and optionally some
 scenario-specific knowledge (for instance, about objects that are to be
 manipulated). The second part of the knowledge is acquired at run-time from
 perception, interaction and planning. The next sections go into details of these
-processes.  Lastly, the third source of symbolic statements is the reasoner
-itself.
+processes. Lastly, the third source of symbolic statements comes from the
+inferences produced by the reasoner.
 
-Contrary to other projects like KnowRob~\cite{Tenorth2009a} that relies on
+Contrary to similar projects like KnowRob~\cite{Tenorth2009a} that relies on
 the concept of \emph{computables} to lazily evaluate/acquire symbolic facts when
 needed, we have an \emph{explicit} approach where we greedily compute and assert
 symbolic statements (like spatial relations between objects, see
@@ -462,9 +463,66 @@ align=center, inner sep=5pt,fill=LimeGreen!50}]
     \label{fig|upper_tbox}
 \end{figure}
 
-\paragraph{The OpenRobots Ontology} The {\sc Oro} common-sense ontology has been
-designed from two requirements: covering our experimental needs and conforming
-as much as possible to the {\sc OpenCyc} upper ontology.
+\subsubsection{RDF as a Formalism for Semantics}
+
+The {\sc Oro} server relies on Description Logics (OWL) to represent and
+manipulate knowledge. Relying on RDF triples and Description Logics has advantages such as good
+understanding of its trades-off, thanks to being widespread in the semantic Web
+community, the availability of mature libraries to manipulate the ontology,
+interoperability with several major on-line knowledge bases ({\sc
+OpenCyc}, {\sc WordNet}, {\sc DBPedia} or {\sc RoboEarth}~\cite{Waibel2011} are
+some examples), open-world reasoning, and the formal guarantee of decidability
+(it is always possible to classify a Description Logics ontology).
+
+It also has restrictions, both basic (the suitability of
+Description Logics when reasoning on --typically non-monotonic-- commonsense
+knowledge has been questioned) and practical: RDF triples imply binary
+predicates, which constrains the expressiveness of the system or leads to
+inconvenient reifications. Alternatives have been proposed (like {\sc
+KnowRob}~\cite{Tenorth2009a}) that interleave RDF with more expressive logic languages
+like {\sc Prolog} with however other limitations, like closed-world reasoning.
+
+Classification performance is another issue: in our experience, an
+ontology sized for a typical study (about 100 classes and 200 instances),
+classification takes around 100ms, which leads to lags during
+interactions.  Besides, the performances are difficult to predict: the insertion
+of simple statements may indirectly change abruptly the logical
+complexity of the whole knowledge model and lead to notable degradation of
+classification time.
+
+This knowledge model also largely excludes representation of continuous
+phenomena (like time) or uncertain phenomena. When required (for instance for
+action recognition), these are managed by dedicated components (like {\sc
+Spark}), and are not exposed at the semantic level.
+
+While alternatives like \emph{Answer Set Programming} have been successfully
+investigated in robotics~\cite{Chen2010,Erdem2012}, in particular to deal with
+non-monotonic reasoning, we did not actually encounter major reasoning issues
+while working with OWL ontologies. We may reconsider this choice at a later
+stage, but until now it has proven an effective framework to quickly explore
+implementations of new cognitive abilities (for instance, it has been
+conceptually and technically easy to add support for independent knowledge
+models, one per agent the robot interacts with).
+
+Anecdotally, and because ontologies and RDF statements remain conceptually simple
+(compared to full logical languages like {\sc Prolog}), their adoption has also
+effectively helped to grow awareness amongst colleagues on the significance of
+the ``semantic level'' when developing new components for the robot.
+
+\subsubsection{The OpenRobots Ontology}
+
+As previously said, the logical statements exchanged between the deliberative
+components are organized within the {\sc Oro} knowledge base into an ontology.
+The conceptualization (\ie the system of concepts or \emph{TBox}) of this
+ontology is generally statically asserted, while the instantiation (the
+\emph{ABox}) of the ontology is generally dynamically asserted at run-time, by
+the other components.
+
+The \emph{OpenRobots} common-sense ontology represents the statically asserted
+part of the ontology. It has been designed from two requirements: beining
+practical (\ie covering our experimental needs) and conforming as much as
+possible to existing standards (in our case, the {\sc OpenCyc} upper
+ontology~\cite{lenat1990cyc}).
 
 This leads to a bidirectional design process: from \emph{bottom-up} regarding
 the choices of concepts to model, \emph{top-down} regarding the upper part of
@@ -480,12 +538,12 @@ mutual relations comes to philosophical debates. The upper taxonomy of {\sc
 OpenCyc} represents a relative consensus, at least within the semantic Web
 community. Then, because it is a well established project with numerous links to
 other on-line databases (like Wikipedia or WordNet), the reuse of key {\sc
-OpenCyc} concepts ensures to a certain extent that the knowledge stored by the
-robot can be shared or extended with well-defined semantics. A good example is
-the concept of \emph{Object}: in everyday conversation, an object is a
-relatively small physical thing, that can be typically manipulated. Normally, a
-human is not considered as an object. In {\sc Cyc}, an object has a more precise
-definition: it is something \emph{partially tangible}. This includes obviously
+OpenCyc} concepts ensures that the knowledge stored by the robot can be shared
+or extended with well-defined semantics. The concept of \emph{Object} represents
+a typical case of ambiguous meaning: in everyday conversation, an object is a
+relatively small physical thing, that can be typically manipulated. A human is
+not usually considered as an object. {\sc OpenCyc} however precisely defines an
+object as anything at least \emph{partially tangible}. This includes obviously
 the humans, and actually many other entities that would not be commonly said to
 be objects (the Earth for instance). Thus the importance of relying on
 well-defined and standard semantics to exchange informations between artificial
@@ -493,7 +551,7 @@ systems in a non-ambiguous way.
 
 Figure~\ref{fig|upper_tbox} also illustrates the fundamental disjunction
 in the {\sc Oro} model between \emph{temporal} and \emph{spatial} entities (formally,
-$(\text{TemporalThing} \sqcap \text{SpatialThing})^{\mathcal{I}} = \emptyset$, with
+$(\text{\tt TemporalThing} \sqcap \text{\tt SpatialThing})^{\mathcal{I}} = \emptyset$, with
 $\mathcal{I}$ the \emph{interpretation} of our model).
 
 The class \concept{PurposefulAction} is the superset of all the actions that are
@@ -504,23 +562,22 @@ are instead added at run-time by the execution controller (in link with the
 symbolic task planner) and the natural language processor based on what the
 robot is actually able to perform and/or to interpret in the current context
 (\ie the current robot configuration and the actions required by the scenario).
-The set of actions that the robot can interpret typically corresponds to the
-planning domain in use: the robot can only process the \concept{GoTo} action if
-the corresponding task description with its pre- and post-conditions is
-available to the symbolic task planner.
+The set of actions that the robot can interpret usually closely resemble the
+planning domain in use (\ie the set of tasks known to the symbolic task planner,
+with their corresponding pre- and post-conditions).
 
-The tree in Figure~\ref{fig|upper_tbox}\footnote{This subset of the ontology is
-indeed a tree. This has however not to be the case in general, and, as a matter
-of fact, the TBox of the whole {\sc Oro} common-sense ontology does not form a tree}
-is not equally developed in each directions at lower levels. The descendants of
-\concept{PartiallyTangibleThing} (\ie what we commonly call \emph{objects}), for
-instance, are pictured in Figure~\ref{fig|tangible_things_tbox}. This excerpt
-from the ontology makes the bottom-up design process clear: only few types of
-\emph{partially tangible} things appear, and those are only subclasses relevant
-to the context of service robotics in an human-like environment. For performance
-reasons as well as clarity, we do not attempt to pro-actively extend the
-conceptual coverage of the field. We instead opportunistically extend the
-common-sense knowledge when required by experiments.
+The tree\footnote{While this subset of the ontology is a tree, it does not
+generally have to be the case. In particular, the concept system (the
+\emph{TBox}) of the {\sc Oro} common-sense ontology does not form a tree.} in
+Figure~\ref{fig|upper_tbox} is not equally developed in every directions. For
+example, the subclasses of \concept{PartiallyTangibleThing} (\ie what we
+commonly call \emph{objects}) are shown in
+Figure~\ref{fig|tangible_things_tbox}. Our `bottom-up'' design process of the
+ontology is clearly apparent on this figure: only the subclasses relevant to the
+context of service robotics in an human-like environment are explicitly stated.
+For performance reasons as well as clarity, we decided against an extended
+conceptual coverage of what ``partially tangible things'' might be. We instead
+opportunistically extend the common-sense knowledge when required by studies.
 
 
 \begin{figure}
@@ -549,14 +606,14 @@ align=center, inner sep=5pt,fill=BurntOrange!50}]
 
 \end{tikzpicture}
 }
-    \caption{TBox of the specialisations of \concept{PartiallyTangibleThing}.}
+    \caption{Subclasses of \concept{PartiallyTangibleThing} explicitly stated in the
+    OpenRobots Ontology.}
     \label{fig|tangible_things_tbox}
 \end{figure}
 
 Lastly, the {\sc Oro} common-sense ontology contains several rules and class
 expressions that encode non-trivial inferences. The definition of
 \concept{Bottle} as found in the {\sc Oro} ontology is a typical example:
-
 $$
 \text{\tt Bottle} \equiv \text{\tt Container} \wedge 
                          \text{\tt Tableware} \wedge
@@ -565,15 +622,15 @@ $$
 $$
 
 If a human informs the robot that a given object is indeed a bottle, the robot
-can then derive a few more informations on this object. And, conversely, if the
-human affirms that a car is a bottle, the robot may question this assertion
-because of the inconsistent size (the {\sc Dialogs} module relies on such
-logical consistency checks when processing natural language inputs, both to
-ensure that the verbal input has been correctly acquired and to verify that what
-the human says does actually make sense).
+derives more informations on the object. Conversely, if the human affirms that
+``a car is a bottle'', the reasoner may detect logical contradictions (like
+inconsistent sizes) and reject the assertion. The {\sc Dialogs} module relies on
+such logical consistency checks when processing natural language inputs, both to
+ensure that the verbal input has been correctly acquired and parsed, and also to
+verify that what the human says is logically consistent.
 
-We will come back and discuss in section~\ref{krs-discussion} the strengths and
-weaknesses of this knowledge framework.
+We discuss the strengths and
+weaknesses of this knowledge framework in Section~\ref{krs-discussion}.
 
 \subsection{Symbol Grounding}
 
@@ -2376,52 +2433,6 @@ the knowledge they produce and consume. Human-robot interaction, because it
 supposes operations at \emph{human-level} and in environments with complex
 semantics, acts here as a motivational force.
 
-\subsubsection{RDF as a Formalism for Semantics}
-
-The {\sc Oro} server relies on Description Logics (OWL) to represent and
-manipulate knowledge.
-
-Relying on RDF triples and Description Logics has advantages such as good
-understanding of its trades-off, thanks to being widespread in the semantic Web
-community, the availability of mature libraries to manipulate the ontology,
-interoperability with several major on-line knowledge bases ({\sc
-OpenCyc}, {\sc WordNet}, {\sc DBPedia} or {\sc RoboEarth}~\cite{Waibel2011} are
-some examples), open-world reasoning, and the formal guarantee of decidability
-(it is always possible to classify a Description Logics ontology).
-
-It also has notable limitations, both fundamental (the suitability of
-Description Logics when reasoning on --typically non-monotonic-- commonsense
-knowledge is questionable) and practical: RDF triples imply only binary
-predicates, which constrains the expressiveness of the system or leads to
-cumbersome reifications. Alternatives exist (like {\sc
-KnowRob}~\cite{Tenorth2009a}) that mix RDF with more expressive logic languages
-like {\sc Prolog} with other limitations, like closed-world reasoning.
-Classification performance is another issue: from our experience, with an
-ontology sized for a standard experiment (about 100 classes and 200 instances),
-classification typically takes about 100ms, which becomes problematic during
-interactions.  Besides, the performances are difficult to predict, since a
-seemingly inoffensive new statement may indirectly change abruptly the logical
-complexity of the whole knowledge model and lead to notable degradation of
-classification time.
-
-This knowledge model also largely excludes representation of continuous
-phenomena (like time) or uncertain phenomena. When required (for instance for
-action recognition), these are managed by dedicated components (like {\sc
-Spark}), and are not exposed at the semantic level.
-
-While alternatives like \emph{Answer Set Programming} have been
-successfully investigated in robotics~\cite{Chen2010,Erdem2012}, in particular
-to deal with non-monotonic reasoning, we did not actually hit any brick wall
-while working with OWL ontologies. We may reconsider this choice at a later
-stage, but until now it has proven an effective framework to quickly explore
-implementations of new cognitive abilities (for instance, it has been
-conceptually and technically easy to add support for independent knowledge
-models, one per agent the robot interacts with).
-
-Besides, because ontologies and RDF statements are relatively simple concepts
-to grasp, it also effectively helped to grow awareness amongst colleagues on
-the significance of the ``semantic level'' when developing new components for
-the robot.
 
 \subsubsection{Limits of Disambiguation at Semantic Level}
 
