@@ -29,7 +29,7 @@
 \newcommand{\ie}{{i.e.\xspace}}
 \newcommand{\cf}{{\textit{cf\ }}}
 \newcommand{\eg}{{e.g.\xspace}}
-\newcommand{\al}{{et al.\xspace}}
+\newcommand{\etal}{{et al.\xspace}}
 
 \newcommand{\action}[3]{#1\\\textsf{\scriptsize #2,}\\\textsf{\scriptsize #3}}
 
@@ -493,21 +493,24 @@ classification time.
 This knowledge model also largely excludes representation of continuous
 phenomena (like time) or uncertain phenomena. When required (for instance for
 action recognition), these are managed by dedicated components (like {\sc
-Spark}), and are not exposed at the semantic level.
+Spark}, discussed at Section~\ref{sect|sit-ass}), and are not exposed at
+the semantic level.
 
-While alternatives like \emph{Answer Set Programming} have been successfully
-investigated in robotics~\cite{Chen2010,Erdem2012}, in particular to deal with
-non-monotonic reasoning, we did not actually encounter major reasoning issues
-while working with OWL ontologies. We may reconsider this choice at a later
-stage, but until now it has proven an effective framework to quickly explore
-implementations of new cognitive abilities (for instance, it has been
-conceptually and technically easy to add support for independent knowledge
-models, one per agent the robot interacts with).
+Alternative formalisms have been successfully investigated in robotics to
+address some of these restrictions. \emph{Answer Set Programming} has been
+used~\cite{Chen2010,Erdem2012} for instance to better supports non-monotonic
+reasoning. We have also pointed in~\cite{lemaignan2015mutual} how modal logics like
+the epistemic logics could be relevant to the particular field of social
+human-robot interaction as they would allow for convenient representation of
+alternative mental models. First-order logic and OWL ontologies have however
+proved so far a simple, effective and sufficient symbolic framework for our
+experimental applications. 
 
-Anecdotally, and because ontologies and RDF statements remain conceptually simple
-(compared to full logical languages like {\sc Prolog}), their adoption has also
-effectively helped to grow awareness amongst colleagues on the significance of
-the ``semantic level'' when developing new components for the robot.
+Anecdotally, and because ontologies and RDF statements remain conceptually
+simple (compared to full logical languages like {\sc Prolog} or modal logics),
+their adoption has also effectively helped to grow awareness amongst colleagues
+on the significance of the ``semantic level'' when developing new components
+for the robot.
 
 \subsubsection{The OpenRobots Ontology}
 
@@ -624,13 +627,12 @@ $$
 If a human informs the robot that a given object is indeed a bottle, the robot
 derives more informations on the object. Conversely, if the human affirms that
 ``a car is a bottle'', the reasoner may detect logical contradictions (like
-inconsistent sizes) and reject the assertion. The {\sc Dialogs} module relies on
-such logical consistency checks when processing natural language inputs, both to
-ensure that the verbal input has been correctly acquired and parsed, and also to
-verify that what the human says is logically consistent.
-
-We discuss the strengths and
-weaknesses of this knowledge framework in Section~\ref{krs-discussion}.
+inconsistent sizes) and reject the assertion. The {\sc Dialogs} module relies
+on such logical consistency checks when processing natural language inputs,
+both to ensure that the verbal input has been correctly acquired and parsed,
+and also to verify that what the human says is logically consistent.  We
+further discuss the strengths and weaknesses of this knowledge framework in
+Section~\ref{krs-discussion}.
 
 \subsection{Symbol Grounding}
 
@@ -641,8 +643,8 @@ maintaining a bi-directional link between sub-symbolic representations (sensors
 data, low-level actuation) and symbolic representations that can be manipulated
 and reasoned about~\cite{Harnad1990}. This represents an important cognitive
 skill, in particular in the human-robot interaction context: in that case, the
-link that the robot has to established between its percepts and its symbol must
-\emph{model} to a large extent the human representations in order to effectively
+link that the robot has to establish between percepts and symbols must
+map as well as possible to the human representations in order to effectively
 support communication.
 
 \emph{Symbol grounding} connects hence the knowledge model to the perception and
@@ -660,26 +662,27 @@ to actual decision making and physical actions.
 \section{Cognitive Skills}
 \label{sec:impl}
 
-While the previous section provided an overview of our cognitive architecture
-as well as its associated knowledge model, this section discusses its main
-``building blocks''. Each of these components may have connections to several
-others, and we invite the reader to refer to Figure~\ref{fig|archi} as a guide
-if needed.
+The previous section has provided an overview of our cognitive architecture
+as well as the associated knowledge model. We discuss in this section its
+building blocks. Each of these components have connections to several
+others, and Figure~\ref{fig|archi} can be referred to as a guide.
 
-\begin{inparaenum} In our context, we call \emph{cognitive skills} the
-deliberative behaviours that are \item \emph{stateful} (keeping track of
-previous states is typically required for the component to perform adequately),
+\begin{inparaenum} We call \emph{cognitive skills} the
+deliberative behaviours that are \item \emph{stateful}, \ie keeping track of
+previous states is typically needed for the component to perform adequately;
 \item \emph{amodal} in that the skill is not inherently bound to a specific
-perception of actuation modality, \item manipulate \emph{explicit semantics},
-typically by the mean of symbolic reasoning, \item operate at the
+perception or actuation modality; \item manipulate \emph{explicit semantics},
+typically by the mean of symbolic reasoning; \item operate at the
     \emph{human-level}, \ie are legible to the humans, typically by acting at
 similar levels of abstraction.\end{inparaenum}
 
-We start by discussing first the main \emph{internal} cognitive capabilities,
-implemented in the knowledge base itself, and then discuss successively the
-situation assessment module {\sc Spark}, the dialogue processor {\sc Dialogs},
-the symbolic task planner HATP, and finally the main features of our execution
-controllers.
+We present first the main \emph{internal} cognitive capabilities, implemented in
+the {\sc Oro} knowledge base itself, and then discuss successively the situation
+assessment module {\sc Spark}, the dialogue processor {\sc Dialogs}, the
+symbolic task planner HATP, and finally the main features of our execution
+controllers {\sc Shary} and {\sc pyRobots}. Note that greater details on each of
+these modules can be found in their respective publications (the corresponding
+references are provided hereafter).
 
 \subsection{Internal Cognitive Skills}
 \label{sect|intern}
@@ -693,14 +696,13 @@ and our (naive) approach to \emph{memory management}.
 \label{reasoning}
 
 As mentioned in the previous section, we use the Pellet open-source reasoner to
-reason on the knowledge base. This enables several standard inference services:
-\emph{consistency checking}, \emph{concept satisfiability},
-\emph{classification} and \emph{realisation} (computation of the most specific
-classes that an individual belongs to). In case of logical inconsistency, the
-reasoner can also provide \emph{explanations} that are used in particular for
-debugging.
+reason on the knowledge base. It supports several standard inference processes:
+consistency checking, concept satisfiability, classification and realisation
+(computation of the most specific classes that a concept belongs to). In
+case of logical inconsistency, the reasoner can also provide explanations (we
+currently only use them for debugging purposes).
 
-Besides those, {\sc Oro} server implements several algorithms (presented
+Besides, {\sc Oro} server implements several algorithms (presented
 in~\cite{Ros2010b}) to identify
 similarities and differences between concepts (classes or
 instances): the \emph{Common Ancestors} algorithm, useful to
@@ -724,15 +726,15 @@ descriptors that allow a maximum discrimination among a set of individuals.
 Theory of Mind (originally defined in~\cite{Premack1978}) is the cognitive
 ability that allows a subject to represent the mental state of another
 agent, possibly including knowledge that contradicts the subject's own model: for
-example, a book can be at the same time \emph{visible} for myself, and \emph{not
-visible} for you. Children develop this skill, which is essential to understand others' perspectives during
+example, a book can be at the same time \emph{visible} for agent A, and \emph{not
+visible} for agent B. Children develop this skill, which is essential to understand others' perspectives during
 interactions, around the age of three. 
 
-From a robotics point of view, it supposes the ability to build, store and
+From the point of view of robotics, it supposes the ability to build, store and
 retrieve separate models of the beliefs of the agents the robot interacts with.
 Our knowledge base implements such a mechanism: when the robots recognises that
-a new agent has been created in the knowledge base, it initialises a new,
-independent, ontology for this agent. All the ontologies that are created share
+a new agent has appeared, it initialises a new
+independent ontology for this agent. All the ontologies that are created share
 the same common-sense knowledge, but rely on each agent's perspective for the
 actual instantiation: if the robot (geometrically) computes that the book is in its
 own field of view, but not in the human one, the robot knowledge contains the
@@ -741,9 +743,10 @@ isVisible false} (this computation, called \emph{perspective taking}, is
 discussed in the next section).
 
 One classical application of this cognitive skill is the so-called
-\emph{False-Belief} experiment (also known as the \emph{Sally and Ann}
-experiment)~\cite{Leslie2000}: a child is asked to watch a scene where two
-people, A and B, manipulate objects. Then A leaves and B hides away one
+\emph{False-Belief} experiment (also known as the \emph{Sally and Anne}
+experiment, introduced by~\cite{wimmer1983beliefs} from an original
+experimental setting by~\cite{baron1985does}): a child is asked to watch a scene where two
+people, A and B, manipulate objects. At some point, A leaves and B hides away one
 object. When A comes back, we ask the child ``where do you think A will
 look for the object?''. Before acquiring a theory of mind, children are not
 able to separate their own (true) model of the world (where they know that
@@ -751,54 +754,56 @@ the object was hidden) from the model of A, which contains \emph{false
 beliefs} on the world (A still thinks the object is at its original
 position since he did not see B hiding it). Using separate knowledge models
 in the knowledge base, we have been able to replicate this experience with
-our robots~\cite{warnier2012when}.
+our robots~\cite{warnier2012when}, in a manner similar to Breazeal
+\etal\cite{breazeal2009embodied}.
 
 \subsubsection{Working memory}
 \label{memory}
 
 Memory has been studied at length in the cognitive psychology and
-neuro-psychology communities: to give the main pointers, the idea of \emph{short-term} and
-\emph{long-term} memory is due to Atkinson and Shiffrin~\cite{Atkinson1968};
-Anderson~\cite{Anderson1976} proposes to split memory into \emph{declarative} (explicit)
-and \emph{procedural} (implicit) memories; Tulving~\cite{Tulving1985} organises
-the concepts of \emph{procedural}, \emph{semantic} and \emph{episodic} memories
-into a hierarchy. Short-term memory is eventually refined with the concept of
-\emph{working memory} by Baddeley~\cite{Baddeley2010}.
-In the field of cognitive architectures, the {\sc Soar}
-architecture~\cite{Lehman2006} is one of those that tries to reproduce a
-human-like memory organisation. The GLAIR cognitive
-architecture~\cite{Shapiro2009} also has a concept of long term/short term and
-episodic/semantic memories.
+neuro-psychology communities: the idea of \emph{short-term} and \emph{long-term}
+memory is due to Atkinson and Shiffrin~\cite{Atkinson1968};
+Anderson~\cite{Anderson1976} proposes to split memory into \emph{declarative}
+(explicit) and \emph{procedural} (implicit) memories; Tulving~\cite{Tulving1985}
+organises the concepts of \emph{procedural}, \emph{semantic} and \emph{episodic}
+memories into a hierarchy. Short-term memory is eventually refined with the
+concept of \emph{working memory} by Baddeley~\cite{Baddeley2010}.  In the field
+of cognitive architectures, the {\sc Soar} architecture~\cite{Lehman2006} is one
+of those that tries to reproduce a human-like memory organisation. The GLAIR
+cognitive architecture~\cite{Shapiro2009} also has a concept of long term/short
+term and episodic/semantic memories.
 
 It is worth emphasising that if memory is commonly associated to the process of
 forgetting facts after a variable amount of \emph{time}, it actually covers
-more mechanisms that are relevant to robotics, like selective remembering
-triggered by a specific context or reinforcement learning.
+more mechanisms that are relevant to robotics, like priming
+(concept pre-activation triggered by a specific
+context~\cite{baxter2012modelling}) or reinforcement learning.
 
 The {\sc Oro} server features a mechanism to mimic only minimalistic forms of memory
 families.  When new statements are inserted in the knowledge base, a
-\emph{memory profile} is optionally attached to them.  Three such profiles are
+\emph{memory profile} is attached to them.  Three such profiles are
 predefined: {\it short term}, {\it episodic} and {\it long term}. They are
 currently attached to different lifetime for the statements (respectively 10
 seconds, 5 minutes and no time limit). After this duration, the statements are
-automatically retracted.
+automatically removed.
 
 This approach is limited. In particular, \emph{episodic} memory should primarily
 refer to the semantics of the statements (that is expected to be related to an
 event) and not to a specific lifespan.
 
-We rely however on this mechanism in certain cases: for instance, some modules
+We rely however on this mechanism in certain cases: some modules
 like the natural language processor use the {\it short term} memory profile to
-mark for a few seconds important concepts that are currently manipulated by the
+mark concepts that are currently manipulated by the
 robot as \emph{active concepts}: if a human asks the robot ``Give
 me all red objects'', the human, the \concept{Give} action, and each red
 objects that are found are successively marked as \emph{active concepts} by
 inserting statements such as \stmt{human type ActiveConcept} in the short-term
 memory (which can be considered, in this case, to be a working memory). We use
-this feature to trace certain knowledge-related processes. On the other hand,
+this feature during dialogue disambiguation for instance. On the other hand,
 our perception layer does not make use of this mechanism: as described in the
 next section, the environment model of the robot is continuously updated and the
-derived symbolic knowledge is therefore transient.
+derived symbolic knowledge is therefore transient: it lasts only as long as the
+environment remains in the same state.
 
 
 \subsection{Acquiring and Anchoring Knowledge in the Physical World}
@@ -838,9 +843,11 @@ derived symbolic knowledge is therefore transient.
     \node[box=18cm, minimum height=4.5cm, dotted, thick, rounded corners] at (0,-4.2) (spark) {};
     \path (spark.north) edge[->] node[align=left,anchor=west] {Symbolic\\facts} (oro.south);
 
-    \node[anchor=north] at (-6.5,-5.3) {a) Agent-independent\\locations};
-    \node[anchor=north] at (-2.1,-5.3) {b) Agent-dependent\\placements};
-    \node[anchor=north] at (1.6,-5.3) {c) Visibility};
+    \node[anchor=north] at (-6.5,-5.3) {a) Agent-independent\\(allocentric)
+        spatial relations};
+    \node[anchor=north] at (-2.1,-5.3) {b) Agent-dependent\\(egocentric) spatial
+        relations};
+    \node[anchor=north] at (1.6,-5.3) {c) Visibility/Pointing};
     \node[anchor=north] at (6.5,-5.3) {d) Reachability};
 
 \end{tikzpicture}
@@ -848,7 +855,7 @@ derived symbolic knowledge is therefore transient.
     \caption{Functional overview of knowledge base ({\sc Oro} server, top part)
     and the geometric situation assessment module (\emph{{\sc Spark}}, bottom
     part). {\sc Spark} computes symbolic relationships between objects and
-    agents, and feeds them to the knowledge base.}
+    agents, and exports them to the knowledge base.}
 
         \label{fig|spark-oro}
 \end{figure}
@@ -856,7 +863,7 @@ derived symbolic knowledge is therefore transient.
 Anchoring perceptions in a symbolic model requires perception abilities and
 their symbolic interpretation. We call \emph{physical situation assessment} the
 cognitive skill that a robot exhibits when it assesses the nature and content of its
-surroundings and efficiently monitors its evolution.
+surroundings and monitors its evolution.
 
 Numerous approaches exist, like amodal (in the sense of modality-independent)
 \emph{proxies}~\cite{Jacobsson2008}, grounded amodal
@@ -872,22 +879,22 @@ and object classification~\cite{Lorken2008, Varadarajan2011}.
 
 
 We rely on a dedicated geometric and temporal reasoning module called {\sc
-Spark} (\emph{SPAtial Reasoning \& Knowledge}, \cite{Sisbot2011}). It is a
-situation assessment reasoner that generates symbolic knowledge from the
-geometry of the environment with respect to relations between objects,
-robots and humans (Figures~\ref{fig|spark-oro}
-and~\ref{fig:sparkSubfigures}), also taking into account the different
-perspective that each agent has on the environment.
-
-{\sc Spark} embeds an \emph{amodal}~\cite{Mavridis2006} geometric model of the
-environment that serves both as basis for the fusion of the perception
-modalities and as bridge with the symbolic layer. This geometric model is made
-of CAD 3D models of the objects, furnitures and robots, and full body, rigged
-models of the humans, and it is updated at run-time by the robot based on its
-sensors (in most of our studies, objects are identified and localised through 2D
-fiducial markers, while humans are tracked with Kinect-like devices, optionally
-assisted by motion capture to accurately track the head motion, which is
-required to compute what the human is looking at).
+Spark} (\emph{SPAtial Reasoning \& Knowledge}, presented in~\cite{Sisbot2011}).
+It is a situation assessment reasoner that generates symbolic knowledge from the
+geometry of the environment with respect to relations between objects, robots
+and humans (Figures~\ref{fig|spark-oro} and~\ref{fig:sparkSubfigures}), also
+taking into account the different perspective that each agent has on the
+environment.  {\sc Spark} embeds an \emph{amodal} (as defined by Mavridis and
+Roy in~\cite{Mavridis2006}: the different perceptual modalities are abstracted
+away into a blended spatial model) geometric model of the environment that
+serves both as basis for the fusion of the perception modalities and as bridge
+with the symbolic layer. This geometric model is built from 3D CAD models of the
+objects, furnitures and robots, and full body, rigged models of humans
+(Figure~\ref{fig:sparkScreenshot}).  It is updated at run-time by the robot's
+sensors (usually, a combination of vision-based tracking of 2D fiducial markers
+to identify and localize objects, and Kinect-based skeleton tracking of humans,
+optionally assisted by motion capture to accurately track the head motion, which
+is required to compute what the human is looking at).
 
 %Our approach, implemented in the {\sc Spark} module, is a grounded amodal
 %representation of the robot environment, where different sensing modalities
@@ -912,11 +919,11 @@ of the reasoner domain, it also hides issues linked to non-monotonic reasoning
    \begin{center}
 %
        \subfigure[Physical setting]{%
-%           \label{fig:wuweiPhoto}
+           \label{fig:wuweiPhoto}
            \includegraphics[width=0.5\textwidth]{etat2-P1010769_brightened-v2.jpg}
        }%
        \subfigure[Corresponding 3D model view]{%
-%          \label{fig:sparkScreenshot}
+          \label{fig:sparkScreenshot}
           \includegraphics[width=0.43\textwidth]{etat2_photo.png}
        }\\ %  ------- End of the first row ----------------------%
 %
