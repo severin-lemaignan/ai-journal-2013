@@ -1225,7 +1225,7 @@ Monitoring human activity is needed by the execution controllers to track the
 engagement of the human and the progress of his/her actions. Full human action
 and activity recognition is a task that requires knowledge and reasoning both on
 high level facts like goals, intentions and plans, as well as bottom-up data
-from agent and object motions. {\Spark} implements a set of simple temporal and
+from agent and object motions. {\sc Spark} implements a set of simple temporal and
 geometric heuristics on human hand trajectories and possible objects placements
 to recognize simple atomic actions. Those primitive actions are assessed through
 monitoring situations like ``an empty hand is close to an object on a table''
@@ -1236,16 +1236,18 @@ state transitions in the human plans.
 
 \subsubsection{Limitations}
 
-The main weakness of our current implementation relates to the way semantics are
-conveyed: because we use 2D markers for artifacts, we avoid issues related to object
-segmentation and recognition. Each object has a unique identifier,
-which enables us to load a proper CAD model suitable for 3D spatial reasoning
-and prevent recognition mistakes in the knowledge base. While {\sc Spark}
-algorithms themselves are ignorant of the input sources, and would work equally
-well with a full object recognition stack, we do not have tackled it yet.
+In its current form, our situation assessment module makes two strong
+assumptions: the objects are known in advance (hence, we can rely on proper 3D
+CAD model for spatial reasoning) and the robot benefits of an almost perfect
+perception, made possible by the use of fiducial markers.  Each object receives
+a unique tag which enables us to accurately localize it in 3D and prevent
+recognition ambiguities that would be then reflected in the knowledge base.
+While {\sc Spark} algorithms themselves are ignorant of the input sources, and
+would work equally well with a full object recognition stack, we are yet to
+investigate this research area.
 
 Besides, temporal reasoning (essential for accurate action recognition for
-instance) is not properly addressed in our stack. Temporal reasoning is used
+instance) is not properly addressed in our architecture. Temporal reasoning is used
 only locally, and does not allow for tracking of long sequences or global events.
 
 
@@ -1255,53 +1257,74 @@ only locally, and does not allow for tracking of long sequences or global events
 
 \subsubsection{Natural Language Grounding}
 
-In our experience, natural language processing is one of the fields of
-human-robot interaction for which the introduction of the semantic layer has
-been most beneficial.  In~\cite{Lemaignan2011a} we explain the techniques and the
-tool called {\sc Dialogs} that we have developed for natural English language
-parsing and grounding, along with verbalisation and (minimalist) dialogue
-management.
+Natural language is a basic interaction modality that we use in our system both
+as input (processing of the human speech) and as output (verbalization of the
+robot intents). Natural language processing is facilitated by our architecture
+mostly processing informations with semantics that are already close to the
+human-level. This section presents the main features of our speech processor,
+{\sc Dialogs}, that include semantic and multi-modal grounding, and interactive
+disambiguation. Algorithmic and implementation details are provided
+in~\cite{Lemaignan2011a}.
 
-Natural language input (in experiments, we rely on an Android-based interface,
-with Google speech recognition) is parsed into a grammatical structure, and
-atoms of each sentence are resolved with the help of the ontology to ground
-concepts like objects (\ie when a user says ``pick the can'', it resolves to which
-instance of \emph{can} the user is referring to) and actions. Sentences are
-sorted into questions, desires and statements, and processed accordingly.
-Figure~\ref{dialogs|ex} gives a example of the processing of a simple order.
+We acquire natural speech input from the human participants through a custom
+Android-based interface that relies on the Google speech recognition API for
+speech-to-text and relays the textual transcript to the robot. It is parsed into
+a grammatical structure (\emph{Part of Speech} tagging), and the atoms of each
+sentence are resolved with the help
+of the ontology to ground concepts like objects (\ie when a user says ``pick the
+can'', it resolves to which instance of \emph{can} the user is referring to) and
+actions.  Sentences are classified into questions, desires and statements, and
+processed accordingly.  Figure~\ref{dialogs|ex} gives a example of the
+processing of a simple, non-ambiguous command.
 
 \begin{figure}
     \centering
-	\begin{tabular}{l|l}
-	\emph{Initial human knowledge} &
-	\emph{Human input}\\
-	
-	\hline
-	
-    	\stmt{book\_1 type Book} &
-	``Give me the book.'' \\
-	
-    	\stmt{book\_1 hasColor blue} & \\
-	\vspace{0.5em}\\
-	\hline
-    	
-	\emph{Generated partial statements} &
-	\emph{Newly created statements}\\
-	\hline
-    	\stmt{?obj type Book} & 
-	\stmt{human desires sit\_1} \\
-	
-	\hspace{0.2cm}$\Rightarrow$ \concept{?obj = book\_1}
-    	& \stmt{sit\_1 type Give} \\
-    	& \stmt{sit\_1 performedBy myself} \\
-    	& \stmt{sit\_1 actsOnObject book\_01} \\
-    	& \stmt{sit\_1 receivedBy human} \\
-	\end{tabular}
+    \begin{tabular}{l}
+        \emph{Initial human knowledge} \\
+        \hline
+        \stmt{book\_1 type Book} \\
+        \stmt{human\_1 rdf:type Human} \\
+        ~\\
+        ~\\
+        ~\\
+    \end{tabular}
+    \begin{tabular}{l}
+        \emph{Input}\\
 
-    \caption{Processing of a simple, non-ambiguous order, taken
+        \hline
+
+        \concept{human\_1} says:\\
+        ``Give me the book'' \\
+        ~\\
+        ~\\
+        ~\\
+
+    \end{tabular}
+    \begin{tabular}{l}
+
+        \emph{Generated query} \\
+        \hline
+        \concept{find(?obj type Book)} \\ 
+        \hspace{0.2cm}$\Rightarrow$ \concept{?obj = book\_1} \\
+        ~\\
+        ~\\
+        ~\\
+    \end{tabular}
+    \begin{tabular}{l}
+
+        \emph{Newly created statements}\\
+        \hline
+        \stmt{human\_1 desires sit\_1} \\
+         \stmt{sit\_1 type Give} \\
+         \stmt{sit\_1 performedBy myself} \\
+         \stmt{sit\_1 actsOnObject book\_01} \\
+         \stmt{sit\_1 receivedBy human} \\
+    \end{tabular}
+
+    \caption{Processing of a simple, non-ambiguous command, taken
         from~\cite{Lemaignan2011a}. Thematic roles ({\tt performedBy}, {\tt
         actsOnObject}, {\tt receivedBy}) are automatically extracted by 
-    {\sc Dialogs} from the order ``Give me the book.''.}
+    {\sc Dialogs} from the imperative sentence ``Give me the book.''.}
 
     \label{dialogs|ex}
 \end{figure}
@@ -1311,31 +1334,33 @@ The system supports quantification (``give me \{a | the | some | all | any |
 ...\} can''), thematic roles (action-specific predicates that qualify the
 actions), interactive disambiguation (the robot asks questions when it needs
 more information), anaphora resolution (``give \emph{it} to me'') based on
-dialogue history. It also permits knowledge extension by learning new semantic
+dialogue history. It also supports knowledge extension by learning new semantic
 structures (for instance, a sentence like ``learn that cats are animals'' is
 converted into \stmt{Cat subClassOf Animal} and added to the knowledge base
 after checking for possible contradictions with existing knowledge),
-interprets common temporal and place adverbs (like \emph{above} or
-\emph{tomorrow}) and translates to a certain extent \emph{states} (``I'm
-tired'') into \emph{experiences} (\stmt{HUMAN experiences state\_1, state\_1
-hasFeature tired}). We kindly refer the readers to~\cite{Lemaignan2011a} for a
-complete discussion of these capabilities and the related algorithms.
+interprets common temporal and spatial adverbs (like \emph{above} or
+\emph{tomorrow}) and translates simple expressions of internal state (``I'm
+tired'') into \emph{experiences} (\stmt{human\_1 experiences state\_1, state\_1
+hasFeature tired}, see also Section~\ref{sect:desires}). A full account of the
+{\sc Dialogs} features and the corresponding algorithms is available
+in~\cite{Lemaignan2011a}.
 
 \subsubsection{Multi-Modality}
 
-Because all components rely on the same RDF formalism to format their outputs,
-the different communication modalities (\emph{explicit} like verbal, deictic or
-based on gaze, or \emph{implicit} like postures) are presented in a homogeneous
-way, as statements in the knowledge base. The dialogue grounding process makes
-use of them at two distinct levels to provide seamless multi-modal interaction.
+Because the components of our architecture rely on the same RDF formalism to
+represent their outputs, the different communication modalities (\emph{explicit}
+like verbal, deictic or based on gaze, or \emph{implicit} like the position of
+the human) are presented in a homogeneous way, as statements in the knowledge
+base. The dialogue grounding process makes use of them at two distinct levels to
+provide multi-modal concept grounding.
 
-First, particular steps of the grounding process explicitly check for the
+First, specific steps of the grounding process explicitly check for the
 presence and value of specific facts: for instance, when several instances match
 a category (the human says ``give me the bottle'' and the robot knows about
 three bottles), the module may decide (it actually depends on the quantifier
 preceding the class, see the example at section~\ref{moving-london}) to discard
 some of them based on their \emph{visibility} for the speaker (implicit
-communication context built on the human posture).
+communication context taking into account the human position).
 
 Another example, when the human says ``this'', the robot checks if the human is
 currently pointing at some object. In that case, \emph{this} is replaced by the
@@ -1345,9 +1370,9 @@ to find a previous concept that the user could refer to (anaphora resolution).
 Note that, while the system benefits from the complementary modalities, they are
 not all required. The dialogue system can run with the verbal modality alone, at
 the cost of a simpler interaction: if the human says ``this'' without the robot
-tracking what the human points at, no \stmt{HUMAN pointsAt ...} fact is
-available in the knowledge base, and the robot fallbacks on the anaphora
-resolution step alone.
+tracking what the human points at, no \stmt{human\_1 pointsAt ...} fact would
+possibly be available in the knowledge base, and the robot fallbacks on the
+anaphora resolution step alone.
 
 The second level of integration of multi-modality is implicit. By continuously
 computing symbolic properties from the geometric model, richer descriptions and
@@ -1376,7 +1401,7 @@ and robots acting together toward a joint goal. HATP is used by the robot to
 elaborate human-robot \emph{shared plans} which are then used to anticipate
 human action, to propose to human to act or even to ask help from the human.
 
-The HATP \emph{planning domain} defines a set of methods describing how to
+The HATP planning domain defines a set of methods describing how to
 decompose a task and represents the procedural knowledge of the robot as well as
 its knowledge about the actions that the human partner is able to achieve. It is
 stored outside of the central knowledge base, using a specific formalism (see
@@ -1385,29 +1410,33 @@ the related discussion at the end of this section).
 \subsubsection{Agents and Action Streams}
 
 The originality of HATP resides in its ability to produce plans for the robot's
-actions \emph{as well as} for the other participants (humans or robots), that we
+actions as well as for the other participants (humans or robots), that we
 call \emph{shared plans}. 
 
-An important feature of HATP is that it treats agents as ``first-class
+HATP treats agents as ``first-class
 entities'' in the domain representation language. It can therefore
 distinguish between the different agents in the domain as well as
 between agents and the other entities such as tables and chairs. This
-facilitates a post-processing step in HATP that splits the final
+enables a post-processing step that splits the final
 solution (sequence of actions) into two (or more if there are several
 humans) synchronised solution
 streams, one for the robot and one for the human, so that the streams may be executed in
 parallel and synchronised when necessary (Figure~\ref{plan_hatp1}).
 
-This effectively enriches the interaction capabilities
-of the robot by allowing for a form of human behaviour \emph{prediction}, which
-is used by the robot execution controller to monitor the engagement of the human
-partner during joint tasks.
+This effectively enriches the interaction capabilities of the robot by providing
+the system with what is in essence a prediction of the human behaviour. This
+prediction is used by the robot execution controller to monitor the engagement
+of the human partner during joint tasks.
 
-The planner also generates synchronisation points between the agents.  In the
-plan depicted on Figure~\ref{plan_hatp1}, the robot needs to wait for the
-success of the human agent's {\tt PUT} action (estimated through the fulfilment
-of the action post-conditions, typically $\neg$\stmt{GREY\_TAPE isOn TABLE}) to
-be able to start its own action.
+The planner also generates synchronisation points between the agents. For
+instance, in the plan depicted on Figure~\ref{plan_hatp1}, the human needs to
+wait for the success of the robot's action {\tt PUTRV}. The robot monitors the
+success of its own action (by checking for the fulfilment of the action
+post-conditions; in this particular case \stmt{HUMAN sees BOTTLE} and
+\stmt{HUMAN canReach BOTTLE}) to estimate what and when the human is likely to
+perform his next action (here, \concept{TAKE(BOTTLE, TABLE)}). This, in turn,
+allows the robot to monitor the human engagement and progress in the shared
+plan.
 
 We also use shared plans to verbalise the sequence of actions and to explain
 the human partner how a task may be shared~\cite{warnier2012when}.
@@ -1448,17 +1477,18 @@ the human partner how a task may be shared~\cite{warnier2012when}.
 \end{tikzpicture}
 }
 
-\caption{A plan produced by HATP with two action streams (human actions at the
-top, robot actions at the bottom, {\sf PUTRV} stands here for {\it Put it so it is both
-reachable and visible}). The arrow between the two streams represents
-a synchronization point.}
+\caption{An example of plan produced by HATP for a task consisting in
+    cooperatively moving objects into their associated bins. Two action streams
+    are generated (human actions at the top, robot actions at the bottom, {\sf
+    PUTRV} stands here for {\it Put it so it is both reachable and visible}).
+    The arrow between the two streams represents a synchronization point.}
 
   \label{plan_hatp1}
 \end{figure}
 
 \subsubsection{Action Costs and Social Rules}
 
-A cost and a duration function is associated to each action.  The duration
+A cost and a duration function are associated to each action.  The duration
 function provides a duration interval for the action achievement and is used, in
 one hand, to schedule the different streams and, in the other hand, as an
 additional cost function.
@@ -1492,9 +1522,11 @@ human to wait for the robot (by essentially preventing the action streams from
 having too many causal links between them).
 
 Figure~\ref{plan_hatp2} illustrates such a socially-optimised plan where the
-\emph{no wasted time} social rule is applied. The resulting shared plan is
-considered better than the one depicted on Figure~\ref{plan_hatp1} according to
-a global evaluation of the costs and rules.
+\emph{no wasted time} social rule is applied: compared to the plan depicted in
+Figure~\ref{plan_hatp1}, the robot first moves the bottle so that the human can
+immediately take it and put it into the bin, thus removing the human idle time.
+The resulting shared plan is considered better than the one depicted on
+Figure~\ref{plan_hatp1} according to a global evaluation of the costs and rules.
 
 In the current implementation, the social rules are effectively
 implemented by looking through all the plans produced and filtering
@@ -1539,7 +1571,8 @@ rather than after initial solutions are found.
 \end{tikzpicture}
 }
 
-\caption{An alternative plan where the \emph{no wasted time} social rule is used to optimise the
+    \caption{An alternative plan for the task presented in
+    Figure~\ref{plan_hatp1} where the \emph{no wasted time} social rule is used to optimise the
 total duration of the task. }
 
   \label{plan_hatp2}
@@ -1559,12 +1592,13 @@ total duration of the task. }
 %\end{itemize}
 %
 
-Because HATP is a generic symbolic task planner, we have been able to design a
-planning domain at a semantic level which is close to the one used in the
-human-robot dialogue (the planner vocabulary contains concepts like
-\texttt{give}, \texttt{table}, \texttt{is on}...). This leads to a natural
-mapping (low ``impedance mismatch'') between the knowledge extracted from the situation
-assessment or the dialogue, and the planner.
+As HATP is a generic symbolic task planner and do not enforce any abstraction
+level for the planning domain, we were able to design a domain built from
+top-level tasks whose semantics are close to the one used in the human-robot
+dialogue: the planner domain effectively contains concepts like \texttt{give},
+\texttt{table}, \texttt{is on}. This leads to an effective mapping between the
+knowledge extracted from the situation assessment or the dialogue, and the
+planner.
 
 Also, we would like to mention that, after some research we have decided against
 representing the planning domain (\ie, the set of tasks with their pre- and
@@ -1615,6 +1649,7 @@ processes and {\sc Oro} inference mechanisms~\cite{fiore2014}.
 
 
 \subsubsection{Desires and Experiences}
+\label{sect:desires}
 
 We split the interaction situations stemming from the situation assessment and
 communication components in two categories: \emph{desires} (related to
