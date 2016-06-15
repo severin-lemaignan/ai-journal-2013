@@ -2096,27 +2096,37 @@ assess the overall progress of the plan.
 
         \path (-0.5,0) edge (figbottom) node[sloped, above left, rotate=90] {time};
 
+        \fill[gray!10!white] (4.6,.5) rectangle (figbottom);
         \node at (2,0) (percept) {\bf Perception};
             \node[below=0.5 of percept.south west, anchor=mid] {camera};
             \node[below=0.5 of percept.south east, anchor=mid] {3D model};
+
         \node[right=4 of percept, minimum width=2.5cm] (kb) {\bf Knowledge};
             \node[below=0.5 of kb.south west, anchor=mid east] (kbr) {robot};
             \node[below=0.5 of kb.south east, anchor=mid west] (kbh) {human};
-            \draw[dotted] (kb.south) to (figbottom -| kb);
+            \draw[dotted] (kbr) to (figbottom -| kbr);
+            \draw[dotted] (kbh) to (figbottom -| kbh);
+
+        \fill[gray!10!white] (11.5,.5) rectangle (16.5,-28.5);
         \node[right=4 of kb] (plan) {\bf Plan};
             \node[below=0.5 of plan.south west, anchor=mid east] (probot) {robot};
             \node[below=0.5 of plan.south east, anchor=mid west] (phuman) {human};
+            \draw[dotted] (probot) to (figbottom -| probot);
+            \draw[dotted] (phuman) to (figbottom -| phuman);
+
         \node[right=5 of plan] (action) {\bf Actions};
             \node[below=0.5 of action.south west, anchor=mid east] (arobot) {robot};
             \node[below=0.5 of action.south east, anchor=west] (ahuman) {human\\(monitoring)};
+            \draw[dotted] (arobot) to (figbottom -| arobot);
+            \draw[dotted] (ahuman) to (figbottom -| ahuman);
 
         \draw[dashed] (-0.6,-1.2) --(24, -1.2);
 
-        \node[anchor=east] at (-0.5, -3) (t1) {$t_1$};
-        \node[anchor=east, below=6 of t1] (t2) {$t_2$};
-        \node[anchor=east, below=6 of t2] (t3) {$t_3$};
-        \node[anchor=east, below=4 of t3] (t4) {$t_4$};
-        \node[anchor=east, below=5 of t4] (t5) {$t_5$};
+        \node[anchor=east] at (-0.5, -3) (t1) {\Large $t_1$};
+        \node[anchor=east, below=6 of t1] (t2) {\Large $t_2$};
+        \node[anchor=east, below=6 of t2] (t3) {\Large $t_3$};
+        \node[anchor=east, below=4 of t3] (t4) {\Large $t_4$};
+        \node[anchor=east, below=5 of t4] (t5) {\Large $t_5$};
 
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         %%% PERCEPTIONS
@@ -2132,83 +2142,88 @@ assess the overall progress of the plan.
         %%% KNOWLEDGE
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-        \node[align=left] at (cam1 -| kbr) (kb1) {\stmt{TAPE isReachable true}\\
-                                                        \stmt{TAPE isVisible true} \\
-                                                        \stmt{TAPE isOn TABLE}};
+        \node[fill=white,align=left] at (cam1 -| kbr) (kb1) {\stmt{TAPE isVisible true}\\
+                                                        \stmt{TAPE isReachable true}\\
+                                                        \stmt{TAPE isOn TABLE}\\
+                                                        \stmt{BIN isVisible true}\\
+                                                        \stmt{BIN isReachable false}};
 
-        \node[align=left] at (cam1 -| kbh) {\stmt{TAPE isReachable false}\\
-                                                        \stmt{TAPE isVisible true}};
+        \node[fill=white,align=left] at (cam1 -| kbh) {\stmt{TAPE isVisible true}\\
+                                                        \stmt{TAPE isReachable false}\\
+                                                        \stmt{TAPE isOn TABLE}\\
+                                                        \stmt{BIN isVisible true}\\
+                                                        \stmt{BIN isReachable true}};
 
-        \node[align=left] at (cam2 -| kbr) (kb2) {\stmt{ROBOT hasInHand TAPE}};
+        \node[fill=white,align=left] at (cam2 -| kbr) (kb2) {\stmt{ROBOT hasInHand TAPE}};
 
 
-        \node[align=left] at (cam3 -| kbr) {\stmt{TAPE isReachable true}\\
+        \node[fill=white,align=left] at (cam3 -| kbr) {\stmt{TAPE isReachable true}\\
                                             \stmt{TAPE isVisible true} \\
                                             \stmt{TAPE isOn TABLE}};
 
-        \node[align=left ] at (cam3 -| kbh) (kb3) {\stmt{TAPE isReachable true}\\
+        \node[fill=white,align=left ] at (cam3 -| kbh) (kb3) {\stmt{TAPE isReachable true}\\
                                              \stmt{TAPE isVisible true}};
 
-        \node[align=left] at (cam4 -| kbh) (kb4) {\stmt{HUMAN hasInHand TAPE}};
+        \node[fill=white,align=left] at (cam4 -| kbh) (kb4) {\stmt{HUMAN hasInHand TAPE}};
 
-        \node[align=left] at (cam5 -| kbr)  {\stmt{TAPE isIn BIN}};
-        \node[align=left] at (cam5 -| kbh) (kb5) {\stmt{TAPE isIn BIN}};
+        \node[fill=white,align=left] at (cam5 -| kbr)  {\stmt{TAPE isIn BIN}};
+        \node[fill=white,align=left] at (cam5 -| kbh) (kb5) {\stmt{TAPE isIn BIN}};
 
         %%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         %%% PLANS
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-        \node[below=1 of plan] (incoming) {\bf \Large Incoming goal \\ \it Clean the table!};
+        \node[fill=gray!10!white,below=1 of plan] (incoming) {\bf \Large Incoming goal \\ \it Clean the table!};
 
-        \node[anchor=north, plan, robot] at (cam1.south -| probot) (pr1) {\action{TAKE}{GREY\_TAPE}{TABLE}};
-        \node[anchor=north, plan, robot] at (cam2.south -| probot)  (pr2) {\action{PUTRV}{GREY\_TAPE}{TABLE}} edge[<-] (pr1);
-        \node[anchor=north, plan] at (cam3.south -| phuman) (ph1) {\action{TAKE}{GREY\_TAPE}{TABLE}} edge[<-] (pr2);
-        \node[anchor=north, plan]  at (cam4.south -| phuman) (ph2) {\action{PUT}{GREY\_TAPE}{BIN}} edge[<-] (ph1);
+        \node[anchor=north, plan, robot] at (cam1.south -| probot) (pr1) {\action{TAKE}{TAPE}{TABLE}};
+        \node[anchor=north, plan, robot] at (cam2.south -| probot)  (pr2) {\action{PUTRV}{TAPE}{TABLE}} edge[<-] (pr1);
+        \node[anchor=north, plan] at (cam3.south -| phuman) (ph1) {\action{TAKE}{TAPE}{TABLE}} edge[<-] (pr2);
+        \node[anchor=north, plan]  at (cam4.south -| phuman) (ph2) {\action{PUT}{TAPE}{BIN}} edge[<-] (ph1);
 
-        \node[anchor=north] at (cam5.south -| plan) (done) {\bf \Large Goal completed};
+        \node[fill=gray!10!white,anchor=north] at (cam5.south -| plan) (done) {\bf \Large Goal completed};
 
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         %%% ACTIONS
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-        \node at (pr1 -| arobot) (ep1) {\it evaluate pre-conditions};
+        \node[fill=white] at (pr1 -| arobot) (ep1) {\it evaluate pre-conditions};
 
         \node[below=0.1 of ep1] (mhp1) {%
             \begin{tikzpicture}
-                \node (title) {\bf motion planning};
+                \node[fill=white] (title) {\bf motion planning};
                 \node[below=0.1 of title.south west, label=below:{\tt PICK\_GOTO}] (mapg) {\includegraphics{MHP_ARM_PICK_GOTO}};
-                \node[right=of mapg, label=below:{\tt TAKE\_TO\_FREE}] (mattf) {\includegraphics{MHP_ARM_TAKE_TO_FREE}} edge[<-] (mapg);
+                \node[fill=white,right=of mapg, label=below:{\tt TAKE\_TO\_FREE}] (mattf) {\includegraphics{MHP_ARM_TAKE_TO_FREE}} edge[<-] (mapg);
             \end{tikzpicture}
         };
-        \node[below=0.1 of mhp1] (me1) {\bf motion execution};
-        \node[below=0.1 of me1] (ae1) {\it assess post-conditions};
+        \node[fill=white,below=0.1 of mhp1] (me1) {\bf motion execution};
+        \node[fill=white,below=0.1 of me1] (ae1) {\it assess post-conditions};
 
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        \node at (pr2 -| arobot) (ep2) {\it evaluate pre-conditions};
+        \node[fill=white] at (pr2 -| arobot) (ep2) {\it evaluate pre-conditions};
 
         \node[below=0.1 of ep2] (mhp2) {%
             \begin{tikzpicture}
-                \node (title) {\bf motion planning};
-                \node[below=0.1 of title, label=below:{\tt ESCAPE}] (maeo) {\includegraphics{MHP_ARM_ESCAPE_OBJECT}};
+                \node[fill=white] (title) {\bf motion planning};
+                \node[fill=white,below=0.1 of title, label=below:{\tt ESCAPE}] (maeo) {\includegraphics{MHP_ARM_ESCAPE_OBJECT}};
                 \node[left=of maeo, label=below:{\tt PLACE\_FROM\_FREE}] (mapff) {\includegraphics{MHP_ARM_PLACE_FROM_FREE}} edge (maeo);
-                \node[right=of maeo, label=below:{\tt TO\_FREE}] (maf) {\includegraphics{MHP_ARM_FREE}} edge[<-] (maeo);
+                \node[fill=white,right=of maeo, label=below:{\tt TO\_FREE}] (maf) {\includegraphics{MHP_ARM_FREE}} edge[<-] (maeo);
             \end{tikzpicture}
         };
-        \node[below=0.1 of mhp2] (me2) {\bf motion execution};
-        \node[below=0.1 of me2] (ae2) {\it assess post-conditions};
+        \node[fill=white,below=0.1 of mhp2] (me2) {\bf motion execution};
+        \node[fill=white,below=0.1 of me2] (ae2) {\it assess post-conditions};
 
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
         \node[anchor=north] at (ph1 -| ahuman) (wait1) {%
             \begin{tikzpicture}
-                \node (title) {\it wait for pick\\ {\tt TAPE} from {\tt TABLE}};
+                \node[fill=white] (title) {\it wait for pick\\ {\tt TAPE} \it from {\tt TABLE}};
                 \node[below=0.1 of title] {\includegraphics{wait_for_pick}};
             \end{tikzpicture}
         };
 
         \node[anchor=north] at (ph2 -| ahuman) (wait2) {%
             \begin{tikzpicture}
-                \node (title) {\it wait for put\\ {\tt TAPE} to {\tt BIN}};
+                \node[fill=white] (title) {\it wait for put\\ {\tt TAPE} \it into {\tt BIN}};
                 \node[below=0.1 of title] {\includegraphics{wait_for_throw}};
             \end{tikzpicture}
         };
@@ -2236,7 +2251,7 @@ assess the overall progress of the plan.
  \end{tikzpicture}
  }
 
- \caption {Chronology of the \emph{Cleaning the table} scenario, presented here in a simplified
+ \caption {Timeline of the \emph{Cleaning the table} study, presented here in a simplified
  version: a single object, {\tt TAPE}, must be removed from the table and
  dropped in the bin {\tt BIN}. The light arrows sketch the global execution
  flow.}
