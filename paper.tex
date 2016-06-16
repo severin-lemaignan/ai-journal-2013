@@ -2308,10 +2308,10 @@ Bongard~\cite{pfeifer2007body} is one of the reference).
 The challenge of symbol grounding is also tightly linked to this issue. It
 corresponds to the identification or creation, and then, maintenance of a link
 between the symbol (the syntactic form of knowledge that the computer
-manipulates) and its semantics, \ie its meaning, anchored in the world (the
+manipulates) and its semantics (its meaning, anchored in the world). The
 relations between the symbol, the referent of the symbol, and mediating minds
 is classically referred as the \emph{semantic triangle} and has been
-extensively studied in linguistics). The issue of grounding is well known in
+extensively studied in linguistics. The issue of grounding is well known in
 cognitive science and is summarised by Harnard~\cite{Harnad1990} by this
 question: ``how the semantic interpretation of a formal symbol system can be
 made intrinsic to the system?''. This issue has a major practical importance in
@@ -2332,21 +2332,22 @@ cognitive skill.
 Grounding also occurs during verbal and non-verbal communication. The {\sc
 Dialogs} module grounds new concepts introduced by the speaker by asking
 questions until it can attach the new concept to concepts already present in the
-knowledge pool (typically, if I ask the robot ``bring me a platypus'', the robot
-asks ``what is a platypus''. I may answer ``a mammal'' and the robot will ask
-``what is a mammal?'' and so on until it anchors the new concepts to ones it
-already knows). Embodied interactions (like gestures) are also taken into
-account at this level: we have presented how pointing, for instance, is used by
-the robot to ground \emph{``this''} or \emph{``that''} to the pointed artifact.
+knowledge pool (if one asks the robot ``bring me a margarita'', the robot may
+initially asks ``what is a margarita?''. The user would answer ``a cocktail''
+and the robot would continue the grounding -- ``what is a cocktail?'' -- until
+it anchors the new concept to ones it already knows). Embodied interactions
+(like gestures) are also taken into account at this level: we have presented how
+pointing, for instance, is used by the robot to ground \emph{``this''} or
+\emph{``that''} to the pointed artifact.
 
-Note that because only objects marked with 2D fiducial markers are currently
-recognised (in our typical lab experiments, it may be a dozen of them), the
-robot's grounding mechanisms only work in a small-sized closed world. This
-assumption greatly facilitates the task, and we see that we have only scratched
-the surface of a generic grounding capability. Context, cultural background,
-``naive physics'' knowledge, emotional state of the human are some of the
-numerous other determinants that need to be accounted for when grounding
-human-robot interaction.
+Note that, because only objects marked with 2D fiducial markers are currently
+recognised (typically, about ten of them are simultaneously used in a given
+experiment), our grounding mechanisms have only been exercised in small-sized
+closed world. This simplifies the task, and we can not claim that our approach
+provides a generic grounding capability. Beyond the perception of geometric
+entities, context, cultural background, ``naive physics'' knowledge, emotional
+state of the human are some of the numerous other determinants that need to be
+accounted for when grounding human-robot interaction.
 
 \subsection{The W-questions of Joint Action}
 
@@ -2400,9 +2401,9 @@ While the task of describing all the (dynamic!) human models that are useful to
 robots is immense (if doable at all), we claim that it is possible to devise and
 use such models in limited, but still interesting and useful, contexts such as
 collaborative human-robot objects manipulation, fetch-and-carry and associated
-activities in home or work environment.
+activities in home or work environments.
 
-In our implementation, perspective taking, for instance, is tightly connected to
+In our architecture, perspective taking, for instance, is tightly connected to
 the symbolic knowledge models, and since our knowledge base allows for storage
 of one knowledge model per agent, we have been able to endow the robot with a
 simple theory of mind (as explained in section~\ref{sect|tom}): we explicitly
@@ -2413,8 +2414,10 @@ or to plan tasks that are actually doable for the human.
 The cognitive model that the robot builds for the agents it interacts with
 remains today simple and mostly focused on geometric features and affordances
 (\emph{who sees what? what are our relative positions? what is reachable to
-whom?}  etc.). Extending this knowledge with more subtle perceptions (emotional
-state for instance) remains to be done.
+whom?}). Extending this knowledge with more subtle perceptions (emotional
+state for instance) remains to be explored beyond simple examples like the
+processing of explicit verbal statements like ``I'm tired!''
+(Section~\ref{sect:desires}).
 
 Motion and action execution also requires human models, and the one we use
 embeds human preferences and physical constraints that need to be accounted for
@@ -2450,41 +2453,42 @@ that the elaborated plans should satisfy.
 %account at all levels.
 
 
-\subsection{Knowledge and Robotics}
+\subsection{Explicit Knowledge for Social Robotics}
 \label{krs-discussion}
 
 As thoroughly presented in this article, we have built the decisional
 capabilities of our robots around this idea of explicit knowledge manipulation.
-We finally briefly comment on this design choice and the limitations that we
-have observed.
+We finally briefly comment on this design choice and the limitations of our
+approach.
 
-\subsubsection{Knowledge and Architecture}
+\subsubsection{Explicit Knowledge in our Architecture}
 
-As a whole, the components that we have introduced so far build a
-knowledge-oriented architecture: knowledge is explicitly stored in one central
-and consistent repository of facts, accessible for all modules. It relies on a
-strict formalism (OWL statements), with a well defined vocabulary
-(stated in the common-sense ontology). These first two points lead to a
-\emph{loosely-coupled architecture} where modules can be removed or replaced
-easily by other ones as long as they share the same semantics (modules are
-defined by the knowledge they produce).
+The components that we have presented so far build a \emph{knowledge-oriented}
+architecture: knowledge is explicitly stored in one central and consistent
+repository of facts, accessible for all modules. It relies on a strict formalism
+(OWL statements), with a well defined vocabulary (stated in the common-sense
+ontology). These first two points lead to a loosely-coupled architecture
+where modules can be removed or replaced easily by other ones as long as they
+share the same semantics: modules are defined by the knowledge they produce or
+consume.
 
-Also, we adopt a symbolic, reactive, event-driven approach to robot control. By
-managing events at the same level as the reasoner, we take full advantage of the
-inference abilities of {\sc Oro} to trigger events whose \texttt{true}
-conditions can be (possibly indirectly) inferred.
+Also, we adopt a symbolic, hybrid (reactive and planning-based), event-driven
+approach to robot control. By managing events at the same level as the reasoner,
+we take full advantage of the inference abilities of {\sc Oro} to trigger events
+whose \texttt{true} conditions can be (possibly indirectly) inferred using
+human-level semantics.
 
-And finally, this architecture allows for the combination of very different
-knowledge sources in a single homogeneous environment, bringing mutual
+And finally, this architecture allows for the combination of different
+knowledge sources in a uniform model, bringing mutual
 benefits to components. For instance, the dialogue processing module can
 run without any situation assessment, but its disambiguation routines
 can transparently benefit from it when available (since richer symbolic
 descriptions of objects are then available).
 
-Those items are not new \emph{per se}. It is however interesting to underline
-the shift of focus this implies during the design and integration phases of
-robots: components of our deliberative layer are defined and glued together by
-the knowledge they produce and consume. Human-robot interaction, because it
+Those characteristics are not novel \emph{per se}. We want however underline the
+shift of focus brought by this approach during the design and integration phases
+of robots: components of our deliberative layer are defined and bound together
+by the knowledge they produce and consume. Human-robot interaction, because it
 supposes operations at \emph{human-level} and in environments with complex
 semantics, acts here as a motivational force.
 
