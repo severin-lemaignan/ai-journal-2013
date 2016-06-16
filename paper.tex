@@ -203,13 +203,13 @@ other approaches. We propose to organise this discussion in four sections.
 
 The next section introduces the architecture as a whole, as well as the
 knowledge model that we have developed for our robots. Then,
-Section~\ref{sec:impl} details each of the main components of the
-architecture, and highlights their significance for artificial
-intelligence. Section~\ref{sec:expe} presents two studies that illustrate in a
-practical way what can be currently achieved with our robots.
-Section~\ref{sect|conclusion} finally restate our main contributions and discuss
-the key challenges that human-robot interaction brings to artificial
-intelligence.
+Section~\ref{sec:impl} details each of the main components of the architecture,
+and highlights their significance for artificial intelligence.
+Section~\ref{sec:expe} presents two studies that illustrate in a practical way
+what can be currently achieved with our robots.  The
+Sections~\ref{sect|discussion} and~\ref{sect|conclusion} finally restate our
+main contributions and discuss the key challenges that human-robot interaction
+brings to artificial intelligence.
 
 \section{Deliberative Architecture and Knowledge Model}
 
@@ -1959,7 +1959,7 @@ Dialogs} can then query for its location. The robot finally verbalises the
 result \stmt{BLACK\_TAPE isOn table, BLACK\_TAPE isNextTo TOOLBOX} into ``The
 other tape is on the table and next to the toolbox.''
 
-\subsection{\emph{Cleaning the table} study}
+\subsection{\emph{Cleaning the table} Study}
 
 \begin{figure}[ht!]
     \centering
@@ -2274,33 +2274,36 @@ assess the overall progress of the plan.
 
 \section{Discussion: When Artificial Intelligence Enables Human-Robot
 Interaction}
-\label{sect|conclusion}
+\label{sect|discussion}
 
-This last section tries to clarify the ``takeaway'' message: what are the
-challenges that human-robot interaction brings to artificial intelligence?  We
-first restate the challenge of \emph{embodied cognition} in general and
-summarise what we see as the main decisional issues that need to be tackled to
-push forward human-robot interaction. Finally, we reflect on the importance of
-knowledge handling in robotic architectures that deal with complex semantics and
-put into perspective our choice of the RDF formalism. 
+The previous sections provide a perspective on a complete deliberative
+architecture for social robots, including an implementation supported
+``real-world'' experimental deployments. This section synthesises next what we
+see as the main challenges that human-robot interaction brings to artificial
+intelligence.  We discuss first how embodied cognition is a very real challenge
+in human-robot interaction; we rephrase then the requirements of joint actions
+in terms of five questions; we discuss the importance of building and
+maintaining a multi-level model of the human; and we finally reflect on the
+importance of explicit knowledge management in robotic architectures that deal
+with human-level semantics and state in that respect the current limits of our
+logic framework.
 
 \subsection{Embodied Cognition}
 
 Robotics is traditionally regarded as the prototypical instance of
 \emph{embodied} artificial intelligence, and this dimension is especially
-prevalent in human-robot interaction, where agents have to share and collaborate
-in a joint physical environment.
-
-This leads to a tight coupling between the symbolic and the geometric realms:
-while AI at its origins was mostly a matter of symbolic models, it has been
-since recognised that not only the mind is not a purely abstract system,
-disconnected from the physical world, but even more, cognition fundamentally
-relies on its relation to the physical world (so-called \emph{embodied
-cognition}). Varela~\cite{Varela1992} is one of the main discoverers of these
-mechanisms, and coined the concept of \emph{enactivism} as the theoretical
-framework that study the links between cognition, embodiment and actions.  This
-has since been thoroughly studied in robotics and artificial intelligence
-(Pfeifer and Bongard~\cite{pfeifer2007body} is one of the reference).
+prevalent in human-robot interaction, where agents have to share and
+collaborate in a joint physical environment.  This leads to a tight coupling
+between the symbolic and the geometric realms: while AI at its origins was
+mostly concerned with symbolic models, it has been since recognised that not
+only the mind is not a purely abstract system, disconnected from the physical
+world, but even more, cognition fundamentally relies on its relation to the
+physical world (so-called \emph{embodied cognition}). Varela~\cite{Varela1992}
+is one of the main discoverers of these mechanisms, and coined the concept of
+\emph{enactivism} as the theoretical framework that study the links between
+cognition, embodiment and actions.  This has since been thoroughly studied in
+robotics and artificial intelligence (Pfeifer and
+Bongard~\cite{pfeifer2007body} is one of the reference).
 
 The challenge of symbol grounding is also tightly linked to this issue. It
 corresponds to the identification or creation, and then, maintenance of a link
@@ -2345,13 +2348,7 @@ the surface of a generic grounding capability. Context, cultural background,
 numerous other determinants that need to be accounted for when grounding
 human-robot interaction.
 
-\subsection{The Key Decisional Issues}
-
-With this perspective on \emph{embodied cognition} in mind, it seems appropriate
-to restate the key challenges brought by human-robot interaction to artificial
-intelligence.
-
-\subsubsection{The W-questions}
+\subsection{The W-questions of Joint Action}
 
 Our context, where a robot has to achieve a task together with
 humans, raises issues to be tackled by the robots' decisional components, and
@@ -2392,7 +2389,7 @@ often require, on the contrary, to be dealt with in a single decision step. The
 human-aware task and motion planners which we have built, are instances of
 systems which have been designed to deal with such intricate decision issues.
 
-\subsubsection{Putting the Humans into Equations}
+\subsection{Putting the Humans into Equations}
 
 The correlate of these five \emph{W-questions} is the issue the \emph{human
 models}: taking appropriate decisions with and in presence of humans require
@@ -2456,10 +2453,10 @@ that the elaborated plans should satisfy.
 \subsection{Knowledge and Robotics}
 \label{krs-discussion}
 
-As thorougly presented in this article, we have built the decisional
+As thoroughly presented in this article, we have built the decisional
 capabilities of our robots around this idea of explicit knowledge manipulation.
-We finally briefely comment on this design choice, our implementation based on RDF,
-and the limitations that we perceive.
+We finally briefly comment on this design choice and the limitations that we
+have observed.
 
 \subsubsection{Knowledge and Architecture}
 
@@ -2498,8 +2495,8 @@ Interaction with humans implies the ability to deal with semantics: semantics of
 verbal interaction, semantics of gestures, etc.  As a consequence, it also
 implies to deal with semantic disambiguation.
 
-One prototypical example of semantic disambiguation has been given in
-\cite{Ros2010b} with the child game \emph{spygame}: two players are facing
+We have studied a prototypical example of semantic disambiguation in
+\cite{Ros2010b} with the children's ``spygame'': two players are facing
 each other with a set of random objects in-between, one player mentally choose
 one object, and the other player has to guess the object by asking closed
 questions like \emph{Is your object small or large?} Based on the knowledge it
@@ -2586,7 +2583,7 @@ The design choices and the results presented here are still preliminary.
 While the general scheme we propose might be difficult to implement in
 a general sense, we believe that it is a reasonable challenge to
 implement it in the case of a personal robot assistant essentially
-devoted to fetch-and-carry, as well as for interactive manipulation
+devoted interactive manipulation
 tasks and associated activities.
 
 One direction that we would like to further investigate is how to account for
@@ -2597,28 +2594,25 @@ There is also extensive work to be done in order to refine the notion of ``good
 shared plan'' and ``good/acceptable robot behaviour'' in this context. There are
 obviously large avenues for learning and adaptation in this context.
 
-Another broader direction to head deals with \emph{contexts representation}.
+Another direction to head to deals with \emph{contexts representation}.
 Contexts are currently often limited to the current spatial and temporal
-situation. Some models offer the possibility to jump in the past or to
-switch to another agent's perspective, but in current approaches, selecting a
-context always basically consists in retrieving a set of beliefs corresponding
-to a situation, and temporarily replacing the current beliefs by those other
-ones. This misses the fact that at a given moment, not one but many contexts
-co-exist at different scales. We do not want to retrieve one monolithic set of
-beliefs, but instead carefully craft a context from several \emph{atomic}
-contexts. Techniques for representation of overlapping pools of knowledge
-largely remain to be developed, as well as efficient algorithms to retrieve (or
-discard) such context-related pools of knowledge. This is a challenge not only
-for robotics, but more generally for artificial intelligence.
-
-The ability to explicitly manage contexts and context switches would endow the
-robot with a cognitive capability similar to what is known as
-\emph{context-dependent memory} in cognitive psychology. This is also related
-to Tulving's \emph{autonoetic consciousness}~\cite{Tulving1985a}: the ability
-to reflect upon its own past or future experiences.
-
-Much remain to be done to this regard, starting with a formal analysis of what
-are the relevant contexts for our robots.
+situation. Some models offer the possibility to jump in the past or to switch to
+another agent's perspective, but in current approaches, selecting a context
+always basically consists in retrieving a set of beliefs corresponding to a
+situation, and temporarily replacing the current beliefs by those other ones.
+This misses the fact that at a given moment, not one but many contexts co-exist
+at different scales. We do not want to retrieve one monolithic set of beliefs,
+but instead carefully craft a context from several \emph{atomic} contexts.
+Techniques for representation of overlapping pools of knowledge largely remain
+to be developed, as well as efficient algorithms to retrieve (or discard) such
+context-related pools of knowledge. This is a challenge not only for robotics,
+but more generally for artificial intelligence.  The ability to explicitly
+manage contexts and context switches would endow the robot with a cognitive
+capability similar to what is known as \emph{context-dependent memory} in
+cognitive psychology. This is also related to Tulving's \emph{autonoetic
+consciousness}~\cite{Tulving1985a}: the ability to reflect upon its own past or
+future experiences.  Much remain to be done to this regard, starting with a
+formal analysis of what are the relevant contexts for our robots.
 
 Human-Robot Interaction is and is going to remain a challenging field for
 artificial intelligence. We hope that this contribution helps with clarifying
