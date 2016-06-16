@@ -18,7 +18,7 @@
 
 \usepackage{paralist}
 
-\usepackage[nomargin, marginclue, footnote]{fixme}
+\usepackage[draft,nomargin, marginclue, footnote]{fixme}
 
 \usepackage{hyperref}
 
@@ -99,15 +99,15 @@ pervasive, human-level semantics within the robot's deliberative system.
 
 \subsection{The Human-Robot Interaction Context}
 
-Human-robot interaction is a challenge for Artificial Intelligence. This field
-lays at the crossroad of several domains of AI and requires to tackle them in a
-holistic manner: modelling humans and human cognition; acquiring, representing,
-manipulating in a tractable way abstract knowledge at the human level; reasoning
-on this knowledge to make decisions; and eventually instantiating those
-decisions into physical actions both legible to and in coordination with humans.
-Many AI techniques are invited, from visual processing to symbolic reasoning,
-from task planning to \emph{theory of mind} building, from reactive control to
-action recognition and learning.
+Human-Robot Interaction (HRI) represents a challenge for Artificial Intelligence
+(AI). It lays at the crossroad of many subdomains of AI and in effect, it calls
+for their integration: modelling humans and human cognition; acquiring,
+representing, manipulating in a tractable way abstract knowledge at the human
+level; reasoning on this knowledge to make decisions; eventually instantiating
+those decisions into physical actions both legible to and in coordination with
+humans.  Many AI techniques are mandated, from visual processing to symbolic
+reasoning, from task planning to \emph{theory of mind} building, from reactive
+control to action recognition and learning.
 
 We do not claim to address here the issue as a whole. This article attempts
 however to organise it into a coherent challenge for Artificial Intelligence,
@@ -171,8 +171,8 @@ mandate. \emph{Joint action}, for instance, builds from:
 \end {itemize}
 
 The robot controller (with the help of a task planner) decides what action to
-execute next, and who should perform it from the robot or the human (or both in
-case of a joint action), and finally controls or monitors its execution. The
+execute next, and who should perform it, from the robot or the human (or both in
+case of a joint action). It finally controls and monitors its execution. The
 operation continues until the goal is achieved, is declared unachievable or is
 abandoned by the human~\cite{Klein2004}.
 
@@ -189,7 +189,7 @@ its human partner.
 \end{inparaenum}
 
 Besides, such abilities should be designed and implemented in a yask-independent
-manner, and should provide sufficient levels of parametrization such as they adapt to
+manner, and should provide sufficient levels of parametrization, so that they adapt to
 various environments, different tasks and variable levels of engagement of the
 robot, ranging from teammate behaviour to assistant or pro-active helper.
 
@@ -197,9 +197,9 @@ These are the challenges that we will discuss in this article.
 
 \subsection{Article Overview}
 
-The remaining of the article discusses the robotic architecture that we have built to
-tackle the AI challenges of human-robot interaction, and how its relates to
-other approaches. We organise this discussion in four sections.
+The remaining of the article discusses the robotic architecture that we have
+built to approach social and autonomous human-robot interaction, and how it
+relates to other approaches. We organise this discussion in four sections.
 
 The next section introduces the architecture as a whole, as well as the
 knowledge model that we have developed for our robots. Then,
@@ -385,9 +385,9 @@ reasoner ({\sc Pellet}\footnote{\url{https://github.com/complexible/pellet}})
 classifies the whole ontology and inserts all possible inferred triples.  The
 clients of the {\sc Oro} server are in charge of managing themselves the
 knowledge (when to add, when to update, when to retract knowledge): no
-meta-semantics are carried over that would let the server manage these dynamics
-itself.\footnote{With one exception: so-called \emph{memory profiles} let
-the server automatically discard facts (\ie forget about them) after a specific
+meta-semantics are carried over that would let the server manage itself these
+dynamics.\footnote{With one exception: so-called \emph{memory profiles} let the
+server automatically discard facts (\ie forget about them) after a specific
 period of time. We present this feature at section~\ref{memory}.}
 
 This architecture design (a central knowledge base that essentially appears as a
@@ -411,17 +411,21 @@ perception, interaction and planning. The next sections go into details of these
 processes. Lastly, the third source of symbolic statements comes from the
 inferences produced by the reasoner.
 
-Contrary to similar projects like KnowRob~\cite{Tenorth2009a} that relies on
-the concept of \emph{computables} to lazily evaluate/acquire symbolic facts when
+Contrary to similar projects like KnowRob~\cite{Tenorth2009a} that relies on the
+concept of \emph{computables} to lazily evaluate/acquire symbolic facts when
 needed, we have an \emph{explicit} approach where we greedily compute and assert
 symbolic statements (like spatial relations between objects, see
-Section~\ref{sect|sit-ass}). This design choice trades scalability for explicit
-reasoning: at any time, the full belief state is explicitly stated, and
-provides the reasoner with the largest possible inference domain. This is of
-special importance for an \emph{event-based} architecture like ours (see
+Section~\ref{sect|sit-ass}). For instance, whenever a client queries KnowRob to
+know if \stmt{object1 isOn object2}, KnowRob calls a geometric reasonner to
+evaluate if this specific spatial relation holds at that point in time. With our
+approach, spatial relations are instead computed and asserted {\it a priori}.
+This design choice trades scalability for explicit reasoning: at any time, the
+full belief state is explicited (which may be computationally expensive), and
+therefore provides the reasoner with the largest possible inference domain. This
+is of special importance for an \emph{event-based} architecture like ours (see
 Section~\ref{sect|ctrl}), where, by definition, we do not know beforehand what
-we are ``looking for'', and we need instead to greedily infer as much as possible
-to build a belief state as comprehensive as possible.
+we are ``looking for'', and we need instead to greedily infer as much as
+possible to build a belief state as comprehensive as possible.
 
 \begin{figure}
     \centering
@@ -548,9 +552,14 @@ relatively small physical thing, that can be typically manipulated. A human is
 not usually considered as an object. {\sc OpenCyc} however precisely defines an
 object as anything at least \emph{partially tangible}. This includes obviously
 the humans, and actually many other entities that would not be commonly said to
-be objects (the Earth for instance). Thus the importance of relying on
-well-defined and standard semantics to exchange information between artificial
-systems in a non-ambiguous way.
+be objects (the Earth for instance).\footnote{In such cases of discrepancy
+between {\sc OpenCyc} concepts and human terminology, we manually label the {\sc
+OpenCyc} concepts with appropriate human names: for instance, the OpenRobots
+Ontology associates the label ``\emph{object}'' to the concept
+\concept{cyc:Artifact} instead of the concept \concept{cyc:PartiallyTangible}.
+These labels are used in priority during the grounding of verbal interactions.}
+Thus the importance of relying on well-defined and standard semantics to
+exchange information between artificial systems in a non-ambiguous way.
 
 Figure~\ref{fig|upper_tbox} also illustrates the fundamental disjunction
 in the {\sc Oro} model between \emph{temporal} and \emph{spatial} entities (formally,
@@ -619,7 +628,7 @@ expressions that encode non-trivial inferences. The definition of
 \concept{Bottle} as found in the {\sc Oro} ontology is a typical example:
 $$
 \text{\tt Bottle} \equiv \text{\tt Container} \wedge 
-                         \text{\tt Tableware} \wedge
+                         \text{\tt GraspableObject} \wedge
                          \text{\tt hasShape} \in \text{\tt CylinderShape}^{\mathcal{I}} \wedge
                          \text{\tt hasMainDimension} \in [0.1, 0.3]
 $$
@@ -648,14 +657,11 @@ map as well as possible to the human representations in order to effectively
 support communication.
 
 \emph{Symbol grounding} connects hence the knowledge model to the perception and
-actuation capabilities of the robot, and our architecture adopts here also a
-bidirectional approach: \emph{bottom-up} and \emph{top-down}.  The different
-components that we have mentioned so far provide a bottom-up grounding process:
-geometric reasoning and dialogue processing modules constantly build and push
-new symbolic contents about the world to the knowledge base where it becomes
-accessible to decisional layers. In parallel, the knowledge base relies on
-reasoning in a top-down way to produce new facts, \ie new beliefs that may lead
-to actual decision making and physical actions.
+actuation capabilities of the robot. The different components that we have
+mentioned so far provide a bottom-up grounding process: geometric reasoning and
+dialogue processing modules constantly build and push new symbolic contents
+about the world to the knowledge base where it becomes accessible to decisional
+layers. We detail in the next sections this process. 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -897,14 +903,15 @@ to identify and localize objects, and Kinect-based skeleton tracking of humans,
 optionally assisted by motion capture to accurately track the head motion, which
 is required to compute what the human is looking at).
 
-{\sc Spark} runs and continuously updates the knowledge base at about 10Hz. At each step, it re-computes spatial
-relations and affordances for the whole scene, and send the delta (new
-relations and relations that do not hold anymore) to the knowledge base. This
-approach may raise scalability concerns (we did not however hit major
-performance issues in our constrained scenarios), but simplifies the
-management of the \emph{dynamics} of the knowledge (\emph{When do I discard
-outdated knowledge?  When do I update it?}). Since it is equivalent to a reset
-of the reasoner domain, it also hides issues linked to non-monotonic reasoning
+{\sc Spark} runs and continuously updates the knowledge base at about 10Hz. At
+each step, it re-computes spatial relations and affordances for the whole scene,
+and send the delta (new relations and relations that do not hold anymore) to the
+knowledge base. This approach may raise scalability concerns (we did not however
+hit major performance issues in our constrained scenarios) as well as prevent
+reasoning on the situation history, but simplifies the management of the
+dynamics of the knowledge (\emph{When do I discard outdated knowledge?  When do
+I update it?}). Since it is equivalent to a reset of the reasoner domain, it
+also essentially nullifies issues linked to non-monotonic reasoning
 (see~\cite{McCarthy2007} for a discussion on that question).
 
 
@@ -1018,15 +1025,15 @@ reference of each agent.
 \paragraph{Symbolic Locations}
 
 Humans commonly refer to the positions of objects with symbolic descriptors
-(like \emph{on}, \emph{next to}...) instead of precise, absolute positions.
-These type of descriptors have been studied in the context of language grounding
+(like \emph{on}, \emph{next to}...) instead of precise, absolute positions
+(qualitative spatial reasoning). These type of descriptors have been studied in the context of language grounding
 \cite{O'Keefe1999,Matuszek2010,Regier2001,Kelleher2006,Blisard2005}.  {\sc
 Spark} distinguishes between agent-independent symbolic locations (allocentric
 spatial relations) and agent-dependent, relative locations (egocentric spatial
 relations).
 
-{\sc Spark} computes three main agent-independent relations based on the
-bounding box and centre of mass of the objects
+{\sc Spark} computes three main agent-independent relations~\cite{Sisbot2011}
+based on the bounding box and centre of mass of the objects
 (Figure~\ref{fig|spark-oro}\emph{a}): \concept{isOn} holds when an object $O_1$
 is on another object $O_2$, and is computed by evaluating the centre of mass of
 $O_1$ according to the bounding box of $O_2$.  \concept{isIn} evaluates if an
@@ -1231,8 +1238,11 @@ to recognize simple atomic actions. Those primitive actions are assessed through
 monitoring situations like ``an empty hand is close to an object on a table''
 (precursor for a \emph{pick}), or ``a hand holding an object is over a
 container'' (precursor for a \emph{throw}).  {\sc Spark} recognises a set of
-such primitives that are relied upon by the execution controller to track the
-state transitions in the human plans.
+such primitives. When combined with the other geometric computations and a predictive
+plan of the human actions (see Section~\ref{hatp}), the execution controller can
+track the fulfilment of the pre- and post-conditions of the predicted human
+actions. As a result, the robot can monitor the engagement of the human and the
+overall progress of the human-robot shared plan.
 
 \subsubsection{Limitations}
 
@@ -1270,12 +1280,15 @@ We acquire natural speech input from the human participants through a custom
 Android-based interface that relies on the Google speech recognition API for
 speech-to-text and relays the textual transcript to the robot. It is parsed into
 a grammatical structure (\emph{Part of Speech} tagging), and the atoms of each
-sentence are resolved with the help
-of the ontology to ground concepts like objects (\ie when a user says ``pick the
-can'', it resolves to which instance of \emph{can} the user is referring to) and
-actions.  Sentences are classified into questions, desires and statements, and
-processed accordingly.  Figure~\ref{dialogs|ex} gives an example of the
-processing of a simple, non-ambiguous command.
+sentence are resolved with the help of the ontology to ground concepts like
+objects (\ie when a user says ``pick the can'', it resolves to which instance of
+\emph{can} the user is referring to) and actions.  Figure~\ref{dialogs|ex} gives
+an example of the processing of a simple, non-ambiguous command, while the first
+study (Section~\ref{moving-london}) walks through more complex examples.
+Heuristics (like the presence of a question mark or the use of imperative mood)
+are used to classify the sentences into questions, desires or statements, and
+{\sc Dialogs} processes them accordingly (by answering questions or
+updating the knowledge base).
 
 \begin{figure}
     \centering
@@ -1302,7 +1315,7 @@ processing of a simple, non-ambiguous command.
     \end{tabular}
     \begin{tabular}{l}
 
-        \emph{Generated query} \\
+        \emph{Generated query to ontology} \\
         \hline
         \concept{find(?obj type Book)} \\ 
         \hspace{0.2cm}$\Rightarrow$ \concept{?obj = book\_1} \\
@@ -1318,13 +1331,16 @@ processing of a simple, non-ambiguous command.
          \stmt{sit\_1 type Give} \\
          \stmt{sit\_1 performedBy myself} \\
          \stmt{sit\_1 actsOnObject book\_01} \\
-         \stmt{sit\_1 receivedBy human} \\
+         \stmt{sit\_1 receivedBy human\_1} \\
     \end{tabular}
 
     \caption{Processing of a simple, non-ambiguous command, taken
         from~\cite{Lemaignan2011a}. Thematic roles ({\tt performedBy}, {\tt
         actsOnObject}, {\tt receivedBy}) are automatically extracted by 
-    {\sc Dialogs} from the imperative sentence ``Give me the book.''.}
+    {\sc Dialogs} from the imperative sentence ``Give me the book.'' The new
+    resulting statements (right column) are added to the knowledge base, and
+    may eventually trigger an event in the execution controller (see
+    Section~\ref{events}).}
 
     \label{dialogs|ex}
 \end{figure}
@@ -1380,9 +1396,9 @@ hence discrimination possibilities are available. For instance, the robot may
 compute that one bottle is next to a glass while another one stands alone, and
 these symbolic descriptions are transparently re-used in a dialogue context to
 generate unambiguous references to discriminate between similar objects: ``do
-you mean the bottle that is next to the glass?'' (\cite{Ros2010b} provides a
-detailed account of our approach to interactive concept discrimination, along
-with the related algorithms).
+you mean the bottle that is next to the glass?''. \cite{Ros2010b} provides a
+detailed account of our approach to interactive concept clarification and
+discrimination, along with the related algorithms.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -1399,8 +1415,8 @@ Network) planning domain representation and semantics by making them more
 suitable to elaborate plans which involve humans and robots acting together
 toward a joint goal. HATP is used by the robot to elaborate human-robot
 \emph{shared plans}~\cite{Grosz1996,Clark1996,Kemp2007} which are then used to
-anticipate human action, to propose to human to act or even to ask help from
-the human.
+anticipate human action, to suggest a course of action to humans, or even to ask
+help from the human.
 
 The HATP planning domain defines a set of methods describing how to
 decompose a task and represents the procedural knowledge of the robot as well as
@@ -1496,7 +1512,7 @@ additional cost function.
 
 HATP includes mechanisms called \emph{social rules} to filter plans so as to
 keep only those considered as suitable for human-robot interaction. The planner
-allows the specification of the following filtering criteria:
+allows for the specification of the following filtering criteria:
 
 \emph{Wasted time}: avoids plans where the human spends a lot
 of its time being idle,
@@ -1506,7 +1522,7 @@ not fairly distributed among the agents taking part to the plan.  It is
 indeed sometimes beneficial to balance efforts between the human and
 the robot,
 
-\emph{Control of intricacy}: avoids plans with too many interdependencies
+\emph{Simplicity}: avoids plans with too many interdependencies
 between the actions of agents mentioned in the plan, as a problem with
 executing just one of those actions could invalidate the entire
 plan. Also intricate human-robot activity may cause discomfort since
@@ -1622,7 +1638,7 @@ provides a large set of high-level actions and an event-based architecture well
 suited for prototyping. They both rely on extensive integration with the knowledge
 base, that serves as the primary source of semantics for the decision making process.
 
-One of the main role of {\sc Shary} is to control the production and execution
+One of the main roles of {\sc Shary} is to control the production and execution
 of shared plans. This means essentially context-based refinement and robot
 actions execution, as well as monitoring of those achieved by its human
 partner. One of the key design goal is to build such abilities in a generic
@@ -1646,11 +1662,13 @@ communicate their beliefs about the task to be achieved, in order to share
 mutual knowledge and to synchronise their activities.  This is done through
 real-time task-based situation assessment achieved by the combination of {\sc
 Shary} monitoring processes and {\sc Oro} inference
-mechanisms~\cite{fiore2014}.
+mechanisms~\cite{fiore2014}. \fixme{Rachid, reviewer 2 asks for more details
+about this process -> M. Fiore work?}
 
 
 
 \subsubsection{Event-Driven Control}
+\label{events}
 
 The {\sc Oro} server supports two paradigms to access its content: RPC-style
 queries (based on the standard SPARQL language) or events. A module can
@@ -1661,9 +1679,9 @@ triggered.
 
 This allows us to write reactive robot controllers with a high level of
 expressiveness: for instance, by subscribing to the event \stmt{human1 desires
-?action, ?action type Take, ?action actsOnObject ?obj, ?obj type Toy}, we could trigger a
-behaviour when the human expresses (through dialogue, gestures...) that he
-wants a toy.
+?action, ?action type Give, ?action actsOnObject ?obj, ?obj type Book}, we could
+trigger a behaviour when the human expresses (through dialogue, gestures...)
+that he wants the robot to give her a book.
 
 The robot controller designer does not need to directly care about how this
 \emph{desire} is produced (this is delegated to perception modules), he can
@@ -1960,6 +1978,7 @@ result \stmt{BLACK\_TAPE isOn table, BLACK\_TAPE isNextTo TOOLBOX} into ``The
 other tape is on the table and next to the toolbox.''
 
 \subsection{\emph{Cleaning the table} Study}
+\label{sec:cleantable}
 
 \begin{figure}[ht!]
     \centering
@@ -1972,11 +1991,11 @@ other tape is on the table and next to the toolbox.''
     \label{fig|cleantable-video}
 \end{figure}
 
-
-This study (Figure~\ref{fig|cleantable-video}) exhibits a richer decision-making
-process. The {\sc Oro} server is used in conjunction with the HATP symbolic task
-planner and the {\sc Shary} execution controller to produce and execute a shared
-plan.
+This second study demonstrates a richer decision-making process where the {\sc
+Oro} server is used in conjunction with the HATP symbolic task planner and the
+{\sc Shary} execution controller to produce and execute a shared plan. The task
+consists in cooperatively cleaning a table by moving objects into their target
+bins (Figure~\ref{fig|cleantable-video}).
 
 %In this scenario (Figure~\ref{fig|cleantable-video}), a human and a robot
 %cooperate to remove objects from a table. The robot produces symbolic plans for
@@ -2300,7 +2319,7 @@ only the mind is not a purely abstract system, disconnected from the physical
 world, but even more, cognition fundamentally relies on its relation to the
 physical world (so-called \emph{embodied cognition}). Varela~\cite{Varela1992}
 is one of the main discoverers of these mechanisms, and coined the concept of
-\emph{enactivism} as the theoretical framework that study the links between
+\emph{enactivism} as the theoretical framework that studies the links between
 cognition, embodiment and actions.  This has since been thoroughly studied in
 robotics and artificial intelligence (Pfeifer and
 Bongard~\cite{pfeifer2007body} is one of the reference).
@@ -2312,7 +2331,7 @@ manipulates) and its semantics (its meaning, anchored in the world). The
 relation between the symbol, the referent of the symbol, and mediating minds
 is classically referred as the \emph{semantic triangle} and has been
 extensively studied in linguistics. The issue of grounding is well known in
-cognitive science and is summarised by Harnard~\cite{Harnad1990} by this
+cognitive science and is summarised by Harnad~\cite{Harnad1990} by this
 question: ``how the semantic interpretation of a formal symbol system can be
 made intrinsic to the system?''. This issue has a major practical importance in
 robotic: for a robot to be both endowed with a symbolic representational and
@@ -2353,12 +2372,12 @@ accounted for when grounding human-robot interaction.
 
 Our context, where a robot has to achieve a task together with
 humans, raises issues to be tackled by the robots' decisional components, and
-that we can summarises as ``W-questions'': \emph{What}, \emph{Who}, \emph{When},
+that we can summarise as ``W-questions'': \emph{What}, \emph{Who}, \emph{When},
 \emph{Where} and \emph{How}?
 
 \emph{What to do next}, at different levels of abstractions and while taking
 into account not only the current state but also the long term goals, is the
-basic question for an intelligent robot. Its is made more complex here by having
+basic question for an intelligent robot. It is made more complex here by having
 to deal with the partially observable physical and mental state of the human
 partner, and by the extended set of possible actions.
 
@@ -2389,6 +2408,9 @@ These five questions should not be considered independently from each others and
 often require, on the contrary, to be dealt with in a single decision step. The
 human-aware task and motion planners which we have built, are instances of
 systems which have been designed to deal with such intricate decision issues.
+
+\fixme{Rachid: the reviewer 2 asks for a better connection between these general
+questions and the specific approaches that we take}
 
 \subsection{Putting the Humans into Equations}
 
@@ -2563,10 +2585,10 @@ architecture for socially interactive robots~\cite{Lemaignan2013}.
 
 \subsection{A Deliberative Architecture for Social Robots}
 
-Rachid -- TDB: what are the other 'deliberative architecture for socially interactive
-robots' and where/how ours is better?
+\fixme{Rachid -- TDB: what are the other 'deliberative architecture for socially interactive
+robots' and where/how ours is better?}
 
-Discussion on deliberative architectures != cognitive architecture: a \emph{cognitive
+\fixme{Discussion on deliberative architectures != cognitive architecture}: a \emph{cognitive
 architecture} is usually understood as an artificial yet principled model of (human)
 cognition, while we propose a practical approach to consistently combine a large
 set of independent cognitive processes by bridging them through high-level semantics.
