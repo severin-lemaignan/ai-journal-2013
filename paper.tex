@@ -2524,6 +2524,51 @@ the \emph{spygame}, we would like to mainly use immanent properties, not
 volatile like a gaze. More research is required to identify relevant
 interaction contexts and knowledge classes attached to them.
 
+\section{Conclusion}
+\label{sect|conclusion}
+
+\subsection{Summary of the Contribution}
+
+We have presented in this paper a large deliberative architecture designed for
+social robots. While most of its sub-components have been independently
+presented in other publications, we offer here for the first time a perspective
+on the overall integration of these components into a coherent and consistent
+system for social human-robot interaction. We have first exposed our underlying
+knowledge model based on Description Logics~\cite{Lemaignan2010} and some of the
+resulting reasoning capabilities pertaining to disambiguation~\cite{Ros2010b}
+and mental modelling~\cite{warnier2012when} that are shown to effectively
+scaffold interaction using human-level semantics and cognitive skills. We have
+then presented our approach to symbol grounding, build on an amodal situation
+assessment environment~\cite{Sisbot2011} that supports perspective
+taking~\cite{Marin2008,Ros2010}. We
+combine it further with an advanced natural
+language processor~\cite{Lemaignan2011a} to provide complete multi-modal interactive
+communication.  The paper also covers our symbolic social task
+planner~\cite{Alili2008, Alili2009, Lallement2014}: it generates predictive
+plans of the human actions that enable the system to plan for joint human-robot
+tasks. It can also make use of social heuristics to optimize plans for social
+acceptability. We briefly mention our human-aware motion and manipulation
+planner~\cite{Sisbot2008,Mainprice2011,Pandey2011}, and finally present two
+execution controller, the PRS-based {\sc Shary}~\cite{clodic2008shary,fiore2014} and the
+event-driven {\sc pyRobots}~\cite{lemaignan2015pyrobots}.
+
+The integration of these components in a consistent, working and observable
+system is supported by the design of our software interfaces: most of the
+datastreams exchanged by our components uses high-level semantics in the form of
+first-order logic statements. The two reported support studies further evidence
+how our use of explicit, high-level semantics provide a low-impedance,
+human-level mean of building a complex deliberative
+architecture for socially interactive robots~\cite{Lemaignan2013}.
+
+\subsection{A Deliberative Architecture for Social Robots}
+
+Rachid -- TDB: what are the other 'deliberative architecture for socially interactive
+robots' and where/how ours is better?
+
+Discussion on deliberative architectures != cognitive architecture: a \emph{cognitive
+architecture} is usually understood as an artificial yet principled model of (human)
+cognition, while we propose a practical approach to consistently combine a large
+set of independent cognitive processes by bridging them through high-level semantics.
 
 \subsection{The Next Steps}
 
