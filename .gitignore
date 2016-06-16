@@ -1,0 +1,14 @@
+*.swp
+*.aux
+*.glo
+*.ist
+*.toc
+*.log
+*.out
+*.bbl
+*.blg
+*.ind
+*.ilg
+*.idx
+.*
+*.spl

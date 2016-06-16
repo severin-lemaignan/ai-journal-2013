@@ -1,0 +1,319 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+
+\begin{document}
+
+Dear Editors, Dear Reviewers,
+
+\vspace{2em}
+
+We would like first to thank the reviewers for their thorough review of our
+work. The manuscript underwent a major rewrite, impacting both the overall style
+(which should now be of much higher quality) and the whole organisation of
+the paper (following the reviewers' recommendations). We also dedicated time to
+redraw the figures in an improved academic style.
+
+The novelty of this contribution has been questioned by one of the reviewers.
+We hopefully address this concern hereafter, along with the other comments of
+Reviewer 3.
+
+We have as well attempted to address individually each of the other concerns
+raised by the reviewers in this document (note that minor typos/style issues
+have been fixed directly in the manuscript, and are not discussed here).
+
+
+\section{Comments from Reviewer 1}
+
+\begin{itemize}
+
+    \item \emph{For longer journal articles, a citation style like 'apalike' that uses the
+author names in the references would be more pleasant to read since it saves
+reviewers from jumping back and forth all the time.}
+
+As indicated by the Editor in Chief, we need to keep the current citation style.
+
+    \item \emph{p9: Instead of storing these models separately (having to
+    update each
+of them), wouldn't it be easier to compute them once they are needed, and
+to maintain a quasi-global world belief?} This is a design choice that trades
+off scalability for an explicit domain. We have clarified and
+justified this design choice in section 2.2 (\emph{Knowledge model}). Also, in
+the specific case of agent-dependent models, we want to represent
+false-beliefs situations (where one agent carries wrong beliefs on the world)
+that can typically not be computed ``on demand'' because they are observable
+only at specific times.
+
+    \item \emph{p10 l 49: How is this discrimination done?} The discrimination
+        algorithms are detailed in \cite{Ros2010b} (Best Paper Award at
+        ROMAN2010). We now briefly mention them in the paper (p.7), and we have added a
+        reference to this paper.
+
+    \item \emph{p11 l 42-44: These concepts like "feeling uncomfortable" or "could be
+      misinterpreted" are very complex and consist of multiple facets. Please
+        explain which of these facets are supported by the system and how this
+          information (and the classifier determining this information) is
+          derived.
+            I would expect the real difficulty to be how to determine these
+            aspects in
+              a nontrivial way, rather than their combination by considering
+              them as "yet
+          another cost function".}
+
+          Section 3.4.2 attempts to better explain these techniques, based on
+          \emph{a posteriori} filtering. The application of these rules is
+          currently static: the execution controller calls the planner with
+          pre-defined parameters. As noted by the reviewer, the online
+          adaptation of these parameters, while technically straightforward,
+          implies a level of interaction management that we have yet to
+          explore.
+
+    \item \emph{p15 While the production of such rules is one thing, managing the
+    dynamics of this knowledge and e.g. removing it once it's outdated or updating
+once it has changed are crucial. This should be explained in more detail.}
+The dynamics of the knowledge are managed by the clients  of the knowledge base
+themselves (ie, the deliberative components like the situation assessment
+module, the dialogue processing module, etc.). In particular, the situation
+assessment module recomputes at every step the whole set of spatial relations,
+and update accordingly the knowledge base. This has been clarified in both
+section 2.2 (\emph{Knowledge model}) and section 3.2 (\emph{Situation
+Assessment, Human Awareness, Perspective Taking})
+
+    \item \emph{The paragraphs in Section 3.4.3 appear to be rather
+        disconnected, some effort should be made to turn this into a readable
+        text and to explain design choices like the 3-tuple representation or the
+        gripper states that just drop out of the blue.}
+
+        This section (now 3.5) has been reworked, and should now be
+        self-explanatory.
+
+    \item \emph{The example scenarios have very bold names for often rather
+        simple things.} The reviewer is indeed right. We have mistakenly used internal
+        \emph{code names} for the experiments' names. These have been reworded.
+        Besides, we have replaced the terminology \emph{Experiments} by
+        \emph{Case studies} to better reflect the nature of these results.
+
+    \item \emph{p 20: AFAIK KnowRob stores OWL as facts in Prolog, why
+        should the TBOX be immutable?} The reviewer is right insofar as there is
+        not limitations inherent to Prolog in that regard. We have removed the
+        reference to KnowRob TBOX, that originated in a discussion with KnowRob's author who told
+        us then that KnowRob could not update at run-time its TBox. We were
+        however        not able to find literature confirming this fact, and we
+        have removed this reference.
+
+\end{itemize}
+
+\section{Comments from Reviewer 2}
+
+Reviewer 2 raised several concerns regarding the overall article organisation
+and lack of focus: \emph{``The overall impression is that the paper tries to
+cove a too brad set of topics. As a result the takeaway message for the user is
+too vague.''}
+
+S/he recommended to modify the section 3 to either provide more informations
+\emph{``to understand the problems and the technical solutions''} or to focus on
+one particular cognitive skill; asked for \emph{``more substantial validation
+of the specific problem(s) chosen in section 3''} in section 4, and suggested
+several modifications to the discussion.
+
+We have attempted to address these concerns in the following way:
+
+\begin{itemize}
+    \item section 3 underwent a large rewrite, in particular to provide
+        technical insights, as well as a better overall picture of the role and
+        importance of these skills. We have also added a subsection on the
+        reasoning processes that take place in the background.
+    \item the section 4 (previously ``experimental outcomes'') has been
+        rewritten to make clear that we only present here \emph{case studies}
+        that are meant to illustrate and clarify how the whole architecture
+        works ``in the real world''. Besides, more details have been provided to the
+        \emph{Clean the Table} study (as well as a redesigned figure) to help
+        the user to follow the execution flow.
+    \item the discussion section has been entirely reorganised and refocused, following the
+        Reviewer recommendations. The key decisional issues have been explicitly
+        stated, and overlaps between subsections have been addressed.
+\end{itemize}
+
+We address hereafter the other specific points raised by the reviewer:
+
+\begin{itemize}
+
+    \item \emph{introduction "This article attempts however to organize them
+            (i.e. the AI challenges
+            in HRI) into a coherent challenge for artificial intelligence, and
+            also to make explicit 
+            some of the paths that have been investigated on our robots and that
+            result in a deliberative, 
+            knowledge-oriented, architecture for human-robot interaction." This
+            suggests that the
+            architecture plays a central role, but the contribution in terms of
+            architecture is not 
+        the most interesting one.}
+
+        We have accordingly rephrased this paragraph to make clear that our
+        contribution focuses on a set of deliberative components that interact
+        to support human-robot interaction.
+
+    \item \emph{pge 4 (section 2)
+            "execution controller that may decide to take an incoming desire
+            into account to create
+            its own internal goals." The role of the execution controller
+            remains unclear (discussed
+        also in subsection 3.4.3).}
+
+            Section 2.2 (Knowledge Model) has been largely rephrased, and
+            hopefully clarifies the role of the execution controller.
+
+    \item \emph{"Aligning the upper part of the ontology on OpenCyc ..." In my
+            view the requirement of
+            compatibility with other ontologies is not so critical. What would
+            be really nice are
+            ontologies (or techniques for extracting form general resources)
+            that capture
+        the common sense knowledge that is essential for robot operation.}
+
+            We agree with the reviewer. While, until now, our focus has not been on
+            merging external sources of common-sense knowledge with the robot's
+            knowledge model, we believe that by initially relying on de-facto
+            standards like OpenCYC ensures to some extent that we will be able
+            to do so in the coming years.
+
+    \item \emph{pg. 7 (Section 3.1) ``From an artificial intelligence
+            perspective, Spark takes care of merging sensing modalities, it
+            computes and grounds perceptions into symbolic knowledge (situation
+            assessment), it is responsible temporal interpretation of situations
+            and performs spatial perspective-taking.'' given on this
+        characterization, Spark should be discussed in greater detail.}
+        
+        We have
+        significantly developed the presentation of {\sc Spark}, in
+        particular to exhaustively cover what and how symbolic relations are
+        computed.
+
+    \item \emph{pg 10 (section 3.2.1)
+            "The system supports ...". This is one example of a topic that would
+            be really interesting to the readers and it is just hinted. In
+            particular, learning rules like "cats are animals" maybe really
+            nice, but are such rules compatible with the existing knowledge?
+            Adding them as triples may work only in absence of contradictions}
+            
+            The various natural language grounding processes that are made
+            possible within this semantic architecture would require a
+            relatively long discussion to be adequately explained. They are
+            besides already presented in~\cite{Lemaignan2011a}.  We have added
+            an explicit reference to this previous publication.
+
+            To specifically answer the reviewer question on how possible
+            contradictions are managed, we indeed check that, \emph{when
+            proposed by humans}, new statements
+            do not lead to contradictions before inserting
+            them.
+
+    \item \emph{pg 10 (section 3.2.1)
+            "Note that, while the system benefits from the complementary
+            modalities, they are not all
+            required. The dialogue system can run with only the verbal modality,
+            at the cost of a simpler interaction."
+        Possibly true, but unjustified claim.}
+        
+        An example has been added to
+        clarify this fall-back mechanism.
+
+    \item \emph{pg. 10-11 section 3.3
+            HATP planner is another interesting contribution that could be
+            further detailed for the AIJ reader. 
+            It is unclear why for planning a representation "outside the central
+            knowledge base" is needed. What is then the relationship between the
+            knowledge in the two distinct KBs?
+            See also the sentence "Hence only a few ontology rules have been
+            required to map both the  knowledge extracted from the situation assessment and the statements
+            originated from the verbal  interaction to the planner domain." ( pg. 12)}
+
+            The section on HATP (section 3.3) has been rewritten and extended to
+            better reflect the capabilities of this planner. References to
+            recent work on this tool have been added as well.  The paragraph
+            that discuss the issue of procedural vs declarative knowledge has
+            been rephrased as well.
+
+
+    \item \emph{"The second level of integration of multi-modality is implicit:
+            by computing symbolic properties 
+            from the geometry, richer descriptions and hence discrimination
+            possibilities are available: 
+            for instance, if reachability is available, the robot may ask "do
+            you mean the bottle that is 
+            accessible to me?" to discriminate between the three bottles. That
+            way, procedures relying on 
+            discrimination transparently benefit from added modalities." Concept
+            remains unclear.}
+            
+            The paragraph has been rephrased and the example
+            updated to clarify the concepts.
+
+    \item \emph{In the current form, Section 2.3 seems outside the scope of the
+            paper. The discussion on working memory is quite interesting, but
+            since it is still to be developed in detail it maybe a topic for
+            future perspectives. In that case it would be nice to read which AI
+            techniques could help tackling the issue.}
+            
+            The presentation of
+            ``internal cognitive skills'' has been extended, refined and integrated
+            to section 3. Specifically, several literature references have been
+            added to the discussion on memory, both on the theoretical side and on
+            existing implementations.
+
+    \item \emph{``Subclasses (like Give, LookAt, etc.) are not asserted in the
+            common-sense ontology, but are added by the execution controller (in
+            link with the symbolic task planner) and the natural language
+            processor based on what is actually performable and/or
+            understandable by the robot at run-time'' This is very difficult to
+            understand. Provide more details and, possibly, an example}
+            
+            The paragraph
+            has been rephrased and illustrated to be easier to understand.
+
+\end{itemize}
+
+\section{Comments from Reviewer 3}
+
+The main concern of Reviewer 3 relates to the lack of originality of this
+contribution.
+
+The reviewer references two previous publications by the authors. \emph{Grounding
+the Interaction: Anchoring Situated Discourse in Everyday Human-Robot
+Interaction} has indeed been published in 2011 in the \emph{International Journal of
+Social Robotics}. However, the overlap with this article appears to be minimal. The
+discussion on natural language grounding, which is the focus of the previously
+published article, is only briefly summarized in the present article (section
+3.3) and as far as we can tell, only one picture, used as an example, as been
+reused.
+
+The second publication, \emph{When the robot considers the human...} is supposed
+to appear in the proceedings of the \emph{2011 International Symposium on
+Robotics Research}, but has yet to be actually published.  While this article
+indeed presents our architecture in a way similar to our proposed contribution,
+the fact that it belongs to the proceedings of a conference and that it has
+actually not yet been published should make it mostly irrelevant.
+
+The reviewer 3 also expresses concerns regarding our proposal not \emph{``helping
+researchers to build upon each other's work''} because of the way we
+\emph{``presents our design choices''}. We understand this remark has being
+related to the comment by Reviewer 2 regarding us not presenting clearly
+enough the key issues of human-robot interaction and consequently, the
+challenges that HRI brings to artificial intelligence. As explained above, we
+have hopefully addressed this concern in the current version of the paper.
+
+Generally speaking, we would like to underline that, while we acknowledge that a
+lot of material has been already published on the different sub-systems of
+our architecture (as rightfully noted by Reviewer 1), this article give for the
+first time a complete picture of the system. This offers, in our opinion, a
+perspective on the state of the art in cognitive robotic architectures
+for human-robot interaction that may be of interest for the AI and robotics
+research communities.
+
+\bibliographystyle{abbrv}
+\bibliography{laas_hri}
+
+
+
+\end{document}
