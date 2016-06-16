@@ -99,7 +99,7 @@ pervasive, human-level semantics within the robot's deliberative system.
 
 \subsection{The Human-Robot Interaction Context}
 
-Human-robot interaction is a challenge for artificial intelligence. This field
+Human-robot interaction is a challenge for Artificial Intelligence. This field
 lays at the crossroad of several domains of AI and requires to tackle them in a
 holistic manner: modelling humans and human cognition; acquiring, representing,
 manipulating in a tractable way abstract knowledge at the human level; reasoning
@@ -110,7 +110,7 @@ from task planning to \emph{theory of mind} building, from reactive control to
 action recognition and learning.
 
 We do not claim to address here the issue as a whole. This article attempts
-however to organise it into a coherent challenge for artificial intelligence,
+however to organise it into a coherent challenge for Artificial Intelligence,
 and to explain and illustrate some of the paths that we have investigated on our
 robots, that result in a set of deliberative, knowledge-oriented, software
 components designed for human-robot interaction.
@@ -123,9 +123,9 @@ communication, deictic gestures and social gaze), and the robot is expected to a
 interactive object manipulation, fetch and carry tasks and other similar
 chores by taking into account, at every stage, the intentions, beliefs,
 perspectives, skills of the human partner.  Namely, the robot must be able to
-recognise, understand and participate to communication situations, both explicit
+recognise, understand and participate in communication situations, both explicit
 (\eg the human addresses verbally the robot) and implicit (\eg the human points
-to an object); the robot must be able to take part to joint actions, both
+to an object); the robot must be able to take part in joint actions, both
 pro-actively (by planning and proposing resulting plans to the human) and
 reactively; the robot must be able to move and act in a safe, efficient and
 legible way, taking into account social rules like proxemics.
@@ -195,21 +195,21 @@ robot, ranging from teammate behaviour to assistant or pro-active helper.
 
 These are the challenges that we will discuss in this article.
 
-\subsection{Article overview}
+\subsection{Article Overview}
 
 The remaining of the article discusses the robotic architecture that we have built to
 tackle the AI challenges of human-robot interaction, and how its relates to
-other approaches. We propose to organise this discussion in four sections.
+other approaches. We organise this discussion in four sections.
 
 The next section introduces the architecture as a whole, as well as the
 knowledge model that we have developed for our robots. Then,
 Section~\ref{sec:impl} details each of the main components of the architecture,
-and highlights their significance for artificial intelligence.
+and highlights their significance for Artificial Intelligence.
 Section~\ref{sec:expe} presents two studies that illustrate in a practical way
 what can be currently achieved with our robots.  The
 Sections~\ref{sect|discussion} and~\ref{sect|conclusion} finally restate our
 main contributions and discuss the key challenges that human-robot interaction
-brings to artificial intelligence.
+brings to Artificial Intelligence.
 
 \section{Deliberative Architecture and Knowledge Model}
 
@@ -549,7 +549,7 @@ not usually considered as an object. {\sc OpenCyc} however precisely defines an
 object as anything at least \emph{partially tangible}. This includes obviously
 the humans, and actually many other entities that would not be commonly said to
 be objects (the Earth for instance). Thus the importance of relying on
-well-defined and standard semantics to exchange informations between artificial
+well-defined and standard semantics to exchange information between artificial
 systems in a non-ambiguous way.
 
 Figure~\ref{fig|upper_tbox} also illustrates the fundamental disjunction
@@ -625,7 +625,7 @@ $$
 $$
 
 If a human informs the robot that a given object is indeed a bottle, the robot
-derives more informations on the object. Conversely, if the human affirms that
+derives more information on the object. Conversely, if the human affirms that
 ``a car is a bottle'', the reasoner may detect logical contradictions (like
 inconsistent sizes) and reject the assertion. The {\sc Dialogs} module relies
 on such logical consistency checks when processing natural language inputs,
@@ -757,7 +757,7 @@ in the knowledge base, we have been able to replicate this experience with
 our robots~\cite{warnier2012when}, in a manner similar to Breazeal
 \etal\cite{breazeal2009embodied}.
 
-\subsubsection{Working memory}
+\subsubsection{Working Memory}
 \label{memory}
 
 Memory has been studied at length in the cognitive psychology and
@@ -769,11 +769,11 @@ organises the concepts of \emph{procedural}, \emph{semantic} and \emph{episodic}
 memories into a hierarchy. Short-term memory is eventually refined with the
 concept of \emph{working memory} by Baddeley~\cite{Baddeley2010}.  In the field
 of cognitive architectures, the {\sc Soar} architecture~\cite{Lehman2006} is one
-of those that tries to reproduce a human-like memory organisation. The GLAIR
+of those that try to reproduce a human-like memory organisation. The GLAIR
 cognitive architecture~\cite{Shapiro2009} also has a concept of long term/short
 term and episodic/semantic memories.
 
-It is worth emphasising that if memory is commonly associated to the process of
+It is worth emphasising that while memory is commonly associated with the process of
 forgetting facts after a variable amount of \emph{time}, it actually covers
 more mechanisms that are relevant to robotics, like priming
 (concept pre-activation triggered by a specific
@@ -798,12 +798,13 @@ robot as \emph{active concepts}: if a human asks the robot ``Give
 me all red objects'', the human, the \concept{Give} action, and each red
 objects that are found are successively marked as \emph{active concepts} by
 inserting statements such as \stmt{human type ActiveConcept} in the short-term
-memory (which can be considered, in this case, to be a working memory). We use
-this feature during dialogue disambiguation for instance. On the other hand,
-our perception layer does not make use of this mechanism: as described in the
-next section, the environment model of the robot is continuously updated and the
-derived symbolic knowledge is therefore transient: it lasts only as long as the
-environment remains in the same state.
+memory (which can be considered, in this case, to be a working memory).
+Likewise, recently seen or updated geometric entities are flagged as
+\concept{ActiveConcept}. We use this feature during dialogue disambiguation for
+instance. On the other hand, our perception layer does not make use of this
+mechanism: as described in the next section, the environment model of the robot
+is continuously updated and the derived symbolic knowledge is therefore
+transient: it lasts only as long as the environment remains in the same state.
 
 
 \subsection{Acquiring and Anchoring Knowledge in the Physical World}
@@ -985,7 +986,7 @@ agents.}
 \label{sect|situ}
 
 \paragraph{Perspective Taking} \emph{Visual} perspective taking refers to the
-ability for visually perceiving the environment from other's point of view.
+ability for visually perceiving the environment from another person's point of view.
 This ability allows us to identify the objects in situations where the visual
 perception of one person differs from the other one. In developmental
 psychology, one typical example consists of two similar objects in a room (\eg
@@ -1036,11 +1037,10 @@ determine if two objects are next to each other since the relation is highly
 dependent on the dimensions of the objects. For instance, the maximum distance
 between large objects (\eg two houses) to consider them as being next to each
 other is much larger than the maximum distance we would consider for two small
-objects (\eg two bottles). Thus, the relation between the dimensions and the
-distances of the objects are taken into account.  {\sc Spark} also compute
-symbolic facts related to agent independent world dynamics.  The predicate
-\concept{isMoving} states, for each tracked entity, whether it is currently
-moving or not.
+objects (\eg two bottles). Thus, the distance threshold is scaled with the
+objects' size. {\sc Spark} also compute symbolic facts related to agent
+independent world dynamics.  The predicate \concept{isMoving} states, for each
+tracked entity, whether it is currently moving or not.
 
 Many other topological relations are dependent from the observation point
 (egocentric perspective).  The predicate \concept{hasRelativePosition}
@@ -1073,7 +1073,7 @@ current capabilities of the agents interacting with the robot is also required.
     within its field of view (FOV). In our current implementation, this
     affordance is computed by dynamically placing an OpenGL camera at the
     location of the eyes and running occlusion checks from it.  In
-    figure~\ref{fig|spark-oro}\emph{c} the field of view of a person is
+    Figure~\ref{fig|spark-oro}\emph{c} the field of view of a person is
     illustrated with a grey cone (the wider one). While he is able to see the two
     small boxes on the table in front of him, the big box on his right is out of
     his FOV, and therefore, he is not able to see it. 
@@ -1224,7 +1224,7 @@ controllers when necessary.
 Monitoring human activity is needed by the execution controllers to track the
 engagement of the human and the progress of his/her actions. Full human action
 and activity recognition is a task that requires knowledge and reasoning both on
-high level facts like goals, intentions and plans, as well as bottom-up data
+high-level facts like goals, intentions and plans, as well as bottom-up data
 from agent and object motions. {\sc Spark} implements a set of simple temporal and
 geometric heuristics on human hand trajectories and possible objects placements
 to recognize simple atomic actions. Those primitive actions are assessed through
@@ -1260,7 +1260,7 @@ only locally, and does not allow for tracking of long sequences or global events
 Natural language is a basic interaction modality that we use in our system both
 as input (processing of the human speech) and as output (verbalization of the
 robot intents). Natural language processing is facilitated by our architecture
-mostly processing informations with semantics that are already close to the
+mostly processing information with semantics that are already close to the
 human-level. This section presents the main features of our speech processor,
 {\sc Dialogs}, that include semantic and multi-modal grounding, and interactive
 disambiguation. Algorithmic and implementation details are provided
@@ -1274,7 +1274,7 @@ sentence are resolved with the help
 of the ontology to ground concepts like objects (\ie when a user says ``pick the
 can'', it resolves to which instance of \emph{can} the user is referring to) and
 actions.  Sentences are classified into questions, desires and statements, and
-processed accordingly.  Figure~\ref{dialogs|ex} gives a example of the
+processed accordingly.  Figure~\ref{dialogs|ex} gives an example of the
 processing of a simple, non-ambiguous command.
 
 \begin{figure}
@@ -1371,7 +1371,7 @@ Note that, while the system benefits from the complementary modalities, they are
 not all required. The dialogue system can run with the verbal modality alone, at
 the cost of a simpler interaction: if the human says ``this'' without the robot
 tracking what the human points at, no \stmt{human\_1 pointsAt ...} fact would
-possibly be available in the knowledge base, and the robot fallbacks on the
+possibly be available in the knowledge base, and the robot falls back to the
 anaphora resolution step alone.
 
 The second level of integration of multi-modality is implicit. By continuously
@@ -1491,7 +1491,7 @@ the human partner how a task may be shared~\cite{warnier2012when}.
 
 A cost and a duration function are associated to each action.  The duration
 function provides a duration interval for the action achievement and is used, in
-one hand, to schedule the different streams and, in the other hand, as an
+one hand, to schedule the different streams and, on the other hand, as an
 additional cost function.
 
 HATP includes mechanisms called \emph{social rules} to filter plans so as to
@@ -2279,8 +2279,8 @@ Interaction}
 The previous sections provide a perspective on a complete deliberative
 architecture for social robots, including an implementation supported
 ``real-world'' experimental deployments. This section synthesises next what we
-see as the main challenges that human-robot interaction brings to artificial
-intelligence.  We discuss first how embodied cognition is a very real challenge
+see as the main challenges that human-robot interaction brings to Artificial
+Intelligence.  We discuss first how embodied cognition is a very real challenge
 in human-robot interaction; we rephrase then the requirements of joint actions
 in terms of five questions; we discuss the importance of building and
 maintaining a multi-level model of the human; and we finally reflect on the
@@ -2309,7 +2309,7 @@ The challenge of symbol grounding is also tightly linked to this issue. It
 corresponds to the identification or creation, and then, maintenance of a link
 between the symbol (the syntactic form of knowledge that the computer
 manipulates) and its semantics (its meaning, anchored in the world). The
-relations between the symbol, the referent of the symbol, and mediating minds
+relation between the symbol, the referent of the symbol, and mediating minds
 is classically referred as the \emph{semantic triangle} and has been
 extensively studied in linguistics. The issue of grounding is well known in
 cognitive science and is summarised by Harnard~\cite{Harnad1990} by this
@@ -2367,7 +2367,7 @@ decided upon by the robot. It is sometimes expected as an intelligent behaviour
 for the robot to wait and let its human partner act instead. Correct management
 of \emph{turn-taking} leads to various decisional challenges.
 
-\emph{When to perform a given action} is enriched here by the human-context
+\emph{When to perform a given action} is enriched here by the human context
 since it has to take into account the human, his/her needs, his/her rhythms and
 pace, and his/her mental state. While performing its share of the task, the
 robot has to produce signals directed towards the human and to respond to
@@ -2393,11 +2393,11 @@ systems which have been designed to deal with such intricate decision issues.
 \subsection{Putting the Humans into Equations}
 
 The correlate of these five \emph{W-questions} is the issue the \emph{human
-models}: taking appropriate decisions with and in presence of humans require
-appropriate models of the human. Models that tell the robot what the human
-\emph{can do}, \emph{would like to do}, \emph{knows}, \emph{could infer}, etc.
+models}: taking appropriate decisions with and in presence of humans requires
+appropriate models of the human: what the human \emph{can do}, \emph{would like
+to do}, \emph{knows}, \emph{could infer}, etc.
 
-While the task of describing all the (dynamic!) human models that are useful to
+While the task of describing all the (dynamic) human models that are useful to
 robots is immense (if doable at all), we claim that it is possible to devise and
 use such models in limited, but still interesting and useful, contexts such as
 collaborative human-robot objects manipulation, fetch-and-carry and associated
@@ -2423,7 +2423,7 @@ Motion and action execution also requires human models, and the one we use
 embeds human preferences and physical constraints that need to be accounted for
 when synthesizing robot motion or elaborating robot plans. This includes
 proxemics (human-robot distance) and associated issues (visibility) but also
-legibility and acceptability criterias expressed in terms of \emph{social rules}
+legibility and acceptability criteria expressed in terms of \emph{social rules}
 that the elaborated plans should satisfy.
 
 %
@@ -2619,7 +2619,7 @@ future experiences.  Much remain to be done to this regard, starting with a
 formal analysis of what are the relevant contexts for our robots.
 
 Human-Robot Interaction is and is going to remain a challenging field for
-artificial intelligence. We hope that this contribution helps with clarifying
+Artificial Intelligence. We hope that this contribution helps with clarifying
 some of these challenges.
 
 \section*{Acknowledgements}
