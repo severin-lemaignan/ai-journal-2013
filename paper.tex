@@ -2094,9 +2094,11 @@ assess the overall progress of the plan.
 
         \coordinate (figbottom) at (-0.5, -28.5);
 
-        \path (-0.5,0) edge (figbottom) node[sloped, above left, rotate=90] {time};
 
         \fill[gray!10!white] (4.6,.5) rectangle (figbottom);
+
+        \path (-0.5,0) edge (figbottom) node[sloped, above left, rotate=90] {\large\bf time};
+
         \node at (2,0) (percept) {\bf Perception};
             \node[below=0.5 of percept.south west, anchor=mid] {camera};
             \node[below=0.5 of percept.south east, anchor=mid] {3D model};
@@ -2107,8 +2109,8 @@ assess the overall progress of the plan.
             \draw[dotted] (kbr) to (figbottom -| kbr);
             \draw[dotted] (kbh) to (figbottom -| kbh);
 
-        \fill[gray!10!white] (11.5,.5) rectangle (16.5,-28.5);
-        \node[right=4 of kb] (plan) {\bf Plan};
+        \fill[gray!10!white] (12,.5) rectangle (17,-28.5);
+        \node[right=4.5 of kb] (plan) {\bf Plan};
             \node[below=0.5 of plan.south west, anchor=mid east] (probot) {robot};
             \node[below=0.5 of plan.south east, anchor=mid west] (phuman) {human};
             \draw[dotted] (probot) to (figbottom -| probot);
