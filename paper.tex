@@ -26,10 +26,10 @@
 \newcommand{\stmt}[1]{{\footnotesize\tt$\langle$#1\relax$\rangle$}}
 
 \usepackage{xspace}
-\newcommand{\ie}{{i.e.\xspace}}
+\newcommand{\ie}{i.e.\xspace}
 \newcommand{\cf}{{\textit{cf\ }}}
-\newcommand{\eg}{{e.g.\xspace}}
-\newcommand{\etal}{{et al.\xspace}}
+\newcommand{\eg}{e.g.\xspace}
+\newcommand{\etal}{et al.\xspace}
 
 \newcommand{\action}[3]{#1\\\textsf{\scriptsize #2,}\\\textsf{\scriptsize #3}}
 
@@ -1156,12 +1156,12 @@ for the subjects and objects of the statements.
 	\end{tabular}
 
     \caption{List of statements describing agent-independent spatial
-        relationships between objects (top), agent-dependent placements (middle)
-        and attentional states and abilities of agents (bottom).
-        ``$\rightarrow$'' indicates sub-properties. When existing, the
-        equivalent predicate in the {\sc OpenCyc} standard (prefix \concept{cyc:})
-        is specified. Note that some relationships are not computed by {\sc Spark}, but
-        are instead inferred by the reasoner.}
+        relationships between objects (top), agent-dependent placements
+        (middle), and attentional states and abilities of agents (bottom).
+        ``$\rightarrow$'' indicates sub-properties. Where existing, the
+        equivalent predicate in the {\sc OpenCyc} standard (prefix
+        \concept{cyc:}) is specified. Note that some relationships are not
+        computed by {\sc Spark}, but are instead inferred by the reasoner.}
 
 	\label{facts}
 \end{table}
@@ -1256,7 +1256,7 @@ While {\sc Spark} algorithms themselves are ignorant of the input sources, and
 would work equally well with a full object recognition stack, we are yet to
 investigate this research area.
 
-Besides, temporal reasoning (essential for accurate action recognition for
+Additionally, temporal reasoning (essential for accurate action recognition for
 instance) is not properly addressed in our architecture. Temporal reasoning is used
 only locally, and does not allow for tracking of long sequences or global events.
 
@@ -1268,27 +1268,27 @@ only locally, and does not allow for tracking of long sequences or global events
 \subsubsection{Natural Language Grounding}
 
 Natural language is a basic interaction modality that we use in our system both
-as input (processing of the human speech) and as output (verbalization of the
-robot intents). Natural language processing is facilitated by our architecture
-mostly processing information with semantics that are already close to the
+as an input (processing of the human speech) and as an output (verbalization of the
+robot intentions). Natural language processing is facilitated by our architecture
+that processes information with semantics that are already close to a
 human-level. This section presents the main features of our speech processor,
 {\sc Dialogs}, that include semantic and multi-modal grounding, and interactive
 disambiguation. Algorithmic and implementation details are provided
 in~\cite{Lemaignan2011a}.
 
 We acquire natural speech input from the human participants through a custom
-Android-based interface that relies on the Google speech recognition API for
-speech-to-text and relays the textual transcript to the robot. It is parsed into
+Android-based interface. The interface relies on the Google speech recognition API for
+speech-to-text and relays the textual transcript to the robot. The text is parsed into
 a grammatical structure (\emph{Part of Speech} tagging), and the atoms of each
 sentence are resolved with the help of the ontology to ground concepts like
-objects (\ie when a user says ``pick the can'', it resolves to which instance of
+objects (\ie when a user says ``pick up the can'', it resolves to which instance of
 \emph{can} the user is referring to) and actions.  Figure~\ref{dialogs|ex} gives
-an example of the processing of a simple, non-ambiguous command, while the first
+an example of the processing of a simple, non-ambiguous command. The first
 study (Section~\ref{moving-london}) walks through more complex examples.
-Heuristics (like the presence of a question mark or the use of imperative mood)
-are used to classify the sentences into questions, desires or statements, and
-{\sc Dialogs} processes them accordingly (by answering questions or
-updating the knowledge base).
+Heuristics, like the presence of a question mark or the use of imperative mood,
+are used to classify the sentences into questions, desires or statements.
+{\sc Dialogs} processes these accordingly by answering questions or
+updating the knowledge base.
 
 \begin{figure}
     \centering
@@ -1337,7 +1337,7 @@ updating the knowledge base).
     \caption{Processing of a simple, non-ambiguous command, taken
         from~\cite{Lemaignan2011a}. Thematic roles ({\tt performedBy}, {\tt
         actsOnObject}, {\tt receivedBy}) are automatically extracted by 
-    {\sc Dialogs} from the imperative sentence ``Give me the book.'' The new
+    {\sc Dialogs} from the imperative sentence ``Give me the book.'' The 
     resulting statements (right column) are added to the knowledge base, and
     may eventually trigger an event in the execution controller (see
     Section~\ref{events}).}
@@ -1347,58 +1347,64 @@ updating the knowledge base).
 
 
 The system supports quantification (``give me \{a | the | some | all | any |
-...\} can''), thematic roles (action-specific predicates that qualify the
+$n$\} can''), thematic roles (action-specific predicates that qualify the
 actions), interactive disambiguation (the robot asks questions when it needs
-more information), anaphora resolution (``give \emph{it} to me'') based on
+more information), and anaphora resolution (``give \emph{it} to me'') based on
 dialogue history. It also supports knowledge extension by learning new semantic
-structures (for instance, a sentence like ``learn that cats are animals'' is
+structures. For instance, a sentence like ``learn that cats are animals'' is
 converted into \stmt{Cat subClassOf Animal} and added to the knowledge base
-after checking for possible contradictions with existing knowledge),
-interprets common temporal and spatial adverbs (like \emph{above} or
-\emph{tomorrow}) and translates simple expressions of internal state (``I'm
-tired'') into \emph{experiences} (\stmt{human\_1 experiences state\_1, state\_1
-hasFeature tired}, see also Section~\ref{sect:desires}). A full account of the
-{\sc Dialogs} features and the corresponding algorithms is available
-in~\cite{Lemaignan2011a}.
+after checking for possible contradictions with existing knowledge. {\sc
+Dialogs} finally interprets common temporal and spatial adverbs (like
+\emph{above} or \emph{tomorrow}) and translates simple expressions of internal
+state  into \emph{experiences} (for instance, ``I'm tired'' is processed into
+\stmt{human\_1 experiences state\_1, state\_1 hasFeature tired}, see also
+Section~\ref{sect:desires}). A full account of the {\sc Dialogs} features and
+the corresponding algorithms is available in~\cite{Lemaignan2011a}.
 
 \subsubsection{Multi-Modality}
 
 Because the components of our architecture rely on the same RDF formalism to
-represent their outputs, the different communication modalities (\emph{explicit}
-like verbal, deictic or based on gaze, or \emph{implicit} like the position of
-the human) are presented in a homogeneous way, as statements in the knowledge
-base. The dialogue grounding process makes use of them at two distinct levels to
-provide multi-modal concept grounding.
+represent their outputs, the different communication modalities are presented in
+a homogeneous way, as symbolic statements in the knowledge base. This applies
+both to \emph{explicit} modalities (verbal communication, deictic gestures,
+social gaze), and \emph{implicit} modalities (like the body position of the
+human). The dialogue grounding process makes use of them at two distinct levels
+to provide multi-modal concept grounding.
 
-First, specific steps of the grounding process explicitly check for the
-presence and value of specific facts: for instance, when several instances match
-a category (the human says ``give me the bottle'' and the robot knows about
-three bottles), the module may decide (it actually depends on the quantifier
-preceding the class, see the example at section~\ref{moving-london}) to discard
-some of them based on their \emph{visibility} for the speaker (implicit
-communication context taking into account the human position).
+First, specific steps of the grounding process explicitly check for the presence
+and value of certain facts. For instance, when several instances match a
+category (the human says ``give me the bottle'' and the robot knows about three
+bottles), the module may decide to discard some of the candidates based on their
+\emph{visibility} for the speaker (implicit communication context taking into
+account the human position). In this particular case, the heuristic is selected
+by {\sc Dialogs} based on the quantifier preceding the class (``give me
+\underline{the} bottle''). The first study (Section~\ref{moving-london})
+illustrates the details of this process.
 
-Another example, when the human says ``this'', the robot checks if the human is
-currently pointing at some object. In that case, \emph{this} is replaced by the
-object focused on. Otherwise, the robot performs a lookup in the dialogue history
-to find a previous concept that the user could refer to (anaphora resolution).
+As another example, when the human says ``this'', the robot checks if the human
+is currently pointing at an object. In that case, \emph{this} is replaced by the
+object focused on. Otherwise, the robot performs anaphora resolution by looking
+up in the dialogue history to find a previous concept that the user could refer
+to.
 
-Note that, while the system benefits from the complementary modalities, they are
-not all required. The dialogue system can run with the verbal modality alone, at
-the cost of a simpler interaction: if the human says ``this'' without the robot
+Note that while the system benefits from complementary modalities, they are not
+all required. The system can run with the verbal modality alone, at the cost of
+a simpler interaction. For example, if the human says ``this'' without the robot
 tracking what the human points at, no \stmt{human\_1 pointsAt ...} fact would
-possibly be available in the knowledge base, and the robot falls back to the
+possibly be available in the knowledge base, and the robot falls back on the
 anaphora resolution step alone.
 
 The second level of integration of multi-modality is implicit. By continuously
-computing symbolic properties from the geometric model, richer descriptions and
-hence discrimination possibilities are available. For instance, the robot may
-compute that one bottle is next to a glass while another one stands alone, and
-these symbolic descriptions are transparently re-used in a dialogue context to
-generate unambiguous references to discriminate between similar objects: ``do
-you mean the bottle that is next to the glass?''. \cite{Ros2010b} provides a
-detailed account of our approach to interactive concept clarification and
-discrimination, along with the related algorithms.
+computing symbolic properties from the geometric model, richer symbolic
+descriptions are available to the system to verbalize or discriminate entities.
+For instance, the robot may compute that one bottle is next to a glass, while
+another one stands alone. These symbolic descriptions are transparently
+re-used in a dialogue context to generate unambiguous references to discriminate
+between similar objects: ``do you mean the bottle that is next to the glass?''.
+The physical context of the interaction is used as an implicit communication
+modality by {\sc Dialogs}. \cite{Ros2010b} provides a detailed account of our
+approach toward interactive concept clarification and discrimination, along with the
+related algorithms.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -1406,14 +1412,14 @@ discrimination, along with the related algorithms.
 \label{hatp}
 
 Our execution controllers rely on symbolic task planning to convert long-term
-desires into a succession of atomic actions. We use in our architecture the HATP
+desires into a succession of atomic actions. Our architecture uses the HATP
 planner (\emph{Human Aware Task Planner})~\cite{Alili2008,
 Alili2009,Lallement2014}.
 
-The HATP planning framework extends the traditional HTN (Hierarchical Task
-Network) planning domain representation and semantics by making them more
-suitable to elaborate plans which involve humans and robots acting together
-toward a joint goal. HATP is used by the robot to elaborate human-robot
+The HATP planning framework extends the traditional Hierarchical Task
+Network (HTN) planning domain representation and semantics by making them more
+suitable to produce plans which involve humans and robots acting together
+toward a joint goal. HATP is used by the robot to produce human-robot
 \emph{shared plans}~\cite{Grosz1996,Clark1996,Kemp2007} which are then used to
 anticipate human action, to suggest a course of action to humans, or even to ask
 help from the human.
@@ -1766,7 +1772,7 @@ details of these techniques.
 
 
 %\paragraph{Action Execution and Monitoring Robot Controller}
-%Based on context and on the shared plan elaborated by HATP for a given goal,
+%Based on context and on the shared plan produced by HATP for a given goal,
 %the robot controller decides to execute an action or to ask its human
 %partner to do it.  Actions feasibility by the human or the robot are
 %regularly reconsidered based on the reachability / visibility
@@ -2443,10 +2449,10 @@ processing of explicit verbal statements like ``I'm tired!''
 
 Motion and action execution also requires human models, and the one we use
 embeds human preferences and physical constraints that need to be accounted for
-when synthesizing robot motion or elaborating robot plans. This includes
+when synthesizing robot motion or producing robot plans. This includes
 proxemics (human-robot distance) and associated issues (visibility) but also
 legibility and acceptability criteria expressed in terms of \emph{social rules}
-that the elaborated plans should satisfy.
+that the produced plans should satisfy.
 
 %
 %\paragraph{Joint actions with humans}\label{sec:soa}
