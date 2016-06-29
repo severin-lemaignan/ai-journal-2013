@@ -76,8 +76,8 @@ cognitive robot to successfully share space and tasks with a human.
 We identify the needed individual and collaborative cognitive
 skills: geometric reasoning and situation assessment based on perspective-taking
 and affordance analysis; acquisition and representation of knowledge models for
-multiple agents (humans and robots, with their specificities) natural multi-modal dialogue;
-human-aware task planning; human-robot joint task achievement.  The article
+multiple agents (humans and robots, with their specificities); natural multi-modal dialogue;
+human-aware task planning; human-robot joint task achievement. The article
 discusses each of these abilities, presents a working implementation, and shows
 how they combine in a coherent and original deliberative architecture for
 human-robot interaction. Supported by experimental results, we eventually show
@@ -115,7 +115,7 @@ and to explain and illustrate some of the paths that we have investigated on our
 robots, that result in a set of deliberative, knowledge-oriented, software
 components designed for human-robot interaction.
 
-The proposed scheme is specially designed for  interaction, and more particularly cooperative task achievement by one robot and one or several humans - called here the robot human partners. It is applicable to domains such as assistant or service robots in domestic and public places as well as to teammate robots in the factory of the future.
+%The proposed scheme is specially designed for  interaction, and more particularly cooperative task achievement by one robot and one or several humans - called here the robot human partners. It is applicable to domains such as assistant or service robots in domestic and public places as well as to teammate robots in the factory of the future.
 
 We focus on a specific class of interactions: human-robot collaborative task achievement
 supported by multi-modal and situated communication. Figure~\ref{fig:hri-dec}
@@ -202,41 +202,34 @@ These are the challenges that we will discuss in this article.
 The main contributions concern the architecture of the decisional layer of a robot designed to share 
 the space and the task with humans and to act and interact in a way that facilitates human action and decision.
 
-We will show in the sequel that:
+We present a model of cognitive integration for service robots that:
+
 \begin{itemize}
 
-\item such architecture allows to achieve advanced grounding in a relatively complex environment 
-involving one or several humans and a robot
+    \item achieves advanced grounding in complex real environments involving one or
+        several humans and a robot;
 
-\item  it is able, thanks to the combination of perspective taking and affordances computation 
-and with the help of an inference engine, to provide pertinent knowledge for situated dialog 
+    \item supports a distributed computation of symbolic knowledge for
+        situated dialogue, thanks to the combination of perspective taking,
+        affordances computation and logical inference;
 
-\item  this architecture provides a framework and and a set of mechanisms that allow 
-the robot to reason about the mental state of its human partners
+    \item provides generic mechanisms for the robot to reason about the mental state
+        of its human partners;
 
-\item  the same set of affordances and induced facts together with an explicit reasoning
-on humans and robot abilities in a given context,  allow to synthesize relevant human-robot shared plans
+    \item reuses the same set of affordances and inferences, together with
+        explicit contextual reasoning on humans and robot abilities, to generate
+        human-robot shared plans;
 
-\item  it opens the possibility and provides a propitious context for human-aware planning 
-at symbolic as well as at geometric level
+    \item exposes a principled approach to integrate a set of complex cognitive
+        components in an explicit, semantics-oriented and loosely-coupled
+        fashion.
 
 \end{itemize}
 
-Another important aspect of such an architecture is that it has been fully implemented and 
-demonstrated on several use cases. It is also noteworthy that it proved to be a pertinent 
-framework  for new contributions about human-robot joint  action as well as for multi-disciplinary studies.
-
-While several contributions in the literature provide very interesting insights and contributions 
-on one aspect or another, we are not aware of a fully implemented architecture that effectively
-combines in a coherent way all the issues mentioned above. Besides, this has been done with an effort
-to make explicit all the knowledge involved.
-
-We do not claim that this is the sole architecture that can be designed for such problems nor that it
-covers all the issues. Our point here is that it is a fully implemented architecture that allowed us to
-identify, refine and combine a number of key cognitive abilities that we believe are necessary. Indeed, 
-we show here below that it provided us a mean to develop and explore a number of key features for HRI 
-in terms of models and algorithms and their articulation in an integrated decisional system for a 
-cognitive and interactive robot.
+Importantly, this architecture is fully implemented and we demonstrate it on
+several robotic platforms and in several actual interaction scenarios. It proved
+to be an effective framework for novel contributions about human-robot joint
+action, as well as for multi-disciplinary studies.
 
 \vspace{0.5cm}
 The remaining of the article discusses the robotic architecture that we have
@@ -357,7 +350,7 @@ ones manipulated by humans.
 Figure~\ref{fig|archi} gives an overview of our architecture. An active
 knowledge base ({\sc Oro}), conveniently thought as a semantic
 blackboard, connects most of the modules: the geometric
-reasoning module ({\sc Spark}) produces ar relatively high frequency symbolic assertions (like
+reasoning module ({\sc Spark}) produces at relatively high frequency symbolic assertions (like
 \stmt{BOOK1 isOn TABLE}) describing the state of the robot environment and its evolution over time. 
 These logical statements are stored in the knowledge base, and
 queried back, when necessary, by the language processing module ({\sc Dialogs}), the symbolic task
@@ -656,7 +649,7 @@ align=center, inner sep=5pt,fill=BurntOrange!50}]
             \node [below=1 of stt] {graspable object} edge (stt);
             \node [below left=of stt] {body part} edge (stt);
             \node [left=of stt] {furniture} edge (stt);
-            \node [below right=of stt] (ea) {cited agent} edge (stt);
+            \node [below right=of stt] (ea) {embodied agent} edge (stt);
                 \node [below=of ea] {human} edge (ea);
                 \node [right=of ea] {robot} edge (ea);
 
@@ -2600,7 +2593,7 @@ interaction contexts and knowledge classes attached to them.
 \section{Conclusion}
 \label{sect|conclusion}
 
-\subsection{Summary of the Contribution}
+\subsection{A Deliberative Architecture for Social Robots}
 
 We have presented in this paper a large deliberative architecture designed for
 social robots. While most of its sub-components have been independently
@@ -2633,10 +2626,23 @@ how our use of explicit, high-level semantics provide a low-impedance,
 human-level mean of building a complex deliberative
 architecture for socially interactive robots~\cite{Lemaignan2013}.
 
-\subsection{A Deliberative Architecture for Social Robots}
 
 \fixme{Rachid -- TDB: what are the other 'deliberative architecture for socially interactive
 robots' and where/how ours is better?}
+
+
+While several contributions in the literature provide insights and contributions 
+on one aspect or another, we are not aware of a fully implemented architecture that effectively
+combines in a coherent manner all the points mentioned above.
+We do not claim that this represents the only architecture that can be designed
+to address such problems, nor that our approach fully addresses each and every
+of these issues. Our point here is that it is a fully implemented architecture that allowed us to
+identify, refine and combine a number of key cognitive abilities that we believe are necessary. Indeed, 
+we show here below that it provided us a mean to develop and explore a number of key features for HRI 
+in terms of models and algorithms and their articulation in an integrated decisional system for a 
+cognitive and interactive robot.
+
+
 
 \fixme{Discussion on deliberative architectures != cognitive architecture}: a \emph{cognitive
 architecture} is usually understood as an artificial yet principled model of (human)
