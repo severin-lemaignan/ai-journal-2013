@@ -1881,7 +1881,7 @@ representation and verbal interaction: the human asks for help to find and pack
 objects ({\it Interactive Grounding I} in Table~\ref{table|experiments}). The
 second one ({\it Cleaning the table}) involves the {\sc Shary} execution
 controller and the HATP symbolic task planner. In this scenario, the human and
-the robot are in a situation when they need to cooperatively remove objects from a table, and behaviours and
+the robot are in a context when they need to cooperatively remove objects from a table. Robot behaviours and
 motions are fully planned and then executed.
 
 \subsection{Interactive Grounding}
@@ -1890,9 +1890,10 @@ motions are fully planned and then executed.
 This first study is based on a ``home move'' backstory: two users are moving
 their belongings to a different home, and need the help of a robot to pack.
 \emph{Jido}, a single-arm mobile manipulator, is observing while they carry
-over boxes (Figure~\ref{fig|vpt}), and answers questions pertaining to the
+over boxes (Figure~\ref{fig|vpt}), and answers questions concerning the
 location of specific objects.  This study focuses on multi-modal, interactive
-grounding only, and the robot does not actually perform any action besides
+grounding only. The robot essentially observes, builds and maintains knowledge about its human
+partners perspectives and affordances and does not actually perform any action besides
 verbal interaction and simple head movements.
 
 Objects are perceived solely through 2D fiducial markers sticked on them, and humans are
@@ -1981,8 +1982,8 @@ would have been selected instead as the referent.}
 \paragraph{Explicit Disambiguation Through Verbal Interaction and Gestures}
 
 In this second situation, User B enters the living room without knowing where
-User A had placed the video tapes (Figure~\ref{fig|pointing}). So he first asks
-Jido: ``What's in the box?''. The robot first need to ground the word ``box''.
+User A has placed the video tapes (Figure~\ref{fig|pointing}). So he first asks
+Jido: ``What's in the box?''. The robot first needs to ground the word ``box''.
 Similar to the previous situation, two boxes are visible: \concept{find(?obj
 type Box)} $\Rightarrow$ \concept{?obj = [CARDBOARD\_BOX, TOOLBOX]}
 
@@ -2049,7 +2050,7 @@ other tape is on the table and next to the toolbox.''
 
 This second study demonstrates a richer decision-making process where the {\sc
 Oro} server is used in conjunction with the HATP symbolic task planner and the
-{\sc Shary} execution controller to produce and execute a shared plan. The task
+{\sc Shary} execution controller to synthesise and execute a shared plan. The task
 consists in cooperatively cleaning a table by moving objects into their target
 bins (Figure~\ref{fig|cleantable-video}).
 
@@ -2355,7 +2356,7 @@ The previous sections provide a perspective on a complete deliberative
 architecture for social robots, including an implementation supported
 ``real-world'' experimental deployments. This section synthesises next what we
 see as the main challenges that human-robot interaction brings to Artificial
-Intelligence.  We discuss first how embodied cognition is a very real challenge
+Intelligence.  We discuss first how embodied cognition is a an essential challenge
 in human-robot interaction; we rephrase then the requirements of joint actions
 in terms of five questions; we discuss the importance of building and
 maintaining a multi-level model of the human; and we finally reflect on the
@@ -2390,7 +2391,7 @@ extensively studied in linguistics. The issue of grounding is well known in
 cognitive science and is summarised by Harnad~\cite{Harnad1990} by this
 question: ``how the semantic interpretation of a formal symbol system can be
 made intrinsic to the system?''. This issue has a major practical importance in
-robotic: for a robot to be both endowed with a symbolic representational and
+robotics: for a robot to be both endowed with a symbolic representational and
 reasoning system, and able to \emph{act} in the physical world, it must ground
 its knowledge.
 
