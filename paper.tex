@@ -1154,7 +1154,7 @@ with an hysteresis function at the geometric level.
     the robot must compute a transfer point where she is able to get the
     object afterwards.  Reachability is computed for each agent (human or robot) based on
     Generalised Inverse Kinematics and collision detection. More than that, our robot is able 
-    to compute an estimate of the effort the 
+    to compute an estimate of the effort needed by an agent to reach an object\cite{pandey2013affordance}.
 
 \end{itemize}
 
@@ -1269,10 +1269,11 @@ controllers when necessary.
 \subsubsection{Primitive Action Recognition}
 
 Monitoring human activity is needed by the execution controllers to track the
-engagement of the human and the progress of his/her actions. Full human action
+engagement of the human and the progress of his/her actions and also to synchtronize seamlessly
+its own actions with the human actions. Full human action
 and activity recognition is a task that requires knowledge and reasoning both on
 high-level facts like goals, intentions and plans, as well as bottom-up data
-from agent and object motions. {\sc Spark} implements a set of simple temporal and
+from human and object motions. {\sc Spark} implements a set of simple temporal and
 geometric heuristics on human hand trajectories and possible objects placements
 to recognize simple atomic actions. Those primitive actions are assessed through
 monitoring situations like ``an empty hand is close to an object on a table''
