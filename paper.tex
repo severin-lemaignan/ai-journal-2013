@@ -578,23 +578,23 @@ the {\sc OpenCyc} namespace.
 
 Aligning the upper part of the ontology on {\sc OpenCyc} (as done by other
 knowledge representation systems, like {\sc KnowRob}~\cite{Tenorth2009a} or PEIS
-K\&R~\cite{Daoutis2009}) has multiple advantages. First the design of this part
-of the ontology is generally difficult: it pertains to abstract concepts whose
-mutual relations comes to philosophical debates. The upper taxonomy of {\sc
-OpenCyc} represents a relative consensus, at least within the semantic Web
-community. Then, because it is a well established project with numerous links to
-other on-line databases (like Wikipedia or WordNet), the reuse of key {\sc
-OpenCyc} concepts ensures that the knowledge stored by the robot can be shared
-or extended with well-defined semantics. The concept of \emph{Object} represents
-a typical case of ambiguous meaning: in everyday conversation, an object is a
-relatively small physical thing, that can be typically manipulated. A human is
-not usually considered as an object. {\sc OpenCyc} however precisely defines an
-object as anything at least \emph{partially tangible}. This includes obviously
-the humans, and actually many other entities that would not be commonly said to
-be objects (the Earth for instance).\footnote{In such cases of discrepancy
-between {\sc OpenCyc} concepts and human terminology, we manually label the {\sc
-OpenCyc} concepts with appropriate human names: for instance, the OpenRobots
-Ontology associates the label ``\emph{object}'' to the concept
+K\&R~\cite{daoutis2012cooperative}) has multiple advantages. First the design of
+this part of the ontology is generally difficult: it pertains to abstract
+concepts whose mutual relations comes to philosophical debates. The upper
+taxonomy of {\sc OpenCyc} represents a relative consensus, at least within the
+semantic Web community. Then, because it is a well established project with
+numerous links to other on-line databases (like Wikipedia or WordNet), the reuse
+of key {\sc OpenCyc} concepts ensures that the knowledge stored by the robot can
+be shared or extended with well-defined semantics. The concept of \emph{Object}
+represents a typical case of ambiguous meaning: in everyday conversation, an
+object is a relatively small physical thing, that can be typically manipulated.
+A human is not usually considered as an object. {\sc OpenCyc} however precisely
+defines an object as anything at least \emph{partially tangible}. This includes
+obviously the humans, and actually many other entities that would not be
+commonly said to be objects (the Earth for instance).\footnote{In such cases of
+discrepancy between {\sc OpenCyc} concepts and human terminology, we manually
+label the {\sc OpenCyc} concepts with appropriate human names: for instance, the
+OpenRobots Ontology associates the label ``\emph{object}'' to the concept
 \concept{cyc:Artifact} instead of the concept \concept{cyc:PartiallyTangible}.
 These labels are used in priority during the grounding of verbal interactions.}
 Thus the importance of relying on well-defined and standard semantics to
@@ -2631,18 +2631,18 @@ execution controller, the PRS-based {\sc Shary}~\cite{clodic2008shary,fiore2014}
 and the event-driven {\sc pyRobots}~\cite{lemaignan2015pyrobots}.
 
 The integration of these components in a consistent, working and observable
-system builds upon the particular design of the interfaces between the
-cognitive components: the information streams use high-level semantics,
-represented as first-order logic statements. In that sense, our deliberative
-architecture is similar to projects like {\sc cram}~\cite{Beetz2010} or PEIS
-Ecology~\cite{saffiotti2005peis, daoutis2012cooperative}, with however a
-stronger emphasize on the representation and interaction with humans. We
-however distinguish ourselves from research on \emph{cognitive architectures}:
-cognitive architectures are usually understood as an artificial yet principled
-model of (human) cognition. While some have been deployed on autonomous robots,
-like HAMMER~\cite{demiris2006hierarchical} or ACT-R/E~\cite{trafton2013act},
-most are primarily concerned with the modeling of human cognition and are less
-focused on practical deployment on socially interactive robots.
+system builds upon the particular design of the interfaces between the cognitive
+components: the information streams use high-level semantics, represented as
+first-order logic statements. In that sense, our deliberative architecture is
+similar to projects like {\sc cram}~\cite{Beetz2010}, KeJia~\cite{Chen2010} or
+PEIS Ecology~\cite{saffiotti2005peis, daoutis2012cooperative}, with however a
+stronger emphasize on the representation and interaction with humans. We however
+distinguish ourselves from research on \emph{cognitive architectures}: cognitive
+architectures are usually understood as an artificial yet principled model of
+(human) cognition. While some have been deployed on autonomous robots, like
+HAMMER~\cite{demiris2006hierarchical} or ACT-R/E~\cite{trafton2013act}, most are
+primarily concerned with the modeling of human cognition and are less focused on
+practical deployment on socially interactive robots.
 
 In that sense, our contribution in terms of architecture is a practical one:
 our integration model enables to consistently combine a large set of
