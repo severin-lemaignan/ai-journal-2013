@@ -1316,7 +1316,7 @@ only locally, and does not allow for tracking of long sequences or global events
 
 Natural language is a basic interaction modality that we use in our system both
 as an input (processing of the human speech) and as an output (verbalization of the
-robot intentions). Natural language processing is facilitated by our architecture
+robot intentions as well human-robot shared plans). Natural language processing is facilitated by our architecture
 that processes information with semantics that are already close to a
 human-level. This section presents the main features of our speech processor,
 {\sc Dialogs}, that include semantic and multi-modal grounding, and interactive
@@ -1408,7 +1408,7 @@ state  into \emph{experiences} (for instance, ``I'm tired'' is processed into
 Section~\ref{sect:desires}). A full account of the {\sc Dialogs} features and
 the corresponding algorithms is available in~\cite{Lemaignan2011a}.
 
-\subsubsection{Multi-Modality}
+\subsubsection{Dealing with Multi-Modality}
 
 Because the components of our architecture rely on the same RDF formalism to
 represent their outputs, the different communication modalities are presented in
@@ -1458,8 +1458,8 @@ related algorithms.
 \subsection{Human-Aware Task Planning}
 \label{hatp}
 
-Our execution controllers rely on symbolic task planning to convert long-term
-desires into a succession of atomic actions. Our architecture uses the HATP
+Whenever necessary, the execution controllers rely on symbolic task planning to convert long-term
+desires into a set of partially ordered elementary actions. This is the role of the HATP
 planner (\emph{Human Aware Task Planner})~\cite{Alili2008,
 Alili2009,Lallement2014}.
 
@@ -1469,19 +1469,20 @@ suitable to produce plans which involve humans and robots acting together
 toward a joint goal. HATP is used by the robot to produce human-robot
 \emph{shared plans}~\cite{Grosz1996,Clark1996,Kemp2007} which are then used to
 anticipate human action, to suggest a course of action to humans, or even to ask
-help from the human.
+help from the human if needed.
 
 The HATP planning domain defines a set of methods describing how to
-decompose a task and represents the procedural knowledge of the robot as well as
+incrementally decompose a task and to allocate subtasks and actions to the robot and/or the human depending on the context. This represents the procedural knowledge of the robot as well as
 its knowledge about the actions that the human partner is able to achieve. It is
 stored outside of the central knowledge base, using a specific formalism (see
 the related discussion at the end of this section).
 
+We briefly discuss here below how HATP incrementally builds and synchronises streams of actions concerning each or the agents (humans and robot) involved in a task, and how it promotes plans that satisfy humans needs and preferences as well as comfort and legibility issues.
+
 \subsubsection{Agents and Action Streams}
 
-The originality of HATP resides in its ability to produce plans for the robot's
-actions as well as for the other participants (humans or robots), that we
-call \emph{shared plans}. 
+The originality of HATP resides in its ability to produce \emph{shared plans} which might involve 
+the robot as well as the other participants (humans or robots).
 
 HATP treats agents as ``first-class
 entities'' in the domain representation language. It can therefore
@@ -1496,20 +1497,20 @@ parallel and synchronised when necessary (Figure~\ref{plan_hatp1}).
 This effectively enriches the interaction capabilities of the robot by providing
 the system with what is in essence a prediction of the human behaviour. This
 prediction is used by the robot execution controller to monitor the engagement
-of the human partner during joint tasks.
+of the human partner during plan achievement.
 
-The planner also generates synchronisation points between the agents. For
+The planner also generates causal links and synchronisation points between the robot and his human partners. For
 instance, in the plan depicted on Figure~\ref{plan_hatp1}, the human needs to
 wait for the success of the robot's action {\tt PUTRV}. The robot monitors the
 success of its own action (by checking for the fulfilment of the action
 post-conditions; in this particular case \stmt{HUMAN sees BOTTLE} and
 \stmt{HUMAN canReach BOTTLE}) to estimate what and when the human is likely to
 perform his next action (here, \concept{TAKE(BOTTLE, TABLE)}). This, in turn,
-allows the robot to monitor the human engagement and progress in the shared
-plan.
+allows the robot to monitor the human engagement and the progress in the shared
+plan execution.
 
 We also use shared plans to verbalise the sequence of actions and to explain
-the human partner how a task may be shared~\cite{warnier2012when}.
+the human partner how a task may be shared~\cite{warnier2012when,fiore2016planning,milliez2016using}.
 
 \begin{figure}[htbp]
     \centering
@@ -1550,8 +1551,9 @@ the human partner how a task may be shared~\cite{warnier2012when}.
 \caption{An example of plan produced by HATP for a task consisting in
     cooperatively moving objects into their associated bins. Two action streams
     are generated (human actions at the top, robot actions at the bottom, {\sf
-    PUTRV} stands here for {\it Put it so it is both reachable and visible}).
-    The arrow between the two streams represents a synchronization point.}
+    PUTRV} stands here for {\it Put it so it is both Reachable and Visible}).
+    The arrow between the two streams represents a synchronization point between 
+    the robot and the human based on a causal link.}
 
   \label{plan_hatp1}
 \end{figure}
@@ -1561,7 +1563,8 @@ the human partner how a task may be shared~\cite{warnier2012when}.
 A cost and a duration function are associated to each action.  The duration
 function provides a duration interval for the action achievement and is used, in
 one hand, to schedule the different streams and, on the other hand, as an
-additional cost function.
+additional cost function. Cost here is not used here to estimate only standard time and energy consumption but
+to estimate a number factors that measure the satisfaction of the human in terms of acceptabiliof human based not 
 
 HATP includes mechanisms called \emph{social rules} to filter plans so as to
 keep only those considered as suitable for human-robot interaction. The planner
