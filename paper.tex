@@ -1579,7 +1579,7 @@ indeed sometimes beneficial to balance efforts between the human and
 the robot. Sometimes the human wants to do more or, on the contrary, prefers to leave the 
 robot do all what it can. 
 
-\emph{Simplicity}: promotes plans that limit  too many interdependencies
+\emph{Simplicity}: promotes plans that limit as much as possible the interdependencies
 between the actions of agents mentioned in the plan, as a problem with
 executing just one of those actions could invalidate the entire
 plan. Also intricate human-robot activity may cause discomfort since
@@ -1603,10 +1603,9 @@ The resulting shared plan is considered better than the one depicted on
 Figure~\ref{plan_hatp1} according to a global evaluation of the costs and rules.
 
 In the current implementation, the social rules are effectively
-implemented by looking through all the plans produced and filtering
-out the ones that do not meet the desired requirements. In the
-future we intend to study algorithms that do such filtering online,
-rather than after initial solutions are found.
+implemented as filters and that are applied whenever a plan is produced.
+In the future we intend to extend the plan-search algorithm and integrate the social rules 
+in the process itself.
 
 \begin{figure}[htbp]
   \centering
@@ -1666,7 +1665,7 @@ total duration of the task. }
 %\end{itemize}
 %
 
-As HATP is a generic symbolic task planner and do not enforce any abstraction
+As HATP is a generic symbolic task planner and does not enforce any abstraction
 level for the planning domain, we were able to design a domain built from
 top-level tasks whose semantics are close to the one used in the human-robot
 dialogue: the planner domain effectively contains concepts like \texttt{give},
@@ -1689,7 +1688,7 @@ external execution controllers (like {\sc Cram}~\cite{Beetz2010} or the BERT
 platform~\cite{Lallee2010b}, as reported in~\cite{Lemaignan2010}), we have also
 developed dedicated robot controllers which integrate the whole stack introduced
 in Figure~\ref{fig|archi}. {\sc Shary}~\cite{clodic2008shary} is the main one,
-written in the \emph{Procedural Reasoning System} language~\cite{Ingrand1996}.
+written in the \emph{Procedural Reasoning System (PRS)} language~\cite{Ingrand1996}.
 We have also developed the Python-based {\sc pyRobots}~\cite{lemaignan2015pyrobots} that
 provides a large set of high-level actions and an event-based architecture well
 suited for prototyping. They both rely on extensive integration with the knowledge
@@ -1698,7 +1697,7 @@ base, that serves as the primary source of semantics for the decision making pro
 One of the main roles of {\sc Shary} is to control the production and execution
 of shared plans. This means essentially context-based refinement and robot
 actions execution, as well as monitoring of those achieved by its human
-partner. One of the key design goal is to build such abilities in a generic
+partner. One of the key design goals is to build such abilities in a generic
 way, and to provide several levels of parametrisation allowing to adapt to
 various environments, and various levels of involvement of the robot ranging
 from teammate behaviour to assistant or proactive helper. Based on this,
@@ -1707,7 +1706,7 @@ events triggered by the {\sc Oro} knowledge base (as described below).
 
 {\sc Shary}'s originality, as an execution control system, lies in its ability
 to take into account not only the task achievement but also the communication
-and monitoring needed to support interactive task
+and monitoring acts needed to support human-robot interactive task
 achievement~\cite{Rich1997,Sidner2005} in a flexible manner. {\sc Shary} allows
 to bind action execution to \emph{communication policies} in order to produce
 signals towards the human and to react to human actions. The
@@ -1742,13 +1741,13 @@ that he wants the robot to give her a book.
 
 The robot controller designer does not need to directly care about how this
 \emph{desire} is produced (this is delegated to perception modules), he can
-focus on the semantic of the desire.
+focus on the semantics of the desire.
 
 Note also that we take advantage of the reasoning capabilities of the system:
 for example, the type of the object (\stmt{?obj type Toy}) may not be
 explicitly asserted, but inferred by the reasoner based on other assertions.
 
-\subsubsection{Desires and Experiences}
+\subsubsection{Complying with Human Desires and Experiences}
 \label{sect:desires}
 
 We divide the interaction situations perceived from the situation assessment and
@@ -1882,7 +1881,7 @@ representation and verbal interaction: the human asks for help to find and pack
 objects ({\it Interactive Grounding I} in Table~\ref{table|experiments}). The
 second one ({\it Cleaning the table}) involves the {\sc Shary} execution
 controller and the HATP symbolic task planner. In this scenario, the human and
-the robot try to cooperatively remove objects from a table, and behaviours and
+the robot are in a situation when they need to cooperatively remove objects from a table, and behaviours and
 motions are fully planned and then executed.
 
 \subsection{Interactive Grounding}
