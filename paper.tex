@@ -69,7 +69,7 @@ robots; a broad variety of situations with rich semantics to understand and
 interpret; physical interactions with humans that requires fine, low-latency yet
 socially acceptable control strategies; natural and multi-modal communication
 which mandates common-sense knowledge and the representation of possibly
-divergent mental models. This article is an attempt to characterize these challenges
+divergent mental models. This article is an attempt to characterise these challenges
 and to exhibit a set of key decisional issues that need to be addressed for a
 cognitive robot to successfully share space and tasks with a human.
 
@@ -243,7 +243,7 @@ knowledge model that we have developed for our robots. Then,
 Section~\ref{sec:impl} provides further details on each of the main components of the architecture.
 Section~\ref{sec:expe} presents two studies that illustrate in a practical way
 what can be currently achieved with our robots.  The
-Sections~\ref{sect|discussion} and~\ref{sect|conclusion} finally summarize our
+Sections~\ref{sect|discussion} and~\ref{sect|conclusion} finally summarise our
 main contributions and discuss the key challenges that human-robot interaction
 brings to Artificial Intelligence.
 
@@ -330,7 +330,7 @@ brings to Artificial Intelligence.
     main modules, interacts with a low-level sensori-motor layer. Knowledge is
     centrally managed in an active \emph{semantic blackboard}, pictured above
     with a thick border. The links between components depicted on the figure
-    underline the central role of the knowledge base: many of the datastreams are
+    underline the central role of the knowledge base: many of the data streams are
     actually symbolic statements exchanged through this semantic blackboard.}
 
     \label{fig|archi}
@@ -346,7 +346,7 @@ and guiding principle is that human-level interaction is easier to achieve if
 the robot itself relies internally on human-level semantics.  We implement this
 principle by extensively relying on explicit knowledge representation and
 manipulation: software components communicate with each other using first-order
-logic statements organized into ontologies and whose semantics are close to the
+logic statements organised into ontologies and whose semantics are close to the
 ones manipulated by humans.
 
 Figure~\ref{fig|archi} gives an overview of our architecture. An active
@@ -454,11 +454,11 @@ concept of \emph{computables} to lazily evaluate/acquire symbolic facts when
 needed, we have an \emph{explicit} approach where we greedily compute and assert
 symbolic statements (like spatial relations between objects, see
 Section~\ref{sect|sit-ass}). For instance, whenever a client queries KnowRob to
-know if \stmt{object1 isOn object2}, KnowRob calls a geometric reasonner to
+know if \stmt{object1 isOn object2}, KnowRob calls a geometric reasoner to
 evaluate if this specific spatial relation holds at that point in time. With our
 approach, spatial relations are instead computed and asserted {\it a priori}.
 This design choice trades scalability for explicit reasoning: at any time, the
-full belief state is explicited (which may be computationally expensive), and
+full belief state is made explicit (which may be computationally expensive), and
 therefore provides the reasoner with the largest possible inference domain. This
 is of special importance for an \emph{event-based} architecture like ours (see
 Section~\ref{sect|ctrl}), where, by definition, we do not know beforehand what
@@ -558,14 +558,14 @@ for the robot.
 \subsubsection{The OpenRobots Ontology}
 
 As previously said, the logical statements exchanged between the deliberative
-components are organized within the {\sc Oro} knowledge base into an ontology.
+components are organised within the {\sc Oro} knowledge base into an ontology.
 The conceptualization (\ie the system of concepts or \emph{TBox}) of this
 ontology is generally statically asserted, while the instantiation (the
 \emph{ABox}) of the ontology is generally dynamically asserted at run-time, by
 the other components.
 
 The \emph{OpenRobots} common-sense ontology represents the statically asserted
-part of the ontology. It has been designed from two requirements: beining
+part of the ontology. It has been designed from two requirements: being
 practical (\ie covering our experimental needs) and conforming as much as
 possible to existing standards (in our case, the {\sc OpenCyc} upper
 ontology~\cite{lenat1990cyc}).
@@ -789,7 +789,7 @@ accordingly the two knowledge models it maintains: the \concept{robot} model is
 updated with the fact \stmt{book isVisible true}, while the \concept{human}
 model is updated with \stmt{book isVisible false}. These two logical statements
 are simultaneously asserted, yet contradict when taken together. Since the two
-knowledge models are realized as two independent ontologies, the contradiction
+knowledge models are realised as two independent ontologies, the contradiction
 does not actually occur and both the models remain logically consistent.
 
 One classical application of this cognitive skill is the so-called
@@ -943,7 +943,7 @@ with the symbolic layer. This geometric model is built from 3D CAD models of the
 objects, furnitures and robots, and full body, rigged models of humans
 (Figure~\ref{fig:sparkScreenshot}).  It is updated at run-time by the robot's
 sensors (usually, a combination of vision-based tracking of 2D fiducial markers
-to identify and localize objects, and Kinect-based skeleton tracking of humans,
+to identify and localise objects, and Kinect-based skeleton tracking of humans,
 optionally assisted by motion capture to accurately track the head motion, which
 is required to compute what the human is looking at).
 
@@ -1275,13 +1275,13 @@ for the subjects and objects of the statements.
 \subsubsection{Primitive Action Recognition}
 
 Monitoring human activity is needed by the execution controllers to track the
-engagement of the human and the progress of her actions and also to synchtronize seamlessly
+engagement of the human and the progress of her actions and also to synchronise seamlessly
 its own actions with the human actions. Full human action
 and activity recognition is a task that requires knowledge and reasoning both on
 high-level facts like goals, intentions and plans, as well as bottom-up data
 from human and object motions. {\sc Spark} implements a set of simple temporal and
 geometric heuristics on human hand trajectories and possible objects placements
-to recognize simple atomic actions. Those primitive actions are assessed through
+to recognise simple atomic actions. Those primitive actions are assessed through
 monitoring situations like ``an empty hand is close to an object on a table''
 (precursor for a \emph{pick}), or ``a hand holding an object is over a
 container'' (precursor for a \emph{throw}).  {\sc Spark} recognises a set of
@@ -1297,7 +1297,7 @@ In its current form, our situation assessment module makes two strong
 assumptions: the objects are known in advance (hence, we can rely on proper 3D
 CAD model for spatial reasoning) and the robot benefits of an almost perfect
 perception, made possible by the use of fiducial markers.  Each object receives
-a unique tag which enables us to accurately localize it in 3D and prevent
+a unique tag which enables us to accurately localise it in 3D and prevent
 recognition ambiguities that would be then reflected in the knowledge base.
 While {\sc Spark} algorithms themselves are ignorant of the input sources, and
 would work equally well with a full object recognition stack, we are yet to
@@ -1443,7 +1443,7 @@ anaphora resolution step alone.
 
 The second level of integration of multi-modality is implicit. By continuously
 computing symbolic properties from the geometric model, richer symbolic
-descriptions are available to the system to verbalize or discriminate entities.
+descriptions are available to the system to verbalise or discriminate entities.
 For instance, the robot may compute that one bottle is next to a glass, while
 another one stands alone. These symbolic descriptions are transparently
 re-used in a dialogue context to generate unambiguous references to discriminate
@@ -1564,7 +1564,8 @@ A cost and a duration function are associated to each action.  The duration
 function provides a duration interval for the action achievement and is used, in
 one hand, to schedule the different streams and, on the other hand, as an
 additional cost function. Cost here is not used here to estimate only standard time and energy consumption but
-to estimate a number factors that measure the satisfaction of the human in terms of acceptability and legibility of robot behavior.  
+to estimate a number factors that measure the satisfaction of the human in terms
+of acceptability and legibility of robot behaviour.  
 
 HATP includes mechanisms called \emph{social rules} to promote plans that are
 considered as suitable for human-robot interaction. The planner
@@ -1896,7 +1897,7 @@ grounding only. The robot essentially observes, builds and maintains knowledge a
 partners perspectives and affordances and does not actually perform any action besides
 verbal interaction and simple head movements.
 
-Objects are perceived solely through 2D fiducial markers sticked on them, and humans are
+Objects are perceived through 2D fiducial markers attached to them, and humans are
 tracked through motion capture. The robot knowledge base is initialised with
 the {\sc Oro} commonsense ontology.  We next describe two
 situations where we can follow the internal robot's reasoning and the
@@ -1994,7 +1995,7 @@ and asks User B which box he is referring to by verbalizing the following questi
 cardboard box?'' User B can answer the question, but he instead decides to point
 at it: ``This box'' (Figure~\ref{fig|pointing}). {\sc Spark} identifies the {\tt
 CARDBOARD\_BOX} as being pointed at, as well as looked at, by the human and updates the
-ontology with this new information. The reasonner applies a rule available in the common-sense
+ontology with this new information. The reasoner applies a rule available in the common-sense
 ontology \stmt{pointsAt(?ag, ?obj) $\land$ looksAt(?ag, ?obj) $\to$
 focusesOn(?ag, ?obj)}. The \textsc{Dialogs} module merges both
 sources of information, verbal (``this'') and deictic, by issuing a specific
@@ -2050,7 +2051,7 @@ other tape is on the table and next to the toolbox.''
 
 This second study demonstrates a richer decision-making process where the {\sc
 Oro} server is used in conjunction with the HATP symbolic task planner and the
-{\sc Shary} execution controller to synthesise and execute a shared plan. The task
+{\sc Shary} execution controller to produce and execute a shared plan. The task
 consists in cooperatively cleaning a table by moving objects into their target
 bins (Figure~\ref{fig|cleantable-video}).
 
@@ -2110,7 +2111,7 @@ bins (Figure~\ref{fig|cleantable-video}).
 %\end{figure*}
 %
 
-Figure~\ref{fig|cleantable-timeline} walks through a simplifed version of the whole
+Figure~\ref{fig|cleantable-timeline} walks through a simplified version of the whole
 task. It depicts a run with a single tape on a table. The tape is
 reachable by the robot only, while the bin (where the objects are supposed to be
 eventually moved to) is reachable by the human only: the robot needs to come up
@@ -2356,7 +2357,7 @@ The previous sections provide a perspective on a complete deliberative
 architecture for social robots, including an implementation supported
 ``real-world'' experimental deployments. This section synthesises next what we
 see as the main challenges that human-robot interaction brings to Artificial
-Intelligence.  We discuss first how embodied cognition is a an essential challenge
+Intelligence.  We discuss first how embodied cognition is an essential challenge
 in human-robot interaction; we rephrase then the requirements of joint actions
 in terms of five questions; we discuss the importance of building and
 maintaining a multi-level model of the human; and we finally reflect on the
@@ -2400,7 +2401,7 @@ architecture. The main source of grounded symbolic knowledge is the situation
 assessment module, {\sc Spark}. It builds symbolic facts from spatial reasoning,
 and also relies on (limited) temporal reasoning to track the world state and
 build explanations to interpret unexpected perceptions (like an object that
-suddendly disappears). Because {\sc Spark} also tracks humans, which enables
+suddenly disappears). Because {\sc Spark} also tracks humans, which enables
 perspective-aware spatial reasoning, it can produce as well grounded symbolic
 knowledge for the agents it interacts with. This is a typical \emph{embodied}
 cognitive skill.
@@ -2500,7 +2501,7 @@ processing of explicit verbal statements like ``I'm tired!''
 
 Motion and action execution also requires human models, and the one we use
 embeds human preferences and physical constraints that need to be accounted for
-when synthesizing robot motion or producing robot plans. This includes
+when synthesising robot motion or producing robot plans. This includes
 proxemics (human-robot distance) and associated issues (visibility) but also
 legibility and acceptability criteria expressed in terms of \emph{social rules}
 that the produced plans should satisfy.
@@ -2625,7 +2626,7 @@ language processor~\cite{Lemaignan2011a} to provide complete multi-modal
 interactive communication.  The paper also covers our symbolic social task
 planner~\cite{Alili2008, Alili2009, Lallement2014}: it generates predictive
 plans of the human actions that enable the system to plan for joint human-robot
-tasks. It can also make use of social heuristics to optimize plans for social
+tasks. It can also make use of social heuristics to optimise plans for social
 acceptability. We briefly mention our human-aware motion and manipulation
 planner~\cite{Sisbot2008,Mainprice2011,Pandey2011}, and finally present two
 execution controller, the PRS-based {\sc Shary}~\cite{clodic2008shary,fiore2014}
@@ -2637,7 +2638,7 @@ components: the information streams use high-level semantics, represented as
 first-order logic statements. In that sense, our deliberative architecture is
 similar to projects like {\sc cram}~\cite{Beetz2010}, KeJia~\cite{Chen2010} or
 PEIS Ecology~\cite{saffiotti2005peis, daoutis2012cooperative}, with however a
-stronger emphasize on the representation and interaction with humans. We however
+stronger emphasise on the representation and interaction with humans. We however
 distinguish ourselves from research on \emph{cognitive architectures}: cognitive
 architectures are usually understood as an artificial yet principled model of
 (human) cognition. While some have been deployed on autonomous robots, like
