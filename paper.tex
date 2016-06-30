@@ -175,11 +175,10 @@ mandate. \emph{Joint action}, for instance, builds from:
 
 \end {itemize}
 
-The robot controller \cite{clodic2014key} (with the help of a task planner) decides what action to
-execute next, and who should perform it, from the robot or the human (or both in
-case of a collaborative action such as a handover \cite{Mainprice2012,waldhart2015planning}), how it should achieved and what signals should
-be sensed and/or produced by the robot to facilitate human-robot joint action
-\cite{sebanz2006joint,knoblich20113,pacherie2012phenomenology,vesper2010minimal}.
+The robot controller (with the help of a task planner) decides what action to
+execute next~\cite{clodic2014key}, and who should perform it, from the robot or the human (or both in
+case of a collaborative action such as a handover~\cite{Mainprice2012,waldhart2015planning}), how it should achieved and what signals should
+be sensed and/or produced by the robot to facilitate human-robot joint action~\cite{sebanz2006joint,knoblich20113,pacherie2012phenomenology,vesper2010minimal}.
 It finally controls and monitors its execution. The
 operation continues until the goal is achieved, is declared unachievable or is
 abandoned by the human~\cite{Klein2004}.
@@ -731,7 +730,7 @@ We present first the main \emph{internal} cognitive capabilities, implemented in
 the {\sc Oro} knowledge base itself, and then discuss successively the situation
 assessment module {\sc Spark}, the dialogue processor {\sc Dialogs}, the
 symbolic task planner HATP, and finally the main features of our execution
-controllers {\sc Shary}\cite{clodic2008shary} and {\sc pyRobots}. Note that greater details on each of
+controllers {\sc Shary} and {\sc pyRobots}. Note that greater details on each of
 these modules can be found in their respective publications (the corresponding
 references are provided hereafter).
 
@@ -1710,10 +1709,11 @@ from teammate behaviour to assistant or proactive helper. Based on this,
 the robot controller invokes the adequate human-aware planners and react to
 events triggered by the {\sc Oro} knowledge base (as described below).
 
-{\sc Shary}'s originality, as an execution control system, lies in its ability
-to take into account not only the task achievement but also the communication
+Execution control systems for social robots are expected 
+to account not only for the task achievement but also for the communication
 and monitoring acts needed to support human-robot interactive task
-achievement~\cite{Rich1997,Sidner2005,sebanz2006joint} in a flexible manner. {\sc Shary} allows
+achievement~\cite{Rich1997,Sidner2005,sebanz2006joint}. {\sc Shary} supports
+such mechanisms. It allows
 to bind action execution to \emph{communication policies} in order to produce
 multi-modal signals towards the human and to react to human actions and signals. The
 \emph{communication act} is the central concept in this formalism. It
@@ -1726,7 +1726,15 @@ real-time task-based situation assessment achieved by the combination of {\sc
 Shary} monitoring processes and {\sc Oro} inference
 mechanisms. 
 
-Two recent developments have been added that improve robot adaptation to human action at the action and at the plan level.  In~\cite{fiore2014}, the system is able to estimate its human intentions in collaborative tasks and to choose appropriate actions, using a set of POMDP models.  In~\cite{devin2016implemented}, a framework is proposed which allows the robot to estimate its human partner mental state not only about the environment but also about the state of goals, plans and actions and to take them into account when executing human-robot shared plans.
+Two recent developments have further improved the robot's ability to adapt to
+human action, both at the action level and at the plan level.
+In~\cite{fiore2014}, an extension is proposed for the
+system to estimate the intentions of the human during collaborative tasks using
+POMDP models. The controller adjusts then appropriately the chosen set of actions.
+In~\cite{devin2016implemented}, the controller is complemented with a framework
+that allows the robot to estimate the mental state of the human partner, not
+only related to the environment but also related to the state of goals, plans
+and actions. They are then accounted for by the execution controller.
 
 \subsubsection{Event-Driven Control}
 \label{events}
@@ -1820,23 +1828,26 @@ actions are combined at run-time into higher-level \emph{tasks}.}
 
 The symbolic manipulation and navigation actions listed in
 Table~\ref{table|pyrobots_actions} are eventually further refined and executed by the execution
-controller with the help of a  set of dedicated human-aware geometric motion
-planning functions provided by a component (called {\sc Mhp},
-Figure~\ref{fig|archi}).
+controller with the help of a set of dedicated human-aware geometric motion
+planning functions provided by a component called {\sc Mhp} (see Figure~\ref{fig|archi}).
 
 These functions are designed to plan navigation~\cite{Sisbot2007} and
-manipulation~\cite{Mainprice2011,sisbot2012human} paths not only safe
-but also comfortable and “socially acceptable” by reasoning explicitly
-on human’s kinematics, vision field, posture and preferences
-\cite{Madhava2006,kruse2013human,Rios-MartinezSL15}.  Besides, when necessary, they compute pertinent robot
-and objects placements relative to the human\cite{Pandey2011} 
+manipulation~\cite{Mainprice2011,sisbot2012human} paths not only safe but also
+comfortable and socially acceptable by reasoning explicitly on human’s
+kinematics, vision field, posture and
+preferences~\cite{Madhava2006,kruse2013human,Rios-MartinezSL15}. They also
+provide routines to compute spatial placements for robot and objects that obey
+constraints related to the interaction, like optimal mutual reachability
+or optimal visibility~\cite{Pandey2011} 
 
-Also, when an action needs motion of the human and the robot, it is
-possible to plan for both of them in order to allow the robot to take
-initiative by computing automatically where the interaction might
-preferably take place\cite{Mainprice2012,waldhart2015planning}, 
-thus decreasing the cognitive weight of interaction on human
-side. This is somehow the geometric counterpart of HATP.
+Finally, when an action requires the motion of both the human and the robot,
+{\sc Mhp} can plan for both of them in order for the robot to take
+the lead by automatically computing where the interaction might
+preferably take place~\cite{Mainprice2012,waldhart2015planning}.
+This can effectively smoothen the interaction by off-loading a part of the
+cognitive load of the interaction from the human to the robot.
+As such, this is the geometric counterpart of the HATP symbolic task
+planner.
 
 %\paragraph{Action Execution and Monitoring Robot Controller}
 %Based on context and on the shared plan produced by HATP for a given goal,
@@ -2644,8 +2655,9 @@ planner~\cite{Alili2008, Alili2009, Lallement2014}: it generates predictive
 plans of the human actions that enable the system to plan for joint human-robot
 tasks. It can also make use of social heuristics to optimise plans for social
 acceptability. We briefly mention our human-aware motion and manipulation
-planner~\cite{Sisbot2008,Mainprice2011,Pandey2011}, and finally present two
-execution controller, the PRS-based {\sc Shary}~\cite{clodic2008shary,fiore2014}
+planner~\cite{Sisbot2007,Sisbot2008,Mainprice2011,Pandey2011,sisbot2012human,kruse2013human}, and finally present two
+execution controller, the PRS-based {\sc
+Shary}~\cite{clodic2008shary,fiore2014,clodic2014key}
 and the event-driven {\sc pyRobots}~\cite{lemaignan2015pyrobots}.
 
 The integration of these components in a consistent, working and observable
