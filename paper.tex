@@ -419,7 +419,7 @@ clients). It exposes a {\tt json}-based RPC API to query the knowledge
 base~\cite{lemaignan2012kbapi}.  We represent knowledge as RDF triples in the
 OWL sub-language~\footnote{\url{http://www.w3.org/TR/owl2-overview/}}. Every
 time triples are added or removed from the knowledge base, a Description Logics
-reasoner ({\sc Pellet}\footnote{\url{https://github.com/complexible/pellet}})
+reasoner ({\sc Pellet}~\cite{sirin2007pellet})
 classifies the whole ontology and inserts all possible inferred triples.  The
 clients of the {\sc Oro} server are in charge of managing themselves the
 knowledge (when to add, when to update, when to retract knowledge): no
@@ -773,18 +773,24 @@ ability that allows a subject to represent the mental state of another
 agent, possibly including knowledge that contradicts the subject's own model: for
 example, a book can be at the same time \emph{visible} for agent A, and \emph{not
 visible} for agent B. Children develop this skill, which is essential to understand others' perspectives during
-interactions, around the age of three. 
+interactions, around the age of three~\cite{perner2012infants}. 
 
-From the point of view of interactive robotics, it supposes the robot ability to build, store and
-retrieve separate models of the beliefs of the humans it interacts with.
-Our knowledge base implements such a mechanism: when the robot detects that
-a new human has appeared, it initialises a new
-independent ontology for this human agent. All the ontologies that are created share
-the same common-sense knowledge, but rely on the estimation of the robot of each agent's perspective for their actual instantiation: if the robot (geometrically) computes that the book is in its
-own field of view, but not in the human one, the robot knowledge contains the
-fact \stmt{book isVisible true} while the human model contains \stmt{book
-isVisible false} (this computation, called \emph{perspective taking}, is
-discussed in the next section).
+From the point of view of interactive robotics, it supposes the robot ability to
+build, store and retrieve separate models of the beliefs of the humans it
+interacts with.  Our knowledge base implements such a mechanism: when the robot
+detects that a new human has appeared, it initialises a new independent
+knowledge model (an ontology) for this human agent. All the ontologies that are
+created share the same common-sense knowledge, but rely on the estimation of the
+robot of each agent's perspective for their actual instantiation. For example,
+the robot may (geometrically) compute that the book is in its own field of view,
+but not in the human one (the detail of this computation, called
+\emph{perspective taking}, is discussed in the next section). The robot updates
+accordingly the two knowledge models it maintains: the \concept{robot} model is
+updated with the fact \stmt{book isVisible true}, while the \concept{human}
+model is updated with \stmt{book isVisible false}. These two logical statements
+are simultaneously asserted, yet contradict when taken together. Since the two
+knowledge models are realized as two independent ontologies, the contradiction
+does not actually occur and both the models remain logically consistent.
 
 One classical application of this cognitive skill is the so-called
 \emph{False-Belief} experiment (also known as the \emph{Sally and Anne}
