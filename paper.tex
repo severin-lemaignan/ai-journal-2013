@@ -1309,7 +1309,7 @@ only locally, and does not allow for tracking of long sequences or global events
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Multi-Modal Communication and Situated Dialog}
+\subsection{Multi-Modal Communication and Situated Dialogue}
 \label{sect|com}
 
 \subsubsection{Natural Language Grounding}
@@ -2611,7 +2611,7 @@ interaction contexts and knowledge classes attached to them.
 We have presented in this paper a large deliberative architecture designed for
 social robots. While most of its sub-components have been independently
 presented in other publications, we offer here for the first time a perspective
-on the overall integration of these components into a coherent and consistent
+on the model of integration of these components into a coherent and consistent
 system for social human-robot interaction. We have first exposed our underlying
 knowledge model based on Description Logics~\cite{Lemaignan2010} and some of the
 resulting reasoning capabilities pertaining to disambiguation~\cite{Ros2010b}
@@ -2619,48 +2619,70 @@ and mental modelling~\cite{warnier2012when} that are shown to effectively
 scaffold interaction using human-level semantics and cognitive skills. We have
 then presented our approach to symbol grounding, build on an amodal situation
 assessment environment~\cite{Sisbot2011} that supports perspective
-taking~\cite{Marin2008,Ros2010}. We
-combine it further with an advanced natural
-language processor~\cite{Lemaignan2011a} to provide complete multi-modal interactive
-communication.  The paper also covers our symbolic social task
+taking~\cite{Marin2008,Ros2010}. We combine it further with a situated natural
+language processor~\cite{Lemaignan2011a} to provide complete multi-modal
+interactive communication.  The paper also covers our symbolic social task
 planner~\cite{Alili2008, Alili2009, Lallement2014}: it generates predictive
 plans of the human actions that enable the system to plan for joint human-robot
 tasks. It can also make use of social heuristics to optimize plans for social
 acceptability. We briefly mention our human-aware motion and manipulation
 planner~\cite{Sisbot2008,Mainprice2011,Pandey2011}, and finally present two
-execution controller, the PRS-based {\sc Shary}~\cite{clodic2008shary,fiore2014} and the
-event-driven {\sc pyRobots}~\cite{lemaignan2015pyrobots}.
+execution controller, the PRS-based {\sc Shary}~\cite{clodic2008shary,fiore2014}
+and the event-driven {\sc pyRobots}~\cite{lemaignan2015pyrobots}.
 
 The integration of these components in a consistent, working and observable
-system is supported by the design of our software interfaces: most of the
-datastreams exchanged by our components uses high-level semantics in the form of
-first-order logic statements. The two reported support studies further evidence
-how our use of explicit, high-level semantics provide a low-impedance,
-human-level mean of building a complex deliberative
-architecture for socially interactive robots~\cite{Lemaignan2013}.
+system builds upon the particular design of the interfaces between the
+cognitive components: the information streams use high-level semantics,
+represented as first-order logic statements. In that sense, our deliberative
+architecture is similar to projects like {\sc cram}~\cite{Beetz2010} or PEIS
+Ecology~\cite{saffiotti2005peis, daoutis2012cooperative}, with however a
+stronger emphasize on the representation and interaction with humans. We
+however distinguish ourselves from research on \emph{cognitive architectures}:
+cognitive architectures are usually understood as an artificial yet principled
+model of (human) cognition. While some have been deployed on autonomous robots,
+like HAMMER~\cite{demiris2006hierarchical} or ACT-R/E~\cite{trafton2013act},
+most are primarily concerned with the modeling of human cognition and are less
+focused on practical deployment on socially interactive robots.
 
+In that sense, our contribution in terms of architecture is a practical one:
+our integration model enables to consistently combine a large set of
+technically independent yet cognitively interdependent cognitive processes. We
+bridge them through explicit, human-level semantics, and we show that this
+results in a fully implemented system, effectively deployed on several
+platforms and in several real interaction scenarios.
 
-\fixme{Rachid -- TDB: what are the other 'deliberative architecture for socially interactive
-robots' and where/how ours is better?}
+Besides, this work introduces several new contributions related to the
+representation and the management of humans in an autonomous robotic system.
+Specifically, we mentioned in the introduction the following four points:
 
+\begin{itemize}
 
-While several contributions in the literature provide insights and contributions 
-on one aspect or another, we are not aware of a fully implemented architecture that effectively
-combines in a coherent manner all the points mentioned above.
-We do not claim that this represents the only architecture that can be designed
-to address such problems, nor that our approach fully addresses each and every
-of these issues. Our point here is that it is a fully implemented architecture that allowed us to
-identify, refine and combine a number of key cognitive abilities that we believe are necessary. Indeed, 
-we show here below that it provided us a mean to develop and explore a number of key features for HRI 
-in terms of models and algorithms and their articulation in an integrated decisional system for a 
-cognitive and interactive robot.
+	\item our system achieves multi-modal and interactive grounding in complex
+		real environments involving one or several humans and a robot;
 
+	\item it supports a distributed computation of symbolic knowledge for
+		situated dialogue, thanks to the combination of perspective taking,
+		affordances computation and logical inference;
 
+	\item it provides generic mechanisms for the robot to reason about the mental state
+		of its human partners;
 
-\fixme{Discussion on deliberative architectures != cognitive architecture}: a \emph{cognitive
-architecture} is usually understood as an artificial yet principled model of (human)
-cognition, while we propose a practical approach to consistently combine a large
-set of independent cognitive processes by bridging them through high-level semantics.
+	\item and, by reusing the computed affordances and inference, it generates,
+		monitors and takes part to human-robot shared plans;
+
+\end{itemize}
+
+While several contributions in the literature provide insights and
+contributions on one aspect or another (references are in the corresponding
+subsections), we are not aware of a fully implemented architecture that
+effectively combines in a coherent manner all these points. Our approach
+allowed us to identify, refine and combine a number of key cognitive abilities
+that we believe are needed for successful and autonomous social human-robot
+interaction. The novelty and relevance of this contribution to HRI is
+underlined by the range of multi-disciplinary collaborations and studies that
+have been made possible by our
+architecture~\cite{dautenhahn2006may,koay2007exploratory,Ros2010b,dehais2011physiological,ferreira2015users,GharbiROMAN2015}.
+
 
 \subsection{The Next Steps}
 
