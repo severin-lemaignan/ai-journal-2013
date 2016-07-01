@@ -1695,7 +1695,7 @@ While parts of the architecture ({\sc Spark}, {\sc Oro}) have been deployed with
 external execution controllers (like {\sc Cram}~\cite{Beetz2010} or the BERT
 platform~\cite{Lallee2010b}, as reported in~\cite{Lemaignan2010}), we have also
 developed dedicated robot controllers which integrate the whole stack introduced
-in Figure~\ref{fig|archi}. {\sc Shary}~\cite{clodic2008shary} is the main one,
+in Figure~\ref{fig|archi}. {\sc Shary}~\cite{clodic2009} is the main one,
 written in the \emph{Procedural Reasoning System (PRS)} language~\cite{Ingrand1996}.
 We have also developed the Python-based {\sc pyRobots}~\cite{lemaignan2015pyrobots} that
 provides a large set of high-level actions and an event-based architecture well
@@ -1716,18 +1716,18 @@ Execution control systems for social robots are expected
 to account not only for the task achievement but also for the communication
 and monitoring acts needed to support human-robot interactive task
 achievement~\cite{Rich1997,Sidner2005,sebanz2006joint}. {\sc Shary} supports
-such mechanisms. It allows
+such mechanisms~\cite{Clodic2007smc}. It allows
 to bind action execution to \emph{communication policies} in order to produce
 multi-modal signals towards the human and to react to human actions and signals. The
 \emph{communication act} is the central concept in this formalism. It
 represents an information exchange between the two agents and plays the role of
 a transition condition. This exchange can be realised through speech, through an
-expressive motion or a combination of the two. It enables each agent to
+expressive motion or a combination of the two. It enables the robot as well as the human to
 communicate their beliefs about the task to be achieved, in order to share
 mutual knowledge and to synchronise their activities.  This is done through
 real-time task-based situation assessment achieved by the combination of {\sc
 Shary} monitoring processes and {\sc Oro} inference
-mechanisms. 
+mechanisms. In Shary, each action description contains not only the way to execute it and monitor it, but also the way to initiate it (e.g. in the case of a shared action, the way both agents need to commit to the task), to suspend (or cancel or stop) it (and for each case the way this transition has to be shared with the human partner if any). This is supported by a description of the beliefs of each involved agent concerning the action achievement process and a set of monitoring processes allowing to update it
 
 Two recent developments have further improved the robot's ability to adapt to
 human action, both at the action level and at the plan level.
@@ -1789,7 +1789,7 @@ joint manipulation tasks.\footnote{Note that this specific example has been
 implemented as a proof-of-concept. A broader framework that would support
 action alteration based on the user's experienced states remains to be investigated.}
 
-\subsubsection{Action Refinement, Execution and Monitoring}\label{sec:action}
+\subsubsection{Human-Aware Action Refinement, Execution and Monitoring}\label{sec:action}
 
 Like most robotic architectures, actions are split into \emph{atomic actions}
 that are combined into \emph{tasks}. Tasks are created either statically or dynamically.
@@ -2492,13 +2492,30 @@ planners are one possible approach: they search for plans that satisfy an
 acceptable cost in terms of \emph{acceptability} or \emph{legibility}, for
 instance.
 
-These five questions should not be considered independently from each others and
+These five questions should not be considered independently from each other and
 often require, on the contrary, to be dealt with in a single decision step. The
 human-aware task and motion planners which we have built, are instances of
 systems which have been designed to deal with such intricate decision issues.
 
-\fixme{Rachid: the reviewer 2 asks for a better connection between these general
-questions and the specific approaches that we take}
+They are in fact taken into account in most, if not in all, the
+components and at different levels of abstraction: at the shared plan
+level as well as at action refinement and execution level.
+
+Repeatedly, the choice of the next action, of who has to act (the human, the robot
+or both of them) and when to perform it is made by {\sc Shary} with
+the help of {\sc HATP}, based on perspective-taking and
+situation assessment ({\sc Spark} and {\sc Oro} as well as on
+estimation of the human mental state ({\sc Shary} with the help of
+{\sc Oro}).
+
+Where and how to perform an action is made by a full set of on-line
+planning functions provided by {\sc Mhp} that computes not only
+trajectories but also the pertinent placements and postures based not
+only on geometric information but also estimation of the human current
+mental state and preferences ({\sc Oro}).
+
+
+
 
 \subsection{Putting the Humans into Equations}
 
@@ -2575,7 +2592,7 @@ approach.
 
 The components that we have presented so far build a \emph{knowledge-oriented}
 architecture: knowledge is explicitly stored in one central and consistent
-repository of facts, accessible for all modules. It relies on a strict formalism
+repository of facts, accessible to all modules. It relies on a strict formalism
 (OWL statements), with a well defined vocabulary (stated in the common-sense
 ontology). These first two points lead to a loosely-coupled architecture
 where modules can be removed or replaced easily by other ones as long as they
@@ -2660,7 +2677,7 @@ tasks. It can also make use of social heuristics to optimise plans for social
 acceptability. We briefly mention our human-aware motion and manipulation
 planner~\cite{Sisbot2007,Sisbot2008,Mainprice2011,Pandey2011,sisbot2012human,kruse2013human}, and finally present two
 execution controller, the PRS-based {\sc
-Shary}~\cite{clodic2008shary,fiore2014,clodic2014key}
+Shary}~\cite{clodic2009,fiore2014,clodic2014key}
 and the event-driven {\sc pyRobots}~\cite{lemaignan2015pyrobots}.
 
 The integration of these components in a consistent, working and observable
