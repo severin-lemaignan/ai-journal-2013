@@ -1726,8 +1726,15 @@ expressive motion or a combination of the two. It enables the robot as well as t
 communicate their beliefs about the task to be achieved, in order to share
 mutual knowledge and to synchronise their activities.  This is done through
 real-time task-based situation assessment achieved by the combination of {\sc
-Shary} monitoring processes and {\sc Oro} inference
-mechanisms. In Shary, each action description contains not only the way to execute it and monitor it, but also the way to initiate it (e.g. in the case of a shared action, the way both agents need to commit to the task), to suspend (or cancel or stop) it (and for each case the way this transition has to be shared with the human partner if any). This is supported by a description of the beliefs of each involved agent concerning the action achievement process and a set of monitoring processes allowing to update it
+Shary} monitoring processes and {\sc Oro} inference mechanisms. In {\sc Shary},
+each action description contains not only how to execute it and monitor it,
+but also how to initiate it (\eg in the case of a shared action, how
+both agents need to commit to the task) and how to suspend (or cancel) it. In
+each of these cases, the action description also makes explicit how the
+transition has to be communicated to the human partner if necessary. This is
+supported by a description of the beliefs of each of the agents
+regarding the action achievement process, as well as a set of so-called
+\emph{monitoring processes} that update them.
 
 Two recent developments have further improved the robot's ability to adapt to
 human action, both at the action level and at the plan level.
@@ -2494,28 +2501,21 @@ instance.
 
 These five questions should not be considered independently from each other and
 often require, on the contrary, to be dealt with in a single decision step. The
-human-aware task and motion planners which we have built, are instances of
+human-aware task and motion planners which we have built are instances of
 systems which have been designed to deal with such intricate decision issues.
 
-They are in fact taken into account in most, if not in all, the
-components and at different levels of abstraction: at the shared plan
-level as well as at action refinement and execution level.
-
-Repeatedly, the choice of the next action, of who has to act (the human, the robot
-or both of them) and when to perform it is made by {\sc Shary} with
-the help of {\sc HATP}, based on perspective-taking and
-situation assessment ({\sc Spark} and {\sc Oro} as well as on
-estimation of the human mental state ({\sc Shary} with the help of
-{\sc Oro}).
-
-Where and how to perform an action is made by a full set of on-line
-planning functions provided by {\sc Mhp} that computes not only
-trajectories but also the pertinent placements and postures based not
-only on geometric information but also estimation of the human current
-mental state and preferences ({\sc Oro}).
-
-
-
+They are in fact considered in each of the components, at different levels of
+abstraction (from the abstract shared plan level to the action refinement and
+execution level).  At every interaction step, the choice of the next action, of
+who has to act (the human, the robot or both of them) and when to perform it is
+made by {\sc Shary} with the help of HATP, based on perspective-taking and
+situation assessment ({\sc Spark} and {\sc Oro} as well as on estimation of the
+human mental state ({\sc Shary} with the help of {\sc Oro}). The actual
+realization of the action is eventually supported by a full set of on-line
+planning functions provided by {\sc Mhp} that computes not only trajectories but
+also the pertinent placements and postures based not only on geometric
+information but also estimation of the human current mental state and
+preferences ({\sc Oro}).
 
 \subsection{Putting the Humans into Equations}
 
