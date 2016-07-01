@@ -326,7 +326,7 @@ brings to Artificial Intelligence.
   \path (shary) edge [<->, bend left] node[label] {events, \\ world model and \\ agents beliefs} (oro);
   \path (shary) edge [<->, bend left] node[label] {action monitoring \\ and management of \\ position hypotheses} (spark);
   \path (lowlevel) edge [->] (spark);
-  \path (lowlevel.east) edge [<-, bend right=80, looseness=1.2] node[label] {atomic\\actions} (shary.east);
+  \path (lowlevel.east) edge [<-, bend right=80, looseness=1.2] node[label] {elementary\\actions} (shary.east);
 
 \end{tikzpicture}
 }
@@ -1286,7 +1286,7 @@ and activity recognition is a task that requires knowledge and reasoning both on
 high-level facts like goals, intentions and plans, as well as bottom-up data
 from human and object motions. {\sc Spark} implements a set of simple temporal and
 geometric heuristics on human hand trajectories and possible objects placements
-to recognise simple atomic actions. Those primitive actions are assessed through
+to recognise simple elemntary actions. Those primitive actions are assessed through
 monitoring situations like ``an empty hand is close to an object on a table''
 (precursor for a \emph{pick}), or ``a hand holding an object is over a
 container'' (precursor for a \emph{throw}).  {\sc Spark} recognises a set of
@@ -1791,14 +1791,14 @@ action alteration based on the user's experienced states remains to be investiga
 
 \subsubsection{Human-Aware Action Refinement, Execution and Monitoring}\label{sec:action}
 
-Like most robotic architectures, actions are split into \emph{atomic actions}
+Like most robotic architectures, actions are split into \emph{elementary actions}
 that are combined into \emph{tasks}. Tasks are created either statically or dynamically.
 The {\sc pyRobots} controller, for instance, statically combines the actions listed in
 table~\ref{table|pyrobots_actions} to implement the high-level tasks it exposes: {\tt
 lookAt}, {\tt moveTo}, {\tt getFromHuman}, {\tt showObject}, {\tt giveObject},
 {\tt pickObject}, {\tt bringObject}, {\tt putObject}, {\tt hideObject}.
 Our other controller, {\sc Shary}, relies on the symbolic task planner to
-dynamically generate, at run-time, suitable sequence of atomic actions.
+dynamically generate, at run-time, suitable sequence of elementary actions.
 
 \begin{table}[ht!]
 \begin{center}
@@ -2158,7 +2158,7 @@ drop it into the bin.
 The first task (\concept{TAKE(GREY\_TAPE, TABLE)}) is instantiated by checking
 that the task pre-conditions hold (in particular, \stmt{GREY\_TAPE isOn TABLE}
 must be true), and calling the 3D motion planner (column \emph{Actions},
-left). The motion planner returns two atomic actions ({\tt PICK\_GOTO} followed
+left). The motion planner returns two elementary actions ({\tt PICK\_GOTO} followed
 by {\tt TAKE\_TO\_FREE}) that the controller executes (by first reaching for
 the object, grasping it and bringing it back to a free position).  The robot's
 perception monitors the evolution of the scene until the task's post-conditions
@@ -2399,7 +2399,7 @@ logic framework.
 
 Robotics is traditionally regarded as the prototypical instance of
 \emph{embodied} artificial intelligence, and this dimension is especially
-prevalent in human-robot interaction, where agents have to share and
+prevalent in human-robot interaction, where the robot has to share and
 collaborate in a joint physical environment.  This leads to a tight coupling
 between the symbolic and the geometric realms: while AI at its origins was
 mostly concerned with symbolic models, it has been since recognised that not
@@ -2657,7 +2657,7 @@ interaction contexts and knowledge classes attached to them.
 
 \subsection{A Deliberative Architecture for Social Robots}
 
-We have presented in this paper a large deliberative architecture designed for
+We have presented in this paper an instance of a complete deliberative architecture designed for
 social robots. While most of its sub-components have been independently
 presented in other publications, we offer here for the first time a perspective
 on the model of integration of these components into a coherent and consistent
@@ -2787,7 +2787,7 @@ formal analysis of what are the relevant contexts for our robots.
 
 Human-Robot Interaction is and is going to remain a challenging field for
 Artificial Intelligence. We hope that this contribution helps with clarifying
-some of these challenges.
+of these challenges and making them concrete decisional problems. 
 
 \section*{Acknowledgements}
 
@@ -2796,8 +2796,7 @@ like to acknowledge here the worthwhile contributions of Samir Alili, Raquel Ros
 Espinoza, Mamoun Gharbi, Julien Guitton, Matthieu Herrb, Jim Mainprice and Amit
 Kumar Pandey.
 
-This work has been partially supported by EU FP7 ``SAPHARI'' (grant ICT-287513),
-and the EU H2020 Marie Sklodowska-Curie Actions project DoRoThy (grant 657227).
+This work has been partially supported by EU FP7 "CHRIS" (grant 215805) and ``SAPHARI'' (grant ICT-287513) projects, and the EU H2020 Marie Sklodowska-Curie Actions project DoRoThy (grant 657227).
 
 
 
