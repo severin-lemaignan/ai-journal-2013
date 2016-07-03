@@ -377,10 +377,22 @@ conditions (by subscribing to events like: {\tt \footnotesize
 onNewMatch(HUMAN desires ?goal)}) and stores what the robot is currently
 doing (\stmt{myself currentlyPerforms GIVE\_ACTION45}).
 
-This architecture moves away from classical layered approaches found in
-robotics~\cite{Gat1998three, Volpe2001CLARAty, Goldberg2002}. Contrary to
-layered architectures, interactions between components at the deliberative level
-are here essentially bidirectional and we do not introduce layers of abstraction
+
+
+Our architecture has not been designed to replicate or provide a
+plausible model of human cognition.  The main design principles where
+to nurture the decisional components of the robot with models of human
+behaviour and human preferences in order to develop a pertinent
+cognition for a robot that is able to serve and interact fluently with
+humans. In this sense, it aims at the same objectives as\cite{Fong2005,trafton2013act}.
+
+This architecture is based on the same principles as a number of known robotic
+layered architectures~\cite{Alami98,Gat1998three,Volpe2001CLARAty, Goldberg2002}.
+
+However, the main point for us was to refine and study in detail the
+``internal'' architecture of the deliberative level.
+The interactions between components at the deliberative level
+are essentially bidirectional and we do not introduce layers of abstraction
 amongst these deliberative components\footnote{We do have lower-level modules to
 execute actions or manage sensors, but all cognition-related modules live in the
 same global deliberative space.}. The natural language processing component
@@ -390,9 +402,11 @@ lives in the deliberative space at the same level as other deliberative
 components, and uses the knowledge base in a bidirectional manner, to interpret,
 disambiguate natural language, and eventually store newly produced
 interpretations (natural language processing is discussed in
-Section~\ref{sect|com}).
+Section~\ref{sect|com}). 
+Another example is the intricate relation between high-level symbolic
+planning and geometric planning to deal with affordances and human preferences.
 
-Our architecture however relates to \emph{Beliefs, Desires, Intentions} (BDI)
+Our architecture relates to \emph{Beliefs, Desires, Intentions} (BDI)
 architectures. As put by Woolridge~\cite{Woolridge1999}, BDI architectures are
 primarily focused on \emph{practical reasoning}, \ie the process of deciding,
 step by step, which action to perform to reach a goal. The management of the
