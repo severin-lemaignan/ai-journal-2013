@@ -544,24 +544,25 @@ like {\sc Prolog} with however other limitations, like closed-world reasoning.
 
 Classification performance is another issue: in our experience, an
 ontology sized for a typical study (about 100 classes and 200 instances),
-classification takes around 100ms, which leads to lags during
+classification takes around 100ms, which may introduce perceptible delays during
 interactions.  Besides, the performances are difficult to predict: the insertion
-of simple statements may indirectly change abruptly the logical
-complexity of the whole knowledge model and lead to notable degradation of
+of seemingly simple statements may change abruptly the logical
+complexity of the knowledge model and lead to a noticeable degradation of
 classification time.
 
 This knowledge model also largely excludes representation of continuous
 phenomena (like time) or uncertain phenomena. When required (for instance for
-action recognition), these are managed by dedicated components (like {\sc
-Spark}, discussed in Section~\ref{sect|sit-ass}), and are not exposed at
-the semantic level.
+action recognition), these are managed within dedicated components (like {\sc
+Spark}, discussed in Section~\ref{sect|sit-ass}), and are not represented in the
+knowledge base.
 
 Alternative formalisms have been successfully investigated in robotics to
-address some of these restrictions. \emph{Answer Set Programming} has been
-used~\cite{Chen2010,Erdem2012} for instance to better supports non-monotonic
+address some of these restrictions. Besides the Prolog/OWL combination relied
+upon by {\sc KnowRob}, \emph{Answer Set Programming} has been
+used in robotics~\cite{Chen2010,Erdem2012} for instance to better supports non-monotonic
 reasoning. We have also pointed in~\cite{lemaignan2015mutual} how modal logics like
 the epistemic logics could be relevant to the particular field of social
-human-robot interaction as they would allow for convenient representation of
+human-robot interaction as they allow for the representation of
 alternative mental models. First-order logic and OWL ontologies have however
 proved so far a simple, effective and sufficient symbolic framework for our
 experimental applications. 
@@ -574,22 +575,23 @@ for the robot.
 
 \subsubsection{The OpenRobots Ontology}
 
-As previously said, the logical statements exchanged between the deliberative
+As previously mentioned, the logical statements exchanged between the deliberative
 components are organised within the {\sc Oro} knowledge base into an ontology.
 The conceptualization (\ie the system of concepts or \emph{TBox}) of this
-ontology is generally statically asserted, while the instantiation (the
+ontology is statically asserted\footnote{It can however be altered at runtime,
+see the ``Cat'' example in Section~\ref{sec:nlp}.}, while the instantiation (the
 \emph{ABox}) of the ontology is generally dynamically asserted at run-time, by
-the other components.
+the other cognitive components.
 
 The \emph{OpenRobots} common-sense ontology represents the statically asserted
 part of the ontology. It has been designed from two requirements: being
 practical (\ie covering our experimental needs) and conforming as much as
-possible to existing standards (in our case, the {\sc OpenCyc} upper
+possible to existing standards (specifically, the {\sc OpenCyc} upper
 ontology~\cite{lenat1990cyc}).
 
 This leads to a bidirectional design process: from \emph{bottom-up} regarding
 the choices of concepts to model, \emph{top-down} regarding the upper part of
-the taxonomy. This upper part of the ontology is pictured on
+the conceptualization. This upper part of the ontology is pictured on
 Figure~\ref{fig|upper_tbox}. All the classes visible in this figure belong to
 the {\sc OpenCyc} namespace.
 
@@ -603,26 +605,28 @@ semantic Web community. Then, because it is a well established project with
 numerous links to other on-line databases (like Wikipedia or WordNet), the reuse
 of key {\sc OpenCyc} concepts ensures that the knowledge stored by the robot can
 be shared or extended with well-defined semantics. The concept of \emph{Object}
-represents a typical case of ambiguous meaning: in everyday conversation, an
-object is a relatively small physical thing, that can be typically manipulated.
+is a good example as it represents a typical case of ambiguous meaning: in everyday conversation, an
+object is a relatively small physical thing, that can be usually manipulated.
 A human is not usually considered as an object. {\sc OpenCyc} however precisely
 defines an object as anything at least \emph{partially tangible}. This includes
 obviously the humans, and actually many other entities that would not be
-commonly said to be objects (the Earth for instance).\footnote{In such cases of
-discrepancy between {\sc OpenCyc} concepts and human terminology, we manually
-label the {\sc OpenCyc} concepts with appropriate human names: for instance, the
-OpenRobots Ontology associates the label ``\emph{object}'' to the concept
-\concept{cyc:Artifact} instead of the concept \concept{cyc:PartiallyTangible}.
-These labels are used in priority during the grounding of verbal interactions.}
-Thus the importance of relying on well-defined and standard semantics to
-exchange information between artificial systems in a non-ambiguous way.
+commonly said to be objects (the Earth for instance).
+By relying on well-defined and standard semantics to
+exchange information between artificial systems, we avoid semantic ambiguities.
+As the robot interacts with humans, we must however address the discrepancy
+between {\sc OpenCyc} concepts and human terminology. In these situations, we
+manually label the {\sc OpenCyc} concepts with appropriate human names: for
+instance, the OpenRobots Ontology associates the label ``\emph{object}'' to the
+concept \concept{cyc:Artifact} instead of the concept
+\concept{cyc:PartiallyTangible}.  These labels are used in priority during the
+grounding of verbal interactions.
 
 Figure~\ref{fig|upper_tbox} also illustrates the fundamental disjunction
 in the {\sc Oro} model between \emph{temporal} and \emph{spatial} entities (formally,
 $(\text{\tt TemporalThing} \sqcap \text{\tt SpatialThing})^{\mathcal{I}} = \emptyset$, with
 $\mathcal{I}$ the \emph{interpretation} of our model).
 
-The class \concept{PurposefulAction} is the superset of all the actions that are
+On this same figure, the class \concept{PurposefulAction} represents the superset of all the actions that are
 purposefully performed by the robot (or another agent). Actual actions (\ie
 subclasses of \concept{PurposefulAction} like \concept{Give} or
 \concept{LookAt}) are not initially asserted in the common-sense ontology. They
@@ -641,8 +645,8 @@ Figure~\ref{fig|upper_tbox} is not equally developed in every directions. For
 example, the subclasses of \concept{PartiallyTangibleThing} (\ie what we
 commonly call \emph{objects}) are shown in
 Figure~\ref{fig|tangible_things_tbox}. Our `bottom-up'' design process of the
-ontology is clearly apparent on this figure: only the subclasses relevant to the
-context of service robotics in an human-like environment are explicitly stated.
+ontology is apparent on this figure: only the subclasses relevant to the
+context of service robotics in an human-like environment are asserted:
 For performance reasons as well as clarity, we have decided against an extended
 conceptual coverage of what ``partially tangible things'' might be. We instead
 opportunistically extend the common-sense knowledge when required by studies.
@@ -690,13 +694,14 @@ $$
 $$
 
 If a human informs the robot that a given object is indeed a bottle, the robot
-derives more information on the object. Conversely, if the human affirms that
+can consequently derive more information on the object. Conversely, if the human affirms that
 ``a car is a bottle'', the reasoner may detect logical contradictions (like
 inconsistent sizes) and reject the assertion. The {\sc Dialogs} module relies
 on such logical consistency checks when processing natural language inputs,
 both to ensure that the verbal input has been correctly acquired and parsed,
-and also to verify that what the human says is logically consistent.  We
-further discuss the strengths and weaknesses of this knowledge framework in
+and also to verify that what the human says is logically consistent.
+
+We further discuss the strengths and weaknesses of this knowledge framework in
 Section~\ref{krs-discussion}.
 
 \subsection{Symbol Grounding}
@@ -707,38 +712,37 @@ objects}~\cite{Coradeschi2003}) is the task consisting in building and
 maintaining a bi-directional link between sub-symbolic representations (sensors
 data, low-level actuation) and symbolic representations that can be manipulated
 and reasoned about~\cite{Harnad1990}. This represents an important cognitive
-skill, in particular in the human-robot interaction context: in that case, the
+skill, in particular in the human-robot interaction context: in this situation, the
 link that the robot has to establish between percepts and symbols must
 map as well as possible to the human representations in order to effectively
 support communication.
 
 \emph{Symbol grounding} connects hence the knowledge model to the perception and
 actuation capabilities of the robot. The different components that we have
-mentioned so far provide a bottom-up grounding process: geometric reasoning and
+mentioned so far exhibit grounding mechanisms: geometric reasoning and
 dialogue processing modules constantly build and push new symbolic contents
-about the world to the knowledge base where it becomes accessible to decisional
-layers. We detail this process in the next sections. 
+about the world to the knowledge base. We detail this process in the next sections. 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Cognitive Skills}
 \label{sec:impl}
 
-The previous section has provided an overview of our cognitive architecture
-as well as the associated knowledge model. We discuss in this section its
-building blocks. Each of these components have connections to several
-others, and Figure~\ref{fig|archi} can be referred to as a guide.
+The previous section has introduced the integration model of our architecture,
+as well as the associated knowledge model. We discuss in this section each of
+its building blocks. They are pictured in Figure~\ref{fig|archi}, along with
+their connections to the others components.
 
 \begin{inparaenum} We call \emph{cognitive skills} the
 deliberative behaviours that are \item \emph{stateful}, \ie keeping track of
-previous states is typically needed for the component to perform adequately;
+previous states is typically needed for the component to perform appropriately;
 \item \emph{amodal} in that the skill is not inherently bound to a specific
 perception or actuation modality; \item manipulate \emph{explicit semantics},
 typically by the mean of symbolic reasoning; \item operate at the
     \emph{human-level}, \ie are legible to the humans, typically by acting at
 similar levels of abstraction.\end{inparaenum}
 
-We present first the main \emph{internal} cognitive capabilities, implemented in
+We present first the main internal cognitive capabilities, implemented in
 the {\sc Oro} knowledge base itself, and then discuss successively the situation
 assessment module {\sc Spark}, the dialogue processor {\sc Dialogs}, the
 symbolic task planner HATP, and finally the main features of our execution
@@ -757,8 +761,8 @@ and our (naive) approach to \emph{memory management}.
 \subsubsection{Symbolic Reasoning}
 \label{reasoning}
 
-As mentioned in the previous section, we use the Pellet open-source reasoner to
-reason on the knowledge base. It supports several standard inference processes:
+As mentioned in the previous section, we use the {\sc Pellet} open-source reasoner to
+reason on the knowledge base. It supports several standard inference mechanisms:
 consistency checking, concept satisfiability, classification and realisation
 (computation of the most specific classes that a concept belongs to). In
 case of logical inconsistency, the reasoner can also provide explanations (we
@@ -794,20 +798,21 @@ interactions, around the age of three~\cite{perner2012infants}.
 
 From the point of view of interactive robotics, it supposes the robot ability to
 build, store and retrieve separate models of the beliefs of the humans it
-interacts with.  Our knowledge base implements such a mechanism: when the robot
+interacts with.  Our knowledge base implements such a
+mechanism~\cite{Lemaignan2010}: when the robot
 detects that a new human has appeared, it initialises a new independent
 knowledge model (an ontology) for this human agent. All the ontologies that are
 created share the same common-sense knowledge, but rely on the estimation of the
 robot of each agent's perspective for their actual instantiation. For example,
-the robot may (geometrically) compute that the book is in its own field of view,
+the robot can (geometrically) compute that a given book is in its own field of view,
 but not in the human one (the detail of this computation, called
 \emph{perspective taking}, is discussed in the next section). The robot updates
 accordingly the two knowledge models it maintains: the \concept{robot} model is
 updated with the fact \stmt{BOOK isVisible true}, while the \concept{human}
 model is updated with \stmt{BOOK isVisible false}. These two logical statements
 are simultaneously asserted, yet contradict when taken together. Since the two
-knowledge models are realised as two independent ontologies, the contradiction
-does not actually occur and both the models remain logically consistent.
+knowledge models are however implemented as two independent ontologies, the contradiction
+does not actually appear and both the models remain logically consistent.
 
 One classical application of this cognitive skill is the so-called
 \emph{False-Belief} experiment (also known as the \emph{Sally and Anne}
@@ -819,7 +824,7 @@ look for the object?''. Before acquiring a theory of mind, children are not
 able to separate their own (true) model of the world (where they know that
 the object was hidden) from the model of A, which contains \emph{false
 beliefs} on the world (A still thinks the object is at its original
-position since he did not see B hiding it in a new place). Using separate knowledge models
+position since he did not see B hiding it in a new place). Relying on these separate knowledge models
 in the knowledge base, we have been able to replicate this experience with
 our robots~\cite{warnier2012when}, in a manner similar to Breazeal
 \etal\cite{breazeal2009embodied}.
@@ -862,14 +867,14 @@ We rely however on this mechanism in certain cases: some modules
 like the natural language processor use the {\it short term} memory profile to
 mark concepts that are currently manipulated by the
 robot as \emph{active concepts}: if a human asks the robot ``Give
-me all red objects'', the human, the \concept{Give} action, and each red
-objects that are found are successively marked as \emph{active concepts} by
+me all red objects'', the human, the \concept{Give} action, and every red
+objects that are found are marked as active concepts by
 inserting statements such as \stmt{HUMAN type ActiveConcept} in the short-term
 memory (which can be considered, in this case, to be a working memory).
 Likewise, recently seen or updated geometric entities are flagged as
-\concept{ActiveConcept}. We use this feature during dialogue disambiguation for
-instance. On the other hand, our perception layer does not make use of this
-mechanism: as described in the next section, the environment model of the robot
+\concept{ActiveConcept}. We use this feature during dialogue disambiguation to
+access concepts recently referred to. On the other hand, our perception layer does not make use of this
+mechanism. As described in the next section, the environment model of the robot
 is continuously updated and the derived symbolic knowledge is therefore
 transient: it lasts only as long as the environment remains in the same state.
 
@@ -879,7 +884,7 @@ transient: it lasts only as long as the environment remains in the same state.
 
 \begin{figure}
 \centering
-\resizebox{0.8\textwidth}{!}{%
+\resizebox{\textwidth}{!}{%
 \begin{tikzpicture}[
         >=latex,
         box/.style={draw,rectangle, dotted, minimum width=#1, minimum height=3.8cm},
@@ -891,39 +896,19 @@ transient: it lasts only as long as the environment remains in the same state.
 
     \node[draw=none] at (0,-1.5) {\includegraphics[width=1.\columnwidth]{spark-oro-notext.pdf}};
 
-    \node[box=16cm, minimum height=5.3cm, solid, thick, rounded corners] at (0,1.8) (oro) {};
-    \node at (0,4.2) {\sc \Large oro-server};
 
-    \node[anchor=south] at (-4.6,2.4) {Description Logics \\ (Open World assumption)};
-    \node[box=3.7cm] at (-4.6,1.9) (owl) {};
-    \node[anchor=south] at (-1,2.4) {Multiple simultaneous \\ symbolic models};
-    \node[box=3.3cm] at (-1,1.9) (multi) {};
-    \node[anchor=south] at (2.1,2.4) {Bio-inspired \\ memory};
-    \node[box=2.7cm] at (2.1,1.9) (mem) {};
-    \node[anchor=south] at (5,2.4) {Discrimination \& \\ categorization};
-    \node[box=3cm] at (5,1.9) (disc) {};
-
-    \node at (-3,-0.4) {{\it OWL store:} OpenJena};
-    \node at (3,-0.4) {{\it Reasoner:} Pellet};
-
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-    \node[box=18cm, minimum height=4.5cm, dotted, thick, rounded corners] at (0,-4.2) (spark) {};
-    \path (spark.north) edge[->] node[align=left,anchor=west] {Symbolic\\facts} (oro.south);
-
-    \node[anchor=north] at (-6.5,-5.3) {a) Agent-independent\\(allocentric)
+    \node[anchor=north] at (-6.5,-3.3) {a) Agent-independent\\(allocentric)
         spatial relations};
-    \node[anchor=north] at (-2.1,-5.3) {b) Agent-dependent\\(egocentric) spatial
+    \node[anchor=north] at (-2.1,-3.3) {b) Agent-dependent\\(egocentric) spatial
         relations};
-    \node[anchor=north] at (1.6,-5.3) {c) Visibility/Pointing};
-    \node[anchor=north] at (6.5,-5.3) {d) Reachability};
+    \node[anchor=north] at (1.6,-3.3) {c) Visibility/Pointing};
+    \node[anchor=north] at (6.5,-3.3) {d) Reachability};
 
 \end{tikzpicture}
 }
-    \caption{Functional overview of knowledge base ({\sc Oro} server, top part)
-    and the geometric situation assessment module (\emph{{\sc Spark}}, bottom
-    part). {\sc Spark} computes symbolic relationships between objects and
-    agents, and exports them to the knowledge base.}
+    \caption{Functional overview of the geometric situation assessment module
+    {\sc Spark}. {\sc Spark} computes symbolic relationships between objects
+    and agents, and exports them to the knowledge base.  }
 
         \label{fig|spark-oro}
 \end{figure}
@@ -948,7 +933,7 @@ and object classification~\cite{Lorken2008, Varadarajan2011}.
 
 We rely on a dedicated geometric and temporal reasoning module called {\sc
 Spark} (\emph{SPAtial Reasoning \& Knowledge}, presented in~\cite{Sisbot2011}).
-It is a situation assessment reasoner that generates symbolic knowledge from the
+It acts as a situation assessment reasoner that generates symbolic knowledge from the
 geometry of the environment with respect to relations between objects, robots
 and humans (Figures~\ref{fig|spark-oro} and~\ref{fig:sparkSubfigures}), also
 taking into account the different perspective that each agent has on the
@@ -968,12 +953,13 @@ is required to compute what the human is looking at).
 each step, it re-computes spatial relations and affordances for the whole scene,
 and send the delta (new relations and relations that do not hold anymore) to the
 knowledge base. This approach may raise scalability concerns (we did not however
-hit major performance issues in our constrained scenarios) as well as prevent
+observed performance issues in our constrained scenarios, involving typically about 10 objects
+and two agents) as well as prevent
 reasoning on the situation history, but simplifies the management of the
 dynamics of the knowledge (\emph{When do I discard outdated knowledge?  When do
 I update it?}). Since it is equivalent to a reset of the reasoner domain, it
-also essentially nullifies issues linked to non-monotonic reasoning
-(see~\cite{McCarthy2007} for a discussion on that question).
+also essentially nullifies issues linked to non-monotonic reasoning in the
+knowledge base (see~\cite{McCarthy2007} for a discussion on that question).
 
 
 \begin{figure*}[ht!]
@@ -1055,11 +1041,11 @@ agents.}
 
 \paragraph{Perspective Taking} \emph{Visual} perspective taking refers to the
 ability for visually perceiving the environment from another person's point of view.
-This ability allows us to identify the objects in situations where the visual
-perception of one person differs from the other one. In developmental
-psychology, one typical example consists of two similar objects in a room (\eg
-two balls) where both are visible for the child, but only one is visible for
-the adult. Thus, when the adult asks the child to hand over ``the ball'', the
+This ability allows us to properly handle and represent situations where the visual
+perception of one person differs from the other one. A typical example found in developmental
+psychology consists of two similar objects in a room (\eg
+two balls) that are both visible for a child, but only one is visible to the
+adult. When the adult requests the child to hand over ``the ball'', the
 child is able to correctly identify which ball the adult is referring to (\ie
 the one visible from the adult point of view), without asking~\cite{Moll2006}.
 Our architecture endows the robot with such a cognitive skill.
@@ -1330,6 +1316,7 @@ only locally, and does not allow for tracking of long sequences or global events
 \label{sect|com}
 
 \subsubsection{Natural Language Grounding}
+\label{sec:nlp}
 
 Natural language is a basic interaction modality that we use in our system both
 as an input (processing of the human speech) and as an output (verbalization of the
