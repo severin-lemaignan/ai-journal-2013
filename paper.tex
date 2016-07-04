@@ -2402,10 +2402,10 @@ Interaction}
 \label{sect|discussion}
 
 The previous sections provide a perspective on a complete deliberative
-architecture for social robots, including an implementation supported
-``real-world'' experimental deployments. This section synthesises next what we
+architecture for social robots, including its implementation, supported
+by experimental deployments. This section synthesises what we
 see as the main challenges that human-robot interaction brings to Artificial
-Intelligence.  We discuss first how embodied cognition is an essential challenge
+Intelligence.  We first discuss how embodied cognition is an essential challenge
 in human-robot interaction; we rephrase then the requirements of joint actions
 in terms of five questions; we discuss the importance of building and
 maintaining a multi-level model of the human; and we finally reflect on the
@@ -2424,7 +2424,7 @@ mostly concerned with symbolic models, it has been since recognised that not
 only the mind is not a purely abstract system, disconnected from the physical
 world, but even more, cognition fundamentally relies on its relation to the
 physical world (so-called \emph{embodied cognition}). Varela~\cite{Varela1992}
-is one of the main discoverers of these mechanisms, and coined the concept of
+is one of the main discoverer of these mechanisms, and coined the concept of
 \emph{enactivism} as the theoretical framework that studies the links between
 cognition, embodiment and actions.  This has since been thoroughly studied in
 robotics and artificial intelligence (Pfeifer and
@@ -2460,7 +2460,7 @@ questions until it can attach the new concept to concepts already present in the
 knowledge pool (if one asks the robot ``bring me a margarita'', the robot may
 initially asks ``what is a margarita?''. The user would answer ``a cocktail''
 and the robot would continue the grounding -- ``what is a cocktail?'' -- until
-it anchors the new concept to ones it already knows). Embodied interactions
+it anchors the new concept to ones it already knows like \concept{Drink}). Embodied interactions
 (like gestures) are also taken into account at this level: we have presented how
 pointing, for instance, is used by the robot to ground \emph{``this''} or
 \emph{``that''} to the pointed artifact.
@@ -2469,16 +2469,15 @@ Note that, because only objects marked with 2D fiducial markers are currently
 recognised (typically, about ten of them are simultaneously used in a given
 experiment), our grounding mechanisms have only been exercised in small-sized
 closed world. This simplifies the task, and we can not claim that our approach
-provides a generic grounding capability. Beyond the perception of geometric
-entities, context, cultural background, ``naive physics'' knowledge, emotional
-state of the human are some of the numerous other determinants that need to be
-accounted for when grounding human-robot interaction.
+provides a generic grounding capability. Context, cultural background, ``naive physics'' knowledge, emotional
+state of the human are some of the numerous determinants beyond the perception of geometric
+entities. They would need to be accounted for when grounding human-robot interaction.
 
 \subsection{The W-questions of Joint Action}
 
 Our context, where a robot has to achieve a task together with
-humans, raises issues to be tackled by the robots' decisional components, and
-that we can summarise as ``W-questions'': \emph{What}, \emph{Who}, \emph{When},
+humans, raises another set of specific issues to be tackled by the robot's
+decisional components. We summarise them as the ``W-questions'': \emph{What}, \emph{Who}, \emph{When},
 \emph{Where} and \emph{How}?
 
 \emph{What to do next}, at different levels of abstractions and while taking
@@ -2492,11 +2491,11 @@ decided upon by the robot. It is sometimes expected as an intelligent behaviour
 for the robot to wait and let its human partner act instead. Correct management
 of \emph{turn-taking} leads to various decisional challenges.
 
-\emph{When to perform a given action} is enriched here by the human context
-since it has to take into account the human, her needs, her rhythms and
+\emph{When to perform a given action} is made more complex by the presence of
+humans. The robot has to take into account her needs, her rhythms and
 pace, and her mental state. While performing its share of the task, the
 robot has to produce signals directed towards the human and to respond to
-signals produced back at the proper pace.
+signals produced back at the proper pace to ensure collaboration.
 
 \emph{Where to perform an action} plays an important role as well: the choice is
 not trivial and might need elaborated decision. The robot is expected to take
@@ -2506,9 +2505,8 @@ or discomfort induced by its action.
 \emph{How to perform an action}, finally, needs to be reflected upon by the
 robot: several options to perform an action or to achieve a goal are often
 available, and selecting one is a non-trivial decision problem. Cost-based
-planners are one possible approach: they search for plans that satisfy an
-acceptable cost in terms of \emph{acceptability} or \emph{legibility}, for
-instance.
+planners augmented with social rules are one possible approach: they search for plans that satisfy an
+acceptable cost in terms of \emph{acceptability} or \emph{legibility} as well.
 
 These five questions should not be considered independently from each other and
 often require, on the contrary, to be dealt with in a single decision step. The
@@ -2520,7 +2518,7 @@ abstraction (from the abstract shared plan level to the action refinement and
 execution level).  At every interaction step, the choice of the next action, of
 who has to act (the human, the robot or both of them) and when to perform it is
 made by {\sc Shary} with the help of HATP, based on perspective-taking and
-situation assessment ({\sc Spark} and {\sc Oro} as well as on estimation of the
+situation assessment ({\sc Spark} and {\sc Oro}), as well as on the estimation of the
 human mental state ({\sc Shary} with the help of {\sc Oro}). The actual
 realization of the action is eventually supported by a full set of on-line
 planning functions provided by {\sc Mhp} that computes not only trajectories but
@@ -2596,17 +2594,15 @@ that the produced plans should satisfy.
 
 As thoroughly presented in this article, we have built the decisional
 capabilities of our robots around this idea of explicit knowledge manipulation.
-We finally briefly comment on this design choice and the limitations of our
-approach.
 
-\subsubsection{Explicit Knowledge in our Architecture}
+\paragraph{Explicit knowledge in our architecture}
 
 The components that we have presented so far build a \emph{knowledge-oriented}
 architecture: knowledge is explicitly stored in one central and consistent
 repository of facts, accessible to all modules. It relies on a strict formalism
 (OWL statements), with a well defined vocabulary (stated in the common-sense
 ontology). These first two points lead to a loosely-coupled architecture
-where modules can be removed or replaced easily by other ones as long as they
+where modules can be removed or replaced by other ones as long as they
 share the same semantics: modules are defined by the knowledge they produce or
 consume.
 
@@ -2623,15 +2619,15 @@ run without any situation assessment, but its disambiguation routines
 can transparently benefit from it when available (since richer symbolic
 descriptions of objects are then available).
 
-Those characteristics are not novel \emph{per se}. We want however underline the
+We want to underline the
 shift of focus brought by this approach during the design and integration phases
 of robots: components of our deliberative layer are defined and bound together
 by the knowledge they produce and consume. Human-robot interaction, because it
-supposes operations at \emph{human-level} and in environments with complex
+supposes operations at human level and in environments with complex
 semantics, acts here as a motivational force.
 
 
-\subsubsection{Limits of Disambiguation at Semantic Level}
+\paragraph{Limits of disambiguation at semantic level}
 
 Interaction with humans implies the ability to deal with semantics: semantics of
 verbal interaction, semantics of gestures, etc.  As a consequence, it also
@@ -2650,15 +2646,15 @@ way to select which knowledge about the object is relevant in the interaction
 context. For instance, the knowledge base may store facts like \stmt{OBJ1 type
 ActiveConcept} (which internally means that this concept was mentioned in a
 discussion in the last few seconds): this information is not a relevant
-property of \concept{obj1} when trying to disambiguate concepts with humans.
+property of \concept{OBJ1} when trying to disambiguate concepts with humans.
 This distinction between \emph{internal knowledge} (meaningful to
 the system only) and \emph{common knowledge} (whose meaning is understood by
-all the interactors) has not been properly dealt with in our architecture.
+all the agents) has not been properly dealt with in our architecture.
 
 Besides, even knowledge that belongs to the \emph{common knowledge} may not be
 appropriate in a given interaction context. For instance, the system may
 compute that at a given instant the human is looking at the object: \stmt{HUMAN
-looksAt obj1}. This property makes sense to both parties, but in the context of
+looksAt OBJ1}. This property makes sense to both parties, but in the context of
 the \emph{spygame}, we would like to mainly use immanent properties, not
 volatile like a gaze. More research is required to identify relevant
 interaction contexts and knowledge classes attached to them.
@@ -2697,14 +2693,14 @@ components: the information streams use high-level semantics, represented as
 first-order logic statements. In that sense, our deliberative architecture is
 similar to projects like {\sc cram}~\cite{Beetz2010}, KeJia~\cite{Chen2010} or
 PEIS Ecology~\cite{saffiotti2005peis, daoutis2012cooperative}, with however a
-stronger emphasise on the representation and interaction with humans. We however
+stronger emphasise on the specificities of the interaction with humans.
+Importantly, we
 distinguish ourselves from research on \emph{cognitive architectures}: cognitive
 architectures are usually understood as an artificial yet principled model of
 (human) cognition. While some have been deployed on autonomous robots, like
 HAMMER~\cite{demiris2006hierarchical} or ACT-R/E~\cite{trafton2013act}, most are
 primarily concerned with the modeling of human cognition and are less focused on
-practical deployment on socially interactive robots.
-
+the effective deployment on socially interactive robots.
 In that sense, our contribution in terms of architecture is a practical one:
 our integration model enables to consistently combine a large set of
 technically independent yet cognitively interdependent cognitive processes. We
@@ -2712,7 +2708,7 @@ bridge them through explicit, human-level semantics, and we show that this
 results in a fully implemented system, effectively deployed on several
 platforms and in several real interaction scenarios.
 
-Besides, this work introduces several new contributions related to the
+This work introduces several new contributions related to the
 representation and the management of humans in an autonomous robotic system.
 Specifically, we mentioned in the introduction the following four points:
 
@@ -2736,11 +2732,8 @@ Specifically, we mentioned in the introduction the following four points:
 While several contributions in the literature provide insights and
 contributions on one aspect or another (references are in the corresponding
 subsections), we are not aware of a fully implemented architecture that
-effectively combines in a coherent manner all these points. Our approach
-allowed us to identify, refine and combine a number of key cognitive abilities
-that we believe are needed for successful and autonomous social human-robot
-interaction. The novelty and relevance of this contribution to HRI is
-underlined by the range of multi-disciplinary collaborations and studies that
+effectively combines in a coherent manner all these points. The novelty and relevance of this contribution to HRI is
+further underlined by the range of multi-disciplinary collaborations and studies that
 have been made possible by our
 architecture~\cite{dautenhahn2006may,koay2007exploratory,Ros2010b,dehais2011physiological,ferreira2015users,GharbiROMAN2015}.
 
@@ -2774,18 +2767,18 @@ divergent beliefs related to the state of the task.
 
 There is also extensive work to be done in order to refine the notion of ``good
 shared plan'' and ``good/acceptable robot behaviour'' in this context. There are
-obviously large avenues for learning and adaptation in this context.
+large avenues for learning and adaptation in this context.
 
-Another direction to head to deals with \emph{contexts representation}.
+Another direction to head to deals with context representation.
 Contexts are currently often limited to the current spatial and temporal
-situation. Some models offer the possibility to jump in the past or to switch to
-another agent's perspective, but in current approaches, selecting a context
-always basically consists in retrieving a set of beliefs corresponding to a
+situation. Some of our models offer the possibility to jump in the past or to switch to
+another agent's perspective, but in our current approach, selecting a context
+essentially consists in retrieving a set of beliefs corresponding to a
 situation, and temporarily replacing the current beliefs by those other ones.
 This misses the fact that at a given moment, not one but many contexts co-exist
 at different scales. We do not want to retrieve one monolithic set of beliefs,
 but instead carefully craft a context from several \emph{atomic} contexts.
-Techniques for representation of overlapping pools of knowledge largely remain
+Techniques for representation of overlapping ``pools'' of knowledge largely remain
 to be developed, as well as efficient algorithms to retrieve (or discard) such
 context-related pools of knowledge. This is a challenge not only for robotics,
 but more generally for artificial intelligence.  The ability to explicitly
@@ -2796,7 +2789,7 @@ consciousness}~\cite{Tulving1985a}: the ability to reflect upon its own past or
 future experiences.  Much remain to be done to this regard, starting with a
 formal analysis of what are the relevant contexts for our robots.
 
-Human-Robot Interaction is and is going to remain a challenging field for
+Human-Robot Interaction is and will remain a challenging field for
 Artificial Intelligence. We hope that this contribution helps with clarifying
 these challenges and making them concrete decisional problems. 
 
